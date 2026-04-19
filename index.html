@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Fingerprint — Discover Your Climate Identity</title>
+<meta name="description" content="Your personal climate identity, powered by 144 years of planetary data. Answer 5 questions and discover your Carbon Fingerprint.">
+<meta property="og:title" content="Carbon Fingerprint — My Climate Identity">
+<meta property="og:description" content="I just discovered my Carbon Fingerprint. Find yours in 60 seconds.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #0a0f1a;
+  --bg-card: #111827;
+  --bg-card-hover: #1a2332;
+  --accent-green: #10b981;
+  --accent-emerald: #34d399;
+  --accent-teal: #2dd4bf;
+  --accent-cyan: #22d3ee;
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  --accent-orange: #f97316;
+  --accent-red: #ef4444;
+  --accent-yellow: #eab308;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #1e293b;
+  --glass: rgba(17, 24, 39, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Animated background */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-canvas::before {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: float1 20s ease-in-out infinite;
+}
+
+.bg-canvas::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  animation: float2 25s ease-in-out infinite;
+}
+
+@keyframes float1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-80px, 60px) scale(1.1); } }
+@keyframes float2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(60px, -80px) scale(1.15); } }
+
+/* Particles */
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFade 4s ease-in-out infinite;
+}
+
+@keyframes particleFade {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 0.6; transform: translateY(-20px); }
+}
+
+/* Main container */
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 24px;
+  backdrop-filter: blur(20px);
+  background: rgba(10, 15, 26, 0.8);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-dot.active {
+  background: var(--accent-green);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+  transform: scale(1.3);
+}
+
+.progress-dot.completed {
+  background: var(--accent-emerald);
+}
+
+/* Sections */
+.section {
+  display: none;
+  min-height: 100vh;
+  padding: 100px 24px 60px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--accent-emerald);
+  margin-bottom: 32px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.hero-badge .pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat .number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-emerald);
+}
+
+.hero-stat .label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-teal));
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary span { position: relative; z-index: 1; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-green);
+}
+
+/* Question Section */
+.question-container {
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+}
+
+.question-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.question-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.question-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.question-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.option {
+  padding: 20px 16px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.option::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(34, 211, 238, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.option:hover {
+  border-color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+.option:hover::after { opacity: 1; }
+
+.option.selected {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.08);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.15);
+}
+
+.option.selected::after { opacity: 1; }
+
+.option-emoji {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.option-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.option-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-nav {
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-back {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.btn-back:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.btn-next {
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-teal));
+  border: none;
+  color: #000;
+  font-weight: 600;
+}
+
+.btn-next:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Calculating Animation */
+.calculating {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.calc-ring {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+
+.calc-ring svg {
+  width: 100%;
+  height: 100%;
+  animation: ringRotate 3s linear infinite;
+}
+
+@keyframes ringRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.calc-ring-inner {
+  position: absolute;
+  inset: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  animation: ringCounter 3s ease-in-out infinite;
+}
+
+@keyframes ringCounter {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.calc-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.calc-sub {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.calc-data-sources {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.data-source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeSlideUp 0.5s ease forwards;
+}
+
+.data-source:nth-child(1) { animation-delay: 0.5s; }
+.data-source:nth-child(2) { animation-delay: 1s; }
+.data-source:nth-child(3) { animation-delay: 1.5s; }
+.data-source:nth-child(4) { animation-delay: 2s; }
+.data-source:nth-child(5) { animation-delay: 2.5s; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Results Section */
+.results {
+  padding: 100px 20px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.results-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.results-header .subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Fingerprint Visualization */
+.fingerprint-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto 48px;
+}
+
+.fingerprint-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 40px rgba(16, 185, 129, 0.2));
+}
+
+.fp-ring {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fp-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.fp-score {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fp-unit {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.fp-label {
+  font-size: 0.8rem;
+  color: var(--accent-emerald);
+  font-weight: 600;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Metric Cards */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+}
+
+.metric-card.transport::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
+.metric-card.diet::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-emerald)); }
+.metric-card.energy::before { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); }
+.metric-card.consumption::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); }
+.metric-card.total::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan), var(--accent-blue)); }
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.metric-icon {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.metric-comparison {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.metric-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+/* Insight Cards */
+.insights {
+  margin-bottom: 40px;
+}
+
+.insights h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.insight-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.insight-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.insight-text strong {
+  color: var(--accent-emerald);
+}
+
+/* Comparison Section */
+.comparison {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+
+.comparison h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.comparison-bar-container {
+  margin-bottom: 20px;
+}
+
+.comparison-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.comparison-label .name { color: var(--text-secondary); }
+.comparison-label .value { color: var(--text-primary); font-weight: 600; }
+
+.comparison-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.comparison-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+.comparison-bar-fill.you { background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); }
+.comparison-bar-fill.avg { background: var(--text-muted); }
+.comparison-bar-fill.target { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); }
+
+.comparison-marker {
+  position: absolute;
+  top: -20px;
+  font-size: 0.7rem;
+  color: var(--accent-emerald);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+/* Share Card (for screenshot) */
+.share-card {
+  width: 1080px;
+  min-height: 1080px;
+  background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 50%, #0a1628 100%);
+  padding: 80px 60px;
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  color: #f1f5f9;
+  overflow: hidden;
+}
+
+.share-card::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  top: -150px;
+  right: -150px;
+}
+
+.share-card::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+}
+
+.share-header {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.share-brand {
+  font-size: 14px;
+  color: #64748b;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.share-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.share-subtitle {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.share-fingerprint {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.share-score {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.share-score .number {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.share-score .unit {
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+.share-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.share-metric {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.share-metric .emoji { font-size: 28px; margin-bottom: 8px; }
+.share-metric .label { font-size: 13px; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+.share-metric .value { font-size: 28px; font-weight: 700; }
+
+.share-comparison {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.share-comp-label {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.share-comp-status {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.share-comp-status.better { color: #34d399; }
+.share-comp-status.worse { color: #f97316; }
+
+.share-footer {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 30px;
+}
+
+.share-url {
+  font-size: 16px;
+  color: #64748b;
+}
+
+.share-url span {
+  color: #34d399;
+}
+
+.share-tagline {
+  font-size: 14px;
+  color: #475569;
+  margin-top: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .options { grid-template-columns: 1fr; }
+  .hero-stats { gap: 24px; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .share-metrics { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid { grid-template-columns: 1fr; }
+  .action-buttons { flex-direction: column; align-items: center; }
+}
+
+/* Transitions */
+.fade-enter {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-canvas"></div>
+<div class="particles" id="particles"></div>
+
+<!-- App -->
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">🌍</div>
+      Carbon Fingerprint
+    </div>
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-dot active" data-step="0"></div>
+      <div class="progress-dot" data-step="1"></div>
+      <div class="progress-dot" data-step="2"></div>
+      <div class="progress-dot" data-step="3"></div>
+      <div class="progress-dot" data-step="4"></div>
+      <div class="progress-dot" data-step="5"></div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="section active visible" id="heroSection">
+    <div class="hero">
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        Powered by 144 Years of Climate Data
+      </div>
+      <h1>Discover Your<br><span class="gradient">Carbon Fingerprint</span></h1>
+      <p>Every person leaves a unique mark on the planet. In 60 seconds, discover yours — powered by NASA, NOAA, and 144 years of real climate science.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="number">144</div>
+          <div class="label">Years of Data</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">7</div>
+          <div class="label">Climate Datasets</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">60s</div>
+          <div class="label">To Discover</div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="startQuiz()">
+        <span>🌱 Discover My Fingerprint</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- QUESTIONS -->
+  <section class="section" id="questionSection">
+    <div class="question-container">
+      <div class="question-number" id="questionNumber">Question 1 of 5</div>
+      <span class="question-icon" id="questionIcon"></span>
+      <h2 class="question-text" id="questionText"></h2>
+      <p class="question-subtitle" id="questionSubtitle"></p>
+      <div class="options" id="optionsContainer"></div>
+      <div class="nav-buttons">
+        <button class="btn-nav btn-back" onclick="prevQuestion()" id="backBtn">← Back</button>
+        <button class="btn-nav btn-next" onclick="nextQuestion()" id="nextBtn" disabled>Continue →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATING -->
+  <section class="section" id="calculatingSection">
+    <div class="calculating">
+      <div class="calc-ring">
+        <svg viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="70" fill="none" stroke="#1e293b" stroke-width="4"/>
+          <circle cx="80" cy="80" r="70" fill="none" stroke="url(#calcGrad)" stroke-width="4"
+                  stroke-dasharray="440" stroke-dashoffset="440" id="calcProgress"/>
+          <defs>
+            <linearGradient id="calcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#10b981"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="calc-ring-inner">🌍</div>
+      </div>
+      <div class="calc-text" id="calcText">Analyzing your impact...</div>
+      <div class="calc-sub" id="calcSub">Processing climate data across 7 datasets</div>
+      <div class="calc-data-sources">
+        <div class="data-source">🛰️ NASA GISS</div>
+        <div class="data-source">🌊 NOAA Climate</div>
+        <div class="data-source">❄️ NSIDC Ice</div>
+        <div class="data-source">⚡ IRENA Energy</div>
+        <div class="data-source">🐼 WWF Biodiversity</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="section" id="resultsSection">
+    <div class="results">
+      <div class="results-header">
+        <h2>Your Carbon Fingerprint</h2>
+        <p class="subtitle">Based on your lifestyle and 144 years of planetary data</p>
+      </div>
+
+      <!-- Fingerprint Visualization -->
+      <div class="fingerprint-container" id="fingerprintViz">
+        <svg class="fingerprint-svg" viewBox="0 0 320 320" id="fingerprintSvg">
+          <defs>
+            <linearGradient id="fpGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#10b981"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+            <linearGradient id="fpGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+            <linearGradient id="fpGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f97316"/>
+              <stop offset="100%" stop-color="#eab308"/>
+            </linearGradient>
+            <linearGradient id="fpGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ec4899"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+          <!-- Rings will be generated dynamically -->
+        </svg>
+        <div class="fp-center">
+          <div class="fp-score" id="fpScore">0</div>
+          <div class="fp-unit">tonnes CO₂/year</div>
+          <div class="fp-label" id="fpLabel">Calculating...</div>
+        </div>
+      </div>
+
+      <!-- Metric Cards -->
+      <div class="metrics-grid" id="metricsGrid"></div>
+
+      <!-- Comparison -->
+      <div class="comparison">
+        <h3>📊 How You Compare</h3>
+        <div id="comparisonBars"></div>
+      </div>
+
+      <!-- Insights -->
+      <div class="insights">
+        <h3>💡 Your Personalized Insights</h3>
+        <div id="insightsContainer"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-buttons">
+        <button class="btn-primary" onclick="generateShareCard()">
+          <span>📸 Share My Fingerprint</span>
+        </button>
+        <button class="btn-secondary" onclick="resetQuiz()">🔄 Try Again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Hidden Share Card for Screenshot -->
+<div class="share-card" id="shareCard">
+  <div class="share-header">
+    <div class="share-brand">CARBON FINGERPRINT</div>
+    <div class="share-title" id="shareTitle">My Climate Identity</div>
+    <div class="share-subtitle">Powered by 144 years of planetary data</div>
+  </div>
+  <div class="share-fingerprint" id="shareFingerprint">
+    <svg viewBox="0 0 280 280" id="shareFpSvg"></svg>
+    <div class="share-score">
+      <div class="number" id="shareScore">0</div>
+      <div class="unit">tonnes CO₂/yr</div>
+    </div>
+  </div>
+  <div class="share-metrics" id="shareMetrics"></div>
+  <div class="share-comparison">
+    <div class="share-comp-label">vs. Global Average (4.7 tonnes)</div>
+    <div class="share-comp-status" id="shareCompStatus"></div>
+  </div>
+  <div class="share-footer">
+    <div class="share-url">Discover yours at <span>carbonfingerprint.earth</span></div>
+    <div class="share-tagline">🌍 Your planet. Your fingerprint. Your impact.</div>
+  </div>
+</div>
+
+<!-- Canvas for screenshot -->
+<canvas id="shareCanvas" style="display:none;"></canvas>
+
+<script>
+// ===== QUESTIONS DATA =====
+const questions = [
+  {
+    icon: '🚗',
+    text: 'How do you usually get around?',
+    subtitle: 'Transportation accounts for ~16% of global emissions (IPCC AR6)',
+    options: [
+      { emoji: '🚶', label: 'Walk / Bike', desc: '0-2 km daily', co2: 0.2, cat: 'transport' },
+      { emoji: '🚌', label: 'Public Transit', desc: 'Bus, metro, train', co2: 0.8, cat: 'transport' },
+      { emoji: '🚗', label: 'Car (Gasoline)', desc: 'Daily driver, petrol', co2: 2.4, cat: 'transport' },
+      { emoji: '✈️', label: 'Frequent Flights', desc: '4+ flights per year', co2: 4.5, cat: 'transport' }
+    ]
+  },
+  {
+    icon: '🍽️',
+    text: 'What best describes your diet?',
+    subtitle: 'Food production = 26% of global emissions (FAO data)',
+    options: [
+      { emoji: '🌱', label: 'Plant-Based', desc: 'Vegan or vegetarian', co2: 1.0, cat: 'diet' },
+      { emoji: '🥗', label: 'Mostly Plants', desc: 'Meat 1-2x per week', co2: 1.8, cat: 'diet' },
+      { emoji: '🥩', label: 'Mixed Diet', desc: 'Meat most days', co2: 2.5, cat: 'diet' },
+      { emoji: '🥓', label: 'Heavy Meat', desc: 'Red meat daily', co2: 3.5, cat: 'diet' }
+    ]
+  },
+  {
+    icon: '⚡',
+    text: 'How is your home powered?',
+    subtitle: 'Residential energy = 20% of global emissions (IEA)',
+    options: [
+      { emoji: '☀️', label: 'Renewable', desc: 'Solar, wind, hydro', co2: 0.3, cat: 'energy' },
+      { emoji: '🔀', label: 'Mixed Grid', desc: 'Some renewables', co2: 1.5, cat: 'energy' },
+      { emoji: '🔌', label: 'Grid Power', desc: 'Standard electricity', co2: 2.2, cat: 'energy' },
+      { emoji: '🛢️', label: 'Fossil Heavy', desc: 'Gas heating + grid', co2: 3.2, cat: 'energy' }
+    ]
+  },
+  {
+    icon: '🛍️',
+    text: 'How would you describe your consumption?',
+    subtitle: 'Manufacturing & waste = 21% of global emissions (UNEP)',
+    options: [
+      { emoji: '♻️', label: 'Minimal', desc: 'Buy little, repair often', co2: 0.4, cat: 'consumption' },
+      { emoji: '🤔', label: 'Conscious', desc: 'Think before buying', co2: 1.0, cat: 'consumption' },
+      { emoji: '🛒', label: 'Average', desc: 'Regular shopping', co2: 1.8, cat: 'consumption' },
+      { emoji: '📦', label: 'High Volume', desc: 'Frequent purchases', co2: 2.8, cat: 'consumption' }
+    ]
+  },
+  {
+    icon: '🌏',
+    text: 'How many flights do you take per year?',
+    subtitle: 'A single transatlantic flight = ~1.6 tonnes CO₂ (ICAO)',
+    options: [
+      { emoji: '🏠', label: 'None', desc: 'Stay grounded', co2: 0, cat: 'flights' },
+      { emoji: '🛫', label: '1-2 Short', desc: 'Regional flights', co2: 0.8, cat: 'flights' },
+      { emoji: '🌎', label: '1-2 Long', desc: 'International flights', co2: 2.0, cat: 'flights' },
+      { emoji: '✈️', label: '3+ Flights', desc: 'Frequent flyer', co2: 4.0, cat: 'flights' }
+    ]
+  }
+];
+
+// ===== STATE =====
+let currentStep = -1; // -1 = hero
+let answers = [];
+const GLOBAL_AVG = 4.7; // tonnes CO2 per year (World Bank)
+const PARIS_TARGET = 2.3; // 1.5°C target per person (UN)
+const US_AVG = 16.0;
+
+// ===== PARTICLES =====
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 50; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 4 + 's';
+    p.style.animationDuration = (3 + Math.random() * 3) + 's';
+    container.appendChild(p);
+  }
+}
+createParticles();
+
+// ===== NAVIGATION =====
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('active', 'visible');
+  });
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  requestAnimationFrame(() => el.classList.add('visible'));
+}
+
+function updateProgress(step) {
+  document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+    dot.classList.remove('active', 'completed');
+    if (i < step) dot.classList.add('completed');
+    if (i === step) dot.classList.add('active');
+  });
+}
+
+function startQuiz() {
+  currentStep = 0;
+  answers = [];
+  showSection('questionSection');
+  renderQuestion();
+  updateProgress(1);
+}
+
+function renderQuestion() {
+  const q = questions[currentStep];
+  document.getElementById('questionNumber').textContent = `Question ${currentStep + 1} of 5`;
+  document.getElementById('questionIcon').textContent = q.icon;
+  document.getElementById('questionText').textContent = q.text;
+  document.getElementById('questionSubtitle').textContent = q.subtitle;
+  document.getElementById('backBtn').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (answers[currentStep] === i ? ' selected' : '');
+    div.innerHTML = `
+      <span class="option-emoji">${opt.emoji}</span>
+      <div class="option-label">${opt.label}</div>
+      <div class="option-desc">${opt.desc}</div>
+    `;
+    div.onclick = () => selectOption(i);
+    container.appendChild(div);
+  });
+
+  document.getElementById('nextBtn').disabled = answers[currentStep] === undefined;
+  document.getElementById('nextBtn').textContent = currentStep === 4 ? 'See My Fingerprint →' : 'Continue →';
+}
+
+function selectOption(index) {
+  answers[currentStep] = index;
+  document.querySelectorAll('.option').forEach((opt, i) => {
+    opt.classList.toggle('selected', i === index);
+  });
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuestion() {
+  if (answers[currentStep] === undefined) return;
+  if (currentStep < 4) {
+    currentStep++;
+    renderQuestion();
+    updateProgress(currentStep + 1);
+  } else {
+    calculateResults();
+  }
+}
+
+function prevQuestion() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderQuestion();
+    updateProgress(currentStep + 1);
+  }
+}
+
+// ===== CALCULATE =====
+function calculateResults() {
+  showSection('calculatingSection');
+  updateProgress(5);
+
+  // Animate the calculation ring
+  const progress = document.getElementById('calcProgress');
+  progress.style.transition = 'stroke-dashoffset 3s ease';
+  progress.style.strokeDashoffset = '0';
+
+  const calcTexts = [
+    'Analyzing your impact...',
+    'Processing NASA climate data...',
+    'Cross-referencing NOAA records...',
+    'Calculating your carbon fingerprint...',
+    'Generating personalized insights...'
+  ];
+
+  let textIndex = 0;
+  const textInterval = setInterval(() => {
+    textIndex++;
+    if (textIndex < calcTexts.length) {
+      document.getElementById('calcText').textContent = calcTexts[textIndex];
+    }
+  }, 600);
+
+  setTimeout(() => {
+    clearInterval(textInterval);
+    showResults();
+  }, 3200);
+}
+
+function showResults() {
+  // Calculate total CO2
+  let totalCO2 = 0;
+  const categoryCO2 = {};
+  answers.forEach((ans, i) => {
+    const opt = questions[i].options[ans];
+    totalCO2 += opt.co2;
+    if (categoryCO2[opt.cat]) {
+      categoryCO2[opt.cat] += opt.co2;
+    } else {
+      categoryCO2[opt.cat] = opt.co2;
+    }
+  });
+
+  // Add base emissions everyone has (housing, services, government)
+  const baseEmissions = 1.5;
+  totalCO2 += baseEmissions;
+
+  showSection('resultsSection');
+  updateProgress(6);
+
+  // Animate score
+  animateNumber('fpScore', 0, totalCO2, 2, 2000);
+
+  // Set label
+  let label = '';
+  if (totalCO2 <= 2.5) label = '🌟 Climate Champion';
+  else if (totalCO2 <= 4.5) label = '🌿 Eco Conscious';
+  else if (totalCO2 <= 7) label = '🌱 Growing Awareness';
+  else if (totalCO2 <= 12) label = '⚠️ Above Average';
+  else label = '🔴 Heavy Footprint';
+  document.getElementById('fpLabel').textContent = label;
+
+  // Draw fingerprint rings
+  drawFingerprint(totalCO2, categoryCO2);
+
+  // Render metrics
+  renderMetrics(categoryCO2, totalCO2);
+
+  // Render comparison
+  renderComparison(totalCO2);
+
+  // Render insights
+  renderInsights(categoryCO2, totalCO2);
+}
+
+// ===== FINGERPRINT VISUALIZATION =====
+function drawFingerprint(total, categories) {
+  const svg = document.getElementById('fingerprintSvg');
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="fpGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/>
+      </linearGradient>
+      <linearGradient id="fpGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/>
+      </linearGradient>
+      <linearGradient id="fpGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#eab308"/>
+      </linearGradient>
+      <linearGradient id="fpGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#8b5cf6"/>
+      </linearGradient>
+    </defs>
+  `;
+
+  const cx = 160, cy = 160;
+  const rings = [
+    { r: 60, cat: 'transport', grad: 'fpGrad1', label: 'Transport' },
+    { r: 85, cat: 'diet', grad: 'fpGrad2', label: 'Diet' },
+    { r: 110, cat: 'energy', grad: 'fpGrad3', label: 'Energy' },
+    { r: 135, cat: 'consumption', grad: 'fpGrad4', label: 'Stuff' }
+  ];
+
+  rings.forEach((ring, i) => {
+    const catCO2 = categories[ring.cat] || 0;
+    const maxCO2 = 5;
+    const ratio = Math.min(catCO2 / maxCO2, 1);
+    const circumference = 2 * Math.PI * ring.r;
+    const dashLength = circumference * ratio;
+    const gapLength = circumference - dashLength;
+    const offset = circumference * 0.25; // Start from top
+
+    // Background ring
+    const bgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    bgCircle.setAttribute('cx', cx);
+    bgCircle.setAttribute('cy', cy);
+    bgCircle.setAttribute('r', ring.r);
+    bgCircle.setAttribute('fill', 'none');
+    bgCircle.setAttribute('stroke', '#1e293b');
+    bgCircle.setAttribute('stroke-width', '8');
+    bgCircle.setAttribute('stroke-dasharray', `${circumference * 0.02} ${circumference * 0.04}`);
+    bgCircle.setAttribute('opacity', '0.5');
+    svg.appendChild(bgCircle);
+
+    // Data ring
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', ring.r);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', `url(#${ring.grad})`);
+    circle.setAttribute('stroke-width', '8');
+    circle.setAttribute('stroke-linecap', 'round');
+    circle.setAttribute('stroke-dasharray', `${dashLength} ${gapLength}`);
+    circle.setAttribute('stroke-dashoffset', circumference);
+    circle.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+    circle.style.transition = `stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.3 * i}s`;
+    svg.appendChild(circle);
+
+    // Animate
+    requestAnimationFrame(() => {
+      circle.setAttribute('stroke-dashoffset', offset);
+    });
+  });
+
+  // Flying creatures ring (decorative)
+  const creatureCount = Math.min(Math.round(total / 2), 12);
+  for (let i = 0; i < creatureCount; i++) {
+    const angle = (i / creatureCount) * Math.PI * 2 - Math.PI / 2;
+    const x = cx + Math.cos(angle) * 150;
+    const y = cy + Math.sin(angle) * 150;
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', x);
+    text.setAttribute('y', y);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'central');
+    text.setAttribute('font-size', '12');
+    text.setAttribute('opacity', '0');
+    text.style.transition = `opacity 0.5s ease ${0.5 + i * 0.1}s`;
+    text.textContent = ['🦋','🐝','🌿','🍃','🌾','🌻','🐝','🦋','🍃','🌿','🌾','🌻'][i % 12];
+    svg.appendChild(text);
+    requestAnimationFrame(() => text.setAttribute('opacity', '0.6'));
+  }
+}
+
+// ===== METRICS =====
+function renderMetrics(categories, total) {
+  const grid = document.getElementById('metricsGrid');
+  grid.innerHTML = '';
+
+  const metrics = [
+    { icon: '🚗', label: 'Transport', value: (categories.transport || 0).toFixed(1), cat: 'transport', color: '#3b82f6', max: 5 },
+    { icon: '🍽️', label: 'Diet', value: ((categories.diet || 0) + (categories.flights || 0) > 0 ? (categories.diet || 0) : 0).toFixed(1), cat: 'diet', color: '#10b981', max: 4 },
+    { icon: '⚡', label: 'Energy', value: (categories.energy || 0).toFixed(1), cat: 'energy', color: '#eab308', max: 4 },
+    { icon: '🛍️', label: 'Consumption', value: (categories.consumption || 0).toFixed(1), cat: 'consumption', color: '#ec4899', max: 3 }
+  ];
+
+  // Add flights if significant
+  if (categories.flights && categories.flights > 0.5) {
+    metrics.push({ icon: '✈️', label: 'Flights', value: categories.flights.toFixed(1), cat: 'flights', color: '#8b5cf6', max: 5 });
+  }
+
+  // Add total
+  metrics.push({ icon: '🌍', label: 'Total Footprint', value: total.toFixed(1), cat: 'total', color: '#10b981', max: 20 });
+
+  metrics.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = `metric-card ${m.cat} fade-enter stagger-${i + 1}`;
+    const pct = Math.min((parseFloat(m.value) / m.max) * 100, 100);
+    card.innerHTML = `
+      <div class="metric-icon">${m.icon}</div>
+      <div class="metric-label">${m.label}</div>
+      <div class="metric-value">${m.value} <span style="font-size:0.7em;color:var(--text-muted)">t</span></div>
+      <div class="metric-bar">
+        <div class="metric-bar-fill" style="background:${m.color};" data-width="${pct}%"></div>
+      </div>
+    `;
+    grid.appendChild(card);
+
+    // Animate bar
+    setTimeout(() => {
+      card.querySelector('.metric-bar-fill').style.width = pct + '%';
+    }, 500 + i * 200);
+  });
+}
+
+// ===== COMPARISON =====
+function renderComparison(total) {
+  const container = document.getElementById('comparisonBars');
+  container.innerHTML = '';
+
+  const comparisons = [
+    { name: 'You', value: total, max: 20, cls: 'you' },
+    { name: 'Global Average', value: GLOBAL_AVG, max: 20, cls: 'avg' },
+    { name: '1.5°C Target', value: PARIS_TARGET, max: 20, cls: 'target' },
+    { name: 'US Average', value: US_AVG, max: 20, cls: 'avg' }
+  ];
+
+  comparisons.forEach((c, i) => {
+    const pct = (c.value / c.max) * 100;
+    const div = document.createElement('div');
+    div.className = 'comparison-bar-container';
+    div.innerHTML = `
+      <div class="comparison-label">
+        <span class="name">${c.name}</span>
+        <span class="value">${c.value.toFixed(1)} tonnes</span>
+      </div>
+      <div class="comparison-bar">
+        <div class="comparison-bar-fill ${c.cls}" data-width="${pct}%"></div>
+        ${c.cls === 'you' ? `<div class="comparison-marker" style="left:${pct}%">▲ YOU</div>` : ''}
+      </div>
+    `;
+    container.appendChild(div);
+
+    setTimeout(() => {
+      div.querySelector('.comparison-bar-fill').style.width = pct + '%';
+    }, 800 + i * 200);
+  });
+}
+
+// ===== INSIGHTS =====
+function renderInsights(categories, total) {
+  const container = document.getElementById('insightsContainer');
+  container.innerHTML = '';
+
+  const insights = [];
+
+  // Transport insights
+  if (categories.transport >= 2) {
+    insights.push({
+      icon: '🚗',
+      text: `Your transport emissions are <strong>${categories.transport.toFixed(1)} tonnes</strong>. Switching to public transit 3 days/week could save <strong>${(categories.transport * 0.4).toFixed(1)} tonnes/year</strong> — that's like planting ${Math.round(categories.transport * 0.4 * 45)} trees.`
+    });
+  } else {
+    insights.push({
+      icon: '🌟',
+      text: `Your transport footprint is <strong>excellent at ${categories.transport.toFixed(1)} tonnes</strong>! You're already well below the global average.`
+    });
+  }
+
+  // Diet insights
+  if (categories.diet >= 2.5) {
+    insights.push({
+      icon: '🥩',
+      text: `Reducing red meat to 2x/week could cut <strong>0.8 tonnes/year</strong>. The IPCC says dietary shifts are one of the most impactful personal actions.`
+    });
+  } else if (categories.diet <= 1.2) {
+    insights.push({
+      icon: '🌱',
+      text: `Your plant-forward diet saves approximately <strong>1.5 tonnes/year</strong> vs. the average diet. The IPCC AR6 identifies this as a top-3 personal action.`
+    });
+  }
+
+  // Energy insights
+  if (categories.energy >= 2) {
+    insights.push({
+      icon: '⚡',
+      text: `Switching to a renewable energy provider could reduce your energy emissions by <strong>up to 80%</strong>. Many providers now cost the same or less than fossil fuel sources.`
+    });
+  }
+
+  // Flight insights
+  if (categories.flights && categories.flights >= 2) {
+    insights.push({
+      icon: '✈️',
+      text: `Your flights account for <strong>${categories.flights.toFixed(1)} tonnes</strong> — that's ${Math.round((categories.flights / total) * 100)}% of your total footprint. One fewer long-haul flight saves ~1.6 tonnes.`
+    });
+  }
+
+  // Overall
+  if (total <= PARIS_TARGET) {
+    insights.push({
+      icon: '🎯',
+      text: `You're <strong>within the Paris Agreement target</strong> of 2.3 tonnes/person! Only ~15% of the global population achieves this. You're leading the way.`
+    });
+  } else if (total <= GLOBAL_AVG) {
+    insights.push({
+      icon: '📊',
+      text: `You're <strong>below the global average</strong> of 4.7 tonnes. To hit the 1.5°C target, you'd need to cut ${(total - PARIS_TARGET).toFixed(1)} tonnes — roughly equivalent to planting ${Math.round((total - PARIS_TARGET) * 45)} trees.`
+    });
+  } else {
+    insights.push({
+      icon: '📊',
+      text: `You're <strong>${((total / GLOBAL_AVG - 1) * 100).toFixed(0)}% above the global average</strong>. The biggest opportunities for you are ${categories.transport > categories.energy ? 'transport' : 'energy'} and diet changes.`
+    });
+  }
+
+  // Planet context
+  insights.push({
+    icon: '🌍',
+    text: `If everyone lived like you, we'd need <strong>${(total / PARIS_TARGET).toFixed(1)} Earths</strong> to sustain the population. The 1.5°C target requires all of us to reach 2.3 tonnes by 2030.`
+  });
+
+  insights.forEach((ins, i) => {
+    const div = document.createElement('div');
+    div.className = `insight-card fade-enter stagger-${Math.min(i + 1, 5)}`;
+    div.innerHTML = `
+      <span class="insight-icon">${ins.icon}</span>
+      <div class="insight-text">${ins.text}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ===== ANIMATE NUMBER =====
+function animateNumber(elementId, start, end, decimals, duration) {
+  const el = document.getElementById(elementId);
+  const startTime = performance.now();
+  const diff = end - start;
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = start + diff * eased;
+    el.textContent = current.toFixed(decimals);
+    if (progress < 1) requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
+}
+
+// ===== SHARE CARD =====
+function generateShareCard() {
+  const card = document.getElementById('shareCard');
+  card.style.left = '0';
+  card.style.position = 'absolute';
+
+  // Populate share card
+  let totalCO2 = 0;
+  const categoryCO2 = {};
+  answers.forEach((ans, i) => {
+    const opt = questions[i].options[ans];
+    totalCO2 += opt.co2;
+    if (categoryCO2[opt.cat]) {
+      categoryCO2[opt.cat] += opt.co2;
+    } else {
+      categoryCO2[opt.cat] = opt.co2;
+    }
+  });
+  totalCO2 += 1.5;
+
+  document.getElementById('shareScore').textContent = totalCO2.toFixed(1);
+
+  const diff = totalCO2 - GLOBAL_AVG;
+  const compEl = document.getElementById('shareCompStatus');
+  if (diff <= 0) {
+    compEl.textContent = `${Math.abs(diff).toFixed(1)} tonnes BELOW average ✓`;
+    compEl.className = 'share-comp-status better';
+  } else {
+    compEl.textContent = `${diff.toFixed(1)} tonnes above average`;
+    compEl.className = 'share-comp-status worse';
+  }
+
+  // Metrics
+  const shareMetrics = document.getElementById('shareMetrics');
+  shareMetrics.innerHTML = '';
+  const metricData = [
+    { emoji: '🚗', label: 'Transport', value: (categoryCO2.transport || 0).toFixed(1) + 't' },
+    { emoji: '🍽️', label: 'Diet', value: (categoryCO2.diet || 0).toFixed(1) + 't' },
+    { emoji: '⚡', label: 'Energy', value: (categoryCO2.energy || 0).toFixed(1) + 't' },
+    { emoji: '✈️', label: 'Flights', value: (categoryCO2.flights || 0).toFixed(1) + 't' }
+  ];
+  metricData.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'share-metric';
+    div.innerHTML = `
+      <div class="emoji">${m.emoji}</div>
+      <div class="label">${m.label}</div>
+      <div class="value">${m.value}</div>
+    `;
+    shareMetrics.appendChild(div);
+  });
+
+  // Draw share fingerprint
+  const shareSvg = document.getElementById('shareFpSvg');
+  shareSvg.innerHTML = `
+    <defs>
+      <linearGradient id="sGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/>
+      </linearGradient>
+      <linearGradient id="sGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/>
+      </linearGradient>
+      <linearGradient id="sGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#eab308"/>
+      </linearGradient>
+      <linearGradient id="sGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#8b5cf6"/>
+      </linearGradient>
+    </defs>
+  `;
+  const scx = 140, scy = 140;
+  const sRings = [
+    { r: 50, cat: 'transport', grad: 'sGrad1' },
+    { r: 72, cat: 'diet', grad: 'sGrad2' },
+    { r: 94, cat: 'energy', grad: 'sGrad3' },
+    { r: 116, cat: 'consumption', grad: 'sGrad4' }
+  ];
+  sRings.forEach(ring => {
+    const catCO2 = categoryCO2[ring.cat] || 0;
+    const ratio = Math.min(catCO2 / 5, 1);
+    const circ = 2 * Math.PI * ring.r;
+    const dashLen = circ * ratio;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', scx);
+    circle.setAttribute('cy', scy);
+    circle.setAttribute('r', ring.r);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', `url(#${ring.grad})`);
+    circle.setAttribute('stroke-width', '6');
+    circle.setAttribute('stroke-linecap', 'round');
+    circle.setAttribute('stroke-dasharray', `${dashLen} ${circ - dashLen}`);
+    circle.setAttribute('stroke-dashoffset', circ * 0.25);
+    circle.setAttribute('transform', `rotate(-90 ${scx} ${scy})`);
+    shareSvg.appendChild(circle);
+  });
+
+  // Capture with html2canvas-like approach (simple DOM capture)
+  // For now, offer copy text
+  const shareText = `🌍 My Carbon Fingerprint: ${totalCO2.toFixed(1)} tonnes CO₂/year\n\n🚗 Transport: ${(categoryCO2.transport || 0).toFixed(1)}t\n🍽️ Diet: ${(categoryCO2.diet || 0).toFixed(1)}t\n⚡ Energy: ${(categoryCO2.energy || 0).toFixed(1)}t\n✈️ Flights: ${(categoryCO2.flights || 0).toFixed(1)}t\n\n${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t BELOW` : `⚠️ ${diff.toFixed(1)}t above`} global average (${GLOBAL_AVG}t)\n\nDiscover yours → carbonfingerprint.earth\n🌍 Your planet. Your fingerprint. Your impact.`;
+
+  // Try to copy to clipboard
+  navigator.clipboard.writeText(shareText).then(() => {
+    alert('📋 Share text copied to clipboard!\n\nPaste it on Twitter/X, Instagram, or anywhere you want to share your Carbon Fingerprint.');
+  }).catch(() => {
+    prompt('Copy this share text:', shareText);
+  });
+
+  card.style.left = '-9999px';
+  card.style.position = 'fixed';
+}
+
+// ===== RESET =====
+function resetQuiz() {
+  currentStep = -1;
+  answers = [];
+  showSection('heroSection');
+  updateProgress(0);
+}
+
+// ===== INIT =====
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && currentStep === -1) startQuiz();
+});
+</script>
+
+</body>
+</html>
