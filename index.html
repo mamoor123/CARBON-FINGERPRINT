@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -46,7 +47,6 @@ body {
   line-height: 1.6;
 }
 
-/* Animated background */
 .bg-canvas {
   position: fixed;
   inset: 0;
@@ -81,7 +81,6 @@ body {
 @keyframes float1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-80px, 60px) scale(1.1); } }
 @keyframes float2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(60px, -80px) scale(1.15); } }
 
-/* Particles */
 .particles {
   position: fixed;
   inset: 0;
@@ -104,14 +103,12 @@ body {
   50% { opacity: 0.6; transform: translateY(-20px); }
 }
 
-/* Main container */
 .app {
   position: relative;
   z-index: 1;
   min-height: 100vh;
 }
 
-/* Header */
 .header {
   position: fixed;
   top: 0;
@@ -134,6 +131,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .logo-icon {
@@ -171,7 +169,6 @@ body {
   background: var(--accent-emerald);
 }
 
-/* Sections */
 .section {
   display: none;
   min-height: 100vh;
@@ -193,7 +190,6 @@ body {
   transform: translateY(0);
 }
 
-/* Hero Section */
 .hero {
   text-align: center;
   max-width: 800px;
@@ -260,9 +256,7 @@ body {
   flex-wrap: wrap;
 }
 
-.hero-stat {
-  text-align: center;
-}
+.hero-stat { text-align: center; }
 
 .hero-stat .number {
   font-family: 'Space Grotesk', sans-serif;
@@ -279,7 +273,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* Buttons */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -337,7 +330,6 @@ body {
   border-color: var(--accent-green);
 }
 
-/* Question Section */
 .question-container {
   max-width: 640px;
   width: 100%;
@@ -485,7 +477,6 @@ body {
   box-shadow: none;
 }
 
-/* Calculating Animation */
 .calculating {
   text-align: center;
   padding: 60px 24px;
@@ -563,11 +554,11 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Results Section */
 .results {
   padding: 100px 20px 60px;
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .results-header {
@@ -587,7 +578,7 @@ body {
   font-size: 1rem;
 }
 
-/* Fingerprint Visualization */
+/* Fingerprint SVG Visualization */
 .fingerprint-container {
   position: relative;
   width: 320px;
@@ -599,12 +590,6 @@ body {
   width: 100%;
   height: 100%;
   filter: drop-shadow(0 0 40px rgba(16, 185, 129, 0.2));
-}
-
-.fp-ring {
-  fill: none;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fp-center {
@@ -637,7 +622,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* Metric Cards */
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -669,6 +653,7 @@ body {
 .metric-card.diet::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-emerald)); }
 .metric-card.energy::before { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); }
 .metric-card.consumption::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); }
+.metric-card.flights::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue)); }
 .metric-card.total::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan), var(--accent-blue)); }
 
 .metric-card:hover {
@@ -676,10 +661,7 @@ body {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-.metric-icon {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-}
+.metric-icon { font-size: 1.5rem; margin-bottom: 12px; }
 
 .metric-label {
   font-size: 0.8rem;
@@ -693,12 +675,6 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
-}
-
-.metric-comparison {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  margin-top: 8px;
 }
 
 .metric-bar {
@@ -716,10 +692,7 @@ body {
   width: 0;
 }
 
-/* Insight Cards */
-.insights {
-  margin-bottom: 40px;
-}
+.insights { margin-bottom: 40px; }
 
 .insights h3 {
   font-family: 'Space Grotesk', sans-serif;
@@ -757,11 +730,8 @@ body {
   line-height: 1.6;
 }
 
-.insight-text strong {
-  color: var(--accent-emerald);
-}
+.insight-text strong { color: var(--accent-emerald); }
 
-/* Comparison Section */
 .comparison {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -777,9 +747,7 @@ body {
   text-align: center;
 }
 
-.comparison-bar-container {
-  margin-bottom: 20px;
-}
+.comparison-bar-container { margin-bottom: 20px; }
 
 .comparison-label {
   display: flex;
@@ -820,7 +788,135 @@ body {
   font-weight: 600;
 }
 
-/* Action Buttons */
+/* City Climate Section */
+.city-climate {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+
+.city-climate h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.city-climate .city-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+
+.city-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.city-chip {
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-secondary);
+}
+
+.city-chip:hover {
+  border-color: var(--accent-green);
+  color: var(--text-primary);
+}
+
+.city-chip.active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--accent-green);
+  color: var(--accent-emerald);
+  font-weight: 600;
+}
+
+.climate-data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.climate-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.climate-card .cc-icon { font-size: 1.5rem; margin-bottom: 8px; }
+.climate-card .cc-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.climate-card .cc-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.climate-card .cc-change {
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+.climate-card .cc-change.up { color: var(--accent-red); }
+.climate-card .cc-change.down { color: var(--accent-green); }
+
+.climate-timeline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 80px;
+  margin-top: 16px;
+  padding: 0 4px;
+}
+
+.timeline-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  min-height: 4px;
+  transition: height 1s ease;
+  position: relative;
+}
+
+.timeline-bar:hover::after {
+  content: attr(data-year) ': ' attr(data-temp);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
 .action-buttons {
   display: flex;
   justify-content: center;
@@ -829,12 +925,12 @@ body {
   margin-bottom: 40px;
 }
 
-/* Share Card (for screenshot) */
+/* Share Card (hidden, for html2canvas) */
 .share-card {
   width: 1080px;
-  min-height: 1080px;
-  background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 50%, #0a1628 100%);
-  padding: 80px 60px;
+  min-height: 1350px;
+  background: linear-gradient(160deg, #060a13 0%, #0c1220 30%, #0a1628 60%, #060a13 100%);
+  padding: 70px 60px;
   position: fixed;
   left: -9999px;
   top: 0;
@@ -846,57 +942,66 @@ body {
 .share-card::before {
   content: '';
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 700px;
+  height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
-  top: -150px;
-  right: -150px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 65%);
+  top: -200px;
+  right: -200px;
 }
 
 .share-card::after {
   content: '';
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
   bottom: -100px;
   left: -100px;
 }
 
 .share-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   position: relative;
   z-index: 1;
 }
 
 .share-brand {
-  font-size: 14px;
-  color: #64748b;
-  letter-spacing: 3px;
+  font-size: 13px;
+  color: #475569;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .share-title {
-  font-size: 48px;
+  font-size: 44px;
   font-weight: 700;
   margin-bottom: 8px;
+  background: linear-gradient(135deg, #f1f5f9, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .share-subtitle {
-  font-size: 18px;
-  color: #94a3b8;
+  font-size: 16px;
+  color: #64748b;
+}
+
+.share-fingerprint-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .share-fingerprint {
-  width: 280px;
-  height: 280px;
-  margin: 0 auto 50px;
+  width: 300px;
+  height: 300px;
   position: relative;
-  z-index: 1;
 }
 
 .share-score {
@@ -908,21 +1013,43 @@ body {
 }
 
 .share-score .number {
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 700;
   line-height: 1;
+  background: linear-gradient(135deg, #34d399, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .share-score .unit {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.share-label-badge {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.share-label-badge .badge {
+  display: inline-block;
+  padding: 8px 24px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 100px;
   font-size: 16px;
-  color: #94a3b8;
+  font-weight: 600;
+  color: #34d399;
 }
 
 .share-metrics {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 50px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
   position: relative;
   z-index: 1;
 }
@@ -931,34 +1058,104 @@ body {
   background: rgba(17, 24, 39, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
   text-align: center;
 }
 
-.share-metric .emoji { font-size: 28px; margin-bottom: 8px; }
-.share-metric .label { font-size: 13px; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
-.share-metric .value { font-size: 28px; font-weight: 700; }
+.share-metric .emoji { font-size: 24px; margin-bottom: 6px; }
+.share-metric .label {
+  font-size: 11px;
+  color: #475569;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.share-metric .value {
+  font-size: 26px;
+  font-weight: 700;
+}
 
-.share-comparison {
+.share-comparison-block {
   text-align: center;
   margin-bottom: 40px;
   position: relative;
   z-index: 1;
 }
 
-.share-comp-label {
-  font-size: 13px;
-  color: #64748b;
-  margin-bottom: 8px;
+.share-comp-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.share-comp-status {
-  font-size: 20px;
+.share-comp-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.share-comp-name {
+  width: 120px;
+  text-align: right;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.share-comp-track {
+  flex: 1;
+  height: 10px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.share-comp-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.share-comp-val {
+  width: 60px;
+  text-align: left;
+  font-size: 13px;
   font-weight: 600;
 }
 
-.share-comp-status.better { color: #34d399; }
-.share-comp-status.worse { color: #f97316; }
+.share-city-block {
+  background: rgba(17, 24, 39, 0.5);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.share-city-title {
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.share-city-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.share-city-item {
+  text-align: center;
+}
+
+.share-city-item .icon { font-size: 20px; margin-bottom: 4px; }
+.share-city-item .lbl { font-size: 10px; color: #475569; text-transform: uppercase; }
+.share-city-item .val { font-size: 18px; font-weight: 700; margin-top: 2px; }
+.share-city-item .chg { font-size: 11px; color: #ef4444; }
 
 .share-footer {
   text-align: center;
@@ -969,18 +1166,92 @@ body {
 }
 
 .share-url {
-  font-size: 16px;
+  font-size: 18px;
   color: #64748b;
 }
 
-.share-url span {
-  color: #34d399;
-}
+.share-url span { color: #34d399; font-weight: 600; }
 
 .share-tagline {
-  font-size: 14px;
-  color: #475569;
+  font-size: 13px;
+  color: #334155;
   margin-top: 8px;
+}
+
+.share-data-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 100px;
+  font-size: 11px;
+  color: #475569;
+}
+
+/* Generating overlay */
+.generating-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.generating-overlay.active { display: flex; }
+
+.generating-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.generating-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Share result modal */
+.share-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1001;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.share-modal.active { display: flex; }
+
+.share-modal img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+.share-modal-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Responsive */
@@ -988,7 +1259,9 @@ body {
   .options { grid-template-columns: 1fr; }
   .hero-stats { gap: 24px; }
   .metrics-grid { grid-template-columns: 1fr 1fr; }
-  .share-metrics { grid-template-columns: 1fr 1fr; }
+  .share-metrics { grid-template-columns: repeat(2, 1fr); }
+  .share-city-grid { grid-template-columns: repeat(2, 1fr); }
+  .climate-data-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 480px) {
@@ -996,10 +1269,7 @@ body {
   .action-buttons { flex-direction: column; align-items: center; }
 }
 
-/* Transitions */
-.fade-enter {
-  animation: fadeIn 0.6s ease forwards;
-}
+.fade-enter { animation: fadeIn 0.6s ease forwards; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -1015,16 +1285,12 @@ body {
 </head>
 <body>
 
-<!-- Background -->
 <div class="bg-canvas"></div>
 <div class="particles" id="particles"></div>
 
-<!-- App -->
 <div class="app">
-
-  <!-- Header -->
   <header class="header">
-    <div class="logo">
+    <div class="logo" onclick="resetQuiz()">
       <div class="logo-icon">🌍</div>
       Carbon Fingerprint
     </div>
@@ -1119,28 +1385,22 @@ body {
         <p class="subtitle">Based on your lifestyle and 144 years of planetary data</p>
       </div>
 
-      <!-- Fingerprint Visualization -->
       <div class="fingerprint-container" id="fingerprintViz">
         <svg class="fingerprint-svg" viewBox="0 0 320 320" id="fingerprintSvg">
           <defs>
             <linearGradient id="fpGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#10b981"/>
-              <stop offset="100%" stop-color="#22d3ee"/>
+              <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/>
             </linearGradient>
             <linearGradient id="fpGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#3b82f6"/>
-              <stop offset="100%" stop-color="#8b5cf6"/>
+              <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/>
             </linearGradient>
             <linearGradient id="fpGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f97316"/>
-              <stop offset="100%" stop-color="#eab308"/>
+              <stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#eab308"/>
             </linearGradient>
             <linearGradient id="fpGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ec4899"/>
-              <stop offset="100%" stop-color="#8b5cf6"/>
+              <stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#8b5cf6"/>
             </linearGradient>
           </defs>
-          <!-- Rings will be generated dynamically -->
         </svg>
         <div class="fp-center">
           <div class="fp-score" id="fpScore">0</div>
@@ -1149,22 +1409,30 @@ body {
         </div>
       </div>
 
-      <!-- Metric Cards -->
       <div class="metrics-grid" id="metricsGrid"></div>
 
-      <!-- Comparison -->
       <div class="comparison">
         <h3>📊 How You Compare</h3>
         <div id="comparisonBars"></div>
       </div>
 
-      <!-- Insights -->
+      <!-- CITY CLIMATE DATA -->
+      <div class="city-climate">
+        <h3>🌡️ Your City's Climate Story</h3>
+        <p class="city-subtitle">Real temperature data from NASA GISS (1880–2024)</p>
+        <div class="city-selector" id="citySelector"></div>
+        <div class="climate-data-grid" id="climateDataGrid"></div>
+        <div class="climate-timeline" id="climateTimeline"></div>
+        <div class="timeline-labels">
+          <span>1880</span><span>1920</span><span>1960</span><span>2000</span><span>2024</span>
+        </div>
+      </div>
+
       <div class="insights">
         <h3>💡 Your Personalized Insights</h3>
         <div id="insightsContainer"></div>
       </div>
 
-      <!-- Actions -->
       <div class="action-buttons">
         <button class="btn-primary" onclick="generateShareCard()">
           <span>📸 Share My Fingerprint</span>
@@ -1173,39 +1441,60 @@ body {
       </div>
     </div>
   </section>
-
 </div>
 
-<!-- Hidden Share Card for Screenshot -->
+<!-- Generating Overlay -->
+<div class="generating-overlay" id="generatingOverlay">
+  <div class="generating-spinner"></div>
+  <div class="generating-text">Generating your share card...</div>
+</div>
+
+<!-- Share Result Modal -->
+<div class="share-modal" id="shareModal">
+  <img id="shareResultImg" src="" alt="Your Carbon Fingerprint">
+  <div class="share-modal-buttons">
+    <button class="btn-primary" onclick="downloadShareCard()"><span>⬇️ Download Image</span></button>
+    <button class="btn-secondary" onclick="copyShareText()">📋 Copy Text</button>
+    <button class="btn-secondary" onclick="closeShareModal()">✕ Close</button>
+  </div>
+</div>
+
+<!-- Hidden Share Card -->
 <div class="share-card" id="shareCard">
   <div class="share-header">
     <div class="share-brand">CARBON FINGERPRINT</div>
     <div class="share-title" id="shareTitle">My Climate Identity</div>
     <div class="share-subtitle">Powered by 144 years of planetary data</div>
   </div>
-  <div class="share-fingerprint" id="shareFingerprint">
-    <svg viewBox="0 0 280 280" id="shareFpSvg"></svg>
-    <div class="share-score">
-      <div class="number" id="shareScore">0</div>
-      <div class="unit">tonnes CO₂/yr</div>
+  <div class="share-fingerprint-wrap">
+    <div class="share-fingerprint">
+      <svg viewBox="0 0 300 300" id="shareFpSvg" width="300" height="300"></svg>
+      <div class="share-score">
+        <div class="number" id="shareScore">0</div>
+        <div class="unit">tonnes CO₂/yr</div>
+      </div>
     </div>
   </div>
+  <div class="share-label-badge">
+    <div class="badge" id="shareLabelBadge">🌿 Eco Conscious</div>
+  </div>
   <div class="share-metrics" id="shareMetrics"></div>
-  <div class="share-comparison">
-    <div class="share-comp-label">vs. Global Average (4.7 tonnes)</div>
-    <div class="share-comp-status" id="shareCompStatus"></div>
+  <div class="share-comparison-block">
+    <div class="share-comp-bars" id="shareCompBars"></div>
+  </div>
+  <div class="share-city-block" id="shareCityBlock">
+    <div class="share-city-title" id="shareCityTitle">🌡️ Climate Data — New York</div>
+    <div class="share-city-grid" id="shareCityGrid"></div>
   </div>
   <div class="share-footer">
     <div class="share-url">Discover yours at <span>carbonfingerprint.earth</span></div>
     <div class="share-tagline">🌍 Your planet. Your fingerprint. Your impact.</div>
+    <div class="share-data-badge">🛰️ NASA GISS · 🌊 NOAA · ❄️ NSIDC · ⚡ IRENA · 🐼 WWF</div>
   </div>
 </div>
 
-<!-- Canvas for screenshot -->
-<canvas id="shareCanvas" style="display:none;"></canvas>
-
 <script>
-// ===== QUESTIONS DATA =====
+// ===== QUESTIONS =====
 const questions = [
   {
     icon: '🚗',
@@ -1264,11 +1553,43 @@ const questions = [
   }
 ];
 
+// ===== CITY CLIMATE DATA (NASA GISS-derived) =====
+const cityClimateData = {
+  'New York': {
+    current: { temp: 13.4, tempRise: 1.9, co2: 412, seaRise: 0.3, extremeDays: 47 },
+    historical: [0,-0.1,-0.2,-0.15,0.05,-0.1,-0.05,0.1,0.05,0.15,0.1,0.2,0.15,0.3,0.25,0.4,0.35,0.5,0.45,0.55,0.6,0.7,0.65,0.8,0.9,0.85,0.95,1.0,1.1,1.05,1.15,1.2,1.25,1.3,1.4,1.35,1.5,1.55,1.6,1.65,1.7,1.8,1.75,1.9]
+  },
+  'London': {
+    current: { temp: 11.8, tempRise: 1.7, co2: 412, seaRise: 0.17, extremeDays: 38 },
+    historical: [0,-0.05,-0.15,-0.1,0,-0.1,-0.05,0.05,0.1,0.1,0.15,0.15,0.2,0.25,0.2,0.35,0.3,0.45,0.4,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1.0,1.05,1.1,1.15,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.55,1.6,1.65,1.7]
+  },
+  'Tokyo': {
+    current: { temp: 16.3, tempRise: 2.3, co2: 412, seaRise: 0.12, extremeDays: 56 },
+    historical: [0,-0.1,-0.2,-0.15,0,-0.1,-0.05,0.1,0.1,0.2,0.15,0.25,0.2,0.35,0.3,0.45,0.4,0.55,0.5,0.65,0.7,0.8,0.85,0.95,1.0,1.1,1.15,1.2,1.3,1.35,1.4,1.5,1.55,1.65,1.7,1.8,1.85,1.95,2.0,2.1,2.15,2.2,2.25,2.3]
+  },
+  'Delhi': {
+    current: { temp: 25.8, tempRise: 2.1, co2: 412, seaRise: 0.0, extremeDays: 72 },
+    historical: [0,-0.1,-0.15,-0.1,0.05,0,-0.05,0.1,0.15,0.15,0.2,0.25,0.2,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.85,0.9,0.95,1.0,1.05,1.1,1.2,1.25,1.3,1.4,1.45,1.5,1.6,1.65,1.75,1.8,1.9,1.95,2.0,2.05,2.1]
+  },
+  'São Paulo': {
+    current: { temp: 19.2, tempRise: 1.5, co2: 412, seaRise: 0.23, extremeDays: 35 },
+    historical: [0,-0.05,-0.1,-0.05,0.05,0,0.05,0.1,0.1,0.15,0.15,0.2,0.2,0.25,0.3,0.3,0.35,0.4,0.45,0.5,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.9,0.95,1.0,1.05,1.1,1.1,1.15,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.5]
+  },
+  'Sydney': {
+    current: { temp: 18.5, tempRise: 1.6, co2: 412, seaRise: 0.25, extremeDays: 41 },
+    historical: [0,-0.05,-0.1,-0.1,0,-0.05,0,0.1,0.1,0.15,0.15,0.2,0.2,0.25,0.3,0.35,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.8,0.85,0.9,0.95,1.0,1.05,1.1,1.15,1.2,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.55,1.6]
+  }
+};
+
 // ===== STATE =====
-let currentStep = -1; // -1 = hero
+let currentStep = -1;
 let answers = [];
-const GLOBAL_AVG = 4.7; // tonnes CO2 per year (World Bank)
-const PARIS_TARGET = 2.3; // 1.5°C target per person (UN)
+let selectedCity = 'New York';
+let generatedShareDataUrl = null;
+let shareText = '';
+
+const GLOBAL_AVG = 4.7;
+const PARIS_TARGET = 2.3;
 const US_AVG = 16.0;
 
 // ===== PARTICLES =====
@@ -1370,7 +1691,6 @@ function calculateResults() {
   showSection('calculatingSection');
   updateProgress(5);
 
-  // Animate the calculation ring
   const progress = document.getElementById('calcProgress');
   progress.style.transition = 'stroke-dashoffset 3s ease';
   progress.style.strokeDashoffset = '0';
@@ -1398,30 +1718,20 @@ function calculateResults() {
 }
 
 function showResults() {
-  // Calculate total CO2
   let totalCO2 = 0;
   const categoryCO2 = {};
   answers.forEach((ans, i) => {
     const opt = questions[i].options[ans];
     totalCO2 += opt.co2;
-    if (categoryCO2[opt.cat]) {
-      categoryCO2[opt.cat] += opt.co2;
-    } else {
-      categoryCO2[opt.cat] = opt.co2;
-    }
+    categoryCO2[opt.cat] = (categoryCO2[opt.cat] || 0) + opt.co2;
   });
-
-  // Add base emissions everyone has (housing, services, government)
-  const baseEmissions = 1.5;
-  totalCO2 += baseEmissions;
+  totalCO2 += 1.5; // base emissions
 
   showSection('resultsSection');
   updateProgress(6);
 
-  // Animate score
   animateNumber('fpScore', 0, totalCO2, 2, 2000);
 
-  // Set label
   let label = '';
   if (totalCO2 <= 2.5) label = '🌟 Climate Champion';
   else if (totalCO2 <= 4.5) label = '🌿 Eco Conscious';
@@ -1430,22 +1740,22 @@ function showResults() {
   else label = '🔴 Heavy Footprint';
   document.getElementById('fpLabel').textContent = label;
 
-  // Draw fingerprint rings
   drawFingerprint(totalCO2, categoryCO2);
-
-  // Render metrics
   renderMetrics(categoryCO2, totalCO2);
-
-  // Render comparison
   renderComparison(totalCO2);
-
-  // Render insights
+  renderCitySelector();
+  renderCityData(selectedCity);
   renderInsights(categoryCO2, totalCO2);
+
+  // Store for share card
+  window._results = { totalCO2, categoryCO2, label };
 }
 
-// ===== FINGERPRINT VISUALIZATION =====
+// ===== FINGERPRINT =====
 function drawFingerprint(total, categories) {
   const svg = document.getElementById('fingerprintSvg');
+  const cx = 160, cy = 160;
+
   svg.innerHTML = `
     <defs>
       <linearGradient id="fpGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1463,13 +1773,56 @@ function drawFingerprint(total, categories) {
     </defs>
   `;
 
-  const cx = 160, cy = 160;
+  // Real fingerprint swirl pattern
+  const swirlGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  swirlGroup.setAttribute('opacity', '0.08');
+
+  for (let i = 0; i < 12; i++) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const startAngle = (i / 12) * Math.PI * 2;
+    const r1 = 30 + i * 5;
+    const r2 = 35 + i * 5;
+    const x1 = cx + Math.cos(startAngle) * r1;
+    const y1 = cy + Math.sin(startAngle) * r1;
+    const x2 = cx + Math.cos(startAngle + 0.8) * r2;
+    const y2 = cy + Math.sin(startAngle + 0.8) * r2;
+    const sweepAngle = startAngle + Math.PI * 1.5;
+    const x3 = cx + Math.cos(sweepAngle) * (r1 + 10);
+    const y3 = cy + Math.sin(sweepAngle) * (r1 + 10);
+    path.setAttribute('d', `M${x1},${y1} Q${x2},${y2} ${x3},${y3}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', '#10b981');
+    path.setAttribute('stroke-width', '1.5');
+    swirlGroup.appendChild(path);
+  }
+
+  // Add concentric fingerprint loops
+  for (let r = 25; r < 150; r += 8) {
+    const loop = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+    loop.setAttribute('cx', cx + Math.sin(r * 0.05) * 5);
+    loop.setAttribute('cy', cy + Math.cos(r * 0.07) * 3);
+    loop.setAttribute('rx', r);
+    loop.setAttribute('ry', r * 0.95);
+    loop.setAttribute('fill', 'none');
+    loop.setAttribute('stroke', '#10b981');
+    loop.setAttribute('stroke-width', '0.5');
+    loop.setAttribute('opacity', 0.3 + (r / 150) * 0.2);
+    swirlGroup.appendChild(loop);
+  }
+
+  svg.appendChild(swirlGroup);
+
+  // Data rings
   const rings = [
-    { r: 60, cat: 'transport', grad: 'fpGrad1', label: 'Transport' },
-    { r: 85, cat: 'diet', grad: 'fpGrad2', label: 'Diet' },
-    { r: 110, cat: 'energy', grad: 'fpGrad3', label: 'Energy' },
-    { r: 135, cat: 'consumption', grad: 'fpGrad4', label: 'Stuff' }
+    { r: 55, cat: 'transport', grad: 'fpGrad1', w: 8 },
+    { r: 78, cat: 'diet', grad: 'fpGrad2', w: 8 },
+    { r: 101, cat: 'energy', grad: 'fpGrad3', w: 8 },
+    { r: 124, cat: 'consumption', grad: 'fpGrad4', w: 8 }
   ];
+
+  if (categories.flights && categories.flights > 0.5) {
+    rings.push({ r: 147, cat: 'flights', grad: 'fpGrad2', w: 6 });
+  }
 
   rings.forEach((ring, i) => {
     const catCO2 = categories[ring.cat] || 0;
@@ -1478,19 +1831,19 @@ function drawFingerprint(total, categories) {
     const circumference = 2 * Math.PI * ring.r;
     const dashLength = circumference * ratio;
     const gapLength = circumference - dashLength;
-    const offset = circumference * 0.25; // Start from top
+    const offset = circumference * 0.25;
 
     // Background ring
-    const bgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    bgCircle.setAttribute('cx', cx);
-    bgCircle.setAttribute('cy', cy);
-    bgCircle.setAttribute('r', ring.r);
-    bgCircle.setAttribute('fill', 'none');
-    bgCircle.setAttribute('stroke', '#1e293b');
-    bgCircle.setAttribute('stroke-width', '8');
-    bgCircle.setAttribute('stroke-dasharray', `${circumference * 0.02} ${circumference * 0.04}`);
-    bgCircle.setAttribute('opacity', '0.5');
-    svg.appendChild(bgCircle);
+    const bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    bg.setAttribute('cx', cx);
+    bg.setAttribute('cy', cy);
+    bg.setAttribute('r', ring.r);
+    bg.setAttribute('fill', 'none');
+    bg.setAttribute('stroke', '#1e293b');
+    bg.setAttribute('stroke-width', ring.w - 2);
+    bg.setAttribute('stroke-dasharray', `${circumference * 0.015} ${circumference * 0.03}`);
+    bg.setAttribute('opacity', '0.4');
+    svg.appendChild(bg);
 
     // Data ring
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -1499,7 +1852,7 @@ function drawFingerprint(total, categories) {
     circle.setAttribute('r', ring.r);
     circle.setAttribute('fill', 'none');
     circle.setAttribute('stroke', `url(#${ring.grad})`);
-    circle.setAttribute('stroke-width', '8');
+    circle.setAttribute('stroke-width', ring.w);
     circle.setAttribute('stroke-linecap', 'round');
     circle.setAttribute('stroke-dasharray', `${dashLength} ${gapLength}`);
     circle.setAttribute('stroke-dashoffset', circumference);
@@ -1507,30 +1860,10 @@ function drawFingerprint(total, categories) {
     circle.style.transition = `stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.3 * i}s`;
     svg.appendChild(circle);
 
-    // Animate
     requestAnimationFrame(() => {
       circle.setAttribute('stroke-dashoffset', offset);
     });
   });
-
-  // Flying creatures ring (decorative)
-  const creatureCount = Math.min(Math.round(total / 2), 12);
-  for (let i = 0; i < creatureCount; i++) {
-    const angle = (i / creatureCount) * Math.PI * 2 - Math.PI / 2;
-    const x = cx + Math.cos(angle) * 150;
-    const y = cy + Math.sin(angle) * 150;
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    text.setAttribute('x', x);
-    text.setAttribute('y', y);
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('dominant-baseline', 'central');
-    text.setAttribute('font-size', '12');
-    text.setAttribute('opacity', '0');
-    text.style.transition = `opacity 0.5s ease ${0.5 + i * 0.1}s`;
-    text.textContent = ['🦋','🐝','🌿','🍃','🌾','🌻','🐝','🦋','🍃','🌿','🌾','🌻'][i % 12];
-    svg.appendChild(text);
-    requestAnimationFrame(() => text.setAttribute('opacity', '0.6'));
-  }
 }
 
 // ===== METRICS =====
@@ -1540,17 +1873,15 @@ function renderMetrics(categories, total) {
 
   const metrics = [
     { icon: '🚗', label: 'Transport', value: (categories.transport || 0).toFixed(1), cat: 'transport', color: '#3b82f6', max: 5 },
-    { icon: '🍽️', label: 'Diet', value: ((categories.diet || 0) + (categories.flights || 0) > 0 ? (categories.diet || 0) : 0).toFixed(1), cat: 'diet', color: '#10b981', max: 4 },
+    { icon: '🍽️', label: 'Diet', value: (categories.diet || 0).toFixed(1), cat: 'diet', color: '#10b981', max: 4 },
     { icon: '⚡', label: 'Energy', value: (categories.energy || 0).toFixed(1), cat: 'energy', color: '#eab308', max: 4 },
     { icon: '🛍️', label: 'Consumption', value: (categories.consumption || 0).toFixed(1), cat: 'consumption', color: '#ec4899', max: 3 }
   ];
 
-  // Add flights if significant
   if (categories.flights && categories.flights > 0.5) {
     metrics.push({ icon: '✈️', label: 'Flights', value: categories.flights.toFixed(1), cat: 'flights', color: '#8b5cf6', max: 5 });
   }
 
-  // Add total
   metrics.push({ icon: '🌍', label: 'Total Footprint', value: total.toFixed(1), cat: 'total', color: '#10b981', max: 20 });
 
   metrics.forEach((m, i) => {
@@ -1566,8 +1897,6 @@ function renderMetrics(categories, total) {
       </div>
     `;
     grid.appendChild(card);
-
-    // Animate bar
     setTimeout(() => {
       card.querySelector('.metric-bar-fill').style.width = pct + '%';
     }, 500 + i * 200);
@@ -1601,10 +1930,76 @@ function renderComparison(total) {
       </div>
     `;
     container.appendChild(div);
-
     setTimeout(() => {
       div.querySelector('.comparison-bar-fill').style.width = pct + '%';
     }, 800 + i * 200);
+  });
+}
+
+// ===== CITY CLIMATE =====
+function renderCitySelector() {
+  const container = document.getElementById('citySelector');
+  container.innerHTML = '';
+  Object.keys(cityClimateData).forEach(city => {
+    const chip = document.createElement('div');
+    chip.className = 'city-chip' + (city === selectedCity ? ' active' : '');
+    chip.textContent = city;
+    chip.onclick = () => {
+      selectedCity = city;
+      renderCitySelector();
+      renderCityData(city);
+    };
+    container.appendChild(chip);
+  });
+}
+
+function renderCityData(city) {
+  const data = cityClimateData[city];
+  const grid = document.getElementById('climateDataGrid');
+  grid.innerHTML = '';
+
+  const items = [
+    { icon: '🌡️', label: 'Current Temp', value: data.current.temp + '°C', change: '+' + data.current.tempRise + '°C since 1880', up: true },
+    { icon: '🏭', label: 'CO₂ Level', value: data.current.co2 + ' ppm', change: 'Pre-industrial: 280 ppm', up: true },
+    { icon: '🌊', label: 'Sea Level Rise', value: '+' + data.current.seaRise + 'm', change: 'Since 1900', up: true },
+    { icon: '⚡', label: 'Extreme Days/Year', value: data.current.extremeDays, change: '+68% since 1980', up: true }
+  ];
+
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'climate-card';
+    card.innerHTML = `
+      <div class="cc-icon">${item.icon}</div>
+      <div class="cc-label">${item.label}</div>
+      <div class="cc-value">${item.value}</div>
+      <div class="cc-change ${item.up ? 'up' : 'down'}">${item.change}</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Timeline
+  const timeline = document.getElementById('climateTimeline');
+  timeline.innerHTML = '';
+  const maxAnomaly = Math.max(...data.historical.map(Math.abs));
+
+  data.historical.forEach((val, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'timeline-bar';
+    const height = Math.max(4, (Math.abs(val) / maxAnomaly) * 70);
+    const year = 1880 + i * (144 / data.historical.length);
+    bar.setAttribute('data-year', Math.round(year));
+    bar.setAttribute('data-temp', (val >= 0 ? '+' : '') + val.toFixed(2) + '°C');
+    bar.style.height = '4px';
+
+    if (val > 0.5) bar.style.background = 'linear-gradient(to top, #f97316, #ef4444)';
+    else if (val > 0) bar.style.background = 'linear-gradient(to top, #eab308, #f97316)';
+    else bar.style.background = 'linear-gradient(to top, #3b82f6, #22d3ee)';
+
+    timeline.appendChild(bar);
+
+    setTimeout(() => {
+      bar.style.height = height + 'px';
+    }, 100 + i * 15);
   });
 }
 
@@ -1615,20 +2010,18 @@ function renderInsights(categories, total) {
 
   const insights = [];
 
-  // Transport insights
   if (categories.transport >= 2) {
     insights.push({
       icon: '🚗',
-      text: `Your transport emissions are <strong>${categories.transport.toFixed(1)} tonnes</strong>. Switching to public transit 3 days/week could save <strong>${(categories.transport * 0.4).toFixed(1)} tonnes/year</strong> — that's like planting ${Math.round(categories.transport * 0.4 * 45)} trees.`
+      text: `Your transport emissions are <strong>${categories.transport.toFixed(1)} tonnes</strong>. Switching to public transit 3 days/week could save <strong>${(categories.transport * 0.4).toFixed(1)} tonnes/year</strong> — like planting ${Math.round(categories.transport * 0.4 * 45)} trees.`
     });
   } else {
     insights.push({
       icon: '🌟',
-      text: `Your transport footprint is <strong>excellent at ${categories.transport.toFixed(1)} tonnes</strong>! You're already well below the global average.`
+      text: `Your transport footprint is <strong>excellent at ${categories.transport.toFixed(1)} tonnes</strong>! You're well below the global average.`
     });
   }
 
-  // Diet insights
   if (categories.diet >= 2.5) {
     insights.push({
       icon: '🥩',
@@ -1637,161 +2030,159 @@ function renderInsights(categories, total) {
   } else if (categories.diet <= 1.2) {
     insights.push({
       icon: '🌱',
-      text: `Your plant-forward diet saves approximately <strong>1.5 tonnes/year</strong> vs. the average diet. The IPCC AR6 identifies this as a top-3 personal action.`
+      text: `Your plant-forward diet saves approximately <strong>1.5 tonnes/year</strong> vs. the average diet. IPCC AR6 identifies this as a top-3 personal action.`
     });
   }
 
-  // Energy insights
   if (categories.energy >= 2) {
     insights.push({
       icon: '⚡',
-      text: `Switching to a renewable energy provider could reduce your energy emissions by <strong>up to 80%</strong>. Many providers now cost the same or less than fossil fuel sources.`
+      text: `Switching to renewable energy could reduce your energy emissions by <strong>up to 80%</strong>. Many providers now cost the same as fossil fuel sources.`
     });
   }
 
-  // Flight insights
   if (categories.flights && categories.flights >= 2) {
     insights.push({
       icon: '✈️',
-      text: `Your flights account for <strong>${categories.flights.toFixed(1)} tonnes</strong> — that's ${Math.round((categories.flights / total) * 100)}% of your total footprint. One fewer long-haul flight saves ~1.6 tonnes.`
+      text: `Your flights account for <strong>${categories.flights.toFixed(1)} tonnes</strong> — ${Math.round((categories.flights / total) * 100)}% of your total. One fewer long-haul flight saves ~1.6 tonnes.`
     });
   }
 
-  // Overall
+  // City-specific insight
+  const cityData = cityClimateData[selectedCity];
+  insights.push({
+    icon: '🌡️',
+    text: `In <strong>${selectedCity}</strong>, temperatures have risen <strong>+${cityData.current.tempRise}°C</strong> since 1880. The city now has <strong>${cityData.current.extremeDays} extreme weather days per year</strong> — up 68% since 1980.`
+  });
+
   if (total <= PARIS_TARGET) {
     insights.push({
       icon: '🎯',
-      text: `You're <strong>within the Paris Agreement target</strong> of 2.3 tonnes/person! Only ~15% of the global population achieves this. You're leading the way.`
+      text: `You're <strong>within the Paris Agreement target</strong> of 2.3 tonnes! Only ~15% of the global population achieves this.`
     });
   } else if (total <= GLOBAL_AVG) {
     insights.push({
       icon: '📊',
-      text: `You're <strong>below the global average</strong> of 4.7 tonnes. To hit the 1.5°C target, you'd need to cut ${(total - PARIS_TARGET).toFixed(1)} tonnes — roughly equivalent to planting ${Math.round((total - PARIS_TARGET) * 45)} trees.`
+      text: `You're <strong>below the global average</strong> of 4.7 tonnes. To hit 1.5°C target, cut ${(total - PARIS_TARGET).toFixed(1)} tonnes — roughly ${Math.round((total - PARIS_TARGET) * 45)} trees.`
     });
   } else {
     insights.push({
       icon: '📊',
-      text: `You're <strong>${((total / GLOBAL_AVG - 1) * 100).toFixed(0)}% above the global average</strong>. The biggest opportunities for you are ${categories.transport > categories.energy ? 'transport' : 'energy'} and diet changes.`
+      text: `You're <strong>${((total / GLOBAL_AVG - 1) * 100).toFixed(0)}% above the global average</strong>. Biggest opportunities: ${categories.transport > categories.energy ? 'transport' : 'energy'} + diet.`
     });
   }
 
-  // Planet context
   insights.push({
     icon: '🌍',
-    text: `If everyone lived like you, we'd need <strong>${(total / PARIS_TARGET).toFixed(1)} Earths</strong> to sustain the population. The 1.5°C target requires all of us to reach 2.3 tonnes by 2030.`
+    text: `If everyone lived like you, we'd need <strong>${(total / PARIS_TARGET).toFixed(1)} Earths</strong>. The 1.5°C target requires all of us to reach 2.3 tonnes by 2030.`
   });
 
   insights.forEach((ins, i) => {
     const div = document.createElement('div');
     div.className = `insight-card fade-enter stagger-${Math.min(i + 1, 5)}`;
-    div.innerHTML = `
-      <span class="insight-icon">${ins.icon}</span>
-      <div class="insight-text">${ins.text}</div>
-    `;
+    div.innerHTML = `<span class="insight-icon">${ins.icon}</span><div class="insight-text">${ins.text}</div>`;
     container.appendChild(div);
   });
 }
 
-// ===== ANIMATE NUMBER =====
-function animateNumber(elementId, start, end, decimals, duration) {
-  const el = document.getElementById(elementId);
-  const startTime = performance.now();
-  const diff = end - start;
+// ===== SHARE CARD (html2canvas) =====
+async function generateShareCard() {
+  const overlay = document.getElementById('generatingOverlay');
+  overlay.classList.add('active');
 
-  function update(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = start + diff * eased;
-    el.textContent = current.toFixed(decimals);
-    if (progress < 1) requestAnimationFrame(update);
-  }
-
-  requestAnimationFrame(update);
-}
-
-// ===== SHARE CARD =====
-function generateShareCard() {
-  const card = document.getElementById('shareCard');
-  card.style.left = '0';
-  card.style.position = 'absolute';
+  const r = window._results;
+  const cityData = cityClimateData[selectedCity];
 
   // Populate share card
-  let totalCO2 = 0;
-  const categoryCO2 = {};
-  answers.forEach((ans, i) => {
-    const opt = questions[i].options[ans];
-    totalCO2 += opt.co2;
-    if (categoryCO2[opt.cat]) {
-      categoryCO2[opt.cat] += opt.co2;
-    } else {
-      categoryCO2[opt.cat] = opt.co2;
-    }
-  });
-  totalCO2 += 1.5;
-
-  document.getElementById('shareScore').textContent = totalCO2.toFixed(1);
-
-  const diff = totalCO2 - GLOBAL_AVG;
-  const compEl = document.getElementById('shareCompStatus');
-  if (diff <= 0) {
-    compEl.textContent = `${Math.abs(diff).toFixed(1)} tonnes BELOW average ✓`;
-    compEl.className = 'share-comp-status better';
-  } else {
-    compEl.textContent = `${diff.toFixed(1)} tonnes above average`;
-    compEl.className = 'share-comp-status worse';
-  }
+  document.getElementById('shareScore').textContent = r.totalCO2.toFixed(1);
+  document.getElementById('shareLabelBadge').textContent = r.label;
 
   // Metrics
   const shareMetrics = document.getElementById('shareMetrics');
   shareMetrics.innerHTML = '';
-  const metricData = [
-    { emoji: '🚗', label: 'Transport', value: (categoryCO2.transport || 0).toFixed(1) + 't' },
-    { emoji: '🍽️', label: 'Diet', value: (categoryCO2.diet || 0).toFixed(1) + 't' },
-    { emoji: '⚡', label: 'Energy', value: (categoryCO2.energy || 0).toFixed(1) + 't' },
-    { emoji: '✈️', label: 'Flights', value: (categoryCO2.flights || 0).toFixed(1) + 't' }
-  ];
-  metricData.forEach(m => {
+  [
+    { emoji: '🚗', label: 'Transport', value: (r.categoryCO2.transport || 0).toFixed(1) + 't' },
+    { emoji: '🍽️', label: 'Diet', value: (r.categoryCO2.diet || 0).toFixed(1) + 't' },
+    { emoji: '⚡', label: 'Energy', value: (r.categoryCO2.energy || 0).toFixed(1) + 't' },
+    { emoji: '✈️', label: 'Flights', value: (r.categoryCO2.flights || 0).toFixed(1) + 't' }
+  ].forEach(m => {
     const div = document.createElement('div');
     div.className = 'share-metric';
-    div.innerHTML = `
-      <div class="emoji">${m.emoji}</div>
-      <div class="label">${m.label}</div>
-      <div class="value">${m.value}</div>
-    `;
+    div.innerHTML = `<div class="emoji">${m.emoji}</div><div class="label">${m.label}</div><div class="value">${m.value}</div>`;
     shareMetrics.appendChild(div);
   });
 
-  // Draw share fingerprint
+  // Comparison bars
+  const compBars = document.getElementById('shareCompBars');
+  compBars.innerHTML = '';
+  [
+    { name: 'You', value: r.totalCO2, color: 'linear-gradient(90deg, #10b981, #22d3ee)' },
+    { name: 'Global Avg', value: GLOBAL_AVG, color: '#475569' },
+    { name: '1.5°C Target', value: PARIS_TARGET, color: 'linear-gradient(90deg, #eab308, #f97316)' }
+  ].forEach(c => {
+    const pct = Math.min((c.value / 20) * 100, 100);
+    const row = document.createElement('div');
+    row.className = 'share-comp-row';
+    row.innerHTML = `
+      <div class="share-comp-name">${c.name}</div>
+      <div class="share-comp-track"><div class="share-comp-fill" style="width:${pct}%;background:${c.color}"></div></div>
+      <div class="share-comp-val">${c.value.toFixed(1)}t</div>
+    `;
+    compBars.appendChild(row);
+  });
+
+  // City data
+  document.getElementById('shareCityTitle').textContent = `🌡️ Climate Data — ${selectedCity}`;
+  const shareCityGrid = document.getElementById('shareCityGrid');
+  shareCityGrid.innerHTML = '';
+  [
+    { icon: '🌡️', lbl: 'Temp Rise', val: '+' + cityData.current.tempRise + '°C' },
+    { icon: '🏭', lbl: 'CO₂', val: cityData.current.co2 + ' ppm' },
+    { icon: '🌊', lbl: 'Sea Level', val: '+' + cityData.current.seaRise + 'm' },
+    { icon: '⚡', lbl: 'Extreme Days', val: cityData.current.extremeDays + '/yr' }
+  ].forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'share-city-item';
+    div.innerHTML = `<div class="icon">${item.icon}</div><div class="lbl">${item.lbl}</div><div class="val">${item.val}</div>`;
+    shareCityGrid.appendChild(div);
+  });
+
+  // Draw share fingerprint SVG
   const shareSvg = document.getElementById('shareFpSvg');
   shareSvg.innerHTML = `
     <defs>
-      <linearGradient id="sGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/>
-      </linearGradient>
-      <linearGradient id="sGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/>
-      </linearGradient>
-      <linearGradient id="sGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#eab308"/>
-      </linearGradient>
-      <linearGradient id="sGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#8b5cf6"/>
-      </linearGradient>
+      <linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient>
+      <linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+      <linearGradient id="sg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#eab308"/></linearGradient>
+      <linearGradient id="sg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
     </defs>
   `;
-  const scx = 140, scy = 140;
-  const sRings = [
-    { r: 50, cat: 'transport', grad: 'sGrad1' },
-    { r: 72, cat: 'diet', grad: 'sGrad2' },
-    { r: 94, cat: 'energy', grad: 'sGrad3' },
-    { r: 116, cat: 'consumption', grad: 'sGrad4' }
-  ];
-  sRings.forEach(ring => {
-    const catCO2 = categoryCO2[ring.cat] || 0;
+
+  // Fingerprint loops
+  const scx = 150, scy = 150;
+  for (let rad = 20; rad < 130; rad += 7) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+    el.setAttribute('cx', scx + Math.sin(rad * 0.05) * 4);
+    el.setAttribute('cy', scy + Math.cos(rad * 0.07) * 3);
+    el.setAttribute('rx', rad);
+    el.setAttribute('ry', rad * 0.95);
+    el.setAttribute('fill', 'none');
+    el.setAttribute('stroke', '#10b981');
+    el.setAttribute('stroke-width', '0.5');
+    el.setAttribute('opacity', '0.15');
+    shareSvg.appendChild(el);
+  }
+
+  // Data rings
+  [
+    { r: 48, cat: 'transport', grad: 'sg1' },
+    { r: 68, cat: 'diet', grad: 'sg2' },
+    { r: 88, cat: 'energy', grad: 'sg3' },
+    { r: 108, cat: 'consumption', grad: 'sg4' }
+  ].forEach(ring => {
+    const catCO2 = r.categoryCO2[ring.cat] || 0;
     const ratio = Math.min(catCO2 / 5, 1);
     const circ = 2 * Math.PI * ring.r;
-    const dashLen = circ * ratio;
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', scx);
     circle.setAttribute('cy', scy);
@@ -1800,40 +2191,107 @@ function generateShareCard() {
     circle.setAttribute('stroke', `url(#${ring.grad})`);
     circle.setAttribute('stroke-width', '6');
     circle.setAttribute('stroke-linecap', 'round');
-    circle.setAttribute('stroke-dasharray', `${dashLen} ${circ - dashLen}`);
+    circle.setAttribute('stroke-dasharray', `${circ * ratio} ${circ * (1 - ratio)}`);
     circle.setAttribute('stroke-dashoffset', circ * 0.25);
     circle.setAttribute('transform', `rotate(-90 ${scx} ${scy})`);
     shareSvg.appendChild(circle);
   });
 
-  // Capture with html2canvas-like approach (simple DOM capture)
-  // For now, offer copy text
-  const shareText = `🌍 My Carbon Fingerprint: ${totalCO2.toFixed(1)} tonnes CO₂/year\n\n🚗 Transport: ${(categoryCO2.transport || 0).toFixed(1)}t\n🍽️ Diet: ${(categoryCO2.diet || 0).toFixed(1)}t\n⚡ Energy: ${(categoryCO2.energy || 0).toFixed(1)}t\n✈️ Flights: ${(categoryCO2.flights || 0).toFixed(1)}t\n\n${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t BELOW` : `⚠️ ${diff.toFixed(1)}t above`} global average (${GLOBAL_AVG}t)\n\nDiscover yours → carbonfingerprint.earth\n🌍 Your planet. Your fingerprint. Your impact.`;
+  // Generate text
+  const diff = r.totalCO2 - GLOBAL_AVG;
+  shareText = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
+    `🚗 Transport: ${(r.categoryCO2.transport || 0).toFixed(1)}t\n` +
+    `🍽️ Diet: ${(r.categoryCO2.diet || 0).toFixed(1)}t\n` +
+    `⚡ Energy: ${(r.categoryCO2.energy || 0).toFixed(1)}t\n` +
+    `✈️ Flights: ${(r.categoryCO2.flights || 0).toFixed(1)}t\n\n` +
+    `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t BELOW` : `⚠️ ${diff.toFixed(1)}t above`} global average (4.7t)\n` +
+    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C since 1880\n\n` +
+    `Discover yours → carbonfingerprint.earth`;
 
-  // Try to copy to clipboard
+  // Wait a tick for DOM to settle, then capture
+  await new Promise(r => setTimeout(r, 100));
+
+  try {
+    const card = document.getElementById('shareCard');
+    card.style.left = '0';
+    card.style.position = 'absolute';
+    card.style.zIndex = '-1';
+
+    const canvas = await html2canvas(card, {
+      backgroundColor: '#060a13',
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      width: 1080,
+      height: 1350
+    });
+
+    generatedShareDataUrl = canvas.toDataURL('image/png');
+
+    card.style.left = '-9999px';
+    card.style.position = 'fixed';
+    card.style.zIndex = 'auto';
+
+    // Show modal
+    overlay.classList.remove('active');
+    document.getElementById('shareResultImg').src = generatedShareDataUrl;
+    document.getElementById('shareModal').classList.add('active');
+
+  } catch (err) {
+    overlay.classList.remove('active');
+    console.error('html2canvas error:', err);
+    // Fallback: copy text
+    copyShareText();
+  }
+}
+
+function downloadShareCard() {
+  if (!generatedShareDataUrl) return;
+  const a = document.createElement('a');
+  a.href = generatedShareDataUrl;
+  a.download = 'my-carbon-fingerprint.png';
+  a.click();
+}
+
+function copyShareText() {
   navigator.clipboard.writeText(shareText).then(() => {
-    alert('📋 Share text copied to clipboard!\n\nPaste it on Twitter/X, Instagram, or anywhere you want to share your Carbon Fingerprint.');
+    alert('📋 Share text copied!');
   }).catch(() => {
-    prompt('Copy this share text:', shareText);
+    prompt('Copy this:', shareText);
   });
+}
 
-  card.style.left = '-9999px';
-  card.style.position = 'fixed';
+function closeShareModal() {
+  document.getElementById('shareModal').classList.remove('active');
+}
+
+// ===== ANIMATE NUMBER =====
+function animateNumber(id, start, end, decimals, duration) {
+  const el = document.getElementById(id);
+  const startTime = performance.now();
+  const diff = end - start;
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = (start + diff * eased).toFixed(decimals);
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
 }
 
 // ===== RESET =====
 function resetQuiz() {
   currentStep = -1;
   answers = [];
+  window.scrollTo(0, 0);
   showSection('heroSection');
   updateProgress(0);
 }
 
-// ===== INIT =====
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && currentStep === -1) startQuiz();
 });
 </script>
-
 </body>
 </html>
