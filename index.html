@@ -8,6 +8,7 @@
 <meta property="og:title" content="Carbon Fingerprint — My Climate Identity">
 <meta property="og:description" content="I just discovered my Carbon Fingerprint. Find yours in 60 seconds.">
 <meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -749,6 +750,11 @@ body {
 
 .comparison-bar-container { margin-bottom: 20px; }
 
+.comparison-bar-wrap {
+  position: relative;
+  padding-top: 22px;
+}
+
 .comparison-label {
   display: flex;
   justify-content: space-between;
@@ -780,7 +786,7 @@ body {
 
 .comparison-marker {
   position: absolute;
-  top: -20px;
+  top: 0;
   font-size: 0.7rem;
   color: var(--accent-emerald);
   transform: translateX(-50%);
@@ -929,7 +935,7 @@ body {
 .share-card {
   width: 1080px;
   min-height: 1350px;
-  background: linear-gradient(160deg, #060a13 0%, #0c1220 30%, #0a1628 60%, #060a13 100%);
+  background: #0a1225;
   padding: 70px 60px;
   position: fixed;
   left: -9999px;
@@ -937,28 +943,6 @@ body {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   color: #f1f5f9;
   overflow: hidden;
-}
-
-.share-card::before {
-  content: '';
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 65%);
-  top: -200px;
-  right: -200px;
-}
-
-.share-card::after {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
-  bottom: -100px;
-  left: -100px;
 }
 
 .share-header {
@@ -1692,6 +1676,11 @@ function calculateResults() {
   updateProgress(5);
 
   const progress = document.getElementById('calcProgress');
+  // Reset ring for re-takes
+  progress.style.transition = 'none';
+  progress.style.strokeDashoffset = '440';
+  // Force reflow then animate
+  progress.getBoundingClientRect();
   progress.style.transition = 'stroke-dashoffset 3s ease';
   progress.style.strokeDashoffset = '0';
 
@@ -1728,7 +1717,7 @@ function showResults() {
   totalCO2 += 1.5; // base emissions
 
   showSection('resultsSection');
-  updateProgress(6);
+  updateProgress(5);
 
   animateNumber('fpScore', 0, totalCO2, 2, 2000);
 
@@ -1916,7 +1905,7 @@ function renderComparison(total) {
   ];
 
   comparisons.forEach((c, i) => {
-    const pct = (c.value / c.max) * 100;
+    const pct = Math.min((c.value / c.max) * 100, 100);
     const div = document.createElement('div');
     div.className = 'comparison-bar-container';
     div.innerHTML = `
@@ -1924,9 +1913,11 @@ function renderComparison(total) {
         <span class="name">${c.name}</span>
         <span class="value">${c.value.toFixed(1)} tonnes</span>
       </div>
-      <div class="comparison-bar">
-        <div class="comparison-bar-fill ${c.cls}" data-width="${pct}%"></div>
-        ${c.cls === 'you' ? `<div class="comparison-marker" style="left:${pct}%">▲ YOU</div>` : ''}
+      <div class="comparison-bar-wrap">
+        <div class="comparison-bar">
+          <div class="comparison-bar-fill ${c.cls}" data-width="${pct}%"></div>
+        </div>
+        ${c.cls === 'you' ? `<div class="comparison-marker" style="left:${Math.min(pct, 96)}%">▲ YOU</div>` : ''}
       </div>
     `;
     container.appendChild(div);
@@ -2087,6 +2078,13 @@ function renderInsights(categories, total) {
 
 // ===== SHARE CARD (html2canvas) =====
 async function generateShareCard() {
+  // Check html2canvas loaded
+  if (typeof html2canvas === 'undefined') {
+    alert('Image generation is loading... Please try again in a moment.');
+    copyShareText();
+    return;
+  }
+
   const overlay = document.getElementById('generatingOverlay');
   overlay.classList.add('active');
 
@@ -2209,7 +2207,7 @@ async function generateShareCard() {
     `Discover yours → carbonfingerprint.earth`;
 
   // Wait a tick for DOM to settle, then capture
-  await new Promise(r => setTimeout(r, 100));
+  await new Promise(resolve => setTimeout(resolve, 100));
 
   try {
     const card = document.getElementById('shareCard');
@@ -2240,7 +2238,7 @@ async function generateShareCard() {
   } catch (err) {
     overlay.classList.remove('active');
     console.error('html2canvas error:', err);
-    // Fallback: copy text
+    alert('Image generation failed. Copying text instead.');
     copyShareText();
   }
 }
@@ -2290,7 +2288,19 @@ function resetQuiz() {
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && currentStep === -1) startQuiz();
+  if (e.key === 'Enter') {
+    if (currentStep === -1) {
+      startQuiz();
+    } else if (currentStep >= 0 && currentStep <= 4 && answers[currentStep] !== undefined) {
+      nextQuestion();
+    }
+  }
+  if (e.key === 'ArrowRight' && currentStep >= 0 && currentStep <= 4 && answers[currentStep] !== undefined) {
+    nextQuestion();
+  }
+  if (e.key === 'ArrowLeft' && currentStep > 0) {
+    prevQuestion();
+  }
 });
 </script>
 </body>
