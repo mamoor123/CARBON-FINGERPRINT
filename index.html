@@ -68,6 +68,9 @@
   .city-climate { background: #ffffff; }
   .climate-card { background: #f8fafc; }
   .share-card { background: #ffffff; color: #0f172a; }
+  .btn-secondary { background: #f1f5f9; border-color: #e2e8f0; color: #0f172a; }
+  .btn-secondary:hover { background: #e2e8f0; }
+  .toast { background: #ffffff; border-color: #e2e8f0; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
 }
 
 html { scroll-behavior: smooth; }
@@ -1409,7 +1412,7 @@ body {
   position: absolute;
   left: -9999px;
   top: 0;
-  z-index: 9999;
+  z-index: 200;
   padding: 8px 16px;
   background: var(--accent-green);
   color: #000;
@@ -1467,6 +1470,30 @@ body {
   padding-top: 12px;
   border-top: 1px solid var(--border);
   font-size: 0.8rem;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Error overlay */
@@ -3311,6 +3338,21 @@ function dismissError() {
   document.getElementById('errorOverlay').classList.remove('active');
 }
 
+// ===== TOAST NOTIFICATIONS =====
+function showToast(msg, duration = 2500) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.className = 'toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => toast.classList.remove('show'), duration);
+}
+
 // ===== LAZY-LOAD html2canvas =====
 function loadHtml2canvas() {
   if (html2canvasLoaded) return Promise.resolve();
@@ -4236,7 +4278,7 @@ async function generateShareCard() {
 }
 
 function downloadShareCard() {
-  if (!generatedShareDataUrl) { alert('Generate a share card first.'); return; }
+  if (!generatedShareDataUrl) { showToast('Generate a share card first.'); return; }
   const a = document.createElement('a');
   a.href = generatedShareDataUrl;
   a.download = 'my-carbon-fingerprint.png';
@@ -4254,7 +4296,7 @@ async function shareNative() {
 
 function copyShareText() {
   return navigator.clipboard.writeText(shareText).then(() => {
-    alert('📋 Share text + link copied!');
+    showToast('📋 Share text + link copied!');
   }).catch(() => {
     prompt('Copy this:', shareText);
   });
@@ -4263,7 +4305,7 @@ function copyShareText() {
 function copyShareUrl() {
   const url = getResultUrl();
   navigator.clipboard.writeText(url).then(() => {
-    alert('🔗 Link copied! Share it with friends to show your fingerprint.');
+    showToast('🔗 Link copied! Share it with friends to show your fingerprint.');
   }).catch(() => {
     prompt('Copy this link:', url);
   });

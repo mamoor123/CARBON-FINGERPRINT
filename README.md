@@ -2,17 +2,24 @@
 
 **Discover Your Climate Identity** — powered by 144 years of planetary data.
 
-A beautiful, single-page web app that calculates your personal carbon footprint through 5 simple questions, then visualizes it as a unique "Carbon Fingerprint" with animated SVG rings, city-specific climate data from NASA/NOAA, and personalized insights based on IPCC AR6 emission factors.
+A single-page web app that calculates your personal carbon footprint through 5 simple questions, then visualizes it as a unique "Carbon Fingerprint" with animated SVG rings, real climate data from NASA/NOAA, and personalized insights based on IPCC AR6 emission factors.
 
 ## ✨ Features
 
-- **5-Question Lifestyle Quiz** — Transport, Diet, Energy, Consumption, Flights
-- **IPCC AR6 Calibrated** — Emission factors from the latest climate science
-- **Animated Fingerprint Visualization** — Concentric SVG rings with real fingerprint patterns
-- **City Climate Data** — 6 cities with NASA GISS temperature data (1880–2024)
+- **5-Question Lifestyle Quiz** — Transport (incl. EV), Diet, Energy, Consumption, Flights
+- **IPCC AR6 Calibrated** — Emission factors from peer-reviewed climate science
+- **Animated Fingerprint Visualization** — Unique organic SVG pattern per user, seeded from answers
+- **1,000+ Cities** — Searchable dropdown covering every continent and major region
+- **Real NASA GISS Data** — Global temperature anomalies 1880–2025 (actual data, not estimates)
 - **Personalized Insights** — Contextual tips with specific CO₂ savings
-- **Share Card Generator** — html2canvas-powered PNG export with all your data
-- **100% Client-Side** — Zero backend, zero API keys, ~66KB single file
+- **Share Card Generator** — PNG export + shareable URL links (`?r=base64`)
+- **5 Languages** — EN, ES (Español), HI (हिन्दी), PT (Português), ZH (中文), auto-detected
+- **Native Mobile Share** — `navigator.share()` with image on supported devices
+- **Dark/Light Mode** — Automatic via `prefers-color-scheme`
+- **PWA** — Installable on phones, works offline after first load
+- **Privacy-Respecting Analytics** — Anonymous counters via countapi.xyz (no cookies, no PII)
+- **100% Client-Side** — Zero backend, zero API keys, single HTML file
+- **Accessible** — ARIA roles, keyboard navigation, skip link, `prefers-reduced-motion`
 
 ## 🚀 Quick Start
 
@@ -22,32 +29,57 @@ open index.html
 
 # Or serve locally
 python3 -m http.server 8080
+
+# Or deploy to Vercel
+vercel deploy
 ```
+
+## 🔗 URL Sharing
+
+Results are encoded as base64 in the URL query parameter:
+
+```
+https://your-domain.com/?r=MjIxMDE
+```
+
+Share this link and your friend sees your fingerprint instantly — then takes the quiz to compare.
 
 ## 🌡️ Climate Data Sources
 
 | Source | Data | Coverage |
 |--------|------|----------|
-| NASA GISS | Temperature anomalies | 1880–2024 |
-| NOAA | Climate indicators | Global |
-| NSIDC | Arctic ice extent | 1979–2024 |
-| IRENA | Renewable energy share | 2000–2024 |
-| WWF | Biodiversity index | 1970–2024 |
-| IPCC AR6 | Emission factors | Current |
-| FAO | Food system emissions | Current |
+| NASA GISS (GISTEMP v4) | Global temperature anomalies | 1880–2025 |
+| Mauna Loa / NOAA | CO₂ concentration | Current (421 ppm) |
+| IPCC AR6 WG3 | Emission factors | Current |
+| IPCC AR6 WG2 | Regional climate impacts | Current |
+| IEA | Energy emission factors | 2023 |
+| FAO / Poore & Nemecek | Food system emissions | 2018 |
+| Global Carbon Project | National per-capita averages | 2023 |
 
-## 🏙️ Supported Cities
+## 🏙️ Cities
 
-New York · London · Tokyo · Delhi · São Paulo · Sydney
+1,000+ cities across all continents. Searchable dropdown with instant filtering. Each city includes local temperature, temperature rise, CO₂ levels, sea level rise, and extreme weather days — sourced from regional meteorological services and IPCC AR6 chapters.
 
 ## 📸 Share Card
 
-The share card includes:
-- Your Carbon Fingerprint visualization
-- Breakdown by category (Transport, Diet, Energy, Flights)
+- Your Carbon Fingerprint visualization (unique per user)
+- Breakdown by category (Transport, Diet, Energy, Flights, Shared)
 - Comparison bars (You vs Global Average vs 1.5°C Target)
-- City-specific climate data
+- City-specific climate data with source attribution
 - 1080×1350px PNG output (Instagram/social-ready)
+- Shareable URL link included
+
+## 🌐 Languages
+
+| Language | Code | Status |
+|----------|------|--------|
+| English | en | ✅ |
+| Español | es | ✅ |
+| हिन्दी | hi | ✅ |
+| Português | pt | ✅ |
+| 中文 | zh | ✅ |
+
+Auto-detects browser language. Language selector in header. All UI text translated.
 
 ## 📄 License
 
