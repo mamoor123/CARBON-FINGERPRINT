@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1a"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="20%" cy="30%">
+      <stop offset="0%" stop-color="rgba(16,185,129,0.12)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="80%" cy="70%">
+      <stop offset="0%" stop-color="rgba(59,130,246,0.08)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="800" height="800" rx="400" fill="url(#glow1)" x="-100" y="-150"/>
+  <rect width="600" height="600" rx="300" fill="url(#glow2)" x="700" y="300"/>
+  
+  <!-- Fingerprint visualization (left side) -->
+  <g transform="translate(300, 315)">
+    <!-- Fingerprint loops -->
+    <ellipse cx="0" cy="0" rx="25" ry="24" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.15"/>
+    <ellipse cx="0" cy="0" rx="35" ry="33" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.18"/>
+    <ellipse cx="0" cy="0" rx="45" ry="43" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.2"/>
+    <ellipse cx="0" cy="0" rx="55" ry="52" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.22"/>
+    <ellipse cx="0" cy="0" rx="65" ry="62" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.24"/>
+    <ellipse cx="0" cy="0" rx="75" ry="71" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.26"/>
+    <ellipse cx="0" cy="0" rx="85" ry="81" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.28"/>
+    <ellipse cx="0" cy="0" rx="95" ry="90" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.3"/>
+    <ellipse cx="0" cy="0" rx="105" ry="100" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.32"/>
+    <ellipse cx="0" cy="0" rx="115" ry="110" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.34"/>
+    <ellipse cx="0" cy="0" rx="125" ry="119" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.35"/>
+    <ellipse cx="0" cy="0" rx="135" ry="128" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.36"/>
+    <ellipse cx="0" cy="0" rx="145" ry="138" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.37"/>
+    
+    <!-- Data rings -->
+    <circle cx="0" cy="0" r="55" fill="none" stroke="url(#green)" stroke-width="8" stroke-dasharray="130 217" stroke-dashoffset="86" stroke-linecap="round" transform="rotate(-90)"/>
+    <circle cx="0" cy="0" r="78" fill="none" stroke="url(#blue)" stroke-width="8" stroke-dasharray="110 381" stroke-dashoffset="122" stroke-linecap="round" transform="rotate(-90)"/>
+    <circle cx="0" cy="0" r="101" fill="none" stroke="url(#orange)" stroke-width="8" stroke-dasharray="95 538" stroke-dashoffset="159" stroke-linecap="round" transform="rotate(-90)"/>
+    <circle cx="0" cy="0" r="124" fill="none" stroke="url(#pink)" stroke-width="8" stroke-dasharray="80 698" stroke-dashoffset="195" stroke-linecap="round" transform="rotate(-90)"/>
+    
+    <!-- Center score -->
+    <text x="0" y="-10" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#34d399">4.7</text>
+    <text x="0" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#64748b">tonnes CO₂/yr</text>
+    <text x="0" y="50" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#34d399" letter-spacing="2">YOUR FINGERPRINT</text>
+  </g>
+  
+  <!-- Text content (right side) -->
+  <g transform="translate(600, 0)">
+    <!-- Badge -->
+    <rect x="40" y="140" width="280" height="36" rx="18" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.25)" stroke-width="1"/>
+    <circle cx="62" cy="158" r="4" fill="#10b981"/>
+    <text x="76" y="163" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#34d399" letter-spacing="1.5">144 YEARS OF CLIMATE DATA</text>
+    
+    <!-- Title -->
+    <text x="40" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#f1f5f9" letter-spacing="-1">Discover Your</text>
+    <text x="40" y="278" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="url(#green)" letter-spacing="-1">Carbon Fingerprint</text>
+    
+    <!-- Description -->
+    <text x="40" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">
+      <tspan x="40" dy="0">Every person leaves a unique mark on the planet.</tspan>
+      <tspan x="40" dy="26">Discover yours in 60 seconds — powered by real</tspan>
+      <tspan x="40" dy="26">NASA climate science.</tspan>
+    </text>
+    
+    <!-- Stats -->
+    <g transform="translate(40, 430)">
+      <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#34d399">144</text>
+      <text x="0" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" letter-spacing="1">YEARS OF DATA</text>
+      
+      <text x="120" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#34d399">7</text>
+      <text x="120" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" letter-spacing="1">DATA SETS</text>
+      
+      <text x="220" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#34d399">60s</text>
+      <text x="220" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" letter-spacing="1">TO DISCOVER</text>
+    </g>
+    
+    <!-- CTA button -->
+    <rect x="40" y="490" width="280" height="50" rx="14" fill="url(#green)"/>
+    <text x="180" y="521" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#000">🌱 Discover My Fingerprint</text>
+  </g>
+  
+  <!-- Bottom bar -->
+  <line x1="60" y1="580" x2="1140" y2="580" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="600" y="608" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#475569">🛰️ NASA GISS · 🌊 NOAA · ❄️ NSIDC · ⚡ IRENA · 🐼 WWF · 📋 IPCC AR6</text>
+</svg>

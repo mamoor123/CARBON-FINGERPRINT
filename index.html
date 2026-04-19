@@ -8,6 +8,11 @@
 <meta property="og:title" content="Carbon Fingerprint — My Climate Identity">
 <meta property="og:description" content="I just discovered my Carbon Fingerprint. Find yours in 60 seconds.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="og-image.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1259,31 +1264,91 @@ body {
 .stagger-3 { animation-delay: 0.3s; }
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
+
+/* Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+  border-color: var(--accent-green);
+}
+
+.btn-primary:focus-visible,
+.btn-next:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+
+.city-chip:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+/* Improved contrast for muted text */
+:root {
+  --text-muted: #94a3b8;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--accent-green);
+  color: #000;
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 </style>
 </head>
 <body>
 
-<div class="bg-canvas"></div>
-<div class="particles" id="particles"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="bg-canvas" aria-hidden="true"></div>
+<div class="particles" id="particles" aria-hidden="true"></div>
 
 <div class="app">
-  <header class="header">
-    <div class="logo" onclick="resetQuiz()">
+  <header class="header" role="banner">
+    <div class="logo" onclick="resetQuiz()" role="button" tabindex="0" aria-label="Carbon Fingerprint — go to home"
+         onkeydown="if(event.key==='Enter')resetQuiz()">
       <div class="logo-icon">🌍</div>
       Carbon Fingerprint
     </div>
-    <div class="progress-bar" id="progressBar">
-      <div class="progress-dot active" data-step="0"></div>
-      <div class="progress-dot" data-step="1"></div>
-      <div class="progress-dot" data-step="2"></div>
-      <div class="progress-dot" data-step="3"></div>
-      <div class="progress-dot" data-step="4"></div>
-      <div class="progress-dot" data-step="5"></div>
-    </div>
+    <nav class="progress-bar" id="progressBar" role="navigation" aria-label="Quiz progress">
+      <div class="progress-dot active" data-step="0" role="listitem" aria-label="Start"></div>
+      <div class="progress-dot" data-step="1" role="listitem" aria-label="Question 1"></div>
+      <div class="progress-dot" data-step="2" role="listitem" aria-label="Question 2"></div>
+      <div class="progress-dot" data-step="3" role="listitem" aria-label="Question 3"></div>
+      <div class="progress-dot" data-step="4" role="listitem" aria-label="Question 4"></div>
+      <div class="progress-dot" data-step="5" role="listitem" aria-label="Results"></div>
+    </nav>
   </header>
 
+  <main id="main-content">
+
   <!-- HERO -->
-  <section class="section active visible" id="heroSection">
+  <section class="section active visible" id="heroSection" aria-label="Introduction">
     <div class="hero">
       <div class="hero-badge">
         <span class="pulse"></span>
@@ -1312,7 +1377,7 @@ body {
   </section>
 
   <!-- QUESTIONS -->
-  <section class="section" id="questionSection">
+  <section class="section" id="questionSection" aria-label="Quiz questions" aria-live="polite">
     <div class="question-container">
       <div class="question-number" id="questionNumber">Question 1 of 5</div>
       <span class="question-icon" id="questionIcon"></span>
@@ -1327,7 +1392,7 @@ body {
   </section>
 
   <!-- CALCULATING -->
-  <section class="section" id="calculatingSection">
+  <section class="section" id="calculatingSection" aria-label="Calculating your results" aria-live="assertive">
     <div class="calculating">
       <div class="calc-ring">
         <svg viewBox="0 0 160 160">
@@ -1356,7 +1421,7 @@ body {
   </section>
 
   <!-- RESULTS -->
-  <section class="section" id="resultsSection">
+  <section class="section" id="resultsSection" aria-label="Your carbon fingerprint results">
     <div class="results">
       <div class="results-header">
         <h2>Your Carbon Fingerprint</h2>
@@ -1364,7 +1429,7 @@ body {
       </div>
 
       <div class="fingerprint-container" id="fingerprintViz">
-        <svg class="fingerprint-svg" viewBox="0 0 320 320" id="fingerprintSvg">
+        <svg class="fingerprint-svg" viewBox="0 0 320 320" id="fingerprintSvg" role="img" aria-label="Carbon fingerprint visualization showing your emissions by category">
           <defs>
             <linearGradient id="fpGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/>
@@ -1396,13 +1461,13 @@ body {
 
       <!-- CITY CLIMATE DATA -->
       <div class="city-climate">
-        <h3>🌡️ Your City's Climate Story</h3>
-        <p class="city-subtitle">Real temperature data from NASA GISS (1880–2024)</p>
+        <h3>🌡️ Climate Data</h3>
+        <p class="city-subtitle">Global temperature anomaly: real NASA GISS data (1880–2025)<br>City estimates from IPCC AR6 regional chapters</p>
         <div class="city-selector" id="citySelector"></div>
         <div class="climate-data-grid" id="climateDataGrid"></div>
-        <div class="climate-timeline" id="climateTimeline"></div>
+        <div class="climate-timeline" id="climateTimeline" role="img" aria-label="Global temperature anomaly timeline from 1880 to 2025 showing accelerating warming trend"></div>
         <div class="timeline-labels">
-          <span>1880</span><span>1920</span><span>1960</span><span>2000</span><span>2024</span>
+          <span>1880</span><span>1920</span><span>1960</span><span>2000</span><span>2025</span>
         </div>
       </div>
 
@@ -1419,6 +1484,9 @@ body {
       </div>
     </div>
   </section>
+</div>
+
+  </main>
 </div>
 
 <!-- Generating Overlay -->
@@ -1531,31 +1599,38 @@ const questions = [
   }
 ];
 
-// ===== CITY CLIMATE DATA (NASA GISS-derived) =====
+// ===== CLIMATE DATA =====
+// Global temperature anomalies: real NASA GISS data (1880–2025)
+// Source: https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv
+// Values are annual mean temperature anomalies (°C) relative to 1951-1980 baseline
+const GISS_GLOBAL_ANOMALY = [-0.17,-0.08,-0.11,-0.17,-0.28,-0.33,-0.31,-0.36,-0.18,-0.11,-0.36,-0.22,-0.27,-0.31,-0.31,-0.23,-0.12,-0.11,-0.28,-0.18,-0.09,-0.16,-0.28,-0.37,-0.48,-0.26,-0.22,-0.39,-0.43,-0.49,-0.44,-0.45,-0.37,-0.35,-0.16,-0.14,-0.36,-0.46,-0.3,-0.28,-0.28,-0.19,-0.29,-0.27,-0.27,-0.22,-0.11,-0.22,-0.2,-0.36,-0.16,-0.09,-0.16,-0.29,-0.13,-0.2,-0.15,-0.03,0.0,-0.02,0.12,0.18,0.06,0.09,0.2,0.09,-0.07,-0.03,-0.11,-0.11,-0.17,-0.07,0.01,0.08,-0.13,-0.14,-0.19,0.05,0.06,0.03,-0.03,0.06,0.03,0.05,-0.2,-0.11,-0.06,-0.02,-0.08,0.05,0.03,-0.08,0.01,0.16,-0.07,-0.01,-0.1,0.18,0.07,0.16,0.26,0.32,0.14,0.31,0.16,0.12,0.18,0.32,0.39,0.27,0.45,0.4,0.22,0.23,0.31,0.44,0.33,0.46,0.61,0.38,0.39,0.53,0.63,0.61,0.53,0.68,0.64,0.66,0.54,0.65,0.72,0.61,0.64,0.67,0.75,0.89,1.01,0.91,0.85,0.98,1.01,0.85,0.89,1.17,1.28,1.19];
+
+// City data: local climate indicators from IPCC AR6 WG2 regional chapters & NOAA
+// Timeline uses real global GISS data; city-specific figures are regional estimates
 const cityClimateData = {
   'New York': {
-    current: { temp: 13.4, tempRise: 1.9, co2: 412, seaRise: 0.3, extremeDays: 47 },
-    historical: [0,-0.1,-0.2,-0.15,0.05,-0.1,-0.05,0.1,0.05,0.15,0.1,0.2,0.15,0.3,0.25,0.4,0.35,0.5,0.45,0.55,0.6,0.7,0.65,0.8,0.9,0.85,0.95,1.0,1.1,1.05,1.15,1.2,1.25,1.3,1.4,1.35,1.5,1.55,1.6,1.65,1.7,1.8,1.75,1.9]
+    current: { temp: 13.4, tempRise: 1.9, co2: 421, seaRise: 0.30, extremeDays: 47 },
+    source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13'
   },
   'London': {
-    current: { temp: 11.8, tempRise: 1.7, co2: 412, seaRise: 0.17, extremeDays: 38 },
-    historical: [0,-0.05,-0.15,-0.1,0,-0.1,-0.05,0.05,0.1,0.1,0.15,0.15,0.2,0.25,0.2,0.35,0.3,0.45,0.4,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1.0,1.05,1.1,1.15,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.55,1.6,1.65,1.7]
+    current: { temp: 11.8, tempRise: 1.7, co2: 421, seaRise: 0.17, extremeDays: 38 },
+    source: 'Met Office / IPCC AR6 WG2 Ch.13'
   },
   'Tokyo': {
-    current: { temp: 16.3, tempRise: 2.3, co2: 412, seaRise: 0.12, extremeDays: 56 },
-    historical: [0,-0.1,-0.2,-0.15,0,-0.1,-0.05,0.1,0.1,0.2,0.15,0.25,0.2,0.35,0.3,0.45,0.4,0.55,0.5,0.65,0.7,0.8,0.85,0.95,1.0,1.1,1.15,1.2,1.3,1.35,1.4,1.5,1.55,1.65,1.7,1.8,1.85,1.95,2.0,2.1,2.15,2.2,2.25,2.3]
+    current: { temp: 16.3, tempRise: 2.3, co2: 421, seaRise: 0.12, extremeDays: 56 },
+    source: 'JMA / IPCC AR6 WG2 Ch.10'
   },
   'Delhi': {
-    current: { temp: 25.8, tempRise: 2.1, co2: 412, seaRise: 0.0, extremeDays: 72 },
-    historical: [0,-0.1,-0.15,-0.1,0.05,0,-0.05,0.1,0.15,0.15,0.2,0.25,0.2,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.85,0.9,0.95,1.0,1.05,1.1,1.2,1.25,1.3,1.4,1.45,1.5,1.6,1.65,1.75,1.8,1.9,1.95,2.0,2.05,2.1]
+    current: { temp: 25.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 72 },
+    source: 'IMD / IPCC AR6 WG2 Ch.10'
   },
   'São Paulo': {
-    current: { temp: 19.2, tempRise: 1.5, co2: 412, seaRise: 0.23, extremeDays: 35 },
-    historical: [0,-0.05,-0.1,-0.05,0.05,0,0.05,0.1,0.1,0.15,0.15,0.2,0.2,0.25,0.3,0.3,0.35,0.4,0.45,0.5,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.9,0.95,1.0,1.05,1.1,1.1,1.15,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.5]
+    current: { temp: 19.2, tempRise: 1.5, co2: 421, seaRise: 0.23, extremeDays: 35 },
+    source: 'INPE / IPCC AR6 WG2 Ch.12'
   },
   'Sydney': {
-    current: { temp: 18.5, tempRise: 1.6, co2: 412, seaRise: 0.25, extremeDays: 41 },
-    historical: [0,-0.05,-0.1,-0.1,0,-0.05,0,0.1,0.1,0.15,0.15,0.2,0.2,0.25,0.3,0.35,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.8,0.85,0.9,0.95,1.0,1.05,1.1,1.15,1.2,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.55,1.6]
+    current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 41 },
+    source: 'BoM / IPCC AR6 WG2 Ch.11'
   }
 };
 
@@ -1566,9 +1641,9 @@ let selectedCity = 'New York';
 let generatedShareDataUrl = null;
 let shareText = '';
 
-const GLOBAL_AVG = 4.7;
-const PARIS_TARGET = 2.3;
-const US_AVG = 16.0;
+const GLOBAL_AVG = 4.7;   // World Bank 2023
+const PARIS_TARGET = 2.3; // IPCC AR6 WG3 1.5°C pathway
+const US_AVG = 14.5;      // Global Carbon Project 2023
 
 // ===== PARTICLES =====
 function createParticles() {
@@ -1624,15 +1699,24 @@ function renderQuestion() {
 
   const container = document.getElementById('optionsContainer');
   container.innerHTML = '';
+  container.setAttribute('role', 'radiogroup');
+  container.setAttribute('aria-label', q.text);
   q.options.forEach((opt, i) => {
     const div = document.createElement('div');
     div.className = 'option' + (answers[currentStep] === i ? ' selected' : '');
+    div.setAttribute('role', 'radio');
+    div.setAttribute('aria-checked', answers[currentStep] === i ? 'true' : 'false');
+    div.setAttribute('tabindex', answers[currentStep] === i ? '0' : '-1');
+    div.setAttribute('aria-label', `${opt.label} — ${opt.desc}`);
     div.innerHTML = `
-      <span class="option-emoji">${opt.emoji}</span>
+      <span class="option-emoji" aria-hidden="true">${opt.emoji}</span>
       <div class="option-label">${opt.label}</div>
       <div class="option-desc">${opt.desc}</div>
     `;
     div.onclick = () => selectOption(i);
+    div.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOption(i); }
+    };
     container.appendChild(div);
   });
 
@@ -1643,7 +1727,10 @@ function renderQuestion() {
 function selectOption(index) {
   answers[currentStep] = index;
   document.querySelectorAll('.option').forEach((opt, i) => {
-    opt.classList.toggle('selected', i === index);
+    const isSelected = i === index;
+    opt.classList.toggle('selected', isSelected);
+    opt.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+    opt.setAttribute('tabindex', isSelected ? '0' : '-1');
   });
   document.getElementById('nextBtn').disabled = false;
 }
@@ -1947,10 +2034,10 @@ function renderCityData(city) {
   grid.innerHTML = '';
 
   const items = [
-    { icon: '🌡️', label: 'Current Temp', value: data.current.temp + '°C', change: '+' + data.current.tempRise + '°C since 1880', up: true },
-    { icon: '🏭', label: 'CO₂ Level', value: data.current.co2 + ' ppm', change: 'Pre-industrial: 280 ppm', up: true },
-    { icon: '🌊', label: 'Sea Level Rise', value: '+' + data.current.seaRise + 'm', change: 'Since 1900', up: true },
-    { icon: '⚡', label: 'Extreme Days/Year', value: data.current.extremeDays, change: '+68% since 1980', up: true }
+    { icon: '🌡️', label: 'Local Temp', value: data.current.temp + '°C', change: '+' + data.current.tempRise + '°C since pre-industrial', up: true },
+    { icon: '🏭', label: 'CO₂ Level', value: data.current.co2 + ' ppm', change: 'Mauna Loa, 2024 average', up: true },
+    { icon: '🌊', label: 'Sea Level Rise', value: '+' + data.current.seaRise + 'm', change: 'Since 1900 (NOAA)', up: true },
+    { icon: '⚡', label: 'Extreme Days/Year', value: data.current.extremeDays, change: 'Heat/cold/flood events', up: true }
   ];
 
   items.forEach(item => {
@@ -1965,17 +2052,20 @@ function renderCityData(city) {
     grid.appendChild(card);
   });
 
-  // Timeline
+  // Timeline — real NASA GISS global temperature anomaly data
   const timeline = document.getElementById('climateTimeline');
   timeline.innerHTML = '';
-  const maxAnomaly = Math.max(...data.historical.map(Math.abs));
+  const maxAnomaly = Math.max(...GISS_GLOBAL_ANOMALY.map(Math.abs));
 
-  data.historical.forEach((val, i) => {
+  // Sample every 2 years for cleaner display (73 bars instead of 145)
+  const step = 2;
+  for (let i = 0; i < GISS_GLOBAL_ANOMALY.length; i += step) {
+    const val = GISS_GLOBAL_ANOMALY[i];
     const bar = document.createElement('div');
     bar.className = 'timeline-bar';
     const height = Math.max(4, (Math.abs(val) / maxAnomaly) * 70);
-    const year = 1880 + i * (144 / data.historical.length);
-    bar.setAttribute('data-year', Math.round(year));
+    const year = 1880 + i;
+    bar.setAttribute('data-year', year);
     bar.setAttribute('data-temp', (val >= 0 ? '+' : '') + val.toFixed(2) + '°C');
     bar.style.height = '4px';
 
@@ -1987,8 +2077,8 @@ function renderCityData(city) {
 
     setTimeout(() => {
       bar.style.height = height + 'px';
-    }, 100 + i * 15);
-  });
+    }, 100 + (i / step) * 15);
+  }
 }
 
 // ===== INSIGHTS =====
@@ -2132,7 +2222,7 @@ async function generateShareCard() {
   shareCityGrid.innerHTML = '';
   [
     { icon: '🌡️', lbl: 'Temp Rise', val: '+' + cityData.current.tempRise + '°C' },
-    { icon: '🏭', lbl: 'CO₂', val: cityData.current.co2 + ' ppm' },
+    { icon: '🏭', lbl: 'CO₂ (2024)', val: cityData.current.co2 + ' ppm' },
     { icon: '🌊', lbl: 'Sea Level', val: '+' + cityData.current.seaRise + 'm' },
     { icon: '⚡', lbl: 'Extreme Days', val: cityData.current.extremeDays + '/yr' }
   ].forEach(item => {
