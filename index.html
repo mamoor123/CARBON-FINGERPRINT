@@ -1402,10 +1402,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Improved contrast for muted text */
-:root {
-  --text-muted: #94a3b8;
-}
+/* Improved contrast for muted text — kept original value for design hierarchy */
 
 /* Skip to content link */
 .skip-link {
@@ -3307,6 +3304,7 @@ let selectedCity = 'New York';
 let generatedShareDataUrl = null;
 let shareText = '';
 let html2canvasLoaded = false;
+let citySelectorAbortController = null;
 
 const GLOBAL_AVG = 4.7;   // World Bank 2023
 const PARIS_TARGET = 2.3; // IPCC AR6 WG3 1.5°C pathway
@@ -3321,10 +3319,12 @@ function trackEvent(event) {
     fetch(`https://api.countapi.xyz/hit/${APP_NS}/${event}`, { mode: 'no-cors' }).catch(() => {});
   } catch (_e) { /* analytics non-critical */ }
   // Also log locally
-  const stats = JSON.parse(localStorage.getItem('cf_stats') || '{}');
-  stats[event] = (stats[event] || 0) + 1;
-  stats.lastSeen = Date.now();
-  localStorage.setItem('cf_stats', JSON.stringify(stats));
+  try {
+    const stats = JSON.parse(localStorage.getItem('cf_stats') || '{}');
+    stats[event] = (stats[event] || 0) + 1;
+    stats.lastSeen = Date.now();
+    localStorage.setItem('cf_stats', JSON.stringify(stats));
+  } catch (_e) { /* localStorage unavailable (private mode, quota exceeded) */ }
 }
 
 // ===== ERROR HANDLING =====
@@ -3373,7 +3373,13 @@ function encodeAnswers(ans) {
 function decodeAnswers(str) {
   try {
     const decoded = atob(str);
-    return decoded.split('').map(Number).filter(n => n >= 0 && n <= 3);
+    const arr = decoded.split('').map(Number);
+    // Validate: each answer must be a valid index for its corresponding question
+    if (arr.length !== questions.length) return null;
+    for (let i = 0; i < arr.length; i++) {
+      if (isNaN(arr[i]) || arr[i] < 0 || arr[i] >= questions[i].options.length) return null;
+    }
+    return arr;
   } catch { return null; }
 }
 function getResultUrl() {
@@ -3448,7 +3454,7 @@ function showSection(id) {
   el.classList.add('active');
   requestAnimationFrame(() => {
     el.classList.add('visible');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   });
 }
 
@@ -3574,12 +3580,26 @@ function calculateResults() {
 function showResults() {
   let totalCO2 = 0;
   const categoryCO2 = {};
-  answers.forEach((ans, i) => {
-    const opt = questions[i].options[ans];
-    totalCO2 += opt.co2;
-    categoryCO2[opt.cat] = (categoryCO2[opt.cat] || 0) + opt.co2;
-  });
-  totalCO2 += 1.5; // base emissions
+
+  try {
+    // Validate all answers are present and in range before computing
+    if (!answers || answers.length !== questions.length || answers.some((ans, i) => ans === undefined || ans < 0 || ans >= questions[i].options.length)) {
+      throw new Error('Invalid answers');
+    }
+
+    answers.forEach((ans, i) => {
+      const opt = questions[i].options[ans];
+      totalCO2 += opt.co2;
+      categoryCO2[opt.cat] = (categoryCO2[opt.cat] || 0) + opt.co2;
+    });
+    totalCO2 += 1.5; // base emissions
+  } catch (err) {
+    console.error('Error calculating results:', err);
+    // Reset quiz on bad data instead of crashing
+    showToast('Something went wrong. Please try again.');
+    resetQuiz();
+    return;
+  }
 
   showSection('resultsSection');
   updateProgress(5);
@@ -3863,6 +3883,11 @@ function renderComparison(total) {
 
 // ===== CITY CLIMATE =====
 function renderCitySelector() {
+  // Clean up previous event listeners to prevent leaks
+  if (citySelectorAbortController) citySelectorAbortController.abort();
+  citySelectorAbortController = new AbortController();
+  const signal = citySelectorAbortController.signal;
+
   const container = document.getElementById('citySelector');
   const cityNames = Object.keys(cityClimateData).sort();
   
@@ -3901,17 +3926,17 @@ function renderCitySelector() {
 
   search.addEventListener('input', () => {
     showDropdown(filterCities(search.value));
-  });
+  }, { signal });
 
   search.addEventListener('focus', () => {
     showDropdown(filterCities(search.value));
-  });
+  }, { signal });
 
   document.addEventListener('click', (e) => {
     if (!container.contains(e.target)) {
       dropdown.classList.remove('open');
     }
-  });
+  }, { signal });
 }
 
 function renderCityData(city) {
@@ -4331,6 +4356,9 @@ function animateNumber(id, start, end, decimals, duration) {
 function resetQuiz() {
   currentStep = -1;
   answers = [];
+  generatedShareDataUrl = null;
+  shareText = '';
+  delete window._results;
   window.scrollTo(0, 0);
   showSection('heroSection');
   updateProgress(0);
@@ -4341,10 +4369,16 @@ function resetQuiz() {
 checkUrlParams();
 
 document.addEventListener('keydown', (e) => {
+  // Don't intercept keyboard events when user is typing in an input field
+  const activeEl = document.activeElement;
+  const isTyping = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable);
+
   if (e.key === 'Escape') {
+    if (isTyping) { activeEl.blur(); return; }
     closeShareModal();
     return;
   }
+  if (isTyping) return; // Let input handle Enter/arrows naturally
   if (e.key === 'Enter') {
     if (currentStep === -1) {
       startQuiz();
