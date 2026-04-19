@@ -2205,7 +2205,7 @@ const browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
 if (translations[browserLang]) currentLang = browserLang;
 
 function t(key) {
-  return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+  return (translations[currentLang]?.[key]) || translations.en[key] || key;
 }
 
 function setLanguage(lang) {
@@ -3305,6 +3305,8 @@ let generatedShareDataUrl = null;
 let shareText = '';
 let html2canvasLoaded = false;
 let citySelectorAbortController = null;
+let calcTimeoutId = null;
+let calcIntervalId = null;
 
 const GLOBAL_AVG = 4.7;   // World Bank 2023
 const PARIS_TARGET = 2.3; // IPCC AR6 WG3 1.5°C pathway
@@ -3379,7 +3381,7 @@ function decodeAnswers(str) {
     // Validate: each answer must be a valid index for its corresponding question
     if (arr.length !== questions.length) return null;
     for (let i = 0; i < arr.length; i++) {
-      if (isNaN(arr[i]) || arr[i] < 0 || arr[i] >= questions[i].options.length) return null;
+      if (Number.isNaN(arr[i]) || arr[i] < 0 || arr[i] >= questions[i].options.length) return null;
     }
     return arr;
   } catch { return null; }
@@ -3408,6 +3410,7 @@ function checkUrlParams() {
 // ===== NATIVE SHARE (mobile) =====
 async function nativeShare() {
   const r = window._results;
+  if (!r) { showToast('Complete the quiz first to share.'); return false; }
   const url = getResultUrl();
   const text = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
     `🚗 ${(r.categoryCO2.transport||0).toFixed(1)}t · 🍽️ ${(r.categoryCO2.diet||0).toFixed(1)}t · ⚡ ${(r.categoryCO2.energy||0).toFixed(1)}t · ✈️ ${(r.categoryCO2.flights||0).toFixed(1)}t\n\n` +
@@ -3566,15 +3569,17 @@ function calculateResults() {
   ];
 
   let textIndex = 0;
-  const textInterval = setInterval(() => {
+  calcIntervalId = setInterval(() => {
     textIndex++;
     if (textIndex < calcTexts.length) {
       document.getElementById('calcText').textContent = calcTexts[textIndex];
     }
   }, 600);
 
-  setTimeout(() => {
-    clearInterval(textInterval);
+  calcTimeoutId = setTimeout(() => {
+    clearInterval(calcIntervalId);
+    calcIntervalId = null;
+    calcTimeoutId = null;
     showResults();
   }, 3200);
 }
@@ -3622,7 +3627,7 @@ function showResults() {
   else label = t('heavy_footprint');
   document.getElementById('fpLabel').textContent = label;
 
-  drawFingerprint(totalCO2, categoryCO2);
+  drawFingerprint(categoryCO2);
   renderMetrics(categoryCO2, totalCO2);
   renderComparison(totalCO2);
   renderCitySelector();
@@ -3638,7 +3643,7 @@ function showResults() {
 }
 
 // ===== FINGERPRINT =====
-function drawFingerprint(total, categories) {
+function drawFingerprint(categories) {
   const svg = document.getElementById('fingerprintSvg');
   const cx = 160, cy = 160;
 
@@ -4097,6 +4102,7 @@ async function generateShareCard() {
   }
 
   const r = window._results;
+  if (!r) { showToast('Complete the quiz first to share.'); return; }
   const cityData = cityClimateData[selectedCity];
 
   // Populate share card
@@ -4264,7 +4270,7 @@ async function generateShareCard() {
     `See your fingerprint → ${shareUrl}`;
 
   // Wait a tick for DOM to settle, then capture
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise(resolve => { setTimeout(resolve, 100); });
 
   try {
     const card = document.getElementById('shareCard');
@@ -4361,6 +4367,8 @@ function resetQuiz() {
   generatedShareDataUrl = null;
   shareText = '';
   delete window._results;
+  if (calcTimeoutId) { clearTimeout(calcTimeoutId); calcTimeoutId = null; }
+  if (calcIntervalId) { clearInterval(calcIntervalId); calcIntervalId = null; }
   window.scrollTo(0, 0);
   showSection('heroSection');
   updateProgress(0);
