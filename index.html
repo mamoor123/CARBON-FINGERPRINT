@@ -3319,7 +3319,7 @@ function trackEvent(event) {
   try {
     // Fire-and-forget counter increment
     fetch(`https://api.countapi.xyz/hit/${APP_NS}/${event}`, { mode: 'no-cors' }).catch(() => {});
-  } catch (e) {}
+  } catch (_e) { /* analytics non-critical */ }
   // Also log locally
   const stats = JSON.parse(localStorage.getItem('cf_stats') || '{}');
   stats[event] = (stats[event] || 0) + 1;
@@ -3592,7 +3592,7 @@ function showResults() {
 
   animateNumber('fpScore', 0, totalCO2, 2, 2000);
 
-  let label = '';
+  let label;
   if (totalCO2 <= 2.5) label = t('climate_champion');
   else if (totalCO2 <= 4.5) label = t('eco_conscious');
   else if (totalCO2 <= 7) label = t('growing');
@@ -4062,15 +4062,12 @@ async function generateShareCard() {
   // Lazy-load html2canvas
   try {
     await loadHtml2canvas();
-  } catch (e) {
+  } catch (_e) {
     overlay.classList.remove('active');
     // Fallback: just copy text + URL
     await copyShareText();
     return;
   }
-
-  const overlay = document.getElementById('generatingOverlay');
-  overlay.classList.add('active');
 
   const r = window._results;
   const cityData = cityClimateData[selectedCity];
