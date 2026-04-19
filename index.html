@@ -179,6 +179,26 @@ body {
   font-size: 18px;
 }
 
+.lang-select {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  margin-right: 12px;
+}
+.lang-select:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+.lang-select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
 .progress-bar {
   display: flex;
   gap: 6px;
@@ -404,6 +424,15 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 32px;
+}
+.options.five-options {
+  grid-template-columns: 1fr 1fr;
+}
+.options.five-options .option:last-child {
+  grid-column: 1 / -1;
+  max-width: 50%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .option {
@@ -1430,6 +1459,13 @@ body {
       <div class="logo-icon">🌍</div>
       Carbon Fingerprint
     </div>
+    <select id="langSelect" class="lang-select" aria-label="Language" onchange="setLanguage(this.value)">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="hi">HI</option>
+      <option value="pt">PT</option>
+      <option value="zh">中文</option>
+    </select>
     <nav class="progress-bar" id="progressBar" role="navigation" aria-label="Quiz progress">
       <div class="progress-dot active" data-step="0" role="listitem" aria-label="Start"></div>
       <div class="progress-dot" data-step="1" role="listitem" aria-label="Question 1"></div>
@@ -1556,8 +1592,8 @@ body {
 
       <!-- CITY CLIMATE DATA -->
       <div class="city-climate">
-        <h3>🌡️ Climate Data</h3>
-        <p class="city-subtitle">Global temperature anomaly: real NASA GISS data (1880–2025)<br>City estimates from IPCC AR6 regional chapters</p>
+        <h3 id="climateTitle">🌡️ Climate Data</h3>
+        <p class="city-subtitle" id="climateSubtitle">Global temperature anomaly: real NASA GISS data (1880–2025)<br>City estimates from IPCC AR6 regional chapters</p>
         <div class="city-selector" id="citySelector"></div>
         <div class="climate-data-grid" id="climateDataGrid"></div>
         <div class="climate-timeline" id="climateTimeline" role="img" aria-label="Global temperature anomaly timeline from 1880 to 2025 showing accelerating warming trend"></div>
@@ -1616,11 +1652,11 @@ body {
 <div class="share-modal" id="shareModal">
   <img id="shareResultImg" src="" alt="Your Carbon Fingerprint">
   <div class="share-modal-buttons">
-    <button class="btn-primary" onclick="shareNative()"><span>📤 Share</span></button>
-    <button class="btn-secondary" onclick="downloadShareCard()">⬇️ Download</button>
-    <button class="btn-secondary" onclick="copyShareUrl()">🔗 Copy Link</button>
-    <button class="btn-secondary" onclick="copyShareText()">📋 Copy All</button>
-    <button class="btn-secondary" onclick="closeShareModal()">✕ Close</button>
+    <button class="btn-primary" onclick="shareNative()"><span id="shareModalShare">📤 Share</span></button>
+    <button class="btn-secondary" onclick="downloadShareCard()" id="shareModalDownload">⬇️ Download</button>
+    <button class="btn-secondary" onclick="copyShareUrl()" id="shareModalLink">🔗 Copy Link</button>
+    <button class="btn-secondary" onclick="copyShareText()" id="shareModalAll">📋 Copy All</button>
+    <button class="btn-secondary" onclick="closeShareModal()" id="shareModalClose">✕ Close</button>
   </div>
 </div>
 
@@ -1677,7 +1713,8 @@ const questions = [
     options: [
       { emoji: '🚶', label: 'Walk / Bike', desc: '0-2 km daily', co2: 0.2, cat: 'transport' },
       { emoji: '🚌', label: 'Public Transit', desc: 'Bus, metro, train', co2: 0.8, cat: 'transport' },
-      { emoji: '🚗', label: 'Car (Gasoline)', desc: 'Daily driver, ~11,500 km/yr (EPA: 4.6t avg)', co2: 2.4, cat: 'transport' },
+      { emoji: '🔋', label: 'Electric Car', desc: 'EV ~60% cleaner (IEA)', co2: 1.0, cat: 'transport' },
+      { emoji: '🚗', label: 'Car (Gasoline)', desc: 'Daily driver, ~11,500 km/yr', co2: 2.4, cat: 'transport' },
       { emoji: '✈️', label: 'Frequent Flights', desc: '4+ flights per year', co2: 4.5, cat: 'transport' }
     ]
   },
@@ -1726,6 +1763,450 @@ const questions = [
     ]
   }
 ];
+
+// ===== I18N =====
+const translations = {
+  en: {
+    lang: 'English',
+    powered_by: 'Powered by 144 Years of Climate Data',
+    hero_title_1: 'Discover Your',
+    hero_title_2: 'Carbon Fingerprint',
+    hero_desc: 'Every person leaves a unique mark on the planet. In 60 seconds, discover yours — powered by real NASA climate science.',
+    years_data: 'Years of Data',
+    datasets: 'Data Sets',
+    to_discover: 'To Discover',
+    start_btn: '🌱 Discover My Fingerprint',
+    question: 'Question',
+    of: 'of',
+    back: '← Back',
+    continue: 'Continue →',
+    see_results: 'See My Fingerprint →',
+    analyzing: 'Analyzing your impact...',
+    mapping: 'Mapping your emissions profile...',
+    drawing: 'Drawing your fingerprint pattern...',
+    comparing: 'Comparing with 144 years of data...',
+    generating: 'Generating your insights...',
+    your_fingerprint: 'Your Carbon Fingerprint',
+    based_on: 'Based on your lifestyle and 144 years of planetary data',
+    tonnes: 'tonnes CO₂/year',
+    transport: 'Transport',
+    diet: 'Diet',
+    energy: 'Energy',
+    consumption: 'Consumption',
+    flights: 'Flights',
+    shared: 'Shared (Govt/Infra)',
+    total: 'Total Footprint',
+    how_compare: '📊 How You Compare',
+    you: 'You',
+    global_avg: 'Global Average',
+    paris_target: '1.5°C Target',
+    us_avg: 'US Average',
+    climate_data: '🌡️ Climate Data',
+    global_temp: 'Global temperature anomaly: real NASA GISS data (1880–2025)',
+    city_est: 'City estimates from IPCC AR6 regional chapters',
+    local_temp: 'Local Temp',
+    co2_level: 'CO₂ (2024)',
+    sea_level: 'Sea Level Rise',
+    extreme_days: 'Extreme Days/Year',
+    insights: '💡 Your Personalized Insights',
+    share_btn: '📸 Share My Fingerprint',
+    try_again: '🔄 Try Again',
+    how_calc: '📊 How we calculated your footprint',
+    share: '📤 Share',
+    download: '⬇️ Download',
+    copy_link: '🔗 Copy Link',
+    copy_all: '📋 Copy All',
+    close: '✕ Close',
+    generating_card: 'Generating your share card...',
+    discover_yours: 'Discover yours at',
+    tagline: '🌍 Your planet. Your fingerprint. Your impact.',
+    climate_champion: '🌟 Climate Champion',
+    eco_conscious: '🌿 Eco Conscious',
+    growing: '🌱 Growing Awareness',
+    above_average: '⚠️ Above Average',
+    heavy_footprint: '🔴 Heavy Footprint',
+    below: 'BELOW',
+    above: 'above',
+    since_pre: 'since pre-industrial',
+    co2_desc: 'Mauna Loa, 2024 average',
+    sea_since: 'Since 1900 (NOAA)',
+    extreme_desc: 'Heat/cold/flood events',
+    link_copied: '🔗 Link copied! Share it with friends to show your fingerprint.',
+    text_copied: '📋 Share text + link copied!',
+    go_home: 'Carbon Fingerprint — go to home',
+    quiz_progress: 'Quiz progress',
+    skip: 'Skip to main content',
+  },
+  es: {
+    lang: 'Español',
+    powered_by: 'Impulsado por 144 años de datos climáticos',
+    hero_title_1: 'Descubre Tu',
+    hero_title_2: 'Huella de Carbono',
+    hero_desc: 'Cada persona deja una marca única en el planeta. En 60 segundos, descubre la tuya.',
+    years_data: 'Años de Datos',
+    datasets: 'Conjuntos de Datos',
+    to_discover: 'Para Descubrir',
+    start_btn: '🌱 Descubre Mi Huella',
+    question: 'Pregunta',
+    of: 'de',
+    back: '← Atrás',
+    continue: 'Continuar →',
+    see_results: 'Ver Mi Huella →',
+    analyzing: 'Analizando tu impacto...',
+    mapping: 'Mapeando tu perfil de emisiones...',
+    drawing: 'Dibujando tu patrón de huella...',
+    comparing: 'Comparando con 144 años de datos...',
+    generating: 'Generando tus ideas...',
+    your_fingerprint: 'Tu Huella de Carbono',
+    based_on: 'Basado en tu estilo de vida y 144 años de datos planetarios',
+    tonnes: 'toneladas CO₂/año',
+    transport: 'Transporte',
+    diet: 'Dieta',
+    energy: 'Energía',
+    consumption: 'Consumo',
+    flights: 'Vuelos',
+    shared: 'Compartido (Gobierno)',
+    total: 'Huella Total',
+    how_compare: '📊 Cómo te Comparas',
+    you: 'Tú',
+    global_avg: 'Promedio Global',
+    paris_target: 'Objetivo 1.5°C',
+    us_avg: 'Promedio de EE.UU.',
+    climate_data: '🌡️ Datos Climáticos',
+    global_temp: 'Anomalía de temperatura global: datos reales de NASA GISS (1880–2025)',
+    city_est: 'Estimaciones de ciudades de capítulos regionales del IPCC AR6',
+    local_temp: 'Temp Local',
+    co2_level: 'CO₂ (2024)',
+    sea_level: 'Aumento del Nivel del Mar',
+    extreme_days: 'Días Extremos/Año',
+    insights: '💡 Tus Ideas Personalizadas',
+    share_btn: '📸 Compartir Mi Huella',
+    try_again: '🔄 Intentar de Nuevo',
+    how_calc: '📊 Cómo calculamos tu huella',
+    share: '📤 Compartir',
+    download: '⬇️ Descargar',
+    copy_link: '🔗 Copiar Enlace',
+    copy_all: '📋 Copiar Todo',
+    close: '✕ Cerrar',
+    generating_card: 'Generando tu tarjeta...',
+    discover_yours: 'Descubre la tuya en',
+    tagline: '🌍 Tu planeta. Tu huella. Tu impacto.',
+    climate_champion: '🌟 Campeón Climático',
+    eco_conscious: '🌿 Eco Consciente',
+    growing: '🌱 Conciencia Creciente',
+    above_average: '⚠️ Sobre el Promedio',
+    heavy_footprint: '🔴 Huella Pesada',
+    below: 'DEBAJO',
+    above: 'sobre',
+    since_pre: 'desde era preindustrial',
+    co2_desc: 'Mauna Loa, promedio 2024',
+    sea_since: 'Desde 1900 (NOAA)',
+    extreme_desc: 'Eventos de calor/frío/inundación',
+    link_copied: '🔗 ¡Enlace copiado!',
+    text_copied: '📋 ¡Texto + enlace copiados!',
+    go_home: 'Huella de Carbono — ir al inicio',
+    quiz_progress: 'Progreso del cuestionario',
+    skip: 'Saltar al contenido principal',
+  },
+  hi: {
+    lang: 'हिन्दी',
+    powered_by: '144 साल के जलवायु डेटा द्वारा संचालित',
+    hero_title_1: 'अपनी खोजें',
+    hero_title_2: 'कार्बन फिंगरप्रिंट',
+    hero_desc: 'हर व्यक्ति ग्रह पर एक अनूठी छाप छोड़ता है। 60 सेकंड में अपनी खोजें।',
+    years_data: 'डेटा के वर्ष',
+    datasets: 'डेटासेट',
+    to_discover: 'खोजने के लिए',
+    start_btn: '🌱 मेरी फिंगरप्रिंट खोजें',
+    question: 'प्रश्न',
+    of: 'का',
+    back: '← पीछे',
+    continue: 'जारी रखें →',
+    see_results: 'मेरी फिंगरप्रिंट देखें →',
+    analyzing: 'आपके प्रभाव का विश्लेषण...',
+    mapping: 'उत्सर्जन प्रोफ़ाइल मैपिंग...',
+    drawing: 'फिंगरप्रिंट पैटर्न बना रहे हैं...',
+    comparing: '144 साल के डेटा से तुलना...',
+    generating: 'अंतर्दृष्टि तैयार कर रहे हैं...',
+    your_fingerprint: 'आपकी कार्बन फिंगरप्रिंट',
+    based_on: 'आपकी जीवनशैली और 144 साल के ग्रह डेटा पर आधारित',
+    tonnes: 'टन CO₂/वर्ष',
+    transport: 'परिवहन',
+    diet: 'आहार',
+    energy: 'ऊर्जा',
+    consumption: 'खपत',
+    flights: 'उड़ानें',
+    shared: 'साझा (सरकार)',
+    total: 'कुल फुटप्रिंट',
+    how_compare: '📊 तुलना कैसे करें',
+    you: 'आप',
+    global_avg: 'वैश्विक औसत',
+    paris_target: '1.5°C लक्ष्य',
+    us_avg: 'अमेरिकी औसत',
+    climate_data: '🌡️ जलवायु डेटा',
+    global_temp: 'वैश्विक तापमान विसंगति: NASA GISS वास्तविक डेटा (1880–2025)',
+    city_est: 'IPCC AR6 क्षेत्रीय अध्यायों से शहर अनुमान',
+    local_temp: 'स्थानीय तापमान',
+    co2_level: 'CO₂ (2024)',
+    sea_level: 'समुद्र स्तर वृद्धि',
+    extreme_days: 'चरम दिन/वर्ष',
+    insights: '💡 आपकी व्यक्तिगत अंतर्दृष्टि',
+    share_btn: '📸 मेरी फिंगरप्रिंट शेयर करें',
+    try_again: '🔄 पुनः प्रयास',
+    how_calc: '📊 हमने आपका फुटप्रिंट कैसे गणना किया',
+    share: '📤 शेयर',
+    download: '⬇️ डाउनलोड',
+    copy_link: '🔗 लिंक कॉपी करें',
+    copy_all: '📋 सब कॉपी करें',
+    close: '✕ बंद करें',
+    generating_card: 'शेयर कार्ड बना रहे हैं...',
+    discover_yours: 'अपनी खोजें',
+    tagline: '🌍 आपका ग्रह। आपकी छाप। आपका प्रभाव।',
+    climate_champion: '🌟 जलवायु चैंपियन',
+    eco_conscious: '🌿 पर्यावरण जागरूक',
+    growing: '🌱 बढ़ती जागरूकता',
+    above_average: '⚠️ औसत से ऊपर',
+    heavy_footprint: '🔴 भारी फुटप्रिंट',
+    below: 'नीचे',
+    above: 'ऊपर',
+    since_pre: 'पूर्व-औद्योगिक काल से',
+    co2_desc: 'मौना लोआ, 2024 औसत',
+    sea_since: '1900 से (NOAA)',
+    extreme_desc: 'गर्मी/ठंडी/बाढ़ घटनाएं',
+    link_copied: '🔗 लिंक कॉपी हो गया!',
+    text_copied: '📋 टेक्स्ट + लिंक कॉपी हो गए!',
+    go_home: 'कार्बन फिंगरप्रिंट — होम पर जाएं',
+    quiz_progress: 'क्विज़ प्रगति',
+    skip: 'मुख्य सामग्री पर जाएं',
+  },
+  pt: {
+    lang: 'Português',
+    powered_by: 'Dados climáticos de 144 anos',
+    hero_title_1: 'Descubra Sua',
+    hero_title_2: 'Pegada de Carbono',
+    hero_desc: 'Cada pessoa deixa uma marca única no planeta. Em 60 segundos, descubra a sua.',
+    years_data: 'Anos de Dados',
+    datasets: 'Conjuntos de Dados',
+    to_discover: 'Para Descobrir',
+    start_btn: '🌱 Descubra Minha Pegada',
+    question: 'Pergunta',
+    of: 'de',
+    back: '← Voltar',
+    continue: 'Continuar →',
+    see_results: 'Ver Minha Pegada →',
+    analyzing: 'Analisando seu impacto...',
+    mapping: 'Mapeando seu perfil de emissões...',
+    drawing: 'Desenhando seu padrão de impressão...',
+    comparing: 'Comparando com 144 anos de dados...',
+    generating: 'Gerando seus insights...',
+    your_fingerprint: 'Sua Pegada de Carbono',
+    based_on: 'Com base no seu estilo de vida e 144 anos de dados planetários',
+    tonnes: 'toneladas CO₂/ano',
+    transport: 'Transporte',
+    diet: 'Dieta',
+    energy: 'Energia',
+    consumption: 'Consumo',
+    flights: 'Voos',
+    shared: 'Compartilhado (Governo)',
+    total: 'Pegada Total',
+    how_compare: '📊 Como Você Compara',
+    you: 'Você',
+    global_avg: 'Média Global',
+    paris_target: 'Meta 1.5°C',
+    us_avg: 'Média dos EUA',
+    climate_data: '🌡️ Dados Climáticos',
+    global_temp: 'Anomalia de temperatura global: dados reais da NASA GISS (1880–2025)',
+    city_est: 'Estimativas de cidades dos capítulos regionais do IPCC AR6',
+    local_temp: 'Temp Local',
+    co2_level: 'CO₂ (2024)',
+    sea_level: 'Elevação do Nível do Mar',
+    extreme_days: 'Dias Extremos/Ano',
+    insights: '💡 Seus Insights Personalizados',
+    share_btn: '📸 Compartilhar Minha Pegada',
+    try_again: '🔄 Tentar Novamente',
+    how_calc: '📊 Como calculamos sua pegada',
+    share: '📤 Compartilhar',
+    download: '⬇️ Baixar',
+    copy_link: '🔗 Copiar Link',
+    copy_all: '📋 Copiar Tudo',
+    close: '✕ Fechar',
+    generating_card: 'Gerando seu cartão...',
+    discover_yours: 'Descubra a sua em',
+    tagline: '🌍 Seu planeta. Sua pegada. Seu impacto.',
+    climate_champion: '🌟 Campeão Climático',
+    eco_conscious: '🌿 Eco Consciente',
+    growing: '🌱 Consciência Crescente',
+    above_average: '⚠️ Acima da Média',
+    heavy_footprint: '🔴 Pegada Pesada',
+    below: 'ABAIXO',
+    above: 'acima',
+    since_pre: 'desde era pré-industrial',
+    co2_desc: 'Mauna Loa, média 2024',
+    sea_since: 'Desde 1900 (NOAA)',
+    extreme_desc: 'Eventos de calor/frio/enchente',
+    link_copied: '🔗 Link copiado!',
+    text_copied: '📋 Texto + link copiados!',
+    go_home: 'Pegada de Carbono — ir ao início',
+    quiz_progress: 'Progresso do questionário',
+    skip: 'Pular para o conteúdo principal',
+  },
+  zh: {
+    lang: '中文',
+    powered_by: '基于144年气候数据',
+    hero_title_1: '发现你的',
+    hero_title_2: '碳指纹',
+    hero_desc: '每个人都在地球上留下独特的印记。60秒内，发现你的碳足迹。',
+    years_data: '年数据',
+    datasets: '数据集',
+    to_discover: '秒发现',
+    start_btn: '🌱 发现我的碳指纹',
+    question: '问题',
+    of: '/',
+    back: '← 返回',
+    continue: '继续 →',
+    see_results: '查看我的指纹 →',
+    analyzing: '正在分析你的影响...',
+    mapping: '正在绘制排放画像...',
+    drawing: '正在生成指纹图案...',
+    comparing: '正在对比144年数据...',
+    generating: '正在生成你的洞察...',
+    your_fingerprint: '你的碳指纹',
+    based_on: '基于你的生活方式和144年行星数据',
+    tonnes: '吨CO₂/年',
+    transport: '交通',
+    diet: '饮食',
+    energy: '能源',
+    consumption: '消费',
+    flights: '飞行',
+    shared: '公共（政府/基建）',
+    total: '总足迹',
+    how_compare: '📊 对比分析',
+    you: '你',
+    global_avg: '全球平均',
+    paris_target: '1.5°C目标',
+    us_avg: '美国平均',
+    climate_data: '🌡️ 气候数据',
+    global_temp: '全球温度异常：NASA GISS真实数据（1880–2025）',
+    city_est: '城市数据来自IPCC AR6区域章节',
+    local_temp: '当地温度',
+    co2_level: 'CO₂ (2024)',
+    sea_level: '海平面上升',
+    extreme_days: '极端天气天数/年',
+    insights: '💡 你的个性化洞察',
+    share_btn: '📸 分享我的碳指纹',
+    try_again: '🔄 重新测试',
+    how_calc: '📊 我们如何计算你的足迹',
+    share: '📤 分享',
+    download: '⬇️ 下载',
+    copy_link: '🔗 复制链接',
+    copy_all: '📋 复制全部',
+    close: '✕ 关闭',
+    generating_card: '正在生成分享卡片...',
+    discover_yours: '发现你的碳指纹',
+    tagline: '🌍 你的地球。你的指纹。你的影响。',
+    climate_champion: '🌟 气候冠军',
+    eco_conscious: '🌿 环保意识者',
+    growing: '🌱 觉醒中',
+    above_average: '⚠️ 高于平均',
+    heavy_footprint: '🔴 重度足迹',
+    below: '低于',
+    above: '高于',
+    since_pre: '自前工业化时代',
+    co2_desc: '莫纳罗亚，2024平均值',
+    sea_since: '自1900年（NOAA）',
+    extreme_desc: '高温/低温/洪水事件',
+    link_copied: '🔗 链接已复制！分享给朋友看看你的指纹。',
+    text_copied: '📋 文本+链接已复制！',
+    go_home: '碳指纹 — 返回首页',
+    quiz_progress: '测验进度',
+    skip: '跳到主要内容',
+  }
+};
+
+let currentLang = 'en';
+// Detect browser language
+const browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+if (translations[browserLang]) currentLang = browserLang;
+
+function t(key) {
+  return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+}
+
+function setLanguage(lang) {
+  if (!translations[lang]) return;
+  currentLang = lang;
+  document.getElementById('langSelect').value = lang;
+  updateStaticText();
+  if (currentStep === -1) renderHero();
+  else if (currentStep >= 0 && currentStep <= 4) renderQuestion();
+  else if (window._results) {
+    const r = window._results;
+    renderMetrics(r.categoryCO2, r.totalCO2);
+    renderComparison(r.totalCO2);
+    renderCityData(selectedCity);
+    renderInsights(r.categoryCO2, r.totalCO2);
+  }
+}
+
+function updateStaticText() {
+  document.querySelector('.logo').setAttribute('aria-label', t('go_home'));
+  const skipLink = document.querySelector('.skip-link');
+  if (skipLink) skipLink.textContent = t('skip');
+  document.querySelector('.progress-bar').setAttribute('aria-label', t('quiz_progress'));
+  // Results section
+  const rh = document.querySelector('.results-header h2');
+  if (rh) rh.textContent = t('your_fingerprint');
+  const rs = document.querySelector('.results-header .subtitle');
+  if (rs) rs.textContent = t('based_on');
+  const fpUnit = document.querySelector('.fp-unit');
+  if (fpUnit) fpUnit.textContent = t('tonnes');
+  // Comparison heading
+  const compH = document.querySelector('.comparison h3');
+  if (compH) compH.textContent = t('how_compare');
+  // Insights heading
+  const insH = document.querySelector('.insights h3');
+  if (insH) insH.textContent = t('insights');
+  // Buttons
+  const shareBtn = document.querySelector('#shareBtn span');
+  if (shareBtn) shareBtn.textContent = t('share_btn');
+  const tryBtn = document.querySelector('.action-buttons .btn-secondary');
+  if (tryBtn) tryBtn.textContent = t('try_again');
+  // Methodology
+  const methSummary = document.querySelector('.methodology summary');
+  if (methSummary) methSummary.textContent = t('how_calc');
+  // Climate section
+  const ct = document.getElementById('climateTitle');
+  if (ct) ct.textContent = t('climate_data');
+  const cs = document.getElementById('climateSubtitle');
+  if (cs) cs.innerHTML = t('global_temp') + '<br>' + t('city_est');
+  // Share modal
+  const sms = document.getElementById('shareModalShare');
+  if (sms) sms.textContent = t('share');
+  const smd = document.getElementById('shareModalDownload');
+  if (smd) smd.textContent = t('download');
+  const sml = document.getElementById('shareModalLink');
+  if (sml) sml.textContent = t('copy_link');
+  const sma = document.getElementById('shareModalAll');
+  if (sma) sma.textContent = t('copy_all');
+  const smc = document.getElementById('shareModalClose');
+  if (smc) smc.textContent = t('close');
+  // Generating overlay
+  const gt = document.querySelector('.generating-text');
+  if (gt) gt.textContent = t('generating_card');
+}
+
+function renderHero() {
+  const hero = document.querySelector('#heroSection .hero');
+  if (!hero) return;
+  hero.querySelector('.hero-badge').innerHTML = `<span class="pulse"></span>${t('powered_by')}`;
+  hero.querySelector('h1').innerHTML = `${t('hero_title_1')}<br><span class="gradient">${t('hero_title_2')}</span>`;
+  hero.querySelector('p').textContent = t('hero_desc');
+  const stats = hero.querySelectorAll('.hero-stat');
+  if (stats[0]) stats[0].querySelector('.label').textContent = t('years_data');
+  if (stats[1]) stats[1].querySelector('.label').textContent = t('datasets');
+  if (stats[2]) stats[2].querySelector('.label').textContent = t('to_discover');
+  hero.querySelector('.btn-primary span').textContent = t('start_btn');
+}
 
 // ===== CLIMATE DATA =====
 // Global temperature anomalies: real NASA GISS data (1880–2025)
@@ -1797,6 +2278,21 @@ let html2canvasLoaded = false;
 const GLOBAL_AVG = 4.7;   // World Bank 2023
 const PARIS_TARGET = 2.3; // IPCC AR6 WG3 1.5°C pathway
 const US_AVG = 14.5;      // Global Carbon Project 2023
+
+// ===== ANALYTICS (privacy-respecting, no cookies, no PII) =====
+// Uses countapi.xyz — free, anonymous hit counter
+const APP_NS = 'carbon-fingerprint-v2';
+function trackEvent(event) {
+  try {
+    // Fire-and-forget counter increment
+    fetch(`https://api.countapi.xyz/hit/${APP_NS}/${event}`, { mode: 'no-cors' }).catch(() => {});
+  } catch (e) {}
+  // Also log locally
+  const stats = JSON.parse(localStorage.getItem('cf_stats') || '{}');
+  stats[event] = (stats[event] || 0) + 1;
+  stats.lastSeen = Date.now();
+  localStorage.setItem('cf_stats', JSON.stringify(stats));
+}
 
 // ===== ERROR HANDLING =====
 window.onerror = function(msg, url, line) {
@@ -1919,6 +2415,7 @@ function updateProgress(step) {
 function startQuiz() {
   currentStep = 0;
   answers = [];
+  trackEvent('quiz_start');
   showSection('questionSection');
   renderQuestion();
   updateProgress(1);
@@ -1926,7 +2423,7 @@ function startQuiz() {
 
 function renderQuestion() {
   const q = questions[currentStep];
-  document.getElementById('questionNumber').textContent = `Question ${currentStep + 1} of 5`;
+  document.getElementById('questionNumber').textContent = `${t('question')} ${currentStep + 1} ${t('of')} 5`;
   document.getElementById('questionIcon').textContent = q.icon;
   document.getElementById('questionText').textContent = q.text;
   document.getElementById('questionSubtitle').textContent = q.subtitle;
@@ -1936,6 +2433,7 @@ function renderQuestion() {
   container.innerHTML = '';
   container.setAttribute('role', 'radiogroup');
   container.setAttribute('aria-label', q.text);
+  container.classList.toggle('five-options', q.options.length === 5);
   q.options.forEach((opt, i) => {
     const div = document.createElement('div');
     div.className = 'option' + (answers[currentStep] === i ? ' selected' : '');
@@ -1956,7 +2454,7 @@ function renderQuestion() {
   });
 
   document.getElementById('nextBtn').disabled = answers[currentStep] === undefined;
-  document.getElementById('nextBtn').textContent = currentStep === 4 ? 'See My Fingerprint →' : 'Continue →';
+  document.getElementById('nextBtn').textContent = currentStep === 4 ? t('see_results') : t('continue');
 }
 
 function selectOption(index) {
@@ -2004,11 +2502,11 @@ function calculateResults() {
   progress.style.strokeDashoffset = '0';
 
   const calcTexts = [
-    'Analyzing your impact...',
-    'Mapping your emissions profile...',
-    'Drawing your fingerprint pattern...',
-    'Comparing with 144 years of data...',
-    'Generating your insights...'
+    t('analyzing'),
+    t('mapping'),
+    t('drawing'),
+    t('comparing'),
+    t('generating')
   ];
 
   let textIndex = 0;
@@ -2038,14 +2536,20 @@ function showResults() {
   showSection('resultsSection');
   updateProgress(5);
 
+  // Update results header
+  const resultsHeader = document.querySelector('.results-header h2');
+  if (resultsHeader) resultsHeader.textContent = t('your_fingerprint');
+  const resultsSub = document.querySelector('.results-header .subtitle');
+  if (resultsSub) resultsSub.textContent = t('based_on');
+
   animateNumber('fpScore', 0, totalCO2, 2, 2000);
 
   let label = '';
-  if (totalCO2 <= 2.5) label = '🌟 Climate Champion';
-  else if (totalCO2 <= 4.5) label = '🌿 Eco Conscious';
-  else if (totalCO2 <= 7) label = '🌱 Growing Awareness';
-  else if (totalCO2 <= 12) label = '⚠️ Above Average';
-  else label = '🔴 Heavy Footprint';
+  if (totalCO2 <= 2.5) label = t('climate_champion');
+  else if (totalCO2 <= 4.5) label = t('eco_conscious');
+  else if (totalCO2 <= 7) label = t('growing');
+  else if (totalCO2 <= 12) label = t('above_average');
+  else label = t('heavy_footprint');
   document.getElementById('fpLabel').textContent = label;
 
   drawFingerprint(totalCO2, categoryCO2);
@@ -2057,6 +2561,10 @@ function showResults() {
 
   // Store for share card
   window._results = { totalCO2, categoryCO2, label };
+
+  // Track completion
+  trackEvent('quiz_complete');
+  trackEvent('result_' + (totalCO2 <= 2.5 ? 'champion' : totalCO2 <= 4.5 ? 'eco' : totalCO2 <= 7 ? 'growing' : totalCO2 <= 12 ? 'above' : 'heavy'));
 }
 
 // ===== FINGERPRINT =====
@@ -2081,41 +2589,99 @@ function drawFingerprint(total, categories) {
     </defs>
   `;
 
-  // Real fingerprint swirl pattern
+  // Organic fingerprint ridge pattern
+  // Uses seeded pseudo-random for consistent look per user
   const swirlGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-  swirlGroup.setAttribute('opacity', '0.08');
+  swirlGroup.setAttribute('opacity', '0.1');
 
-  for (let i = 0; i < 12; i++) {
+  // Seed from user's answers for unique fingerprint
+  const seed = answers.reduce((a, b) => a * 7 + b, 42);
+  function seededNoise(i, j) {
+    const x = Math.sin(seed * 127.1 + i * 311.7 + j * 74.7) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
+  // Central whorl — spiral from core
+  for (let s = 0; s < 3; s++) {
+    const spiralPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    let d = '';
+    const turns = 2.5 + s * 0.5;
+    const startAngle = s * (Math.PI * 2 / 3);
+    for (let t = 0; t <= turns * 20; t++) {
+      const angle = startAngle + (t / 20) * Math.PI * 2;
+      const r = 8 + t * 1.8 + Math.sin(angle * 3 + seed) * 3;
+      const x = cx + Math.cos(angle) * r;
+      const y = cy + Math.sin(angle) * r * 0.92;
+      d += (t === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+    }
+    spiralPath.setAttribute('d', d);
+    spiralPath.setAttribute('fill', 'none');
+    spiralPath.setAttribute('stroke', '#10b981');
+    spiralPath.setAttribute('stroke-width', '1');
+    swirlGroup.appendChild(spiralPath);
+  }
+
+  // Organic ridge loops — concentric but perturbed
+  for (let r = 18; r < 148; r += 5) {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const startAngle = (i / 12) * Math.PI * 2;
-    const r1 = 30 + i * 5;
-    const r2 = 35 + i * 5;
-    const x1 = cx + Math.cos(startAngle) * r1;
-    const y1 = cy + Math.sin(startAngle) * r1;
-    const x2 = cx + Math.cos(startAngle + 0.8) * r2;
-    const y2 = cy + Math.sin(startAngle + 0.8) * r2;
-    const sweepAngle = startAngle + Math.PI * 1.5;
-    const x3 = cx + Math.cos(sweepAngle) * (r1 + 10);
-    const y3 = cy + Math.sin(sweepAngle) * (r1 + 10);
-    path.setAttribute('d', `M${x1},${y1} Q${x2},${y2} ${x3},${y3}`);
+    const segments = 36;
+    let d = '';
+
+    for (let i = 0; i <= segments; i++) {
+      const angle = (i / segments) * Math.PI * 2;
+      // Organic perturbation using multiple sine waves
+      const n1 = Math.sin(angle * 3 + r * 0.1 + seed * 0.01) * (2 + r * 0.03);
+      const n2 = Math.sin(angle * 7 + r * 0.05) * (1 + r * 0.015);
+      const n3 = Math.cos(angle * 5 + seed * 0.02) * (1.5 + r * 0.02);
+      const perturbedR = r + n1 + n2 + n3;
+
+      // Slight elliptical distortion + core offset
+      const coreOffsetX = Math.sin(seed * 0.1) * 3;
+      const coreOffsetY = Math.cos(seed * 0.1) * 2;
+      const rx = perturbedR * (1 + Math.sin(r * 0.02) * 0.03);
+      const ry = perturbedR * 0.92 * (1 + Math.cos(r * 0.03) * 0.02);
+
+      const x = cx + coreOffsetX + Math.cos(angle) * rx;
+      const y = cy + coreOffsetY + Math.sin(angle) * ry;
+
+      if (i === 0) d += `M${x.toFixed(1)},${y.toFixed(1)}`;
+      else {
+        // Smooth cubic bezier between points
+        const prevAngle = ((i - 1) / segments) * Math.PI * 2;
+        const cpAngle = (prevAngle + angle) / 2;
+        const cpR = (perturbedR + r + Math.sin(cpAngle * 3 + r * 0.1 + seed * 0.01) * (2 + r * 0.03) + Math.sin(cpAngle * 7 + r * 0.05) * (1 + r * 0.015)) / 2;
+        const cpX = cx + coreOffsetX + Math.cos(cpAngle) * cpR * 1.02;
+        const cpY = cy + coreOffsetY + Math.sin(cpAngle) * cpR * 0.94;
+        d += ` Q${cpX.toFixed(1)},${cpY.toFixed(1)} ${x.toFixed(1)},${y.toFixed(1)}`;
+      }
+    }
+    d += 'Z';
+    path.setAttribute('d', d);
     path.setAttribute('fill', 'none');
     path.setAttribute('stroke', '#10b981');
-    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('stroke-width', '0.6');
+    path.setAttribute('opacity', (0.2 + (r / 148) * 0.3).toFixed(2));
     swirlGroup.appendChild(path);
   }
 
-  // Add concentric fingerprint loops
-  for (let r = 25; r < 150; r += 8) {
-    const loop = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-    loop.setAttribute('cx', cx + Math.sin(r * 0.05) * 5);
-    loop.setAttribute('cy', cy + Math.cos(r * 0.07) * 3);
-    loop.setAttribute('rx', r);
-    loop.setAttribute('ry', r * 0.95);
-    loop.setAttribute('fill', 'none');
-    loop.setAttribute('stroke', '#10b981');
-    loop.setAttribute('stroke-width', '0.5');
-    loop.setAttribute('opacity', 0.3 + (r / 150) * 0.2);
-    swirlGroup.appendChild(loop);
+  // Ridge endings (minutiae) — random short lines across ridges
+  for (let m = 0; m < 20; m++) {
+    const angle = seededNoise(m, 0) * Math.PI * 2;
+    const r = 30 + seededNoise(m, 1) * 110;
+    const len = 3 + seededNoise(m, 2) * 4;
+    const x1 = cx + Math.cos(angle) * r;
+    const y1 = cy + Math.sin(angle) * r * 0.92;
+    const x2 = cx + Math.cos(angle) * (r + len);
+    const y2 = cy + Math.sin(angle) * (r + len) * 0.92;
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    dot.setAttribute('x1', x1.toFixed(1));
+    dot.setAttribute('y1', y1.toFixed(1));
+    dot.setAttribute('x2', x2.toFixed(1));
+    dot.setAttribute('y2', y2.toFixed(1));
+    dot.setAttribute('stroke', '#10b981');
+    dot.setAttribute('stroke-width', '0.8');
+    dot.setAttribute('opacity', '0.3');
+    swirlGroup.appendChild(dot);
   }
 
   svg.appendChild(swirlGroup);
@@ -2180,20 +2746,18 @@ function renderMetrics(categories, total) {
   grid.innerHTML = '';
 
   const metrics = [
-    { icon: '🚗', label: 'Transport', value: (categories.transport || 0).toFixed(1), cat: 'transport', color: '#3b82f6', max: 5 },
-    { icon: '🍽️', label: 'Diet', value: (categories.diet || 0).toFixed(1), cat: 'diet', color: '#10b981', max: 4 },
-    { icon: '⚡', label: 'Energy', value: (categories.energy || 0).toFixed(1), cat: 'energy', color: '#eab308', max: 4 },
-    { icon: '🛍️', label: 'Consumption', value: (categories.consumption || 0).toFixed(1), cat: 'consumption', color: '#ec4899', max: 3 }
+    { icon: '🚗', label: t('transport'), value: (categories.transport || 0).toFixed(1), cat: 'transport', color: '#3b82f6', max: 5 },
+    { icon: '🍽️', label: t('diet'), value: (categories.diet || 0).toFixed(1), cat: 'diet', color: '#10b981', max: 4 },
+    { icon: '⚡', label: t('energy'), value: (categories.energy || 0).toFixed(1), cat: 'energy', color: '#eab308', max: 4 },
+    { icon: '🛍️', label: t('consumption'), value: (categories.consumption || 0).toFixed(1), cat: 'consumption', color: '#ec4899', max: 3 }
   ];
 
   if (categories.flights && categories.flights > 0.5) {
-    metrics.push({ icon: '✈️', label: 'Flights', value: categories.flights.toFixed(1), cat: 'flights', color: '#8b5cf6', max: 5 });
+    metrics.push({ icon: '✈️', label: t('flights'), value: categories.flights.toFixed(1), cat: 'flights', color: '#8b5cf6', max: 5 });
   }
 
-  // Base emissions: gov't services, infrastructure, military (shared)
-  // Source: Our World in Data — "capital" & "government" categories
-  metrics.push({ icon: '🏛️', label: 'Shared (Govt/Infra)', value: '1.5', cat: 'shared', color: '#64748b', max: 20, tip: 'Emissions from government services, infrastructure, defense — shared across all citizens' });
-  metrics.push({ icon: '🌍', label: 'Total Footprint', value: total.toFixed(1), cat: 'total', color: '#10b981', max: 20 });
+  metrics.push({ icon: '🏛️', label: t('shared'), value: '1.5', cat: 'shared', color: '#64748b', max: 20, tip: 'Emissions from government services, infrastructure, defense — shared across all citizens' });
+  metrics.push({ icon: '🌍', label: t('total'), value: total.toFixed(1), cat: 'total', color: '#10b981', max: 20 });
 
   metrics.forEach((m, i) => {
     const card = document.createElement('div');
@@ -2220,10 +2784,10 @@ function renderComparison(total) {
   container.innerHTML = '';
 
   const comparisons = [
-    { name: 'You', value: total, max: 20, cls: 'you' },
-    { name: 'Global Average', value: GLOBAL_AVG, max: 20, cls: 'avg' },
-    { name: '1.5°C Target', value: PARIS_TARGET, max: 20, cls: 'target' },
-    { name: 'US Average', value: US_AVG, max: 20, cls: 'avg' }
+    { name: t('you'), value: total, max: 20, cls: 'you' },
+    { name: t('global_avg'), value: GLOBAL_AVG, max: 20, cls: 'avg' },
+    { name: t('paris_target'), value: PARIS_TARGET, max: 20, cls: 'target' },
+    { name: t('us_avg'), value: US_AVG, max: 20, cls: 'avg' }
   ];
 
   comparisons.forEach((c, i) => {
@@ -2271,11 +2835,15 @@ function renderCityData(city) {
   const grid = document.getElementById('climateDataGrid');
   grid.innerHTML = '';
 
+  // Update climate section text
+  document.getElementById('climateTitle').textContent = t('climate_data');
+  document.getElementById('climateSubtitle').innerHTML = t('global_temp') + '<br>' + t('city_est');
+
   const items = [
-    { icon: '🌡️', label: 'Local Temp', value: data.current.temp + '°C', change: '+' + data.current.tempRise + '°C since pre-industrial', up: true },
-    { icon: '🏭', label: 'CO₂ Level', value: data.current.co2 + ' ppm', change: 'Mauna Loa, 2024 average', up: true },
-    { icon: '🌊', label: 'Sea Level Rise', value: '+' + data.current.seaRise + 'm', change: 'Since 1900 (NOAA)', up: true },
-    { icon: '⚡', label: 'Extreme Days/Year', value: data.current.extremeDays, change: 'Heat/cold/flood events', up: true }
+    { icon: '🌡️', label: t('local_temp'), value: data.current.temp + '°C', change: '+' + data.current.tempRise + '°C ' + t('since_pre'), up: true },
+    { icon: '🏭', label: t('co2_level'), value: data.current.co2 + ' ppm', change: t('co2_desc'), up: true },
+    { icon: '🌊', label: t('sea_level'), value: '+' + data.current.seaRise + 'm', change: t('sea_since'), up: true },
+    { icon: '⚡', label: t('extreme_days'), value: data.current.extremeDays, change: t('extreme_desc'), up: true }
   ];
 
   items.forEach(item => {
@@ -2489,19 +3057,52 @@ async function generateShareCard() {
     </defs>
   `;
 
-  // Fingerprint loops
+  // Organic fingerprint ridges (share card version)
   const scx = 150, scy = 150;
-  for (let rad = 20; rad < 130; rad += 7) {
-    const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-    el.setAttribute('cx', scx + Math.sin(rad * 0.05) * 4);
-    el.setAttribute('cy', scy + Math.cos(rad * 0.07) * 3);
-    el.setAttribute('rx', rad);
-    el.setAttribute('ry', rad * 0.95);
-    el.setAttribute('fill', 'none');
-    el.setAttribute('stroke', '#10b981');
-    el.setAttribute('stroke-width', '0.5');
-    el.setAttribute('opacity', '0.15');
-    shareSvg.appendChild(el);
+  const sSeed = answers.reduce((a, b) => a * 7 + b, 42);
+
+  // Central whorl
+  for (let s = 0; s < 2; s++) {
+    const spiralPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    let d = '';
+    for (let t = 0; t <= 2.5 * 20; t++) {
+      const angle = s * Math.PI + (t / 20) * Math.PI * 2;
+      const rad = 6 + t * 1.5 + Math.sin(angle * 3 + sSeed) * 2.5;
+      const x = scx + Math.cos(angle) * rad;
+      const y = scy + Math.sin(angle) * rad * 0.92;
+      d += (t === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+    }
+    spiralPath.setAttribute('d', d);
+    spiralPath.setAttribute('fill', 'none');
+    spiralPath.setAttribute('stroke', '#10b981');
+    spiralPath.setAttribute('stroke-width', '0.8');
+    spiralPath.setAttribute('opacity', '0.12');
+    shareSvg.appendChild(spiralPath);
+  }
+
+  // Organic ridges
+  for (let rad = 15; rad < 130; rad += 6) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const segs = 30;
+    let d = '';
+    for (let i = 0; i <= segs; i++) {
+      const angle = (i / segs) * Math.PI * 2;
+      const n1 = Math.sin(angle * 3 + rad * 0.1 + sSeed * 0.01) * (1.5 + rad * 0.025);
+      const n2 = Math.sin(angle * 7 + rad * 0.05) * (0.8 + rad * 0.012);
+      const pR = rad + n1 + n2;
+      const coX = Math.sin(sSeed * 0.1) * 2;
+      const coY = Math.cos(sSeed * 0.1) * 1.5;
+      const x = scx + coX + Math.cos(angle) * pR;
+      const y = scy + coY + Math.sin(angle) * pR * 0.92;
+      d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+    }
+    d += 'Z';
+    path.setAttribute('d', d);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', '#10b981');
+    path.setAttribute('stroke-width', '0.5');
+    path.setAttribute('opacity', (0.12 + (rad / 130) * 0.15).toFixed(2));
+    shareSvg.appendChild(path);
   }
 
   // Data rings
@@ -2581,6 +3182,7 @@ async function generateShareCard() {
     overlay.classList.remove('active');
     document.getElementById('shareResultImg').src = generatedShareDataUrl;
     document.getElementById('shareModal').classList.add('active');
+    trackEvent('share_card_generated');
 
   } catch (err) {
     overlay.classList.remove('active');
