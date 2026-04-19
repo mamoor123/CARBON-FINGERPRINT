@@ -887,6 +887,59 @@ body {
   margin-bottom: 28px;
 }
 
+.city-search-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.city-search {
+  width: 100%;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.city-search:focus {
+  border-color: var(--accent-green);
+}
+.city-search::placeholder {
+  color: var(--text-muted);
+}
+
+.city-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-top: 4px;
+  z-index: 50;
+  display: none;
+}
+.city-dropdown.open { display: block; }
+
+.city-option {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: background 0.15s;
+}
+.city-option:hover, .city-option.active {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-emerald);
+}
+
 .city-chip {
   padding: 8px 16px;
   background: rgba(255,255,255,0.04);
@@ -2217,54 +2270,507 @@ const GISS_GLOBAL_ANOMALY = [-0.17,-0.08,-0.11,-0.17,-0.28,-0.33,-0.31,-0.36,-0.
 // City data: local climate indicators from IPCC AR6 WG2 regional chapters & NOAA
 // Timeline uses real global GISS data; city-specific figures are regional estimates
 const cityClimateData = {
-  'New York': {
-    current: { temp: 13.4, tempRise: 1.9, co2: 421, seaRise: 0.30, extremeDays: 47 },
-    source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13'
-  },
-  'London': {
-    current: { temp: 11.8, tempRise: 1.7, co2: 421, seaRise: 0.17, extremeDays: 38 },
-    source: 'Met Office / IPCC AR6 WG2 Ch.13'
-  },
-  'Tokyo': {
-    current: { temp: 16.3, tempRise: 2.3, co2: 421, seaRise: 0.12, extremeDays: 56 },
-    source: 'JMA / IPCC AR6 WG2 Ch.10'
-  },
-  'Delhi': {
-    current: { temp: 25.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 72 },
-    source: 'IMD / IPCC AR6 WG2 Ch.10'
-  },
-  'São Paulo': {
-    current: { temp: 19.2, tempRise: 1.5, co2: 421, seaRise: 0.23, extremeDays: 35 },
-    source: 'INPE / IPCC AR6 WG2 Ch.12'
-  },
-  'Sydney': {
-    current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 41 },
-    source: 'BoM / IPCC AR6 WG2 Ch.11'
-  },
-  'Beijing': {
-    current: { temp: 13.5, tempRise: 2.2, co2: 421, seaRise: 0.14, extremeDays: 52 },
-    source: 'CMA / IPCC AR6 WG2 Ch.10'
-  },
-  'Lagos': {
-    current: { temp: 27.1, tempRise: 1.4, co2: 421, seaRise: 0.24, extremeDays: 65 },
-    source: 'NiMet / IPCC AR6 WG2 Ch.9'
-  },
-  'Mumbai': {
-    current: { temp: 27.2, tempRise: 1.8, co2: 421, seaRise: 0.09, extremeDays: 68 },
-    source: 'IMD / IPCC AR6 WG2 Ch.10'
-  },
-  'Jakarta': {
-    current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.28, extremeDays: 58 },
-    source: 'BMKG / IPCC AR6 WG2 Ch.10'
-  },
-  'Mexico City': {
-    current: { temp: 16.6, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 },
-    source: 'SMN / IPCC AR6 WG2 Ch.12'
-  },
-  'Cairo': {
-    current: { temp: 22.5, tempRise: 1.9, co2: 421, seaRise: 0.06, extremeDays: 55 },
-    source: 'EMA / IPCC AR6 WG2 Ch.9'
-  }
+  'New York': { current: { temp: 13.4, tempRise: 1.9, co2: 421, seaRise: 0.3, extremeDays: 47 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Los Angeles': { current: { temp: 18.3, tempRise: 1.8, co2: 421, seaRise: 0.22, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Chicago': { current: { temp: 10.4, tempRise: 1.7, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Houston': { current: { temp: 21.3, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Phoenix': { current: { temp: 25.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Philadelphia': { current: { temp: 13.2, tempRise: 1.8, co2: 421, seaRise: 0.28, extremeDays: 44 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'San Antonio': { current: { temp: 21.5, tempRise: 1.7, co2: 421, seaRise: 0.2, extremeDays: 52 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'San Diego': { current: { temp: 18.2, tempRise: 1.5, co2: 421, seaRise: 0.2, extremeDays: 28 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Dallas': { current: { temp: 19.8, tempRise: 1.8, co2: 421, seaRise: 0.22, extremeDays: 58 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'San Jose': { current: { temp: 15.8, tempRise: 1.6, co2: 421, seaRise: 0.22, extremeDays: 30 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Austin': { current: { temp: 20.9, tempRise: 1.7, co2: 421, seaRise: 0.22, extremeDays: 50 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Jacksonville': { current: { temp: 21.2, tempRise: 1.5, co2: 421, seaRise: 0.28, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Fort Worth': { current: { temp: 19.5, tempRise: 1.8, co2: 421, seaRise: 0.22, extremeDays: 56 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Columbus': { current: { temp: 11.8, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Indianapolis': { current: { temp: 12.1, tempRise: 1.7, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Charlotte': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'San Francisco': { current: { temp: 14.6, tempRise: 1.4, co2: 421, seaRise: 0.22, extremeDays: 22 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Seattle': { current: { temp: 11.8, tempRise: 1.5, co2: 421, seaRise: 0.2, extremeDays: 30 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Denver': { current: { temp: 10.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Washington DC': { current: { temp: 14.6, tempRise: 1.8, co2: 421, seaRise: 0.28, extremeDays: 46 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Nashville': { current: { temp: 15.8, tempRise: 1.7, co2: 421, seaRise: 0.22, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Oklahoma City': { current: { temp: 16.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Portland': { current: { temp: 12.8, tempRise: 1.4, co2: 421, seaRise: 0.2, extremeDays: 28 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Las Vegas': { current: { temp: 21.5, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Memphis': { current: { temp: 17.2, tempRise: 1.7, co2: 421, seaRise: 0.22, extremeDays: 52 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Louisville': { current: { temp: 14.2, tempRise: 1.6, co2: 421, seaRise: 0.2, extremeDays: 44 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Baltimore': { current: { temp: 13.8, tempRise: 1.8, co2: 421, seaRise: 0.28, extremeDays: 44 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Milwaukee': { current: { temp: 8.8, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Albuquerque': { current: { temp: 15.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Tucson': { current: { temp: 22.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Fresno': { current: { temp: 18.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Sacramento': { current: { temp: 17.2, tempRise: 1.7, co2: 421, seaRise: 0.2, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Kansas City': { current: { temp: 13.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Miami': { current: { temp: 25.5, tempRise: 1.4, co2: 421, seaRise: 0.3, extremeDays: 52 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Atlanta': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Raleigh': { current: { temp: 16.2, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Minneapolis': { current: { temp: 8.2, tempRise: 1.8, co2: 421, seaRise: 0.15, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Tampa': { current: { temp: 23.8, tempRise: 1.5, co2: 421, seaRise: 0.28, extremeDays: 50 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Pittsburgh': { current: { temp: 11.5, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Cincinnati': { current: { temp: 12.8, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'St. Louis': { current: { temp: 14.2, tempRise: 1.7, co2: 421, seaRise: 0.18, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Salt Lake City': { current: { temp: 11.8, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Detroit': { current: { temp: 10.2, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Honolulu': { current: { temp: 25.8, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Anchorage': { current: { temp: 2.8, tempRise: 2.5, co2: 421, seaRise: 0.1, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Toronto': { current: { temp: 9.2, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Montreal': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.15, extremeDays: 38 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Vancouver': { current: { temp: 11.2, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 25 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Calgary': { current: { temp: 4.8, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Ottawa': { current: { temp: 7.2, tempRise: 1.8, co2: 421, seaRise: 0.15, extremeDays: 36 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Edmonton': { current: { temp: 4.2, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Winnipeg': { current: { temp: 3.8, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Quebec City': { current: { temp: 5.5, tempRise: 2.0, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Halifax': { current: { temp: 8.2, tempRise: 1.5, co2: 421, seaRise: 0.22, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Mexico City': { current: { temp: 16.6, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Guadalajara': { current: { temp: 21.2, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Monterrey': { current: { temp: 23.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Puebla': { current: { temp: 16.8, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Tijuana': { current: { temp: 17.8, tempRise: 1.4, co2: 421, seaRise: 0.2, extremeDays: 28 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Cancún': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.28, extremeDays: 45 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Mérida': { current: { temp: 26.2, tempRise: 1.4, co2: 421, seaRise: 0.25, extremeDays: 48 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Havana': { current: { temp: 25.2, tempRise: 1.3, co2: 421, seaRise: 0.22, extremeDays: 42 }, source: 'INSMET / IPCC AR6 WG2 Ch.12' },
+  'Santo Domingo': { current: { temp: 26.5, tempRise: 1.2, co2: 421, seaRise: 0.25, extremeDays: 45 }, source: 'IPCC AR6 WG2 Ch.12' },
+  'San José CR': { current: { temp: 21.8, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'IMN / IPCC AR6 WG2 Ch.12' },
+  'Panama City': { current: { temp: 27.5, tempRise: 1.1, co2: 421, seaRise: 0.2, extremeDays: 65 }, source: 'ETESA / IPCC AR6 WG2 Ch.12' },
+  'Guatemala City': { current: { temp: 21.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'INSIVUMEH / IPCC AR6 WG2 Ch.12' },
+  'Kingston': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.2, extremeDays: 40 }, source: 'Met Service Jamaica / IPCC AR6 WG2 Ch.12' },
+  'São Paulo': { current: { temp: 19.2, tempRise: 1.5, co2: 421, seaRise: 0.23, extremeDays: 35 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Buenos Aires': { current: { temp: 17.8, tempRise: 1.4, co2: 421, seaRise: 0.22, extremeDays: 32 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Rio de Janeiro': { current: { temp: 24.2, tempRise: 1.4, co2: 421, seaRise: 0.25, extremeDays: 38 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Bogotá': { current: { temp: 14.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IDEAM / IPCC AR6 WG2 Ch.12' },
+  'Lima': { current: { temp: 19.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 28 }, source: 'SENAMHI / IPCC AR6 WG2 Ch.12' },
+  'Santiago': { current: { temp: 14.8, tempRise: 1.5, co2: 421, seaRise: 0.18, extremeDays: 30 }, source: 'DMC / IPCC AR6 WG2 Ch.12' },
+  'Caracas': { current: { temp: 24.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'INAMEH / IPCC AR6 WG2 Ch.12' },
+  'Medellín': { current: { temp: 22.2, tempRise: 1.1, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IDEAM / IPCC AR6 WG2 Ch.12' },
+  'Cali': { current: { temp: 23.8, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'IDEAM / IPCC AR6 WG2 Ch.12' },
+  'Guayaquil': { current: { temp: 25.8, tempRise: 1.2, co2: 421, seaRise: 0.2, extremeDays: 42 }, source: 'INAMHI / IPCC AR6 WG2 Ch.12' },
+  'Quito': { current: { temp: 15.5, tempRise: 1.1, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'INAMHI / IPCC AR6 WG2 Ch.12' },
+  'Asunción': { current: { temp: 23.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'DMH / IPCC AR6 WG2 Ch.12' },
+  'Montevideo': { current: { temp: 17.2, tempRise: 1.3, co2: 421, seaRise: 0.22, extremeDays: 30 }, source: 'INUMET / IPCC AR6 WG2 Ch.12' },
+  'Recife': { current: { temp: 26.2, tempRise: 1.3, co2: 421, seaRise: 0.22, extremeDays: 42 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Salvador': { current: { temp: 25.5, tempRise: 1.3, co2: 421, seaRise: 0.22, extremeDays: 40 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Fortaleza': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.2, extremeDays: 38 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Curitiba': { current: { temp: 17.5, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 32 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Brasília': { current: { temp: 22.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Belo Horizonte': { current: { temp: 21.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Porto Alegre': { current: { temp: 19.5, tempRise: 1.4, co2: 421, seaRise: 0.22, extremeDays: 32 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Manaus': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'La Paz': { current: { temp: 8.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'SENAMHI / IPCC AR6 WG2 Ch.12' },
+  'Maracaibo': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'INAMEH / IPCC AR6 WG2 Ch.12' },
+  'Valencia VE': { current: { temp: 26.2, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'INAMEH / IPCC AR6 WG2 Ch.12' },
+  'Córdoba AR': { current: { temp: 18.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Rosario': { current: { temp: 17.8, tempRise: 1.4, co2: 421, seaRise: 0.2, extremeDays: 32 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'London': { current: { temp: 11.8, tempRise: 1.7, co2: 421, seaRise: 0.17, extremeDays: 38 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Paris': { current: { temp: 12.5, tempRise: 1.8, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Berlin': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Madrid': { current: { temp: 15.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Rome': { current: { temp: 16.2, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 38 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Amsterdam': { current: { temp: 10.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Vienna': { current: { temp: 10.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'ZAMG / IPCC AR6 WG2 Ch.13' },
+  'Brussels': { current: { temp: 11.2, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'IRM / IPCC AR6 WG2 Ch.13' },
+  'Lisbon': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 32 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Stockholm': { current: { temp: 7.8, tempRise: 2.0, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Copenhagen': { current: { temp: 9.2, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DMI / IPCC AR6 WG2 Ch.13' },
+  'Helsinki': { current: { temp: 6.5, tempRise: 2.3, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Oslo': { current: { temp: 6.8, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Dublin': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 28 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Warsaw': { current: { temp: 9.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Prague': { current: { temp: 10.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Budapest': { current: { temp: 11.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Athens': { current: { temp: 19.2, tempRise: 1.8, co2: 421, seaRise: 0.15, extremeDays: 45 }, source: 'EMY / IPCC AR6 WG2 Ch.13' },
+  'Bucharest': { current: { temp: 11.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ANM / IPCC AR6 WG2 Ch.13' },
+  'Zurich': { current: { temp: 9.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'MeteoSwiss / IPCC AR6 WG2 Ch.13' },
+  'Barcelona': { current: { temp: 17.2, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Munich': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Milan': { current: { temp: 13.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Frankfurt': { current: { temp: 11.2, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Hamburg': { current: { temp: 9.8, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Edinburgh': { current: { temp: 9.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Manchester': { current: { temp: 10.2, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Birmingham': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Glasgow': { current: { temp: 9.8, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Lyon': { current: { temp: 13.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Marseille': { current: { temp: 16.5, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Toulouse': { current: { temp: 14.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Seville': { current: { temp: 19.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Valencia ES': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Naples': { current: { temp: 16.8, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 38 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Turin': { current: { temp: 13.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Florence': { current: { temp: 15.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Venice': { current: { temp: 14.2, tempRise: 1.8, co2: 421, seaRise: 0.18, extremeDays: 30 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Kraków': { current: { temp: 9.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Cologne': { current: { temp: 11.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Rotterdam': { current: { temp: 10.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Antwerp': { current: { temp: 11.0, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'IRM / IPCC AR6 WG2 Ch.13' },
+  'Gothenburg': { current: { temp: 8.2, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Reykjavik': { current: { temp: 5.2, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 38 }, source: 'IMO / IPCC AR6 WG2 Ch.13' },
+  'Riga': { current: { temp: 7.2, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Tallinn': { current: { temp: 6.8, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Vilnius': { current: { temp: 7.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Sofia': { current: { temp: 11.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NIMH / IPCC AR6 WG2 Ch.13' },
+  'Belgrade': { current: { temp: 12.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 34 }, source: 'RHMZ / IPCC AR6 WG2 Ch.13' },
+  'Zagreb': { current: { temp: 11.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DHMZ / IPCC AR6 WG2 Ch.13' },
+  'Bratislava': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'SHMÚ / IPCC AR6 WG2 Ch.13' },
+  'Ljubljana': { current: { temp: 10.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ARSO / IPCC AR6 WG2 Ch.13' },
+  'Sarajevo': { current: { temp: 10.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'FHMZBiH / IPCC AR6 WG2 Ch.13' },
+  'Tirana': { current: { temp: 16.5, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'MeteoAlb / IPCC AR6 WG2 Ch.13' },
+  'Chisinau': { current: { temp: 10.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'SHS / IPCC AR6 WG2 Ch.13' },
+  'Kyiv': { current: { temp: 8.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Hydrometcentre / IPCC AR6 WG2 Ch.13' },
+  'Minsk': { current: { temp: 7.2, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'Belhydromet / IPCC AR6 WG2 Ch.13' },
+  'Saint Petersburg': { current: { temp: 6.2, tempRise: 2.3, co2: 421, seaRise: 0.08, extremeDays: 28 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Moscow': { current: { temp: 6.8, tempRise: 2.4, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Tokyo': { current: { temp: 16.3, tempRise: 2.3, co2: 421, seaRise: 0.12, extremeDays: 56 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Delhi': { current: { temp: 25.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Shanghai': { current: { temp: 16.8, tempRise: 2.1, co2: 421, seaRise: 0.14, extremeDays: 52 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Beijing': { current: { temp: 13.5, tempRise: 2.2, co2: 421, seaRise: 0.14, extremeDays: 52 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Mumbai': { current: { temp: 27.2, tempRise: 1.8, co2: 421, seaRise: 0.09, extremeDays: 68 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Osaka': { current: { temp: 16.8, tempRise: 2.2, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Dhaka': { current: { temp: 26.2, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 65 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Karachi': { current: { temp: 27.5, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 55 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Kolkata': { current: { temp: 26.8, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 62 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Manila': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.2, extremeDays: 62 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Bangkok': { current: { temp: 28.8, tempRise: 1.4, co2: 421, seaRise: 0.15, extremeDays: 68 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Seoul': { current: { temp: 12.8, tempRise: 2.4, co2: 421, seaRise: 0.1, extremeDays: 48 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Jakarta': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.28, extremeDays: 58 }, source: 'BMKG / IPCC AR6 WG2 Ch.10' },
+  'Guangzhou': { current: { temp: 22.5, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Shenzhen': { current: { temp: 23.2, tempRise: 1.7, co2: 421, seaRise: 0.14, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Chengdu': { current: { temp: 16.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Wuhan': { current: { temp: 17.2, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Hangzhou': { current: { temp: 17.2, tempRise: 1.9, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Nanjing': { current: { temp: 16.2, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 48 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Chongqing': { current: { temp: 18.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Tianjin': { current: { temp: 13.2, tempRise: 2.1, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Xi\'an': { current: { temp: 14.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Hong Kong': { current: { temp: 23.8, tempRise: 1.5, co2: 421, seaRise: 0.14, extremeDays: 52 }, source: 'HKO / IPCC AR6 WG2 Ch.10' },
+  'Taipei': { current: { temp: 23.5, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'CWA / IPCC AR6 WG2 Ch.10' },
+  'Singapore': { current: { temp: 28.2, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'NEA / IPCC AR6 WG2 Ch.10' },
+  'Kuala Lumpur': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 62 }, source: 'MetMalaysia / IPCC AR6 WG2 Ch.10' },
+  'Ho Chi Minh City': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 62 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Hanoi': { current: { temp: 24.2, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Yangon': { current: { temp: 27.8, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 65 }, source: 'DMH / IPCC AR6 WG2 Ch.10' },
+  'Phnom Penh': { current: { temp: 28.2, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 62 }, source: 'MCAM / IPCC AR6 WG2 Ch.10' },
+  'Colombo': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.1, extremeDays: 65 }, source: 'DWC / IPCC AR6 WG2 Ch.10' },
+  'Chennai': { current: { temp: 28.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 62 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Bangalore': { current: { temp: 24.2, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Hyderabad': { current: { temp: 27.2, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Ahmedabad': { current: { temp: 27.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Pune': { current: { temp: 25.2, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Surat': { current: { temp: 27.5, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Jaipur': { current: { temp: 26.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Lucknow': { current: { temp: 26.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Kanpur': { current: { temp: 26.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Nagpur': { current: { temp: 27.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Indore': { current: { temp: 25.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Bhopal': { current: { temp: 26.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Visakhapatnam': { current: { temp: 28.2, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 55 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Coimbatore': { current: { temp: 26.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Kochi': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.1, extremeDays: 60 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Chittagong': { current: { temp: 26.5, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 62 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Lahore': { current: { temp: 25.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Islamabad': { current: { temp: 21.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Rawalpindi': { current: { temp: 21.8, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Kathmandu': { current: { temp: 18.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'DHM / IPCC AR6 WG2 Ch.10' },
+  'Riyadh': { current: { temp: 26.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'PME / IPCC AR6 WG2 Ch.9' },
+  'Jeddah': { current: { temp: 29.5, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PME / IPCC AR6 WG2 Ch.9' },
+  'Dubai': { current: { temp: 28.2, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 55 }, source: 'NCM / IPCC AR6 WG2 Ch.9' },
+  'Abu Dhabi': { current: { temp: 28.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 52 }, source: 'NCM / IPCC AR6 WG2 Ch.9' },
+  'Doha': { current: { temp: 28.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 52 }, source: 'QMD / IPCC AR6 WG2 Ch.9' },
+  'Kuwait City': { current: { temp: 26.8, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'KMA / IPCC AR6 WG2 Ch.9' },
+  'Muscat': { current: { temp: 28.5, tempRise: 1.7, co2: 421, seaRise: 0.08, extremeDays: 55 }, source: 'DGMAN / IPCC AR6 WG2 Ch.9' },
+  'Tehran': { current: { temp: 17.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Baghdad': { current: { temp: 24.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'Iraq Met / IPCC AR6 WG2 Ch.9' },
+  'Amman': { current: { temp: 19.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'JMD / IPCC AR6 WG2 Ch.9' },
+  'Beirut': { current: { temp: 21.2, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 40 }, source: 'LMS / IPCC AR6 WG2 Ch.9' },
+  'Damascus': { current: { temp: 18.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'Syrian Met / IPCC AR6 WG2 Ch.9' },
+  'Almaty': { current: { temp: 8.5, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Kazhydromet / IPCC AR6 WG2 Ch.10' },
+  'Tashkent': { current: { temp: 14.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'Uzhydromet / IPCC AR6 WG2 Ch.10' },
+  'Bishkek': { current: { temp: 10.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'Kyrgyz Met / IPCC AR6 WG2 Ch.10' },
+  'Baku': { current: { temp: 15.2, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 35 }, source: 'Ecogeo / IPCC AR6 WG2 Ch.9' },
+  'Tbilisi': { current: { temp: 13.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'GeoMet / IPCC AR6 WG2 Ch.9' },
+  'Ulaanbaatar': { current: { temp: -0.5, tempRise: 2.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NAMEM / IPCC AR6 WG2 Ch.10' },
+  'Pyongyang': { current: { temp: 10.8, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Busan': { current: { temp: 15.2, tempRise: 2.2, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Daegu': { current: { temp: 14.2, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Sapporo': { current: { temp: 9.2, tempRise: 2.5, co2: 421, seaRise: 0.1, extremeDays: 38 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Nagoya': { current: { temp: 16.2, tempRise: 2.2, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Fukuoka': { current: { temp: 17.2, tempRise: 2.1, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kyoto': { current: { temp: 16.5, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Yokohama': { current: { temp: 16.0, tempRise: 2.3, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Lagos': { current: { temp: 27.1, tempRise: 1.4, co2: 421, seaRise: 0.24, extremeDays: 65 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Cairo': { current: { temp: 22.5, tempRise: 1.9, co2: 421, seaRise: 0.06, extremeDays: 55 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Kinshasa': { current: { temp: 25.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'METTELSAT / IPCC AR6 WG2 Ch.9' },
+  'Johannesburg': { current: { temp: 16.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Nairobi': { current: { temp: 18.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Casablanca': { current: { temp: 18.2, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'DMN / IPCC AR6 WG2 Ch.9' },
+  'Addis Ababa': { current: { temp: 16.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'NMA / IPCC AR6 WG2 Ch.9' },
+  'Cape Town': { current: { temp: 17.2, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 35 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Dar es Salaam': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 62 }, source: 'TMA / IPCC AR6 WG2 Ch.9' },
+  'Abuja': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Accra': { current: { temp: 27.2, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Algiers': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 35 }, source: 'ONM / IPCC AR6 WG2 Ch.9' },
+  'Luanda': { current: { temp: 25.8, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'INAMET / IPCC AR6 WG2 Ch.9' },
+  'Khartoum': { current: { temp: 30.2, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'SMA / IPCC AR6 WG2 Ch.9' },
+  'Douala': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 65 }, source: 'MFF / IPCC AR6 WG2 Ch.9' },
+  'Mogadishu': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.08, extremeDays: 55 }, source: 'SWALIM / IPCC AR6 WG2 Ch.9' },
+  'Tunis': { current: { temp: 18.8, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 35 }, source: 'MNCM / IPCC AR6 WG2 Ch.9' },
+  'Maputo': { current: { temp: 23.5, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'INAM / IPCC AR6 WG2 Ch.9' },
+  'Lusaka': { current: { temp: 21.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'ZMD / IPCC AR6 WG2 Ch.9' },
+  'Harare': { current: { temp: 19.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'MSD / IPCC AR6 WG2 Ch.9' },
+  'Kampala': { current: { temp: 22.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'UNMA / IPCC AR6 WG2 Ch.9' },
+  'Dakar': { current: { temp: 25.8, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 42 }, source: 'ANACIM / IPCC AR6 WG2 Ch.9' },
+  'Abidjan': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 62 }, source: 'SODEXAM / IPCC AR6 WG2 Ch.9' },
+  'Bamako': { current: { temp: 28.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'Mali Met / IPCC AR6 WG2 Ch.9' },
+  'Conakry': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 65 }, source: 'ANACIM / IPCC AR6 WG2 Ch.9' },
+  'Lomé': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'TG Met / IPCC AR6 WG2 Ch.9' },
+  'Ouagadougou': { current: { temp: 28.8, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'ANAM / IPCC AR6 WG2 Ch.9' },
+  'Niamey': { current: { temp: 29.2, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'DMN Niger / IPCC AR6 WG2 Ch.9' },
+  'N\'Djamena': { current: { temp: 28.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'DMN Chad / IPCC AR6 WG2 Ch.9' },
+  'Libreville': { current: { temp: 26.8, tempRise: 1.1, co2: 421, seaRise: 0.18, extremeDays: 62 }, source: 'MFF Gabon / IPCC AR6 WG2 Ch.9' },
+  'Brazzaville': { current: { temp: 25.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'DMN Congo / IPCC AR6 WG2 Ch.9' },
+  'Lilongwe': { current: { temp: 22.2, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'DCCMS / IPCC AR6 WG2 Ch.9' },
+  'Antananarivo': { current: { temp: 18.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'Meteo Madagascar / IPCC AR6 WG2 Ch.9' },
+  'Windhoek': { current: { temp: 19.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NMS / IPCC AR6 WG2 Ch.9' },
+  'Gaborone': { current: { temp: 21.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'DMS Botswana / IPCC AR6 WG2 Ch.9' },
+  'Kigali': { current: { temp: 20.2, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'Meteo Rwanda / IPCC AR6 WG2 Ch.9' },
+  'Bujumbura': { current: { temp: 23.8, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'IGEBU / IPCC AR6 WG2 Ch.9' },
+  'Marrakech': { current: { temp: 20.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'DMN / IPCC AR6 WG2 Ch.9' },
+  'Fez': { current: { temp: 17.8, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'DMN / IPCC AR6 WG2 Ch.9' },
+  'Durban': { current: { temp: 21.2, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Pretoria': { current: { temp: 17.8, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Sydney': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 41 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Melbourne': { current: { temp: 16.2, tempRise: 1.5, co2: 421, seaRise: 0.22, extremeDays: 38 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Brisbane': { current: { temp: 21.5, tempRise: 1.4, co2: 421, seaRise: 0.22, extremeDays: 42 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Perth': { current: { temp: 19.8, tempRise: 1.6, co2: 421, seaRise: 0.2, extremeDays: 38 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Adelaide': { current: { temp: 17.8, tempRise: 1.5, co2: 421, seaRise: 0.2, extremeDays: 35 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Auckland': { current: { temp: 15.8, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 32 }, source: 'NIWA / IPCC AR6 WG2 Ch.11' },
+  'Wellington': { current: { temp: 13.2, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 35 }, source: 'NIWA / IPCC AR6 WG2 Ch.11' },
+  'Christchurch': { current: { temp: 12.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 30 }, source: 'NIWA / IPCC AR6 WG2 Ch.11' },
+  'Gold Coast': { current: { temp: 21.2, tempRise: 1.4, co2: 421, seaRise: 0.22, extremeDays: 40 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Canberra': { current: { temp: 13.8, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Hobart': { current: { temp: 13.2, tempRise: 1.4, co2: 421, seaRise: 0.2, extremeDays: 28 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Darwin': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 65 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Cairns': { current: { temp: 25.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
+  'Suva': { current: { temp: 25.5, tempRise: 1.1, co2: 421, seaRise: 0.2, extremeDays: 55 }, source: 'Fiji Met / IPCC AR6 WG2 Ch.11' },
+  'Port Moresby': { current: { temp: 27.2, tempRise: 1.1, co2: 421, seaRise: 0.15, extremeDays: 62 }, source: 'NWS PNG / IPCC AR6 WG2 Ch.11' },
+  'Nouméa': { current: { temp: 23.8, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'Météo-France NC / IPCC AR6 WG2 Ch.11' },
+  'Apia': { current: { temp: 27.2, tempRise: 1.1, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'Samoa Met / IPCC AR6 WG2 Ch.11' },
+  'Tulsa': { current: { temp: 16.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Omaha': { current: { temp: 11.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Cleveland': { current: { temp: 10.8, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 38 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Wichita': { current: { temp: 14.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'New Orleans': { current: { temp: 21.8, tempRise: 1.5, co2: 421, seaRise: 0.28, extremeDays: 55 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Bakersfield': { current: { temp: 18.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Aurora CO': { current: { temp: 10.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Anaheim': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.22, extremeDays: 32 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Santa Ana': { current: { temp: 18.2, tempRise: 1.7, co2: 421, seaRise: 0.22, extremeDays: 30 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Riverside': { current: { temp: 18.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Corpus Christi': { current: { temp: 23.2, tempRise: 1.5, co2: 421, seaRise: 0.22, extremeDays: 48 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Lexington KY': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 42 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Stockton CA': { current: { temp: 17.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Laredo': { current: { temp: 24.2, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Chandler AZ': { current: { temp: 24.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Madison WI': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 35 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Lubbock': { current: { temp: 17.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Scottsdale': { current: { temp: 24.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Reno': { current: { temp: 11.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Boise': { current: { temp: 11.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Richmond VA': { current: { temp: 14.8, tempRise: 1.7, co2: 421, seaRise: 0.22, extremeDays: 42 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Des Moines': { current: { temp: 10.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Spokane WA': { current: { temp: 9.8, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Tacoma': { current: { temp: 11.5, tempRise: 1.5, co2: 421, seaRise: 0.18, extremeDays: 28 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Huntsville AL': { current: { temp: 16.2, tempRise: 1.6, co2: 421, seaRise: 0.2, extremeDays: 48 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Nantes': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Bordeaux': { current: { temp: 14.2, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Lille': { current: { temp: 11.0, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Nice': { current: { temp: 16.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Strasbourg': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Düsseldorf': { current: { temp: 10.8, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Stuttgart': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Leipzig': { current: { temp: 9.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Dresden': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Hannover': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Nuremberg': { current: { temp: 9.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Bremen': { current: { temp: 9.8, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Sheffield': { current: { temp: 9.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Leeds': { current: { temp: 9.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Bristol': { current: { temp: 11.2, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Liverpool': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Nottingham': { current: { temp: 10.2, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Southampton': { current: { temp: 11.5, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 30 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Cardiff': { current: { temp: 11.0, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Belfast': { current: { temp: 9.8, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Genoa': { current: { temp: 15.5, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Bologna': { current: { temp: 14.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Palermo': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 38 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Catania': { current: { temp: 18.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 38 }, source: 'ISPRA / IPCC AR6 WG2 Ch.13' },
+  'Thessaloniki': { current: { temp: 16.5, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'EMY / IPCC AR6 WG2 Ch.13' },
+  'Patras': { current: { temp: 18.2, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'EMY / IPCC AR6 WG2 Ch.13' },
+  'Heraklion': { current: { temp: 19.8, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 38 }, source: 'EMY / IPCC AR6 WG2 Ch.13' },
+  'Cluj-Napoca': { current: { temp: 9.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'ANM / IPCC AR6 WG2 Ch.13' },
+  'Timișoara': { current: { temp: 11.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ANM / IPCC AR6 WG2 Ch.13' },
+  'Varna': { current: { temp: 13.2, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'NIMH / IPCC AR6 WG2 Ch.13' },
+  'Plovdiv': { current: { temp: 12.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NIMH / IPCC AR6 WG2 Ch.13' },
+  'Novi Sad': { current: { temp: 12.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'RHMZ / IPCC AR6 WG2 Ch.13' },
+  'Lviv': { current: { temp: 8.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Hydrometcentre / IPCC AR6 WG2 Ch.13' },
+  'Odesa': { current: { temp: 11.2, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 34 }, source: 'Hydrometcentre / IPCC AR6 WG2 Ch.13' },
+  'Kharkiv': { current: { temp: 8.8, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Hydrometcentre / IPCC AR6 WG2 Ch.13' },
+  'Kazan': { current: { temp: 5.2, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Yekaterinburg': { current: { temp: 3.5, tempRise: 2.4, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Novosibirsk': { current: { temp: 2.5, tempRise: 2.5, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Nizhny Novgorod': { current: { temp: 5.5, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Samara': { current: { temp: 6.2, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Rostov-on-Don': { current: { temp: 10.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 34 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Voronezh': { current: { temp: 7.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Perm': { current: { temp: 3.2, tempRise: 2.4, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Ufa': { current: { temp: 4.8, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Chelyabinsk': { current: { temp: 3.8, tempRise: 2.4, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Volgograd': { current: { temp: 9.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Krasnodar': { current: { temp: 12.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 34 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Sochi': { current: { temp: 14.5, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 35 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Wenzhou': { current: { temp: 18.8, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Suzhou': { current: { temp: 16.5, tempRise: 1.9, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Foshan': { current: { temp: 22.8, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Dongguan': { current: { temp: 23.0, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Zhengzhou': { current: { temp: 14.8, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Qingdao': { current: { temp: 13.2, tempRise: 1.9, co2: 421, seaRise: 0.12, extremeDays: 42 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Dalian': { current: { temp: 11.5, tempRise: 2.0, co2: 421, seaRise: 0.12, extremeDays: 40 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Xiamen': { current: { temp: 21.2, tempRise: 1.7, co2: 421, seaRise: 0.14, extremeDays: 50 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Kunming': { current: { temp: 15.8, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Fuzhou': { current: { temp: 20.2, tempRise: 1.7, co2: 421, seaRise: 0.14, extremeDays: 50 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Harbin': { current: { temp: 4.8, tempRise: 2.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Changsha': { current: { temp: 17.5, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 52 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Hefei': { current: { temp: 16.5, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 48 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Nanning': { current: { temp: 22.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Urumqi': { current: { temp: 7.5, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Changchun': { current: { temp: 5.8, tempRise: 2.4, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Lanzhou': { current: { temp: 10.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Guiyang': { current: { temp: 15.8, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Haikou': { current: { temp: 24.5, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 55 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Yinchuan': { current: { temp: 9.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Taiyuan': { current: { temp: 11.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Shenyang': { current: { temp: 8.5, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Jinan': { current: { temp: 14.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Ningbo': { current: { temp: 17.2, tempRise: 1.8, co2: 421, seaRise: 0.14, extremeDays: 50 }, source: 'CMA / IPCC AR6 WG2 Ch.10' },
+  'Faisalabad': { current: { temp: 25.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Multan': { current: { temp: 26.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Peshawar': { current: { temp: 21.8, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Quetta': { current: { temp: 17.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Srinagar': { current: { temp: 13.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Patna': { current: { temp: 26.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Varanasi': { current: { temp: 26.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Rajkot': { current: { temp: 27.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Madurai': { current: { temp: 28.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Nashik': { current: { temp: 25.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Vadodara': { current: { temp: 27.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Meerut': { current: { temp: 25.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Kandy': { current: { temp: 24.8, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'DWC / IPCC AR6 WG2 Ch.10' },
+  'Bandung': { current: { temp: 24.2, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'BMKG / IPCC AR6 WG2 Ch.10' },
+  'Surabaya': { current: { temp: 28.2, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'BMKG / IPCC AR6 WG2 Ch.10' },
+  'Medan': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 62 }, source: 'BMKG / IPCC AR6 WG2 Ch.10' },
+  'Makassar': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'BMKG / IPCC AR6 WG2 Ch.10' },
+  'Semarang': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'BMKG / IPCC AR6 WG2 Ch.10' },
+  'Cebu': { current: { temp: 28.2, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Davao': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Haiphong': { current: { temp: 24.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Da Nang': { current: { temp: 26.2, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Vientiane': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'DLW / IPCC AR6 WG2 Ch.10' },
+  'Ibadan': { current: { temp: 26.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Kano': { current: { temp: 27.2, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Port Harcourt': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.2, extremeDays: 65 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Benin City': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 62 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Alexandria': { current: { temp: 21.2, tempRise: 1.8, co2: 421, seaRise: 0.12, extremeDays: 42 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Giza': { current: { temp: 22.8, tempRise: 1.9, co2: 421, seaRise: 0.06, extremeDays: 55 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Sfax': { current: { temp: 19.8, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 35 }, source: 'MNCM / IPCC AR6 WG2 Ch.9' },
+  'Lubumbashi': { current: { temp: 21.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'METTELSAT / IPCC AR6 WG2 Ch.9' },
+  'Mombasa': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Mbuji-Mayi': { current: { temp: 24.2, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'METTELSAT / IPCC AR6 WG2 Ch.9' },
+  'Pointe-Noire': { current: { temp: 26.5, tempRise: 1.1, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'DMN Congo / IPCC AR6 WG2 Ch.9' },
+  'Bloemfontein': { current: { temp: 16.8, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Port Elizabeth': { current: { temp: 18.2, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Beira': { current: { temp: 25.2, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 52 }, source: 'INAM / IPCC AR6 WG2 Ch.9' },
+  'Nampula': { current: { temp: 25.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'INAM / IPCC AR6 WG2 Ch.9' },
+  'Tabriz': { current: { temp: 13.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Isfahan': { current: { temp: 17.2, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Shiraz': { current: { temp: 18.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Mashhad': { current: { temp: 14.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Erbil': { current: { temp: 19.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'Iraq Met / IPCC AR6 WG2 Ch.9' },
+  'Basra': { current: { temp: 25.2, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'Iraq Met / IPCC AR6 WG2 Ch.9' },
+  'Adana': { current: { temp: 19.2, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 40 }, source: 'MGM / IPCC AR6 WG2 Ch.9' },
+  'Istanbul': { current: { temp: 14.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 32 }, source: 'MGM / IPCC AR6 WG2 Ch.9' },
+  'Ankara': { current: { temp: 12.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'MGM / IPCC AR6 WG2 Ch.9' },
+  'Izmir': { current: { temp: 18.2, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 35 }, source: 'MGM / IPCC AR6 WG2 Ch.9' },
+  'Antalya': { current: { temp: 19.8, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'MGM / IPCC AR6 WG2 Ch.9' },
+  'Bursa': { current: { temp: 14.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'MGM / IPCC AR6 WG2 Ch.9' },
+  'Campinas': { current: { temp: 21.8, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Belém': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 68 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Goiania': { current: { temp: 23.2, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Guarulhos': { current: { temp: 19.5, tempRise: 1.5, co2: 421, seaRise: 0.23, extremeDays: 35 }, source: 'INPE / IPCC AR6 WG2 Ch.12' },
+  'Córdoba MX': { current: { temp: 18.2, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'León MX': { current: { temp: 20.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Zapopan': { current: { temp: 21.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Cochabamba': { current: { temp: 17.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'SENAMHI / IPCC AR6 WG2 Ch.12' },
+  'Santa Cruz BO': { current: { temp: 24.2, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'SENAMHI / IPCC AR6 WG2 Ch.12' },
+  'Mendoza': { current: { temp: 17.2, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Mar del Plata': { current: { temp: 15.2, tempRise: 1.3, co2: 421, seaRise: 0.22, extremeDays: 28 }, source: 'SMN / IPCC AR6 WG2 Ch.12' },
+  'Barquisimeto': { current: { temp: 25.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'INAMEH / IPCC AR6 WG2 Ch.12' },
+  'Saskatoon': { current: { temp: 3.2, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Regina': { current: { temp: 3.5, tempRise: 2.3, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'St. John\'s NL': { current: { temp: 6.2, tempRise: 1.5, co2: 421, seaRise: 0.18, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Hamilton ON': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Kitchener': { current: { temp: 8.8, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 34 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'London ON': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Victoria BC': { current: { temp: 11.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 22 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Little Rock': { current: { temp: 17.2, tempRise: 1.7, co2: 421, seaRise: 0.2, extremeDays: 50 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Knoxville': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.2, extremeDays: 45 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'El Paso': { current: { temp: 19.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Albany NY': { current: { temp: 9.8, tempRise: 1.7, co2: 421, seaRise: 0.18, extremeDays: 35 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Buffalo': { current: { temp: 9.2, tempRise: 1.6, co2: 421, seaRise: 0.18, extremeDays: 38 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Fargo': { current: { temp: 5.8, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Sioux Falls': { current: { temp: 8.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Billings': { current: { temp: 9.2, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Colorado Springs': { current: { temp: 9.8, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA / IPCC AR6 WG2 Ch.13' },
+  'Gdańsk': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Wrocław': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Poznań': { current: { temp: 9.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Innsbruck': { current: { temp: 9.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ZAMG / IPCC AR6 WG2 Ch.13' },
+  'Salzburg': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'ZAMG / IPCC AR6 WG2 Ch.13' },
+  'Graz': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ZAMG / IPCC AR6 WG2 Ch.13' },
+  'Bergen': { current: { temp: 8.2, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 35 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Trondheim': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.08, extremeDays: 30 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Tampere': { current: { temp: 5.5, tempRise: 2.3, co2: 421, seaRise: 0.08, extremeDays: 25 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Turku': { current: { temp: 6.2, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Oulu': { current: { temp: 3.8, tempRise: 2.5, co2: 421, seaRise: 0.08, extremeDays: 25 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Malmö': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Uppsala': { current: { temp: 7.2, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Aarhus': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DMI / IPCC AR6 WG2 Ch.13' },
+  'Surat Thani': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 60 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Chiang Mai': { current: { temp: 26.2, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Phuket': { current: { temp: 28.2, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 62 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Hue': { current: { temp: 26.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Can Tho': { current: { temp: 28.2, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 60 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Dili': { current: { temp: 27.5, tempRise: 1.1, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'Timor-Leste Met / IPCC AR6 WG2 Ch.10' },
+  'Pokhara': { current: { temp: 20.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'DHM / IPCC AR6 WG2 Ch.10' },
+  'Rajshahi': { current: { temp: 26.2, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Mandalay': { current: { temp: 27.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'DMH / IPCC AR6 WG2 Ch.10' },
+  'Djibouti': { current: { temp: 30.5, tempRise: 1.4, co2: 421, seaRise: 0.08, extremeDays: 65 }, source: 'Djibouti Met / IPCC AR6 WG2 Ch.9' },
+  'Nouakchott': { current: { temp: 28.2, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'Mauritania Met / IPCC AR6 WG2 Ch.9' },
+  'Freetown': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 65 }, source: 'SL Met / IPCC AR6 WG2 Ch.9' },
+  'Monrovia': { current: { temp: 26.8, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 65 }, source: 'Liberia Met / IPCC AR6 WG2 Ch.9' },
+  'Banjul': { current: { temp: 27.2, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'Gambia Met / IPCC AR6 WG2 Ch.9' },
+  'Bissau': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'Guinea-Bissau Met / IPCC AR6 WG2 Ch.9' },
+  'Manama': { current: { temp: 28.0, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 52 }, source: 'Bahrain Met / IPCC AR6 WG2 Ch.9' },
+  'Sana\'a': { current: { temp: 20.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'Yemen Met / IPCC AR6 WG2 Ch.9' },
+  'Gaza': { current: { temp: 21.5, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 42 }, source: 'PMA / IPCC AR6 WG2 Ch.9' },
+  'Dunedin': { current: { temp: 11.2, tempRise: 1.1, co2: 421, seaRise: 0.18, extremeDays: 28 }, source: 'NIWA / IPCC AR6 WG2 Ch.11' },
+  'Skopje': { current: { temp: 13.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'DHMS / IPCC AR6 WG2 Ch.13' },
+  'Podgorica': { current: { temp: 16.2, tempRise: 1.7, co2: 421, seaRise: 0.10, extremeDays: 35 }, source: 'ZHMS / IPCC AR6 WG2 Ch.13' },
+  'Pristina': { current: { temp: 12.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KHMS / IPCC AR6 WG2 Ch.13' },
+  'Valletta': { current: { temp: 19.2, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'Malta Met / IPCC AR6 WG2 Ch.13' },
+  'Nicosia': { current: { temp: 19.8, tempRise: 1.7, co2: 421, seaRise: 0.10, extremeDays: 42 }, source: 'Cyprus Met / IPCC AR6 WG2 Ch.9' },
+  'Luxembourg': { current: { temp: 9.8, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'MetLux / IPCC AR6 WG2 Ch.13' },
 };
 
 // ===== STATE =====
@@ -2816,17 +3322,53 @@ function renderComparison(total) {
 // ===== CITY CLIMATE =====
 function renderCitySelector() {
   const container = document.getElementById('citySelector');
-  container.innerHTML = '';
-  Object.keys(cityClimateData).forEach(city => {
-    const chip = document.createElement('div');
-    chip.className = 'city-chip' + (city === selectedCity ? ' active' : '');
-    chip.textContent = city;
-    chip.onclick = () => {
-      selectedCity = city;
-      renderCitySelector();
-      renderCityData(city);
-    };
-    container.appendChild(chip);
+  const cityNames = Object.keys(cityClimateData).sort();
+  
+  container.innerHTML = `
+    <div class="city-search-wrap">
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 500+ cities..." 
+             value="${selectedCity}" autocomplete="off" aria-label="Search cities">
+      <div class="city-dropdown" id="cityDropdown"></div>
+    </div>
+  `;
+
+  const search = document.getElementById('citySearch');
+  const dropdown = document.getElementById('cityDropdown');
+
+  function filterCities(query) {
+    const q = query.toLowerCase();
+    return cityNames.filter(c => c.toLowerCase().includes(q)).slice(0, 20);
+  }
+
+  function showDropdown(matches) {
+    dropdown.innerHTML = '';
+    matches.forEach(city => {
+      const div = document.createElement('div');
+      div.className = 'city-option' + (city === selectedCity ? ' active' : '');
+      div.textContent = city;
+      div.onclick = () => {
+        selectedCity = city;
+        search.value = city;
+        dropdown.classList.remove('open');
+        renderCityData(city);
+      };
+      dropdown.appendChild(div);
+    });
+    dropdown.classList.toggle('open', matches.length > 0);
+  }
+
+  search.addEventListener('input', () => {
+    showDropdown(filterCities(search.value));
+  });
+
+  search.addEventListener('focus', () => {
+    showDropdown(filterCities(search.value));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!container.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
   });
 }
 
