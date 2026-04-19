@@ -3682,12 +3682,12 @@ function drawFingerprint(categories) {
     let d = '';
     const turns = 2.5 + s * 0.5;
     const startAngle = s * (Math.PI * 2 / 3);
-    for (let t = 0; t <= turns * 20; t++) {
-      const angle = startAngle + (t / 20) * Math.PI * 2;
-      const r = 8 + t * 1.8 + Math.sin(angle * 3 + seed) * 3;
+    for (let step = 0; step <= turns * 20; step++) {
+      const angle = startAngle + (step / 20) * Math.PI * 2;
+      const r = 8 + step * 1.8 + Math.sin(angle * 3 + seed) * 3;
       const x = cx + Math.cos(angle) * r;
       const y = cy + Math.sin(angle) * r * 0.92;
-      d += (t === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+      d += (step === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
     }
     spiralPath.setAttribute('d', d);
     spiralPath.setAttribute('fill', 'none');
@@ -3892,8 +3892,11 @@ function renderComparison(total) {
 function renderCitySelector() {
   // Clean up previous event listeners to prevent leaks
   if (citySelectorAbortController) citySelectorAbortController.abort();
-  citySelectorAbortController = new AbortController();
-  const signal = citySelectorAbortController.signal;
+  // AbortController available in all modern browsers; fallback for older ones
+  if (typeof AbortController !== 'undefined') {
+    citySelectorAbortController = new AbortController();
+  }
+  const signal = citySelectorAbortController ? citySelectorAbortController.signal : undefined;
 
   const container = document.getElementById('citySelector');
   const cityNames = Object.keys(cityClimateData).sort();
@@ -4180,12 +4183,12 @@ async function generateShareCard() {
   for (let s = 0; s < 2; s++) {
     const spiralPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     let d = '';
-    for (let t = 0; t <= 2.5 * 20; t++) {
-      const angle = s * Math.PI + (t / 20) * Math.PI * 2;
-      const rad = 6 + t * 1.5 + Math.sin(angle * 3 + sSeed) * 2.5;
+    for (let step = 0; step <= 2.5 * 20; step++) {
+      const angle = s * Math.PI + (step / 20) * Math.PI * 2;
+      const rad = 6 + step * 1.5 + Math.sin(angle * 3 + sSeed) * 2.5;
       const x = scx + Math.cos(angle) * rad;
       const y = scy + Math.sin(angle) * rad * 0.92;
-      d += (t === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+      d += (step === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
     }
     spiralPath.setAttribute('d', d);
     spiralPath.setAttribute('fill', 'none');
