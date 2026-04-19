@@ -934,7 +934,6 @@ body {
 /* Share Card (hidden, for html2canvas) */
 .share-card {
   width: 1080px;
-  min-height: 1350px;
   background: #0a1225;
   padding: 70px 60px;
   position: fixed;
@@ -942,7 +941,6 @@ body {
   top: 0;
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   color: #f1f5f9;
-  overflow: hidden;
 }
 
 .share-header {
@@ -964,9 +962,7 @@ body {
   font-size: 44px;
   font-weight: 700;
   margin-bottom: 8px;
-  background: linear-gradient(135deg, #f1f5f9, #94a3b8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #e2e8f0;
 }
 
 .share-subtitle {
@@ -1000,9 +996,7 @@ body {
   font-size: 52px;
   font-weight: 700;
   line-height: 1;
-  background: linear-gradient(135deg, #34d399, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #34d399;
 }
 
 .share-score .unit {
@@ -1598,7 +1592,10 @@ function showSection(id) {
   });
   const el = document.getElementById(id);
   el.classList.add('active');
-  requestAnimationFrame(() => el.classList.add('visible'));
+  requestAnimationFrame(() => {
+    el.classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  });
 }
 
 function updateProgress(step) {
@@ -2288,6 +2285,10 @@ function resetQuiz() {
 }
 
 document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeShareModal();
+    return;
+  }
   if (e.key === 'Enter') {
     if (currentStep === -1) {
       startQuiz();
