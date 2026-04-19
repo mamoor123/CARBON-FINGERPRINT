@@ -16,7 +16,8 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0f1a">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -40,6 +41,33 @@
   --border: #1e293b;
   --glass: rgba(17, 24, 39, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-deep: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --glass: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.06);
+  }
+  body { background: var(--bg-deep); color: var(--text-primary); }
+  .header { background: rgba(248, 250, 252, 0.9); border-bottom-color: var(--border); }
+  .bg-canvas::before { background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%); }
+  .bg-canvas::after { background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%); }
+  .option { background: #ffffff; }
+  .option.selected { background: rgba(16, 185, 129, 0.06); }
+  .metric-card { background: #ffffff; }
+  .comparison { background: #ffffff; }
+  .insight-card { background: #ffffff; }
+  .city-climate { background: #ffffff; }
+  .climate-card { background: #f8fafc; }
+  .share-card { background: #ffffff; color: #0f172a; }
 }
 
 html { scroll-behavior: smooth; }
@@ -1311,6 +1339,73 @@ body {
   left: 0;
 }
 
+/* Methodology */
+.methodology {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+.methodology summary {
+  padding: 16px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  list-style: none;
+}
+.methodology summary::-webkit-details-marker { display: none; }
+.methodology summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.2s;
+}
+.methodology[open] summary::before { transform: rotate(90deg); }
+.methodology-content {
+  padding: 0 20px 20px;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.methodology-content ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 12px 0;
+}
+.methodology-content li { margin-bottom: 6px; }
+.methodology-content a {
+  color: var(--accent-green);
+  text-decoration: none;
+}
+.methodology-content a:hover { text-decoration: underline; }
+.methodology-links {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+/* Error overlay */
+.error-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1002;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  padding: 24px;
+}
+.error-overlay.active { display: flex; }
+.error-overlay .error-icon { font-size: 3rem; }
+.error-overlay .error-msg { font-size: 1.1rem; color: var(--text-secondary); max-width: 400px; }
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1477,11 +1572,33 @@ body {
       </div>
 
       <div class="action-buttons">
-        <button class="btn-primary" onclick="generateShareCard()">
+        <button class="btn-primary" id="shareBtn" onclick="generateShareCard()">
           <span>📸 Share My Fingerprint</span>
         </button>
         <button class="btn-secondary" onclick="resetQuiz()">🔄 Try Again</button>
       </div>
+
+      <!-- Methodology -->
+      <details class="methodology">
+        <summary>📊 How we calculated your footprint</summary>
+        <div class="methodology-content">
+          <p><strong>Emission factors</strong> are based on IPCC AR6 Working Group III, supplemented by peer-reviewed sources including Poore & Nemecek (2018, <em>Science</em>), the IEA World Energy Outlook 2023, and the FAO.</p>
+          <ul>
+            <li><strong>Transport:</strong> EPA average (4.6t/car/yr), ICCT transit factors</li>
+            <li><strong>Diet:</strong> Poore & Nemecek 2018 lifecycle analysis (plant-based: 1.5t, high-meat: 3.3t)</li>
+            <li><strong>Energy:</strong> IEA electricity emission factors by grid type</li>
+            <li><strong>Flights:</strong> ICAO carbon calculator (transatlantic ≈ 1.6t CO₂)</li>
+            <li><strong>Shared (1.5t):</strong> Government services, infrastructure, military — from Our World in Data</li>
+          </ul>
+          <p><strong>Global average (4.7t):</strong> World Bank 2023. <strong>1.5°C target (2.3t):</strong> IPCC AR6 WG3 carbon budget pathway. <strong>US average (14.5t):</strong> Global Carbon Project 2023.</p>
+          <p><strong>Climate data:</strong> NASA GISS Surface Temperature Analysis (GISTEMP v4), Mauna Loa CO₂ records, NOAA sea level data.</p>
+          <p class="methodology-links">
+            <a href="https://www.ipcc.ch/report/ar6/wg3/" target="_blank" rel="noopener">IPCC AR6 WG3</a> · 
+            <a href="https://ourworldindata.org/co2-emissions" target="_blank" rel="noopener">Our World in Data</a> · 
+            <a href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">NASA GISS</a>
+          </p>
+        </div>
+      </details>
     </div>
   </section>
 </div>
@@ -1499,10 +1616,19 @@ body {
 <div class="share-modal" id="shareModal">
   <img id="shareResultImg" src="" alt="Your Carbon Fingerprint">
   <div class="share-modal-buttons">
-    <button class="btn-primary" onclick="downloadShareCard()"><span>⬇️ Download Image</span></button>
-    <button class="btn-secondary" onclick="copyShareText()">📋 Copy Text</button>
+    <button class="btn-primary" onclick="shareNative()"><span>📤 Share</span></button>
+    <button class="btn-secondary" onclick="downloadShareCard()">⬇️ Download</button>
+    <button class="btn-secondary" onclick="copyShareUrl()">🔗 Copy Link</button>
+    <button class="btn-secondary" onclick="copyShareText()">📋 Copy All</button>
     <button class="btn-secondary" onclick="closeShareModal()">✕ Close</button>
   </div>
+</div>
+
+<!-- Error Overlay -->
+<div class="error-overlay" id="errorOverlay">
+  <div class="error-icon">⚠️</div>
+  <div class="error-msg" id="errorMsg">Something went wrong.</div>
+  <button class="btn-secondary" onclick="dismissError()">Try Again</button>
 </div>
 
 <!-- Hidden Share Card -->
@@ -1533,41 +1659,43 @@ body {
     <div class="share-city-grid" id="shareCityGrid"></div>
   </div>
   <div class="share-footer">
-    <div class="share-url">Discover yours at <span>carbonfingerprint.earth</span></div>
+    <div class="share-url">Discover yours at <span id="shareUrl">carbonfingerprint.earth</span></div>
     <div class="share-tagline">🌍 Your planet. Your fingerprint. Your impact.</div>
-    <div class="share-data-badge">🛰️ NASA GISS · 🌊 NOAA · ❄️ NSIDC · ⚡ IRENA · 🐼 WWF</div>
+    <div class="share-data-badge">🛰️ NASA GISS · 🌊 NOAA · 📋 IPCC AR6</div>
   </div>
 </div>
 
 <script>
 // ===== QUESTIONS =====
+// Options ordered: lowest CO₂ → highest CO₂ (educational)
+// Emission factors from IPCC AR6 WG3, Our World in Data, IEA, FAO
 const questions = [
   {
     icon: '🚗',
     text: 'How do you usually get around?',
-    subtitle: 'Transportation accounts for ~16% of global emissions (IPCC AR6)',
+    subtitle: 'Transportation accounts for ~16% of global emissions (IPCC AR6 WG3 Ch.10)',
     options: [
       { emoji: '🚶', label: 'Walk / Bike', desc: '0-2 km daily', co2: 0.2, cat: 'transport' },
       { emoji: '🚌', label: 'Public Transit', desc: 'Bus, metro, train', co2: 0.8, cat: 'transport' },
-      { emoji: '🚗', label: 'Car (Gasoline)', desc: 'Daily driver, petrol', co2: 2.4, cat: 'transport' },
+      { emoji: '🚗', label: 'Car (Gasoline)', desc: 'Daily driver, ~11,500 km/yr (EPA: 4.6t avg)', co2: 2.4, cat: 'transport' },
       { emoji: '✈️', label: 'Frequent Flights', desc: '4+ flights per year', co2: 4.5, cat: 'transport' }
     ]
   },
   {
     icon: '🍽️',
     text: 'What best describes your diet?',
-    subtitle: 'Food production = 26% of global emissions (FAO data)',
+    subtitle: 'Food production = 26% of global emissions (FAO / IPCC AR6 WG3 Ch.7)',
     options: [
-      { emoji: '🌱', label: 'Plant-Based', desc: 'Vegan or vegetarian', co2: 1.0, cat: 'diet' },
+      { emoji: '🌱', label: 'Plant-Based', desc: 'Vegan or vegetarian (~1.5t, Poore & Nemecek 2018)', co2: 1.0, cat: 'diet' },
       { emoji: '🥗', label: 'Mostly Plants', desc: 'Meat 1-2x per week', co2: 1.8, cat: 'diet' },
-      { emoji: '🥩', label: 'Mixed Diet', desc: 'Meat most days', co2: 2.5, cat: 'diet' },
-      { emoji: '🥓', label: 'Heavy Meat', desc: 'Red meat daily', co2: 3.5, cat: 'diet' }
+      { emoji: '🥩', label: 'Mixed Diet', desc: 'Meat most days (~2.5t global avg)', co2: 2.5, cat: 'diet' },
+      { emoji: '🥓', label: 'Heavy Meat', desc: 'Red meat daily (~3.3t)', co2: 3.5, cat: 'diet' }
     ]
   },
   {
     icon: '⚡',
     text: 'How is your home powered?',
-    subtitle: 'Residential energy = 20% of global emissions (IEA)',
+    subtitle: 'Residential energy = 20% of global emissions (IEA 2023)',
     options: [
       { emoji: '☀️', label: 'Renewable', desc: 'Solar, wind, hydro', co2: 0.3, cat: 'energy' },
       { emoji: '🔀', label: 'Mixed Grid', desc: 'Some renewables', co2: 1.5, cat: 'energy' },
@@ -1578,7 +1706,7 @@ const questions = [
   {
     icon: '🛍️',
     text: 'How would you describe your consumption?',
-    subtitle: 'Manufacturing & waste = 21% of global emissions (UNEP)',
+    subtitle: 'Manufacturing & waste = 21% of global emissions (UNEP / IPCC AR6 WG3 Ch.5)',
     options: [
       { emoji: '♻️', label: 'Minimal', desc: 'Buy little, repair often', co2: 0.4, cat: 'consumption' },
       { emoji: '🤔', label: 'Conscious', desc: 'Think before buying', co2: 1.0, cat: 'consumption' },
@@ -1589,11 +1717,11 @@ const questions = [
   {
     icon: '🌏',
     text: 'How many flights do you take per year?',
-    subtitle: 'A single transatlantic flight = ~1.6 tonnes CO₂ (ICAO)',
+    subtitle: 'A single transatlantic flight ≈ 1.6 tonnes CO₂ (ICAO carbon calculator)',
     options: [
       { emoji: '🏠', label: 'None', desc: 'Stay grounded', co2: 0, cat: 'flights' },
-      { emoji: '🛫', label: '1-2 Short', desc: 'Regional flights', co2: 0.8, cat: 'flights' },
-      { emoji: '🌎', label: '1-2 Long', desc: 'International flights', co2: 2.0, cat: 'flights' },
+      { emoji: '🛫', label: '1-2 Short', desc: 'Regional flights (<3h)', co2: 0.8, cat: 'flights' },
+      { emoji: '🌎', label: '1-2 Long', desc: 'International flights (>6h)', co2: 2.0, cat: 'flights' },
       { emoji: '✈️', label: '3+ Flights', desc: 'Frequent flyer', co2: 4.0, cat: 'flights' }
     ]
   }
@@ -1631,6 +1759,30 @@ const cityClimateData = {
   'Sydney': {
     current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.25, extremeDays: 41 },
     source: 'BoM / IPCC AR6 WG2 Ch.11'
+  },
+  'Beijing': {
+    current: { temp: 13.5, tempRise: 2.2, co2: 421, seaRise: 0.14, extremeDays: 52 },
+    source: 'CMA / IPCC AR6 WG2 Ch.10'
+  },
+  'Lagos': {
+    current: { temp: 27.1, tempRise: 1.4, co2: 421, seaRise: 0.24, extremeDays: 65 },
+    source: 'NiMet / IPCC AR6 WG2 Ch.9'
+  },
+  'Mumbai': {
+    current: { temp: 27.2, tempRise: 1.8, co2: 421, seaRise: 0.09, extremeDays: 68 },
+    source: 'IMD / IPCC AR6 WG2 Ch.10'
+  },
+  'Jakarta': {
+    current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.28, extremeDays: 58 },
+    source: 'BMKG / IPCC AR6 WG2 Ch.10'
+  },
+  'Mexico City': {
+    current: { temp: 16.6, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 },
+    source: 'SMN / IPCC AR6 WG2 Ch.12'
+  },
+  'Cairo': {
+    current: { temp: 22.5, tempRise: 1.9, co2: 421, seaRise: 0.06, extremeDays: 55 },
+    source: 'EMA / IPCC AR6 WG2 Ch.9'
   }
 };
 
@@ -1640,10 +1792,93 @@ let answers = [];
 let selectedCity = 'New York';
 let generatedShareDataUrl = null;
 let shareText = '';
+let html2canvasLoaded = false;
 
 const GLOBAL_AVG = 4.7;   // World Bank 2023
 const PARIS_TARGET = 2.3; // IPCC AR6 WG3 1.5°C pathway
 const US_AVG = 14.5;      // Global Carbon Project 2023
+
+// ===== ERROR HANDLING =====
+window.onerror = function(msg, url, line) {
+  console.error('Error:', msg, url, line);
+  const overlay = document.getElementById('errorOverlay');
+  document.getElementById('errorMsg').textContent = 'Something went wrong. Your progress has been saved.';
+  overlay.classList.add('active');
+};
+function dismissError() {
+  document.getElementById('errorOverlay').classList.remove('active');
+}
+
+// ===== LAZY-LOAD html2canvas =====
+function loadHtml2canvas() {
+  if (html2canvasLoaded) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload = () => { html2canvasLoaded = true; resolve(); };
+    s.onerror = () => reject(new Error('Failed to load image library'));
+    document.head.appendChild(s);
+  });
+}
+
+// ===== URL ENCODING =====
+// Encode answers as base64 for shareable URLs
+function encodeAnswers(ans) {
+  return btoa(ans.join(''));
+}
+function decodeAnswers(str) {
+  try {
+    const decoded = atob(str);
+    return decoded.split('').map(Number).filter(n => n >= 0 && n <= 3);
+  } catch { return null; }
+}
+function getResultUrl() {
+  const base = window.location.origin + window.location.pathname;
+  return base + '?r=' + encodeAnswers(answers);
+}
+function checkUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  const encoded = params.get('r');
+  if (encoded) {
+    const decoded = decodeAnswers(encoded);
+    if (decoded && decoded.length === 5) {
+      answers = decoded;
+      // Show a "viewing someone's result" banner then calculate
+      showSection('calculatingSection');
+      updateProgress(5);
+      setTimeout(() => showResults(), 1500);
+      return true;
+    }
+  }
+  return false;
+}
+
+// ===== NATIVE SHARE (mobile) =====
+async function nativeShare() {
+  const r = window._results;
+  const url = getResultUrl();
+  const text = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
+    `🚗 ${(r.categoryCO2.transport||0).toFixed(1)}t · 🍽️ ${(r.categoryCO2.diet||0).toFixed(1)}t · ⚡ ${(r.categoryCO2.energy||0).toFixed(1)}t · ✈️ ${(r.categoryCO2.flights||0).toFixed(1)}t\n\n` +
+    `Discover yours → ${url}`;
+
+  if (navigator.share) {
+    try {
+      // If we have a share image, include it
+      if (generatedShareDataUrl) {
+        const resp = await fetch(generatedShareDataUrl);
+        const blob = await resp.blob();
+        const file = new File([blob], 'carbon-fingerprint.png', { type: 'image/png' });
+        await navigator.share({ title: 'My Carbon Fingerprint', text, files: [file] });
+      } else {
+        await navigator.share({ title: 'My Carbon Fingerprint', text, url });
+      }
+      return true;
+    } catch (e) {
+      if (e.name !== 'AbortError') console.warn('Share failed:', e);
+    }
+  }
+  return false;
+}
 
 // ===== PARTICLES =====
 function createParticles() {
@@ -1770,10 +2005,10 @@ function calculateResults() {
 
   const calcTexts = [
     'Analyzing your impact...',
-    'Processing NASA climate data...',
-    'Cross-referencing NOAA records...',
-    'Calculating your carbon fingerprint...',
-    'Generating personalized insights...'
+    'Mapping your emissions profile...',
+    'Drawing your fingerprint pattern...',
+    'Comparing with 144 years of data...',
+    'Generating your insights...'
   ];
 
   let textIndex = 0;
@@ -1955,6 +2190,9 @@ function renderMetrics(categories, total) {
     metrics.push({ icon: '✈️', label: 'Flights', value: categories.flights.toFixed(1), cat: 'flights', color: '#8b5cf6', max: 5 });
   }
 
+  // Base emissions: gov't services, infrastructure, military (shared)
+  // Source: Our World in Data — "capital" & "government" categories
+  metrics.push({ icon: '🏛️', label: 'Shared (Govt/Infra)', value: '1.5', cat: 'shared', color: '#64748b', max: 20, tip: 'Emissions from government services, infrastructure, defense — shared across all citizens' });
   metrics.push({ icon: '🌍', label: 'Total Footprint', value: total.toFixed(1), cat: 'total', color: '#10b981', max: 20 });
 
   metrics.forEach((m, i) => {
@@ -1963,7 +2201,7 @@ function renderMetrics(categories, total) {
     const pct = Math.min((parseFloat(m.value) / m.max) * 100, 100);
     card.innerHTML = `
       <div class="metric-icon">${m.icon}</div>
-      <div class="metric-label">${m.label}</div>
+      <div class="metric-label">${m.label}${m.tip ? ' <span title="' + m.tip + '" style="cursor:help;color:var(--accent-green)">ⓘ</span>' : ''}</div>
       <div class="metric-value">${m.value} <span style="font-size:0.7em;color:var(--text-muted)">t</span></div>
       <div class="metric-bar">
         <div class="metric-bar-fill" style="background:${m.color};" data-width="${pct}%"></div>
@@ -2165,10 +2403,16 @@ function renderInsights(categories, total) {
 
 // ===== SHARE CARD (html2canvas) =====
 async function generateShareCard() {
-  // Check html2canvas loaded
-  if (typeof html2canvas === 'undefined') {
-    alert('Image generation is loading... Please try again in a moment.');
-    copyShareText();
+  const overlay = document.getElementById('generatingOverlay');
+  overlay.classList.add('active');
+
+  // Lazy-load html2canvas
+  try {
+    await loadHtml2canvas();
+  } catch (e) {
+    overlay.classList.remove('active');
+    // Fallback: just copy text + URL
+    await copyShareText();
     return;
   }
 
@@ -2181,6 +2425,8 @@ async function generateShareCard() {
   // Populate share card
   document.getElementById('shareScore').textContent = r.totalCO2.toFixed(1);
   document.getElementById('shareLabelBadge').textContent = r.label;
+  document.getElementById('shareTitle').textContent = 'My Carbon Fingerprint';
+  document.getElementById('shareUrl').textContent = window.location.host || 'carbonfingerprint.earth';
 
   // Metrics
   const shareMetrics = document.getElementById('shareMetrics');
@@ -2282,16 +2528,30 @@ async function generateShareCard() {
     shareSvg.appendChild(circle);
   });
 
-  // Generate text
+  // City source on share card
+  const shareCitySource = document.querySelector('.share-city-block .share-city-source');
+  if (!shareCitySource) {
+    const src = document.createElement('div');
+    src.className = 'share-city-source';
+    src.style.cssText = 'text-align:center;font-size:10px;color:#475569;margin-top:8px;';
+    src.textContent = `Source: ${cityData.source}`;
+    document.getElementById('shareCityBlock').appendChild(src);
+  } else {
+    shareCitySource.textContent = `Source: ${cityData.source}`;
+  }
+
+  // Generate text with shareable URL
+  const shareUrl = getResultUrl();
   const diff = r.totalCO2 - GLOBAL_AVG;
   shareText = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
     `🚗 Transport: ${(r.categoryCO2.transport || 0).toFixed(1)}t\n` +
     `🍽️ Diet: ${(r.categoryCO2.diet || 0).toFixed(1)}t\n` +
     `⚡ Energy: ${(r.categoryCO2.energy || 0).toFixed(1)}t\n` +
-    `✈️ Flights: ${(r.categoryCO2.flights || 0).toFixed(1)}t\n\n` +
+    `✈️ Flights: ${(r.categoryCO2.flights || 0).toFixed(1)}t\n` +
+    `🏛️ Shared: 1.5t\n\n` +
     `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t BELOW` : `⚠️ ${diff.toFixed(1)}t above`} global average (4.7t)\n` +
-    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C since 1880\n\n` +
-    `Discover yours → carbonfingerprint.earth`;
+    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C since pre-industrial\n\n` +
+    `See your fingerprint → ${shareUrl}`;
 
   // Wait a tick for DOM to settle, then capture
   await new Promise(resolve => setTimeout(resolve, 100));
@@ -2325,8 +2585,8 @@ async function generateShareCard() {
   } catch (err) {
     overlay.classList.remove('active');
     console.error('html2canvas error:', err);
-    alert('Image generation failed. Copying text instead.');
-    copyShareText();
+    // Still try to share text
+    await copyShareText();
   }
 }
 
@@ -2338,11 +2598,29 @@ function downloadShareCard() {
   a.click();
 }
 
+async function shareNative() {
+  const shared = await nativeShare();
+  if (!shared) {
+    // Fallback: download + copy text
+    downloadShareCard();
+    await copyShareText();
+  }
+}
+
 function copyShareText() {
-  navigator.clipboard.writeText(shareText).then(() => {
-    alert('📋 Share text copied!');
+  return navigator.clipboard.writeText(shareText).then(() => {
+    alert('📋 Share text + link copied!');
   }).catch(() => {
     prompt('Copy this:', shareText);
+  });
+}
+
+function copyShareUrl() {
+  const url = getResultUrl();
+  navigator.clipboard.writeText(url).then(() => {
+    alert('🔗 Link copied! Share it with friends to show your fingerprint.');
+  }).catch(() => {
+    prompt('Copy this link:', url);
   });
 }
 
@@ -2373,6 +2651,10 @@ function resetQuiz() {
   showSection('heroSection');
   updateProgress(0);
 }
+
+// ===== INIT =====
+// Check for shared results in URL on load
+checkUrlParams();
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {

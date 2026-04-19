@@ -9,12 +9,20 @@
     {
       "src": "og-image.png",
       "use": "@vercel/static"
+    },
+    {
+      "src": "manifest.json",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/og-image.png",
       "dest": "/og-image.png"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
     },
     {
       "src": "/(.*)",
