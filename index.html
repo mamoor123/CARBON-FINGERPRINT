@@ -1690,7 +1690,6 @@ body {
       </details>
     </div>
   </section>
-</div>
 
   </main>
 </div>
@@ -2189,6 +2188,7 @@ function setLanguage(lang) {
   if (!translations[lang]) return;
   currentLang = lang;
   document.getElementById('langSelect').value = lang;
+  document.documentElement.lang = lang;
   updateStaticText();
   if (currentStep === -1) renderHero();
   else if (currentStep >= 0 && currentStep <= 4) renderQuestion();
@@ -3874,6 +3874,7 @@ function renderCitySelector() {
 
 function renderCityData(city) {
   const data = cityClimateData[city];
+  if (!data) return;
   const grid = document.getElementById('climateDataGrid');
   grid.innerHTML = '';
 
@@ -4235,7 +4236,7 @@ async function generateShareCard() {
 }
 
 function downloadShareCard() {
-  if (!generatedShareDataUrl) return;
+  if (!generatedShareDataUrl) { alert('Generate a share card first.'); return; }
   const a = document.createElement('a');
   a.href = generatedShareDataUrl;
   a.download = 'my-carbon-fingerprint.png';
