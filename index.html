@@ -4451,6 +4451,26 @@ const cityClimateData = {
   'Ankara TR': { current: { temp: 12.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
   'Izmir TR': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
   'Bursa TR': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Antalya TR': { current: { temp: 19.0, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Adana TR': { current: { temp: 19.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Konya TR': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Gaziantep TR': { current: { temp: 15.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Mersin TR': { current: { temp: 19.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Diyarbakir TR': { current: { temp: 17.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Kayseri TR': { current: { temp: 10.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Eskisehir TR': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Trabzon TR': { current: { temp: 14.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Denizli TR': { current: { temp: 15.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Erzurum TR': { current: { temp: 5.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Van TR': { current: { temp: 9.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Samsun TR': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Malatya TR': { current: { temp: 13.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Kahramanmaras TR': { current: { temp: 16.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Elazig TR': { current: { temp: 12.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'MGM Turkey / IPCC AR6 WG2 Ch.13' },
+  'Tehran IR': { current: { temp: 17.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Mashhad IR': { current: { temp: 14.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Isfahan IR': { current: { temp: 16.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Shiraz IR': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5057,7 +5077,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2128+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2148+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
