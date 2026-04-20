@@ -4285,6 +4285,12 @@ const cityClimateData = {
   'Sargodha PK': { current: { temp: 25.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
   'Bahawalpur PK': { current: { temp: 26.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
   'Sukkur PK': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Dhaka BD': { current: { temp: 26.0, tempRise: 1.4, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Chittagong BD': { current: { temp: 26.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Khulna BD': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Rajshahi BD': { current: { temp: 26.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Sylhet BD': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Rangpur BD': { current: { temp: 25.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4891,7 +4897,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1962+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1968+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
