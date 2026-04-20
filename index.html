@@ -4542,6 +4542,26 @@ const cityClimateData = {
   'Sliven BG': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
   'Dobrich BG': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.08, extremeDays: 25 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
   'Shumen BG': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Athens GR': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Thessaloniki GR': { current: { temp: 15.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Patras GR': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Heraklion GR': { current: { temp: 19.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Larissa GR': { current: { temp: 16.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Volos GR': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Ioannina GR': { current: { temp: 14.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Chania GR': { current: { temp: 18.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Kavala GR': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Agrinio GR': { current: { temp: 17.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Kalamata GR': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Rhodes GR': { current: { temp: 19.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Serres GR': { current: { temp: 14.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Alexandroupoli GR': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 26 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Xanthi GR': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Kozani GR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Katerini GR': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Trikala GR': { current: { temp: 15.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Chalkida GR': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Corfu GR': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5148,7 +5168,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2219+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2239+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
