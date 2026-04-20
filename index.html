@@ -3917,6 +3917,26 @@ const cityClimateData = {
   'Nett FM': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'WMO Regional / IPCC AR6' },
   'Sokehs FM': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'WMO Regional / IPCC AR6' },
   'U FM': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'WMO Regional / IPCC AR6' },
+  'Abilene TX': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Beaumont TX': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Brownsville TX': { current: { temp: 24.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Denton TX': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Galveston TX': { current: { temp: 21.0, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 52 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Midland TX': { current: { temp: 17.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Odessa TX': { current: { temp: 17.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Round Rock TX': { current: { temp: 19.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Tyler TX': { current: { temp: 18.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Waco TX': { current: { temp: 19.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Arlington TX': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'McKinney TX': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Frisco TX': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Drummondville QC': { current: { temp: 6.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Saguenay QC': { current: { temp: 4.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Lévis QC': { current: { temp: 5.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Terrebonne QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Repentigny QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Brossard QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Blainville QC': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4523,7 +4543,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1595+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1615+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
