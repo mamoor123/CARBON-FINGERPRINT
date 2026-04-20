@@ -4351,6 +4351,26 @@ const cityClimateData = {
   'Sharm El Sheikh EG': { current: { temp: 26.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
   'Mansoura EG': { current: { temp: 22.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
   'Tanta EG': { current: { temp: 22.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Casablanca MA': { current: { temp: 18.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Rabat MA': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Marrakech MA': { current: { temp: 20.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Fès MA': { current: { temp: 18.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Tangier MA': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Agadir MA': { current: { temp: 20.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Meknes MA': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Oujda MA': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Kenitra MA': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Tetouan MA': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'DMN Morocco / IPCC AR6 WG2 Ch.9' },
+  'Algiers DZ': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Oran DZ2': { current: { temp: 18.0, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Constantine DZ': { current: { temp: 14.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Annaba DZ': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Blida DZ': { current: { temp: 18.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Batna DZ': { current: { temp: 14.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Sétif DZ': { current: { temp: 14.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ONM Algeria / IPCC AR6 WG2 Ch.9' },
+  'Tunis TN': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'INM Tunisia / IPCC AR6 WG2 Ch.9' },
+  'Sfax TN': { current: { temp: 19.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'INM Tunisia / IPCC AR6 WG2 Ch.9' },
+  'Sousse TN': { current: { temp: 19.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'INM Tunisia / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4957,7 +4977,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2028+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2048+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
