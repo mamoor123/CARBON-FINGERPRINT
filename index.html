@@ -4371,6 +4371,26 @@ const cityClimateData = {
   'Tunis TN': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.15, extremeDays: 32 }, source: 'INM Tunisia / IPCC AR6 WG2 Ch.9' },
   'Sfax TN': { current: { temp: 19.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'INM Tunisia / IPCC AR6 WG2 Ch.9' },
   'Sousse TN': { current: { temp: 19.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'INM Tunisia / IPCC AR6 WG2 Ch.9' },
+  'Lagos NG': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Kano NG': { current: { temp: 26.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Ibadan NG': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Abuja NG': { current: { temp: 26.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Port Harcourt NG': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Benin City NG': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Maiduguri NG': { current: { temp: 28.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Zaria NG': { current: { temp: 26.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Aba NG': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Jos NG': { current: { temp: 22.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Ilorin NG': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Oyo NG': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Enugu NG': { current: { temp: 27.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Abeokuta NG': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NiMet / IPCC AR6 WG2 Ch.9' },
+  'Accra GH': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Kumasi GH': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Tamale GH': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Sekondi GH': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Cape Coast GH': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Obuasi GH': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4977,7 +4997,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2048+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2068+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
