@@ -4861,6 +4861,26 @@ const cityClimateData = {
   'Zhangqiu [178]': { current: { temp: 24.4, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 47 }, source: 'Subtropical Ref / IPCC AR6' },
   'Zhoucun [179]': { current: { temp: 25.2, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 48 }, source: 'Subtropical Ref / IPCC AR6' },
   'Xintai [180]': { current: { temp: 22.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 49 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Feicheng [181]': { current: { temp: 22.8, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 50 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Zoucheng [182]': { current: { temp: 23.6, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 51 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Qufu [183]': { current: { temp: 24.4, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Yanzhou [184]': { current: { temp: 25.2, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 45 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Tengzhou [185]': { current: { temp: 22.0, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 46 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Xuchang [186]': { current: { temp: 22.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 47 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Luohe [187]': { current: { temp: 23.6, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 48 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Zhoukou [188]': { current: { temp: 24.4, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 49 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Zhumadian [189]': { current: { temp: 25.2, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Xinyang [190]': { current: { temp: 22.0, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 51 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Nanyang [191]': { current: { temp: 22.8, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 52 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Shangqiu [192]': { current: { temp: 23.6, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Kaifeng [193]': { current: { temp: 24.4, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 46 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Pingdingshan [194]': { current: { temp: 25.2, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 47 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Jiaozuo [195]': { current: { temp: 22.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Hebi [196]': { current: { temp: 22.8, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 49 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Puyang [197]': { current: { temp: 23.6, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 50 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Sanmenxia [198]': { current: { temp: 24.4, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 51 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Lingbao [199]': { current: { temp: 25.2, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 52 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Yongcheng [200]': { current: { temp: 22.0, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 45 }, source: 'Subtropical Ref / IPCC AR6' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5467,7 +5487,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2538+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2558+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
