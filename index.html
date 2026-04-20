@@ -4391,6 +4391,26 @@ const cityClimateData = {
   'Sekondi GH': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
   'Cape Coast GH': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
   'Obuasi GH': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'GMet / IPCC AR6 WG2 Ch.9' },
+  'Nairobi KE': { current: { temp: 18.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Kisumu KE': { current: { temp: 23.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Nakuru KE': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Eldoret KE': { current: { temp: 17.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Thika KE': { current: { temp: 20.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Malindi KE': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 52 }, source: 'KMD / IPCC AR6 WG2 Ch.9' },
+  'Addis Ababa ET': { current: { temp: 16.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NMA Ethiopia / IPCC AR6 WG2 Ch.9' },
+  'Dire Dawa ET': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'NMA Ethiopia / IPCC AR6 WG2 Ch.9' },
+  'Hawassa ET': { current: { temp: 20.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NMA Ethiopia / IPCC AR6 WG2 Ch.9' },
+  'Mekelle ET': { current: { temp: 20.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NMA Ethiopia / IPCC AR6 WG2 Ch.9' },
+  'Gondar ET': { current: { temp: 19.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NMA Ethiopia / IPCC AR6 WG2 Ch.9' },
+  'Jimma ET': { current: { temp: 20.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NMA Ethiopia / IPCC AR6 WG2 Ch.9' },
+  'Dar es Salaam TZ': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'TMA / IPCC AR6 WG2 Ch.9' },
+  'Dodoma TZ': { current: { temp: 23.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'TMA / IPCC AR6 WG2 Ch.9' },
+  'Mwanza TZ': { current: { temp: 23.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'TMA / IPCC AR6 WG2 Ch.9' },
+  'Arusha TZ': { current: { temp: 19.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'TMA / IPCC AR6 WG2 Ch.9' },
+  'Zanzibar TZ': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'TMA / IPCC AR6 WG2 Ch.9' },
+  'Johannesburg ZA': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Cape Town ZA': { current: { temp: 17.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Durban ZA': { current: { temp: 20.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4997,7 +5017,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2068+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2088+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
