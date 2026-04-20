@@ -4411,6 +4411,26 @@ const cityClimateData = {
   'Johannesburg ZA': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
   'Cape Town ZA': { current: { temp: 17.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
   'Durban ZA': { current: { temp: 20.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Pretoria ZA': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Bloemfontein ZA': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Port Elizabeth ZA': { current: { temp: 18.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'East London ZA': { current: { temp: 18.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Nelspruit ZA': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Kimberley ZA': { current: { temp: 20.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Polokwane ZA': { current: { temp: 19.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Pietermaritzburg ZA': { current: { temp: 18.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Rustenburg ZA': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'SAWS / IPCC AR6 WG2 Ch.9' },
+  'Windhoek NA': { current: { temp: 20.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NMS Namibia / IPCC AR6 WG2 Ch.9' },
+  'Gaborone BW': { current: { temp: 21.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'DMS Botswana / IPCC AR6 WG2 Ch.9' },
+  'Maputo MZ': { current: { temp: 23.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'INAM Mozambique / IPCC AR6 WG2 Ch.9' },
+  'Lusaka ZM': { current: { temp: 21.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'ZMD / IPCC AR6 WG2 Ch.9' },
+  'Kitwe ZM': { current: { temp: 21.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'ZMD / IPCC AR6 WG2 Ch.9' },
+  'Ndola ZM': { current: { temp: 20.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'ZMD / IPCC AR6 WG2 Ch.9' },
+  'Harare ZW': { current: { temp: 19.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'MSD Zimbabwe / IPCC AR6 WG2 Ch.9' },
+  'Kinshasa CD': { current: { temp: 25.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'METTELSAT DRC / IPCC AR6 WG2 Ch.9' },
+  'Lubumbashi CD2': { current: { temp: 21.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'METTELSAT DRC / IPCC AR6 WG2 Ch.9' },
+  'Mbuji-Mayi CD2': { current: { temp: 23.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'METTELSAT DRC / IPCC AR6 WG2 Ch.9' },
+  'Kananga CD2': { current: { temp: 25.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'METTELSAT DRC / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5017,7 +5037,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2088+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2108+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
