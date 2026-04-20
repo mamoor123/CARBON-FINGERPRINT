@@ -3977,6 +3977,26 @@ const cityClimateData = {
   'Mönchengladbach DE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
   'Lübeck DE': { current: { temp: 8.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
   'Erlangen DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Mainz DE': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Darmstadt DE': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Heidelberg DE': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Regensburg DE': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Ingolstadt DE': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Würzburg DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Göttingen DE': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Bielefeld DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Bottrop DE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Remscheid DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Siegen DE': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Hildesheim DE': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Salzgitter DE': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Strasbourg FR': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Nice FR': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Montpellier FR': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Rennes FR': { current: { temp: 11.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Reims FR': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Lille FR': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Clermont-Ferrand FR': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4583,7 +4603,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1655+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1675+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
