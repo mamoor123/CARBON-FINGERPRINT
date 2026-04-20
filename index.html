@@ -3582,6 +3582,7 @@ const cityClimateData = {
   'Tahoua NE': { current: { temp: 29.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'DMN Niger / IPCC AR6 WG2 Ch.9' },
   'Banjul GM': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'DWD Gambia / IPCC AR6 WG2 Ch.9' },
   'Kamchatsky RU': { current: { temp: 2.0, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
+  'Nukualofa TO': { current: { temp: 25.0, tempRise: 1.0, co2: 421, seaRise: 0.15, extremeDays: 50 }, source: 'Tonga Met / IPCC AR6 WG2 Ch.11' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4188,7 +4189,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1260+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1261+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
