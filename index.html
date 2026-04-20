@@ -3677,6 +3677,26 @@ const cityClimateData = {
   'Saipan MP': { current: { temp: 27.5, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'NWS Guam / IPCC AR6 WG2 Ch.11' },
   'Hagåtña GU': { current: { temp: 27.5, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'NWS Guam / IPCC AR6 WG2 Ch.11' },
   'Papeete PF': { current: { temp: 26.5, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 45 }, source: 'Météo-France PF / IPCC AR6 WG2 Ch.11' },
+  'São Luís BR': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Natal BR': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'João Pessoa BR': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Maceió BR': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Aracaju BR': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Teresina BR': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Campo Grande BR': { current: { temp: 23.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Cuiabá BR': { current: { temp: 26.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Porto Velho BR': { current: { temp: 27.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Macapá BR': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Boa Vista BR': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Palmas BR': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Rio Branco BR': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Belém BR': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 60 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Ribeirão Preto BR': { current: { temp: 23.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Uberlândia BR': { current: { temp: 23.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Santos BR': { current: { temp: 21.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Sorocaba BR': { current: { temp: 21.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Osasco BR': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Contagem BR': { current: { temp: 21.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4283,7 +4303,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1355+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1375+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
