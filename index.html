@@ -4471,6 +4471,17 @@ const cityClimateData = {
   'Mashhad IR': { current: { temp: 14.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
   'Isfahan IR': { current: { temp: 16.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
   'Shiraz IR': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Tabriz IR': { current: { temp: 12.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Ahvaz IR': { current: { temp: 25.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Qom IR': { current: { temp: 18.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Kermanshah IR': { current: { temp: 14.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Rasht IR': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 32 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Zahedan IR': { current: { temp: 19.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Hamadan IR': { current: { temp: 12.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Yazd IR': { current: { temp: 19.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Bandar Abbas IR': { current: { temp: 27.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Kerman IR': { current: { temp: 17.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Urmia IR': { current: { temp: 10.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5077,7 +5088,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2148+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2159+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
