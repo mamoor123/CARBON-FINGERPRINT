@@ -3663,6 +3663,20 @@ const cityClimateData = {
   'Coquitlam BC': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
   'Brampton ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
   'Mississauga ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Markham ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Vaughan ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Gatineau QC': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Laval QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Longueuil QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Port Moresby PG': { current: { temp: 27.0, tempRise: 1.1, co2: 421, seaRise: 0.15, extremeDays: 60 }, source: 'NWS PNG / IPCC AR6 WG2 Ch.11' },
+  'Funafuti TV': { current: { temp: 28.5, tempRise: 1.0, co2: 421, seaRise: 0.18, extremeDays: 55 }, source: 'Tuvalu Met / IPCC AR6 WG2 Ch.11' },
+  'Tarawa KI': { current: { temp: 28.5, tempRise: 1.0, co2: 421, seaRise: 0.18, extremeDays: 55 }, source: 'Kiribati Met / IPCC AR6 WG2 Ch.11' },
+  'Majuro MH': { current: { temp: 28.2, tempRise: 1.0, co2: 421, seaRise: 0.18, extremeDays: 55 }, source: 'Marshall Islands Met / IPCC AR6 WG2 Ch.11' },
+  'Palikir FM': { current: { temp: 27.5, tempRise: 1.0, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'FSM Met / IPCC AR6 WG2 Ch.11' },
+  'Koror PW': { current: { temp: 28.0, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'Palau Met / IPCC AR6 WG2 Ch.11' },
+  'Saipan MP': { current: { temp: 27.5, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'NWS Guam / IPCC AR6 WG2 Ch.11' },
+  'Hagåtña GU': { current: { temp: 27.5, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'NWS Guam / IPCC AR6 WG2 Ch.11' },
+  'Papeete PF': { current: { temp: 26.5, tempRise: 1.0, co2: 421, seaRise: 0.12, extremeDays: 45 }, source: 'Météo-France PF / IPCC AR6 WG2 Ch.11' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4269,7 +4283,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1341+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1355+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
