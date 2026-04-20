@@ -3623,6 +3623,26 @@ const cityClimateData = {
   'Tupelo MS': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
   'Baton Rouge LA': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
   'Lafayette LA': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Lake Charles LA': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Birmingham AL': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Tuscaloosa AL': { current: { temp: 17.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Macon GA': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Athens GA': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Asheville NC': { current: { temp: 13.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Greensboro NC': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Winston-Salem NC': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Wilmington NC': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Charleston SC': { current: { temp: 18.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Greenville SC': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Myrtle Beach SC': { current: { temp: 18.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Roanoke VA': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Virginia Beach VA': { current: { temp: 15.5, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Charleston WV': { current: { temp: 12.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Huntington WV': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Annapolis MD': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Wilmington DE': { current: { temp: 13.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Trenton NJ': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Allentown PA': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4229,7 +4249,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1301+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1321+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
