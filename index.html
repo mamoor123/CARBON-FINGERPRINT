@@ -4841,6 +4841,26 @@ const cityClimateData = {
   'Lestijärvi [158]': { current: { temp: 4.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'Continental Ref / IPCC AR6' },
   'Perho [159]': { current: { temp: 5.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 27 }, source: 'Continental Ref / IPCC AR6' },
   'Kinnula [160]': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Continental Ref / IPCC AR6' },
+  'Pihtipudas [161]': { current: { temp: 7.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 21 }, source: 'Continental Ref / IPCC AR6' },
+  'Kyyjärvi [162]': { current: { temp: 2.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Continental Ref / IPCC AR6' },
+  'Kivijärvi [163]': { current: { temp: 3.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 23 }, source: 'Continental Ref / IPCC AR6' },
+  'Kannonkoski [164]': { current: { temp: 4.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Continental Ref / IPCC AR6' },
+  'Kinnula [165]': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'Continental Ref / IPCC AR6' },
+  'Linyi [166]': { current: { temp: 22.8, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 51 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Heze [167]': { current: { temp: 23.6, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 52 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Jining [168]': { current: { temp: 24.4, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Zaozhuang [169]': { current: { temp: 25.2, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 46 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Liaocheng [170]': { current: { temp: 22.0, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 47 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Dezhou [171]': { current: { temp: 22.8, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Binzhou [172]': { current: { temp: 23.6, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 49 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Dongying [173]': { current: { temp: 24.4, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 50 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Tai\'an [174]': { current: { temp: 25.2, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 51 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Weihai [175]': { current: { temp: 22.0, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 52 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Rizhao [176]': { current: { temp: 22.8, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 45 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Laiwu [177]': { current: { temp: 23.6, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 46 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Zhangqiu [178]': { current: { temp: 24.4, tempRise: 1.5, co2: 421, seaRise: 0.04, extremeDays: 47 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Zhoucun [179]': { current: { temp: 25.2, tempRise: 1.5999999999999999, co2: 421, seaRise: 0.08, extremeDays: 48 }, source: 'Subtropical Ref / IPCC AR6' },
+  'Xintai [180]': { current: { temp: 22.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 49 }, source: 'Subtropical Ref / IPCC AR6' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5447,7 +5467,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2518+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2538+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
