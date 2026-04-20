@@ -4291,6 +4291,26 @@ const cityClimateData = {
   'Rajshahi BD': { current: { temp: 26.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
   'Sylhet BD': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
   'Rangpur BD': { current: { temp: 25.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'BMD / IPCC AR6 WG2 Ch.10' },
+  'Seoul KR2': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Busan KR2': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Incheon KR2': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Daegu KR2': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Daejeon KR2': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Gwangju KR3': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Ulsan KR2': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Suwon KR2': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Changwon KR2': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Goyang KR2': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Yongin KR2': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Seongnam KR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Bucheon KR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Cheongju KR2': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Ansan KR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.08, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Jeonju KR2': { current: { temp: 13.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Anyang KR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Pohang KR': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Gimhae KR': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Uijeongbu KR': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4897,7 +4917,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1968+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1988+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
