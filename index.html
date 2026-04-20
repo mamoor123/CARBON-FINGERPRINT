@@ -4070,6 +4070,26 @@ const cityClimateData = {
   'Radom PL': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
   'Sosnowiec PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
   'Gliwice PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Madrid ES': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Barcelona ES': { current: { temp: 17.2, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Zaragoza ES': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Málaga ES': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Murcia ES': { current: { temp: 18.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Palma ES': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Alicante ES': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Valladolid ES': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Gijón ES': { current: { temp: 13.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 22 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'L\'Hospitalet ES': { current: { temp: 17.0, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'A Coruña ES': { current: { temp: 14.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 22 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Elche ES': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Cartagena ES': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Jerez ES': { current: { temp: 18.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Pamplona ES': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'AEMET / IPCC AR6 WG2 Ch.13' },
+  'Oslo NO': { current: { temp: 6.5, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Bergen NO': { current: { temp: 8.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Trondheim NO': { current: { temp: 5.5, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Stavanger NO': { current: { temp: 8.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Drammen NO': { current: { temp: 6.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4676,7 +4696,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1748+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1768+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
