@@ -4622,6 +4622,26 @@ const cityClimateData = {
   'Dornbirn AT': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'ZAMG / IPCC AR6 WG2 Ch.13' },
   'Wiener Neustadt AT': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ZAMG / IPCC AR6 WG2 Ch.13' },
   'Stockholm SE': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Gothenburg SE': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Malmö SE': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Uppsala SE': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Linköping SE': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Örebro SE': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Västerås SE': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Helsingborg SE': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Jönköping SE': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Norrköping SE': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Lund SE': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Umeå SE': { current: { temp: 3.5, tempRise: 2.3, co2: 421, seaRise: 0.08, extremeDays: 18 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Gävle SE': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Borås SE': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Södertälje SE': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Eskilstuna SE': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Halmstad SE': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Växjö SE': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Karlstad SE': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Sundsvall SE': { current: { temp: 4.5, tempRise: 2.2, co2: 421, seaRise: 0.08, extremeDays: 18 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
+  'Dublin IE': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5228,7 +5248,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2299+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2319+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
