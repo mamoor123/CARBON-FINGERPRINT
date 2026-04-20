@@ -4090,6 +4090,21 @@ const cityClimateData = {
   'Trondheim NO': { current: { temp: 5.5, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
   'Stavanger NO': { current: { temp: 8.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
   'Drammen NO': { current: { temp: 6.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Fredrikstad NO': { current: { temp: 7.0, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Kristiansand NO': { current: { temp: 7.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Tromsø NO': { current: { temp: 3.0, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Ålesund NO': { current: { temp: 7.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Haugesund NO': { current: { temp: 8.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Moss NO': { current: { temp: 7.0, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Skien NO': { current: { temp: 7.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Hamar NO': { current: { temp: 5.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Narvik NO': { current: { temp: 3.0, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Bodø NO': { current: { temp: 5.0, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'MET Norway / IPCC AR6 WG2 Ch.13' },
+  'Helsinki FI': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Espoo FI': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Vantaa FI': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Oulu FI': { current: { temp: 2.5, tempRise: 2.4, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Tampere FI': { current: { temp: 4.5, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4696,7 +4711,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1768+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1783+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
