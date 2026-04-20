@@ -4265,6 +4265,26 @@ const cityClimateData = {
   'Kanpur IN': { current: { temp: 26.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
   'Nagpur IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
   'Indore IN': { current: { temp: 25.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Thane IN': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Bhopal IN': { current: { temp: 25.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Visakhapatnam IN': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Patna IN': { current: { temp: 25.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Vadodara IN': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Ghaziabad IN': { current: { temp: 25.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Ludhiana IN': { current: { temp: 24.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Karachi PK': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Lahore PK': { current: { temp: 25.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Islamabad PK': { current: { temp: 21.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Rawalpindi PK': { current: { temp: 21.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Faisalabad PK': { current: { temp: 25.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Multan PK': { current: { temp: 26.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Peshawar PK': { current: { temp: 22.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Quetta PK': { current: { temp: 18.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Sialkot PK': { current: { temp: 24.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Gujranwala PK': { current: { temp: 24.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Sargodha PK': { current: { temp: 25.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Bahawalpur PK': { current: { temp: 26.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
+  'Sukkur PK': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'PMD / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4871,7 +4891,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1942+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1962+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
