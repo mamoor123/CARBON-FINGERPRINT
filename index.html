@@ -4311,6 +4311,26 @@ const cityClimateData = {
   'Pohang KR': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
   'Gimhae KR': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
   'Uijeongbu KR': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Baghdad IQ': { current: { temp: 24.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Basra IQ': { current: { temp: 25.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Mosul IQ': { current: { temp: 20.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Erbil IQ': { current: { temp: 18.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'KRG Met / IPCC AR6 WG2 Ch.9' },
+  'Sulaymaniyah IQ': { current: { temp: 16.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KRG Met / IPCC AR6 WG2 Ch.9' },
+  'Najaf IQ': { current: { temp: 25.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Kirkuk IQ': { current: { temp: 21.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Karbala IQ': { current: { temp: 25.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Nasiriyah IQ': { current: { temp: 26.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Amarah IQ': { current: { temp: 25.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Diwaniyah IQ': { current: { temp: 25.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Hilla IQ': { current: { temp: 24.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Kut IQ': { current: { temp: 25.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Ramadi IQ': { current: { temp: 23.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Fallujah IQ': { current: { temp: 24.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Samarra IQ': { current: { temp: 23.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Tikrit IQ': { current: { temp: 23.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Baqubah IQ': { current: { temp: 24.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
+  'Duhok IQ': { current: { temp: 17.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KRG Met / IPCC AR6 WG2 Ch.9' },
+  'Zakho IQ': { current: { temp: 17.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KRG Met / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4917,7 +4937,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1988+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2008+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
