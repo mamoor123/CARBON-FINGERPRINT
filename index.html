@@ -4205,6 +4205,26 @@ const cityClimateData = {
   'Queenstown NZ': { current: { temp: 9.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 18 }, source: 'NIWA / IPCC AR6 WG2 Ch.11' },
   'Manila PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
   'Quezon City PH': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Cebu PH': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Davao PH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Caloocan PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Zamboanga PH': { current: { temp: 27.8, tempRise: 1.1, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Antipolo PH': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Pasig PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Cagayan de Oro PH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Parañaque PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Dasmariñas PH': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Valenzuela PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Bacoor PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'General Santos PH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Las Piñas PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Makati PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Muntinlupa PH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Iloilo PH': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Bacolod PH': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Tacloban PH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
+  'Hanoi VN': { current: { temp: 24.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Ho Chi Minh VN': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 62 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4811,7 +4831,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1882+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1902+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
