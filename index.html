@@ -4105,6 +4105,26 @@ const cityClimateData = {
   'Vantaa FI': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
   'Oulu FI': { current: { temp: 2.5, tempRise: 2.4, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
   'Tampere FI': { current: { temp: 4.5, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 18 }, source: 'FMI / IPCC AR6 WG2 Ch.13' },
+  'Sapporo JP': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Asahikawa JP': { current: { temp: 6.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Hakodate JP': { current: { temp: 9.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kushiro JP': { current: { temp: 6.0, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Obihiro JP': { current: { temp: 7.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Tomakomai JP': { current: { temp: 8.0, tempRise: 1.8, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Sendai JP': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Akita JP': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Yamagata JP': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'JMA / IPPC AR6 WG2 Ch.10' },
+  'Fukushima JP': { current: { temp: 12.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Morioka JP': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Aomori JP': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 24 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Niigata JP': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Toyama JP': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kanazawa JP': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Fukui JP': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Nagano JP': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Matsumoto JP': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kofu JP': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Maebashi JP': { current: { temp: 13.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4711,7 +4731,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1783+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1802+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
