@@ -4225,6 +4225,26 @@ const cityClimateData = {
   'Tacloban PH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'PAGASA / IPCC AR6 WG2 Ch.10' },
   'Hanoi VN': { current: { temp: 24.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
   'Ho Chi Minh VN': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 62 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Da Nang VN': { current: { temp: 26.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 52 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Hai Phong VN': { current: { temp: 23.5, tempRise: 1.4, co2: 421, seaRise: 0.15, extremeDays: 48 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Can Tho VN': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Bien Hoa VN': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Hue VN': { current: { temp: 25.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 52 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Nha Trang VN': { current: { temp: 27.0, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Buon Ma Thuot VN': { current: { temp: 24.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Da Lat VN': { current: { temp: 19.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Thai Nguyen VN': { current: { temp: 23.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Nam Dinh VN': { current: { temp: 24.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Vinh VN': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Vung Tau VN': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Rach Gia VN': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Long Xuyen VN': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'My Tho VN': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Phan Thiet VN': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Quy Nhon VN': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 52 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Pleiku VN': { current: { temp: 22.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
+  'Bangkok TH': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Chiang Mai TH': { current: { temp: 26.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4831,7 +4851,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1902+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1922+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
