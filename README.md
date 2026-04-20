@@ -2,14 +2,14 @@
 
 **Discover Your Climate Identity** — powered by 144 years of planetary data.
 
-A single-page web app that calculates your personal carbon footprint through 5 simple questions, then visualizes it as a unique "Carbon Fingerprint" with animated SVG rings, real climate data from NASA/NOAA, and personalized insights based on IPCC AR6 emission factors. Covers **1,001 cities** across every continent.
+A single-page web app that calculates your personal carbon footprint through 5 simple questions, then visualizes it as a unique "Carbon Fingerprint" with animated SVG rings, real climate data from NASA/NOAA, and personalized insights based on IPCC AR6 emission factors. Covers **2,557 cities** across every continent.
 
 ## ✨ Features
 
 - **5-Question Lifestyle Quiz** — Transport (incl. EV), Diet, Energy, Consumption, Flights
 - **IPCC AR6 Calibrated** — Emission factors from peer-reviewed climate science
 - **Animated Fingerprint Visualization** — Unique organic SVG pattern per user, seeded from answers
-- **1,001 Cities** — Searchable dropdown with climate data for 165 US cities, 231 European, 306 Asian, 107 African, 44 Canadian, 44 South American, and more across 6 continents
+- **2,557 Cities** — Searchable dropdown with climate data spanning 157+ countries across 6 continents
 - **Real NASA GISS Data** — Global temperature anomalies 1880–2025 (actual data, not estimates)
 - **Personalized Insights** — Contextual tips with specific CO₂ savings
 - **Share Card Generator** — PNG export + shareable URL links (`?r=base64`)
@@ -56,7 +56,7 @@ Share this link and your friend sees your fingerprint instantly — then takes t
 | FAO / Poore & Nemecek | Food system emissions | 2018 |
 | Global Carbon Project | National per-capita averages | 2023 |
 
-## 🏙️ 1,000+ Cities Worldwide
+## 🏙️ 2,557 Cities Worldwide
 
 Searchable dropdown with instant filtering. Each city includes local temperature, temperature rise since pre-industrial era, CO₂ levels, sea level rise, and extreme weather days — sourced from regional meteorological services and IPCC AR6 chapters.
 
@@ -64,17 +64,15 @@ Searchable dropdown with instant filtering. Each city includes local temperature
 
 | Region | Cities | Key Countries |
 |--------|--------|---------------|
-| 🇺🇸 United States | 165 | All 50 states, top metros + mid-size cities |
-| 🇪🇺 Europe | 231 | UK, France, Germany, Italy, Spain, Nordics, Eastern Europe, Baltics, Balkans |
-| 🌏 Asia | 306 | China, India, Japan, South Korea, SE Asia, Pakistan, Bangladesh, Central Asia |
-| 🌍 Africa | 107 | Nigeria, South Africa, Kenya, Egypt, Morocco, DRC, Ethiopia, West/East/Southern Africa |
-| 🇨🇦 Canada | 44 | All provinces, from Whitehorse to Halifax |
-| 🌎 South America | 44 | Brazil, Argentina, Colombia, Chile, Peru, Venezuela, Ecuador, Bolivia, Paraguay, Uruguay |
-| 🕌 Middle East | 42 | Saudi Arabia, UAE, Turkey, Iran, Iraq, Israel/Palestine, Jordan, Lebanon, Gulf states |
-| 🌴 Oceania & Pacific | 31 | Australia, New Zealand, Fiji, Papua New Guinea, Samoa, Solomon Islands, Kiribati, Marshall Islands |
-| 🌎 Mexico, Central America & Caribbean | 20 | Mexico, Cuba, DR, Costa Rica, Panama, Guatemala, Jamaica |
+| 🇺🇸 United States & 🇨🇦 Canada | 212 | All 50 US states + all Canadian provinces — from Whitehorse to Halifax |
+| 🇪🇺 Europe | 575 | UK, France, Germany, Italy, Spain, Portugal, Netherlands, Belgium, Switzerland, Austria, Nordics, Poland, Czech Republic, Slovakia, Hungary, Romania, Bulgaria, Greece, Turkey, Baltics, Balkans, Ireland |
+| 🌏 Asia | 500 | China, India, Japan, South Korea, Philippines, Indonesia, Vietnam, Thailand, Malaysia, Myanmar, Cambodia, Laos, Bangladesh, Pakistan, Central Asia (Kazakhstan, Uzbekistan, Kyrgyzstan, Tajikistan, Turkmenistan) |
+| 🌍 Africa | 240 | Nigeria, South Africa, Kenya, Ethiopia, Tanzania, Egypt, Morocco, Algeria, Tunisia, DRC, Congo, Ghana, Senegal, Cameroon, Angola, Mozambique, Madagascar, West/East/Southern/Central Africa |
+| 🌎 South America | 115 | Brazil, Argentina, Colombia, Chile, Peru, Venezuela, Ecuador, Bolivia, Paraguay, Uruguay, Central America & Caribbean |
+| 🌴 Oceania & Pacific | 94 | Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Micronesia, Palau, Marshall Islands, Kiribati, Tuvalu, New Caledonia, French Polynesia, Guam |
+| 🕌 Middle East | 66 | Iran, Iraq, Saudi Arabia, UAE, Turkey, Jordan, Lebanon, Syria, Yemen, Oman, Bahrain, Qatar, Kuwait, Israel/Palestine, Georgia, Armenia, Azerbaijan |
 
-**Total: 1,001 cities**
+**Total: 2,557 cities across 157+ countries**
 
 ### Data Per City
 
@@ -89,12 +87,12 @@ Each city includes 4 climate indicators:
 | Region | Meteorological Source | IPCC Chapter |
 |--------|----------------------|-------------|
 | US & Canada | NOAA NCEI, ECCC | AR6 WG2 Ch.13 |
-| Europe | Met Office, DWD, Météo-France, SMHI, etc. | AR6 WG2 Ch.13 |
-| Asia | CMA, JMA, KMA, IMD, BMKG, PAGASA, etc. | AR6 WG2 Ch.10 |
-| Africa | SAWS, NiMet, KMD, EMA, national services | AR6 WG2 Ch.9 |
-| Middle East | MGM, PME, NCM, IRIMO, etc. | AR6 WG2 Ch.9 |
-| South America | INPE, SMN, IDEAM, SENAMHI, etc. | AR6 WG2 Ch.12 |
-| Oceania | BoM, NIWA, Pacific island services | AR6 WG2 Ch.11 |
+| Europe | Met Office, DWD, Météo-France, SMHI, KNMI, Met Éireann, MeteoSwiss, ZAMG, IMGW, AEMET, IPMA, etc. | AR6 WG2 Ch.13 |
+| Asia | CMA, JMA, KMA, IMD, BMKG, PAGASA, TMD, MetMalaysia, etc. | AR6 WG2 Ch.10 |
+| Africa | SAWS, NiMet, KMD, EMA, INAM, METTELSAT, GMet, etc. | AR6 WG2 Ch.9 |
+| Middle East | IRIMO, PME, MGM, Iraqi Met, JMD, etc. | AR6 WG2 Ch.9 |
+| South America | INMET, SMN, IDEAM, SENAMHI, INAMHI, DMC, etc. | AR6 WG2 Ch.12 |
+| Oceania | BoM, NIWA, NWS PNG, Fiji Met, Pacific island services | AR6 WG2 Ch.11 |
 
 ## 📸 Share Card
 
