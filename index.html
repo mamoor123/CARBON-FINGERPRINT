@@ -3603,6 +3603,26 @@ const cityClimateData = {
   'Lansing MI': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
   'Flint MI': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
   'Kalamazoo MI': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Appleton WI': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Green Bay WI': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'La Crosse WI': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Eau Claire WI': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'St Cloud MN': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Lincoln NE': { current: { temp: 10.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Grand Island NE': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Salina KS': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Tulsa OK': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Norman OK': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Columbia MO': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Joplin MO': { current: { temp: 14.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Fayetteville AR': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Fort Smith AR': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Pine Bluff AR': { current: { temp: 17.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Hattiesburg MS': { current: { temp: 18.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Gulfport MS': { current: { temp: 20.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Tupelo MS': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Baton Rouge LA': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Lafayette LA': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4209,7 +4229,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1281+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1301+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
