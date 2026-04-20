@@ -4502,6 +4502,26 @@ const cityClimateData = {
   'Kohtla-Järve EE': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.08, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
   'Viljandi EE': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
   'Rakvere EE': { current: { temp: 5.5, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Belgrade RS': { current: { temp: 12.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Novi Sad RS': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Niš RS': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Kragujevac RS': { current: { temp: 12.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Subotica RS': { current: { temp: 11.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Zrenjanin RS': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Pančevo RS': { current: { temp: 12.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Čačak RS': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Novi Pazar RS': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Kraljevo RS': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'RHSS / IPCC AR6 WG2 Ch.13' },
+  'Sarajevo BA': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'FHMZBiH / IPCC AR6 WG2 Ch.13' },
+  'Banja Luka BA': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'FHMZBiH / IPCC AR6 WG2 Ch.13' },
+  'Tuzla BA': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'FHMZBiH / IPCC AR6 WG2 Ch.13' },
+  'Zenica BA': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'FHMZBiH / IPCC AR6 WG2 Ch.13' },
+  'Mostar BA': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'FHMZBiH / IPCC AR6 WG2 Ch.13' },
+  'Podgorica ME': { current: { temp: 15.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
+  'Nikšić ME': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
+  'Bijelo Polje ME': { current: { temp: 10.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
+  'Herceg Novi ME': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.08, extremeDays: 28 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
+  'Budva ME': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.08, extremeDays: 28 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5108,7 +5128,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2179+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2199+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
