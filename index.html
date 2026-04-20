@@ -4662,6 +4662,25 @@ const cityClimateData = {
   'Letterkenny IE': { current: { temp: 9.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
   'Clonmel IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
   'Budapest HU': { current: { temp: 11.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Debrecen HU': { current: { temp: 10.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Szeged HU': { current: { temp: 11.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Miskolc HU': { current: { temp: 9.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Pécs HU': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Győr HU': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Nyíregyháza HU': { current: { temp: 9.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Kecskemét HU': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Székesfehérvár HU': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
+  'Prague CZ': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Brno CZ': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Ostrava CZ': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Plzeň CZ': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Liberec CZ': { current: { temp: 8.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Olomouc CZ': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'České Budějovice CZ': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Hradec Králové CZ': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Ústí nad Labem CZ': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
+  'Bratislava SK': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'SHMU / IPCC AR6 WG2 Ch.13' },
+  'Košice SK': { current: { temp: 9.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'SHMU / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5268,7 +5287,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2339+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2358+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
