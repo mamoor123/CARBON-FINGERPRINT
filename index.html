@@ -4482,6 +4482,26 @@ const cityClimateData = {
   'Bandar Abbas IR': { current: { temp: 27.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 58 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
   'Kerman IR': { current: { temp: 17.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
   'Urmia IR': { current: { temp: 10.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'IRIMO / IPCC AR6 WG2 Ch.9' },
+  'Vilnius LT': { current: { temp: 6.5, tempRise: 2.1, co2: 421, seaRise: 0.08, extremeDays: 25 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Kaunas LT': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Klaipeda LT': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Šiauliai LT': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Panevėžys LT': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Alytus LT': { current: { temp: 6.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Marijampolė LT': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LHMT / IPCC AR6 WG2 Ch.13' },
+  'Riga LV': { current: { temp: 6.2, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 24 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Daugavpils LV': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Liepāja LV': { current: { temp: 7.0, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Jelgava LV': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Jūrmala LV': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.1, extremeDays: 24 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Ventspils LV': { current: { temp: 7.0, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'LVĢMC / IPCC AR6 WG2 Ch.13' },
+  'Tallinn EE': { current: { temp: 5.5, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Tartu EE': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Narva EE': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.08, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Pärnu EE': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Kohtla-Järve EE': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.08, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Viljandi EE': { current: { temp: 5.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
+  'Rakvere EE': { current: { temp: 5.5, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'EMHI / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5088,7 +5108,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2159+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2179+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
