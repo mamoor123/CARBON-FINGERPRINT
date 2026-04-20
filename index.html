@@ -3697,6 +3697,26 @@ const cityClimateData = {
   'Sorocaba BR': { current: { temp: 21.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
   'Osasco BR': { current: { temp: 20.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
   'Contagem BR': { current: { temp: 21.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'INMET / IPCC AR6 WG2 Ch.12' },
+  'Khartoum SD': { current: { temp: 30.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 75 }, source: 'Sudan Met / IPCC AR6 WG2 Ch.9' },
+  'Omdurman SD': { current: { temp: 30.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 75 }, source: 'Sudan Met / IPCC AR6 WG2 Ch.9' },
+  'Port Sudan SD': { current: { temp: 29.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 65 }, source: 'Sudan Met / IPCC AR6 WG2 Ch.9' },
+  'Kassala SD': { current: { temp: 29.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 72 }, source: 'Sudan Met / IPCC AR6 WG2 Ch.9' },
+  'El Obeid SD': { current: { temp: 29.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 70 }, source: 'Sudan Met / IPCC AR6 WG2 Ch.9' },
+  'Nyala SD': { current: { temp: 28.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'Sudan Met / IPCC AR6 WG2 Ch.9' },
+  'Wau SS': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Malakal SS': { current: { temp: 28.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Bor SS': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Aweil SS': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Rumbek SS': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Yambio SS': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Torit SS': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 62 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Kapoeta SS': { current: { temp: 28.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Bentiu SS': { current: { temp: 28.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Renk SS': { current: { temp: 29.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 70 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Kuacjok SS': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 65 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Maridi SS': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Tambura SS': { current: { temp: 26.5, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 60 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
+  'Pibor SS': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 68 }, source: 'SSMS / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4303,7 +4323,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1375+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1395+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
