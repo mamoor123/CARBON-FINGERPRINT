@@ -3957,6 +3957,26 @@ const cityClimateData = {
   'Bath UK': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
   'Oxford UK': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
   'Cambridge UK': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'York UK': { current: { temp: 9.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Chester UK': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Carlisle UK': { current: { temp: 9.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Inverness UK': { current: { temp: 8.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Perth UK': { current: { temp: 8.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Stirling UK': { current: { temp: 8.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Dundee UK': { current: { temp: 8.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Preston UK': { current: { temp: 9.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Blackpool UK': { current: { temp: 9.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Middlesbrough UK': { current: { temp: 9.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Hull UK': { current: { temp: 9.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Peterborough UK': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Norwich UK': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Krefeld DE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Oberhausen DE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Hagen DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Hamm DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Mönchengladbach DE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Lübeck DE': { current: { temp: 8.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
+  'Erlangen DE': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'DWD / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4563,7 +4583,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1635+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1655+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
