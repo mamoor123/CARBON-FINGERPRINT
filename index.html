@@ -4522,6 +4522,26 @@ const cityClimateData = {
   'Bijelo Polje ME': { current: { temp: 10.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
   'Herceg Novi ME': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.08, extremeDays: 28 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
   'Budva ME': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.08, extremeDays: 28 }, source: 'ZHMS CG / IPCC AR6 WG2 Ch.13' },
+  'Bucharest RO': { current: { temp: 11.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Cluj-Napoca RO': { current: { temp: 9.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Timișoara RO': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Iași RO': { current: { temp: 9.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Constanța RO': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Craiova RO': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Brașov RO': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Galați RO': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Ploiești RO': { current: { temp: 10.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Oradea RO': { current: { temp: 10.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ANM Romania / IPCC AR6 WG2 Ch.13' },
+  'Sofia BG': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Plovdiv BG': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Varna BG': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Burgas BG2': { current: { temp: 12.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Ruse BG': { current: { temp: 11.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Stara Zagora BG': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Pleven BG': { current: { temp: 11.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Sliven BG': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Dobrich BG': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.08, extremeDays: 25 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
+  'Shumen BG': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'NIMH Bulgaria / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5128,7 +5148,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2199+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2219+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
