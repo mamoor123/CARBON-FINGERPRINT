@@ -4701,6 +4701,26 @@ const cityClimateData = {
   'Lucas [18]': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.16, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
   'Primavera [19]': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
   'Juara [20]': { current: { temp: 27.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'Tangará [21]': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.13999999999999999, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Colíder [22]': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.16, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
+  'Guarantã [23]': { current: { temp: 28.5, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 60 }, source: 'Tropical Ref / IPCC AR6' },
+  'Alta Floresta [24]': { current: { temp: 27.0, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
+  'Aripuanã [25]': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.13999999999999999, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Barcelos [26]': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.16, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'São Gabriel [27]': { current: { temp: 28.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Tefé [28]': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
+  'Caracaraí [29]': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.13999999999999999, extremeDays: 60 }, source: 'Tropical Ref / IPCC AR6' },
+  'Oriximiná [30]': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.16, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
+  'Calabar [31]': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Uyo [32]': { current: { temp: 27.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'Owerri [33]': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.13999999999999999, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Aba [34]': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.16, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
+  'Onitsha [35]': { current: { temp: 28.5, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 60 }, source: 'Tropical Ref / IPCC AR6' },
+  'Awka [36]': { current: { temp: 27.0, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
+  'Nsukka [37]': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.13999999999999999, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Ogoja [38]': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.16, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'Calabar [39]': { current: { temp: 28.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Umuahia [40]': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5307,7 +5327,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2378+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2398+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
