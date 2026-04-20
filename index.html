@@ -4821,6 +4821,26 @@ const cityClimateData = {
   'Kauhajoki [138]': { current: { temp: 2.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Continental Ref / IPCC AR6' },
   'Iisalmi [139]': { current: { temp: 3.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 23 }, source: 'Continental Ref / IPCC AR6' },
   'Nivala [140]': { current: { temp: 4.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Continental Ref / IPCC AR6' },
+  'Ylivieska [141]': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'Continental Ref / IPCC AR6' },
+  'Alavus [142]': { current: { temp: 6.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'Continental Ref / IPCC AR6' },
+  'Parkano [143]': { current: { temp: 7.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 27 }, source: 'Continental Ref / IPCC AR6' },
+  'Haapajärvi [144]': { current: { temp: 2.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Continental Ref / IPCC AR6' },
+  'Lapua [145]': { current: { temp: 3.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 21 }, source: 'Continental Ref / IPCC AR6' },
+  'Kauhava [146]': { current: { temp: 4.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Continental Ref / IPCC AR6' },
+  'Ilmajoki [147]': { current: { temp: 5.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 23 }, source: 'Continental Ref / IPCC AR6' },
+  'Närpiö [148]': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Continental Ref / IPCC AR6' },
+  'Kristiinankaupunki [149]': { current: { temp: 7.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'Continental Ref / IPCC AR6' },
+  'Jakobstad [150]': { current: { temp: 2.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'Continental Ref / IPCC AR6' },
+  'Nykarleby [151]': { current: { temp: 3.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 27 }, source: 'Continental Ref / IPCC AR6' },
+  'Pedersöre [152]': { current: { temp: 4.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Continental Ref / IPCC AR6' },
+  'Kronoby [153]': { current: { temp: 5.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 21 }, source: 'Continental Ref / IPCC AR6' },
+  'Larsmo [154]': { current: { temp: 6.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Continental Ref / IPCC AR6' },
+  'Kokkola [155]': { current: { temp: 7.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 23 }, source: 'Continental Ref / IPCC AR6' },
+  'Kannus [156]': { current: { temp: 2.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Continental Ref / IPCC AR6' },
+  'Toholampi [157]': { current: { temp: 3.0, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'Continental Ref / IPCC AR6' },
+  'Lestijärvi [158]': { current: { temp: 4.0, tempRise: 2.3000000000000003, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'Continental Ref / IPCC AR6' },
+  'Perho [159]': { current: { temp: 5.0, tempRise: 2.4000000000000004, co2: 421, seaRise: 0.0, extremeDays: 27 }, source: 'Continental Ref / IPCC AR6' },
+  'Kinnula [160]': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Continental Ref / IPCC AR6' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5427,7 +5447,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2498+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2518+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
