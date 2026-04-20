@@ -4050,6 +4050,26 @@ const cityClimateData = {
   'Rajahmundry IN': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
   'Guntur IN': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
   'Ongole IN': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Wrocław PL': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Poznań PL': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Łódź PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Kraków PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Gdańsk PL': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Szczecin PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Toruń PL': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Rzeszów PL': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Kielce PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Olsztyn PL': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Białystok PL': { current: { temp: 7.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Opole PL': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Gorzów PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Zielona Góra PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Wałbrzych PL': { current: { temp: 8.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Tychy PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Częstochowa PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Radom PL': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Sosnowiec PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
+  'Gliwice PL': { current: { temp: 8.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IMGW / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4656,7 +4676,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1728+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1748+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
