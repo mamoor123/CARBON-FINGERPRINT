@@ -4037,6 +4037,19 @@ const cityClimateData = {
   'Davangere IN': { current: { temp: 25.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
   'Shimoga IN': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
   'Gulbarga IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Bellary IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Tumkur IN': { current: { temp: 25.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Bijapur IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Warangal IN': { current: { temp: 27.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Nizamabad IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Karimnagar IN': { current: { temp: 27.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Khammam IN': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Nellore IN': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Tirupati IN': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Kakinada IN': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Rajahmundry IN': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Guntur IN': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Ongole IN': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4643,7 +4656,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1715+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1728+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
