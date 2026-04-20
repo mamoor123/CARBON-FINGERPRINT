@@ -4245,6 +4245,26 @@ const cityClimateData = {
   'Pleiku VN': { current: { temp: 22.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'NCHMF / IPCC AR6 WG2 Ch.10' },
   'Bangkok TH': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 58 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
   'Chiang Mai TH': { current: { temp: 26.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Phuket TH': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Pattaya TH': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Surat Thani TH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Chiang Rai TH': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Nakhon Si Thammarat TH': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Ubon Ratchathani TH': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Sakon Nakhon TH': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'TMD / IPCC AR6 WG2 Ch.10' },
+  'Delhi IN': { current: { temp: 25.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Mumbai IN': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Bangalore IN': { current: { temp: 24.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Hyderabad IN': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Ahmedabad IN': { current: { temp: 27.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Chennai IN': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Kolkata IN': { current: { temp: 26.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Pune IN': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Jaipur IN': { current: { temp: 26.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Lucknow IN': { current: { temp: 25.8, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Kanpur IN': { current: { temp: 26.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Nagpur IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 52 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Indore IN': { current: { temp: 25.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4851,7 +4871,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1922+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1942+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
