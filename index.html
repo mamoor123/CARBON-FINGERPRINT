@@ -4145,6 +4145,26 @@ const cityClimateData = {
   'Hiroshima JP': { current: { temp: 15.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
   'Okayama JP': { current: { temp: 16.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
   'Tottori JP': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Matsue JP': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Yamaguchi JP': { current: { temp: 15.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Fukuoka JP': { current: { temp: 16.0, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 32 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kitakyushu JP': { current: { temp: 15.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Saga JP': { current: { temp: 16.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Nagasaki JP': { current: { temp: 16.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kumamoto JP': { current: { temp: 16.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Oita JP': { current: { temp: 16.0, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Miyazaki JP': { current: { temp: 17.5, tempRise: 1.4, co2: 421, seaRise: 0.1, extremeDays: 35 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Kagoshima JP': { current: { temp: 18.0, tempRise: 1.4, co2: 421, seaRise: 0.1, extremeDays: 35 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Naha JP': { current: { temp: 23.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 40 }, source: 'JMA / IPCC AR6 WG2 Ch.10' },
+  'Seoul KR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Busan KR': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Daegu KR': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Incheon KR': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Daejeon KR': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Ulsan KR': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Suwon KR': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Jeju KR2': { current: { temp: 15.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 30 }, source: 'KMA / IPCC AR6 WG2 Ch.10' },
+  'Sydney AU': { current: { temp: 18.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 32 }, source: 'BoM / IPCC AR6 WG2 Ch.11' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4751,7 +4771,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1822+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1842+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
