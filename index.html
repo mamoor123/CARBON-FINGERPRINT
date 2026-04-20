@@ -4562,6 +4562,26 @@ const cityClimateData = {
   'Trikala GR': { current: { temp: 15.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
   'Chalkida GR': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
   'Corfu GR': { current: { temp: 17.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'EMY Greece / IPCC AR6 WG2 Ch.13' },
+  'Lisbon PT': { current: { temp: 17.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 25 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Porto PT': { current: { temp: 15.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 22 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Braga PT': { current: { temp: 14.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Funchal PT': { current: { temp: 19.5, tempRise: 1.3, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Évora PT': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Setúbal PT': { current: { temp: 17.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 25 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Faro PT': { current: { temp: 18.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Leiria PT': { current: { temp: 15.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Viseu PT': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Guimarães PT': { current: { temp: 14.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Vila Nova de Gaia PT': { current: { temp: 15.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 22 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Amadora PT': { current: { temp: 17.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Barreiro PT': { current: { temp: 17.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 25 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Aveiro PT': { current: { temp: 15.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 22 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Beja PT': { current: { temp: 17.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Portalegre PT': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Bragança PT': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Castelo Branco PT': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Vila Real PT': { current: { temp: 13.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
+  'Amsterdam NL': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5168,7 +5188,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2239+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2259+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
