@@ -4642,6 +4642,26 @@ const cityClimateData = {
   'Karlstad SE': { current: { temp: 6.0, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
   'Sundsvall SE': { current: { temp: 4.5, tempRise: 2.2, co2: 421, seaRise: 0.08, extremeDays: 18 }, source: 'SMHI / IPCC AR6 WG2 Ch.13' },
   'Dublin IE': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Cork IE2': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Galway IE2': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Limerick IE2': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Waterford IE2': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Drogheda IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Dundalk IE': { current: { temp: 9.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Swords IE': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Navan IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Kilkenny IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Ennis IE': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Tralee IE': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Carlow IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Naas IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Athlone IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Mullingar IE': { current: { temp: 9.5, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Wexford IE': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Sligo IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Letterkenny IE': { current: { temp: 9.5, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Clonmel IE': { current: { temp: 10.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'Met Éireann / IPCC AR6 WG2 Ch.13' },
+  'Budapest HU': { current: { temp: 11.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'OMSZ / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5248,7 +5268,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2319+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2339+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
