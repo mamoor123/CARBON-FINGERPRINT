@@ -4582,6 +4582,26 @@ const cityClimateData = {
   'Castelo Branco PT': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
   'Vila Real PT': { current: { temp: 13.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'IPMA / IPCC AR6 WG2 Ch.13' },
   'Amsterdam NL': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Rotterdam NL': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'The Hague NL': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Utrecht NL': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Eindhoven NL': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Groningen NL': { current: { temp: 9.5, tempRise: 1.7, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Tilburg NL': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Almere NL': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 20 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Breda NL': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Nijmegen NL': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'KNMI / IPCC AR6 WG2 Ch.13' },
+  'Brussels BE': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Antwerp BE': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Ghent BE': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Charleroi BE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Liège BE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Bruges BE': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.08, extremeDays: 20 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Namur BE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Leuven BE': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Mons BE': { current: { temp: 10.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Mechelen BE': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'RMI Belgium / IPCC AR6 WG2 Ch.13' },
+  'Zurich CH': { current: { temp: 9.8, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'MeteoSwiss / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5188,7 +5208,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2259+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2279+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
