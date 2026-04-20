@@ -4331,6 +4331,26 @@ const cityClimateData = {
   'Baqubah IQ': { current: { temp: 24.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 58 }, source: 'Iraqi Met / IPCC AR6 WG2 Ch.9' },
   'Duhok IQ': { current: { temp: 17.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KRG Met / IPCC AR6 WG2 Ch.9' },
   'Zakho IQ': { current: { temp: 17.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'KRG Met / IPCC AR6 WG2 Ch.9' },
+  'Cairo EG': { current: { temp: 22.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 40 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Alexandria EG': { current: { temp: 21.0, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Giza EG': { current: { temp: 22.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Shubra EG': { current: { temp: 22.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Port Said EG': { current: { temp: 22.0, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Suez EG': { current: { temp: 23.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 40 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Luxor EG': { current: { temp: 25.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Aswan EG': { current: { temp: 27.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 55 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Asyut EG': { current: { temp: 25.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Ismailia EG': { current: { temp: 22.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 38 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Fayoum EG': { current: { temp: 23.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Zagazig EG': { current: { temp: 22.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Damietta EG': { current: { temp: 21.5, tempRise: 1.5, co2: 421, seaRise: 0.15, extremeDays: 35 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Minya EG': { current: { temp: 24.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 45 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Sohag EG': { current: { temp: 25.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Qena EG': { current: { temp: 25.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 50 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Hurghada EG': { current: { temp: 26.0, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Sharm El Sheikh EG': { current: { temp: 26.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 48 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Mansoura EG': { current: { temp: 22.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
+  'Tanta EG': { current: { temp: 22.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'EMA / IPCC AR6 WG2 Ch.9' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4937,7 +4957,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2008+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2028+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
