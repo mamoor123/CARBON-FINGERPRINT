@@ -3937,6 +3937,26 @@ const cityClimateData = {
   'Repentigny QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
   'Brossard QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
   'Blainville QC': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Châteauguay QC': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Saint-Jean QC': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Mascouche QC': { current: { temp: 6.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Barrie ON': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Guelph ON': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Cambridge ON': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Waterloo ON': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Burlington ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Oakville ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Richmond Hill ON': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Oshawa ON': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Whitby ON': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Ajax ON': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'ECCC / IPCC AR6 WG2 Ch.13' },
+  'Swansea UK': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Cardiff UK': { current: { temp: 11.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Newport UK': { current: { temp: 10.5, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Exeter UK': { current: { temp: 11.0, tempRise: 1.5, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Bath UK': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Oxford UK': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
+  'Cambridge UK': { current: { temp: 10.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Met Office / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4543,7 +4563,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1615+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1635+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
