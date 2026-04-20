@@ -3997,6 +3997,26 @@ const cityClimateData = {
   'Reims FR': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
   'Lille FR': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
   'Clermont-Ferrand FR': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Dijon FR': { current: { temp: 11.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Grenoble FR': { current: { temp: 12.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Toulon FR': { current: { temp: 16.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Le Mans FR': { current: { temp: 12.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Aix-en-Provence FR': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Brest FR2': { current: { temp: 11.5, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 20 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Perpignan FR': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 28 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Pau FR': { current: { temp: 13.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Bayonne FR': { current: { temp: 14.0, tempRise: 1.5, co2: 421, seaRise: 0.1, extremeDays: 22 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Annecy FR': { current: { temp: 10.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Chambéry FR': { current: { temp: 11.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Valence FR': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Bourges FR': { current: { temp: 11.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'Météo-France / IPCC AR6 WG2 Ch.13' },
+  'Milan IT': { current: { temp: 13.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Rome IT': { current: { temp: 16.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Turin IT': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Florence IT': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Bologna IT': { current: { temp: 13.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Genoa IT': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Venice IT': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4603,7 +4623,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1675+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1695+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
