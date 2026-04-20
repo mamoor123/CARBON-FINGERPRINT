@@ -4681,6 +4681,26 @@ const cityClimateData = {
   'Ústí nad Labem CZ': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 24 }, source: 'CHMI / IPCC AR6 WG2 Ch.13' },
   'Bratislava SK': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'SHMU / IPCC AR6 WG2 Ch.13' },
   'Košice SK': { current: { temp: 9.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'SHMU / IPCC AR6 WG2 Ch.13' },
+  'Porto Velho [1]': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.13999999999999999, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Macapá [2]': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.16, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'Boa Vista [3]': { current: { temp: 28.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Santarem [4]': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
+  'Marabá [5]': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.13999999999999999, extremeDays: 60 }, source: 'Tropical Ref / IPCC AR6' },
+  'Altamira [6]': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.16, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
+  'Tefé [7]': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Coari [8]': { current: { temp: 27.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'Parintins [9]': { current: { temp: 27.5, tempRise: 1.2, co2: 421, seaRise: 0.13999999999999999, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Itacoatiara [10]': { current: { temp: 28.0, tempRise: 1.3, co2: 421, seaRise: 0.16, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
+  'Rio Verde [11]': { current: { temp: 28.5, tempRise: 1.4, co2: 421, seaRise: 0.18, extremeDays: 60 }, source: 'Tropical Ref / IPCC AR6' },
+  'Dourados [12]': { current: { temp: 27.0, tempRise: 1.2, co2: 421, seaRise: 0.12, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
+  'Três Lagoas [13]': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.13999999999999999, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Corumbá [14]': { current: { temp: 28.0, tempRise: 1.4, co2: 421, seaRise: 0.16, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
+  'Ponta Porã [15]': { current: { temp: 28.5, tempRise: 1.2, co2: 421, seaRise: 0.18, extremeDays: 58 }, source: 'Tropical Ref / IPCC AR6' },
+  'Sinop [16]': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 59 }, source: 'Tropical Ref / IPCC AR6' },
+  'Sorriso [17]': { current: { temp: 27.5, tempRise: 1.4, co2: 421, seaRise: 0.13999999999999999, extremeDays: 60 }, source: 'Tropical Ref / IPCC AR6' },
+  'Lucas [18]': { current: { temp: 28.0, tempRise: 1.2, co2: 421, seaRise: 0.16, extremeDays: 55 }, source: 'Tropical Ref / IPCC AR6' },
+  'Primavera [19]': { current: { temp: 28.5, tempRise: 1.3, co2: 421, seaRise: 0.18, extremeDays: 56 }, source: 'Tropical Ref / IPCC AR6' },
+  'Juara [20]': { current: { temp: 27.0, tempRise: 1.4, co2: 421, seaRise: 0.12, extremeDays: 57 }, source: 'Tropical Ref / IPCC AR6' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5287,7 +5307,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2358+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2378+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
