@@ -4017,6 +4017,26 @@ const cityClimateData = {
   'Bologna IT': { current: { temp: 13.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
   'Genoa IT': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
   'Venice IT': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Padua IT': { current: { temp: 13.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Trieste IT': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 24 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Brescia IT': { current: { temp: 13.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Prato IT': { current: { temp: 14.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Modena IT': { current: { temp: 13.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Reggio Emilia IT': { current: { temp: 13.0, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Perugia IT': { current: { temp: 13.5, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Livorno IT': { current: { temp: 15.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Ancona IT': { current: { temp: 15.0, tempRise: 1.6, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Salerno IT': { current: { temp: 16.5, tempRise: 1.7, co2: 421, seaRise: 0.15, extremeDays: 28 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Foggia IT': { current: { temp: 15.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Taranto IT': { current: { temp: 16.5, tempRise: 1.7, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Reggio Calabria IT': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.12, extremeDays: 28 }, source: 'ISAC-CNR / IPCC AR6 WG2 Ch.13' },
+  'Mysuru IN': { current: { temp: 24.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Mangaluru IN': { current: { temp: 27.0, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 50 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Hubli IN': { current: { temp: 25.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Belgaum IN': { current: { temp: 24.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Davangere IN': { current: { temp: 25.5, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Shimoga IN': { current: { temp: 25.0, tempRise: 1.4, co2: 421, seaRise: 0.0, extremeDays: 42 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
+  'Gulbarga IN': { current: { temp: 27.0, tempRise: 1.5, co2: 421, seaRise: 0.0, extremeDays: 48 }, source: 'IMD / IPCC AR6 WG2 Ch.10' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4623,7 +4643,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1695+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1715+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
