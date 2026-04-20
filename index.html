@@ -3583,6 +3583,26 @@ const cityClimateData = {
   'Banjul GM': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0.15, extremeDays: 55 }, source: 'DWD Gambia / IPCC AR6 WG2 Ch.9' },
   'Kamchatsky RU': { current: { temp: 2.0, tempRise: 2.2, co2: 421, seaRise: 0.1, extremeDays: 25 }, source: 'Roshydromet / IPCC AR6 WG2 Ch.13' },
   'Nukualofa TO': { current: { temp: 25.0, tempRise: 1.0, co2: 421, seaRise: 0.15, extremeDays: 50 }, source: 'Tonga Met / IPCC AR6 WG2 Ch.11' },
+  'Casper WY': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Pueblo CO': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Billings MT': { current: { temp: 7.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Missoula MT': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Great Falls MT': { current: { temp: 6.5, tempRise: 2.1, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Rapid City SD': { current: { temp: 7.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 32 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Sioux Falls SD': { current: { temp: 7.5, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Duluth MN': { current: { temp: 4.5, tempRise: 2.2, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Rochester MN': { current: { temp: 7.0, tempRise: 2.0, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Davenport IA': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Springfield IL': { current: { temp: 11.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Peoria IL': { current: { temp: 10.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Fort Wayne IN': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'South Bend IN': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Evansville IN': { current: { temp: 12.5, tempRise: 1.7, co2: 421, seaRise: 0.0, extremeDays: 40 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Youngstown OH': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Canton OH': { current: { temp: 9.5, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 38 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Lansing MI': { current: { temp: 8.0, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Flint MI': { current: { temp: 8.5, tempRise: 1.9, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
+  'Kalamazoo MI': { current: { temp: 9.0, tempRise: 1.8, co2: 421, seaRise: 0.0, extremeDays: 35 }, source: 'NOAA NCEI / IPCC AR6 WG2 Ch.13' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -4189,7 +4209,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1261+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 1281+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
