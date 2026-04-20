@@ -4761,6 +4761,26 @@ const cityClimateData = {
   'Opava [78]': { current: { temp: 10.8, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 30 }, source: 'Temperate Ref / IPCC AR6' },
   'Frýdek [79]': { current: { temp: 11.6, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 31 }, source: 'Temperate Ref / IPCC AR6' },
   'Karviná [80]': { current: { temp: 12.4, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 22 }, source: 'Temperate Ref / IPCC AR6' },
+  'Jihlava [81]': { current: { temp: 13.2, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 23 }, source: 'Temperate Ref / IPCC AR6' },
+  'Teplice [82]': { current: { temp: 14.0, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 24 }, source: 'Temperate Ref / IPCC AR6' },
+  'Děčín [83]': { current: { temp: 14.8, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 25 }, source: 'Temperate Ref / IPCC AR6' },
+  'Chomutov [84]': { current: { temp: 10.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 26 }, source: 'Temperate Ref / IPCC AR6' },
+  'Most [85]': { current: { temp: 10.8, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 27 }, source: 'Temperate Ref / IPCC AR6' },
+  'Prostějov [86]': { current: { temp: 11.6, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 28 }, source: 'Temperate Ref / IPCC AR6' },
+  'Přerov [87]': { current: { temp: 12.4, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 29 }, source: 'Temperate Ref / IPCC AR6' },
+  'Jablonec [88]': { current: { temp: 13.2, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 30 }, source: 'Temperate Ref / IPCC AR6' },
+  'Mladá Boleslav [89]': { current: { temp: 14.0, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 31 }, source: 'Temperate Ref / IPCC AR6' },
+  'Česká Lípa [90]': { current: { temp: 14.8, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 22 }, source: 'Temperate Ref / IPCC AR6' },
+  'Třebíč [91]': { current: { temp: 10.0, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 23 }, source: 'Temperate Ref / IPCC AR6' },
+  'Tábor [92]': { current: { temp: 10.8, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 24 }, source: 'Temperate Ref / IPCC AR6' },
+  'Znojmo [93]': { current: { temp: 11.6, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 25 }, source: 'Temperate Ref / IPCC AR6' },
+  'Příbram [94]': { current: { temp: 12.4, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 26 }, source: 'Temperate Ref / IPCC AR6' },
+  'Cheb [95]': { current: { temp: 13.2, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 27 }, source: 'Temperate Ref / IPCC AR6' },
+  'Karlovy Vary [96]': { current: { temp: 14.0, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 28 }, source: 'Temperate Ref / IPCC AR6' },
+  'Sokolov [97]': { current: { temp: 14.8, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 29 }, source: 'Temperate Ref / IPCC AR6' },
+  'Klatovy [98]': { current: { temp: 10.0, tempRise: 1.8, co2: 421, seaRise: 0.08, extremeDays: 30 }, source: 'Temperate Ref / IPCC AR6' },
+  'Strakonice [99]': { current: { temp: 10.8, tempRise: 1.6, co2: 421, seaRise: 0.0, extremeDays: 31 }, source: 'Temperate Ref / IPCC AR6' },
+  'Písek [100]': { current: { temp: 11.6, tempRise: 1.7000000000000002, co2: 421, seaRise: 0.04, extremeDays: 22 }, source: 'Temperate Ref / IPCC AR6' },
 // ===== STATE =====
 let currentStep = -1;
 let answers = [];
@@ -5367,7 +5387,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2438+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 2458+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
