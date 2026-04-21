@@ -2637,7 +2637,7 @@ const cityClimateData = {
   Tabuk: { current: { temp: 21, tempRise: 1.8, co2: 421, seaRise: 0, extremeDays: 50 }, source: "PME / IPCC AR6 WG2 Ch.9" },
   Turkmenbashi: { current: { temp: 16.5, tempRise: 1.7, co2: 421, seaRise: 0.08, extremeDays: 40 }, source: "TurkmenMet / IPCC AR6 WG2 Ch.10" },
   Veracruz: { current: { temp: 25.5, tempRise: 1.3, co2: 421, seaRise: 0.12, extremeDays: 52 }, source: "SMN / IPCC AR6 WG2 Ch.12" },
-  'Victoria SC': { current: { temp: 27.5, tempRise: 1.1, co2: 421, seaRise: 0.15, extremeDays: 50 }, source: "Seychelles Met / IPCC AR6 WG2 Ch.9" },
+  'Victoria SC': { current: { temp: 27.2, tempRise: 0.9, co2: 421, seaRise: 0.12, extremeDays: 12 }, source: "Seychelles Met / IPCC AR6 WG2 Ch.9" },
   Villahermosa: { current: { temp: 27, tempRise: 1.3, co2: 421, seaRise: 0, extremeDays: 58 }, source: "SMN / IPCC AR6 WG2 Ch.12" },
   'Astana KZ': { current: { temp: 2.5, tempRise: 2.4, co2: 421, seaRise: 0, extremeDays: 32 }, source: "KazHydromet / IPCC AR6 WG2 Ch.10" },
   'Shymkent KZ': { current: { temp: 12.5, tempRise: 1.9, co2: 421, seaRise: 0, extremeDays: 35 }, source: "KazHydromet / IPCC AR6 WG2 Ch.10" },
@@ -7299,8 +7299,34 @@ const cityClimateData = {
   'Fairview DE': { current: { temp: 13.2, tempRise: 1.6, co2: 421, seaRise: 0.3, extremeDays: 38 }, source: "NOAA NCEI / IPCC AR6 WG2 Ch.13" },
   'Fairview FL': { current: { temp: 25, tempRise: 1.4, co2: 421, seaRise: 0.32, extremeDays: 52 }, source: "NOAA NCEI / IPCC AR6 WG2 Ch.13" },
   'Fairview GA': { current: { temp: 17.5, tempRise: 1.6, co2: 421, seaRise: 0.28, extremeDays: 45 }, source: "NOAA NCEI / IPCC AR6 WG2 Ch.13" },
-  'Pierre SD': { current: { temp: 8.5, tempRise: 2, co2: 421, seaRise: 0, extremeDays: 38 }, source: "NOAA NCEI / IPCC AR6 WG2 Ch.13" }
-};;;// ===== STATE =====
+  'Pierre SD': { current: { temp: 8.5, tempRise: 2, co2: 421, seaRise: 0, extremeDays: 38 }, source: "NOAA NCEI / IPCC AR6 WG2 Ch.13" },
+  'Ngerulmud PW': { current: { temp: 27.5, tempRise: 0.9, co2: 421, seaRise: 0.15, extremeDays: 20 }, source: "Palau NWS / IPCC AR6 WG2 Ch.11" },
+  'Nukualofa TO': { current: { temp: 24.2, tempRise: 0.8, co2: 421, seaRise: 0.18, extremeDays: 15 }, source: "Tonga Met Service / IPCC AR6 WG2 Ch.11" },
+  'Neiafu VU': { current: { temp: 25.8, tempRise: 0.9, co2: 421, seaRise: 0.16, extremeDays: 18 }, source: "Vanuatu Met Service / IPCC AR6 WG2 Ch.11" },
+  'Buka PG': { current: { temp: 27.9, tempRise: 0.8, co2: 421, seaRise: 0.12, extremeDays: 22 }, source: "NWS Papua New Guinea / IPCC AR6 WG2 Ch.11" },
+  'Goroka PG': { current: { temp: 22.4, tempRise: 0.9, co2: 421, seaRise: 0, extremeDays: 28 }, source: "NWS Papua New Guinea / IPCC AR6 WG2 Ch.11" },
+  'Popondetta PG': { current: { temp: 26.5, tempRise: 0.8, co2: 421, seaRise: 0.1, extremeDays: 30 }, source: "NWS Papua New Guinea / IPCC AR6 WG2 Ch.11" },
+  'Lobamba SZ': { current: { temp: 17.8, tempRise: 1.4, co2: 421, seaRise: 0, extremeDays: 22 }, source: "Swaziland Met Service / IPCC AR6 WG2 Ch.9" },
+  'Belmopan BZ': { current: { temp: 26.3, tempRise: 1.2, co2: 421, seaRise: 0.2, extremeDays: 38 }, source: "NMS Belize / IPCC AR6 WG2 Ch.12" },
+  'Puerto Cortes HN': { current: { temp: 27.8, tempRise: 1.3, co2: 421, seaRise: 0.25, extremeDays: 42 }, source: "CESCCO Honduras / IPCC AR6 WG2 Ch.12" },
+  'Helena MT': { current: { temp: 8.4, tempRise: 2, co2: 421, seaRise: 0, extremeDays: 42 }, source: "NOAA NCEI / IPCC AR6 WG2 Ch.13" },
+  'Pathein MM': { current: { temp: 27.4, tempRise: 1.1, co2: 421, seaRise: 0.2, extremeDays: 50 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Taunggyi MM': { current: { temp: 21.2, tempRise: 1.2, co2: 421, seaRise: 0, extremeDays: 25 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Myitkyina MM': { current: { temp: 24.6, tempRise: 1, co2: 421, seaRise: 0, extremeDays: 35 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Dawei MM': { current: { temp: 27.8, tempRise: 1.1, co2: 421, seaRise: 0.22, extremeDays: 48 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Sittwe MM': { current: { temp: 27.1, tempRise: 1.2, co2: 421, seaRise: 0.25, extremeDays: 52 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Magway MM': { current: { temp: 27.5, tempRise: 1.3, co2: 421, seaRise: 0, extremeDays: 55 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Meiktila MM': { current: { temp: 27.2, tempRise: 1.2, co2: 421, seaRise: 0, extremeDays: 50 }, source: "Myanmar DHR / IPCC AR6 WG2 Ch.10" },
+  'Kampong Cham KH': { current: { temp: 27.8, tempRise: 1.2, co2: 421, seaRise: 0.15, extremeDays: 45 }, source: "Ministry of Water Resources Cambodia / IPCC AR6 WG2 Ch.10" },
+  'Kampong Speu KH': { current: { temp: 27.5, tempRise: 1.1, co2: 421, seaRise: 0.12, extremeDays: 42 }, source: "Ministry of Water Resources Cambodia / IPCC AR6 WG2 Ch.10" },
+  'Birgunj NP': { current: { temp: 24.8, tempRise: 1.4, co2: 421, seaRise: 0, extremeDays: 38 }, source: "DHM Nepal / IPCC AR6 WG2 Ch.10" },
+  'Butwal NP': { current: { temp: 24.2, tempRise: 1.3, co2: 421, seaRise: 0, extremeDays: 35 }, source: "DHM Nepal / IPCC AR6 WG2 Ch.10" },
+  'Paro BT': { current: { temp: 14.5, tempRise: 1.5, co2: 421, seaRise: 0, extremeDays: 18 }, source: "NHMS Bhutan / IPCC AR6 WG2 Ch.10" },
+  'Phuntsholing BT': { current: { temp: 22.8, tempRise: 1.3, co2: 421, seaRise: 0, extremeDays: 32 }, source: "NHMS Bhutan / IPCC AR6 WG2 Ch.10" },
+  'Trincomalee LK': { current: { temp: 28.2, tempRise: 1, co2: 421, seaRise: 0.18, extremeDays: 28 }, source: "DMS Sri Lanka / IPCC AR6 WG2 Ch.10" },
+  'Batticaloa LK': { current: { temp: 27.9, tempRise: 1.1, co2: 421, seaRise: 0.2, extremeDays: 30 }, source: "DMS Sri Lanka / IPCC AR6 WG2 Ch.10" },
+  'Negombo LK': { current: { temp: 27.5, tempRise: 1, co2: 421, seaRise: 0.15, extremeDays: 25 }, source: "DMS Sri Lanka / IPCC AR6 WG2 Ch.10" }
+};;;;;// ===== STATE =====
 let currentStep = -1;
 let answers = [];
 let selectedCity = 'New York';
@@ -8508,7 +8534,7 @@ function renderCitySelector() {
   
   container.innerHTML = `
     <div class="city-search-wrap">
-      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 4986+ cities..." 
+      <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 5012+ cities..." 
              value="${selectedCity}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
