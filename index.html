@@ -13,18 +13,18 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="og-image.png">
-<link rel="canonical" href="https://carbonfingerprint.earth/">
-<link rel="alternate" hreflang="en" href="https://carbonfingerprint.earth/">
-<link rel="alternate" hreflang="es" href="https://carbonfingerprint.earth/?lang=es">
-<link rel="alternate" hreflang="hi" href="https://carbonfingerprint.earth/?lang=hi">
-<link rel="alternate" hreflang="pt" href="https://carbonfingerprint.earth/?lang=pt">
-<link rel="alternate" hreflang="zh" href="https://carbonfingerprint.earth/?lang=zh">
-<link rel="alternate" hreflang="fr" href="https://carbonfingerprint.earth/?lang=fr">
-<link rel="alternate" hreflang="de" href="https://carbonfingerprint.earth/?lang=de">
-<link rel="alternate" hreflang="ja" href="https://carbonfingerprint.earth/?lang=ja">
-<link rel="alternate" hreflang="ko" href="https://carbonfingerprint.earth/?lang=ko">
-<link rel="alternate" hreflang="ar" href="https://carbonfingerprint.earth/?lang=ar">
-<link rel="alternate" hreflang="x-default" href="https://carbonfingerprint.earth/">
+<link rel="canonical" href="https://carbonprint.earth/">
+<link rel="alternate" hreflang="en" href="https://carbonprint.earth/">
+<link rel="alternate" hreflang="es" href="https://carbonprint.earth/?lang=es">
+<link rel="alternate" hreflang="hi" href="https://carbonprint.earth/?lang=hi">
+<link rel="alternate" hreflang="pt" href="https://carbonprint.earth/?lang=pt">
+<link rel="alternate" hreflang="zh" href="https://carbonprint.earth/?lang=zh">
+<link rel="alternate" hreflang="fr" href="https://carbonprint.earth/?lang=fr">
+<link rel="alternate" hreflang="de" href="https://carbonprint.earth/?lang=de">
+<link rel="alternate" hreflang="ja" href="https://carbonprint.earth/?lang=ja">
+<link rel="alternate" hreflang="ko" href="https://carbonprint.earth/?lang=ko">
+<link rel="alternate" hreflang="ar" href="https://carbonprint.earth/?lang=ar">
+<link rel="alternate" hreflang="x-default" href="https://carbonprint.earth/">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_ES">
 <meta property="og:locale:alternate" content="hi_IN">
@@ -42,7 +42,7 @@
   "@type": "WebApplication",
   "name": "Carbon Fingerprint",
   "description": "Discover your climate identity, powered by 144 years of planetary data. Answer 5 questions and discover your Carbon Fingerprint.",
-  "url": "https://carbonfingerprint.earth/",
+  "url": "https://carbonprint.earth/",
   "applicationCategory": "LifestyleApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -1817,7 +1817,7 @@ body {
     <div class="share-city-grid" id="shareCityGrid"></div>
   </div>
   <div class="share-footer">
-    <div class="share-url">Discover yours at <span id="shareUrl">carbonfingerprint.earth</span></div>
+    <div class="share-url">Discover yours at <span id="shareUrl">carbonprint.earth</span></div>
     <div class="share-tagline">🌍 Your planet. Your fingerprint. Your impact.</div>
     <div class="share-data-badge">🛰️ NASA GISS · 🌊 NOAA · 📋 IPCC AR6</div>
   </div>
@@ -2681,7 +2681,7 @@ function updateStaticText() {
   const sb = document.querySelector('.share-subtitle');
   if (sb) sb.textContent = t('powered_by');
   const su = document.querySelector('.share-url');
-  if (su) su.innerHTML = `${t('discover_yours')} <span id="shareUrl">${window.location.host || 'carbonfingerprint.earth'}</span>`;
+  if (su) su.innerHTML = `${t('discover_yours')} <span id="shareUrl">${window.location.host || 'carbonprint.earth'}</span>`;
   const st = document.querySelector('.share-tagline');
   if (st) st.textContent = t('tagline');
 }
@@ -9137,7 +9137,7 @@ async function generateShareCard() {
   document.getElementById('shareScore').textContent = r.totalCO2.toFixed(1);
   document.getElementById('shareLabelBadge').textContent = r.label;
   document.getElementById('shareTitle').textContent = t('your_fingerprint');
-  document.getElementById('shareUrl').textContent = window.location.host || 'carbonfingerprint.earth';
+  document.getElementById('shareUrl').textContent = window.location.host || 'carbonprint.earth';
 
   // Metrics
   const shareMetrics = document.getElementById('shareMetrics');
