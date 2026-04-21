@@ -2,14 +2,14 @@
 
 **Discover Your Climate Identity** — powered by 144 years of planetary data.
 
-A single-page web app that calculates your personal carbon footprint through 5 simple questions, then visualizes it as a unique "Carbon Fingerprint" with animated SVG rings, real climate data from NASA/NOAA, and personalized insights based on IPCC AR6 emission factors. Covers **3,705 cities** across every continent.
+A single-page web app that calculates your personal carbon footprint through 5 simple questions, then visualizes it as a unique "Carbon Fingerprint" with animated SVG rings, real climate data from NASA/NOAA, and personalized insights based on IPCC AR6 emission factors. Covers **3,248 cities** across every continent.
 
 ## ✨ Features
 
 - **5-Question Lifestyle Quiz** — Transport (incl. EV), Diet, Energy, Consumption, Flights
 - **IPCC AR6 Calibrated** — Emission factors from peer-reviewed climate science
 - **Animated Fingerprint Visualization** — Unique organic SVG pattern per user, seeded from answers
-- **3,659 Cities** — Searchable dropdown with climate data spanning 157+ countries across 6 continents
+- **3,248 Cities** — Searchable dropdown with climate data spanning 157+ countries across 6 continents
 - **Real NASA GISS Data** — Global temperature anomalies 1880–2025 (actual data, not estimates)
 - **Personalized Insights** — Contextual tips with specific CO₂ savings
 - **Share Card Generator** — PNG export + shareable URL links (`?r=base64`)
@@ -56,7 +56,7 @@ Share this link and your friend sees your fingerprint instantly — then takes t
 | FAO / Poore & Nemecek | Food system emissions | 2018 |
 | Global Carbon Project | National per-capita averages | 2023 |
 
-## 🏙️ 3,659 Cities Worldwide
+## 🏙️ 3,248 Cities Worldwide
 
 Searchable dropdown with instant filtering. Each city includes local temperature, temperature rise since pre-industrial era, CO₂ levels, sea level rise, and extreme weather days — sourced from regional meteorological services and IPCC AR6 chapters.
 
@@ -72,7 +72,7 @@ Searchable dropdown with instant filtering. Each city includes local temperature
 | 🌴 Oceania & Pacific | 129 | Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Micronesia, Palau, Marshall Islands, Kiribati, Tuvalu, New Caledonia, French Polynesia, Guam |
 | 🕌 Middle East | 130 | Iran, Iraq, Saudi Arabia, UAE, Turkey, Jordan, Lebanon, Syria, Yemen, Oman, Bahrain, Qatar, Kuwait, Israel/Palestine, Georgia, Armenia, Azerbaijan |
 
-**Total: 3,705 cities across 157+ countries**
+Total: 3,248 cities across 157+ countries
 
 ### Data Per City
 
