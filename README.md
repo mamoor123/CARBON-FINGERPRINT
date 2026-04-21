@@ -13,7 +13,7 @@ A single-page web app that calculates your personal carbon footprint through 5 s
 - **Real NASA GISS Data** — Global temperature anomalies 1880–2025 (actual data, not estimates)
 - **Personalized Insights** — Contextual tips with specific CO₂ savings
 - **Share Card Generator** — PNG export + shareable URL links (`?r=base64`)
-- **5 Languages** — EN, ES (Español), HI (हिन्दी), PT (Português), ZH (中文), auto-detected
+- **10 Languages** — EN, ES (Español), HI (हिन्दी), PT (Português), ZH (中文), FR (Français), DE (Deutsch), JA (日本語), KO (한국어), AR (العربية), auto-detected
 - **Native Mobile Share** — `navigator.share()` with image on supported devices
 - **Dark/Light Mode** — Automatic via `prefers-color-scheme`
 - **PWA** — Installable on phones, works offline after first load
@@ -112,6 +112,11 @@ Each city includes 4 climate indicators:
 | हिन्दी | hi | ✅ |
 | Português | pt | ✅ |
 | 中文 | zh | ✅ |
+| Français | fr | ✅ |
+| Deutsch | de | ✅ |
+| 日本語 | ja | ✅ |
+| 한국어 | ko | ✅ |
+| العربية | ar | ✅ |
 
 Auto-detects browser language. Language selector in header. All UI text translated.
 
