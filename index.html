@@ -14,6 +14,27 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="og-image.png">
 <link rel="canonical" href="https://carbonfingerprint.earth/">
+<link rel="alternate" hreflang="en" href="https://carbonfingerprint.earth/">
+<link rel="alternate" hreflang="es" href="https://carbonfingerprint.earth/?lang=es">
+<link rel="alternate" hreflang="hi" href="https://carbonfingerprint.earth/?lang=hi">
+<link rel="alternate" hreflang="pt" href="https://carbonfingerprint.earth/?lang=pt">
+<link rel="alternate" hreflang="zh" href="https://carbonfingerprint.earth/?lang=zh">
+<link rel="alternate" hreflang="fr" href="https://carbonfingerprint.earth/?lang=fr">
+<link rel="alternate" hreflang="de" href="https://carbonfingerprint.earth/?lang=de">
+<link rel="alternate" hreflang="ja" href="https://carbonfingerprint.earth/?lang=ja">
+<link rel="alternate" hreflang="ko" href="https://carbonfingerprint.earth/?lang=ko">
+<link rel="alternate" hreflang="ar" href="https://carbonfingerprint.earth/?lang=ar">
+<link rel="alternate" hreflang="x-default" href="https://carbonfingerprint.earth/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:locale:alternate" content="ar_SA">
 <meta name="robots" content="index, follow">
 <script type="application/ld+json">
 {
@@ -2580,9 +2601,11 @@ const translations = {
 };
 
 let currentLang = 'en';
-// Detect browser language
+// Detect language from URL parameter, then browser language
+const urlLang = new URLSearchParams(window.location.search).get('lang');
 const browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
-if (translations[browserLang]) currentLang = browserLang;
+if (urlLang && translations[urlLang]) currentLang = urlLang;
+else if (translations[browserLang]) currentLang = browserLang;
 
 function t(key) {
   return (translations[currentLang]?.[key]) || translations.en[key] || key;
@@ -2593,6 +2616,10 @@ function setLanguage(lang) {
   currentLang = lang;
   document.getElementById('langSelect').value = lang;
   document.documentElement.lang = lang;
+  // Update URL without reload
+  const url = new URL(window.location);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', url);
   updateStaticText();
   if (currentStep === -1) renderHero();
   else if (currentStep >= 0 && currentStep <= 4) renderQuestion();
@@ -2650,6 +2677,13 @@ function updateStaticText() {
   // Generating overlay
   const gt = document.querySelector('.generating-text');
   if (gt) gt.textContent = t('generating_card');
+  // Share card static text
+  const sb = document.querySelector('.share-subtitle');
+  if (sb) sb.textContent = t('powered_by');
+  const su = document.querySelector('.share-url');
+  if (su) su.innerHTML = `${t('discover_yours')} <span id="shareUrl">${window.location.host || 'carbonfingerprint.earth'}</span>`;
+  const st = document.querySelector('.share-tagline');
+  if (st) st.textContent = t('tagline');
 }
 
 function renderHero() {
@@ -8869,7 +8903,7 @@ function renderComparison(total) {
         <div class="comparison-bar">
           <div class="comparison-bar-fill ${c.cls}" data-width="${pct}%"></div>
         </div>
-        ${c.cls === 'you' ? `<div class="comparison-marker" style="left:${Math.min(pct, 96)}%">▲ YOU</div>` : ''}
+        ${c.cls === 'you' ? `<div class="comparison-marker" style="left:${Math.min(pct, 96)}%">▲ ${t('you').toUpperCase()}</div>` : ''}
       </div>
     `;
     container.appendChild(div);
@@ -9102,17 +9136,17 @@ async function generateShareCard() {
   // Populate share card
   document.getElementById('shareScore').textContent = r.totalCO2.toFixed(1);
   document.getElementById('shareLabelBadge').textContent = r.label;
-  document.getElementById('shareTitle').textContent = 'My Carbon Fingerprint';
+  document.getElementById('shareTitle').textContent = t('your_fingerprint');
   document.getElementById('shareUrl').textContent = window.location.host || 'carbonfingerprint.earth';
 
   // Metrics
   const shareMetrics = document.getElementById('shareMetrics');
   shareMetrics.innerHTML = '';
   [
-    { emoji: '🚗', label: 'Transport', value: (r.categoryCO2.transport || 0).toFixed(1) + 't' },
-    { emoji: '🍽️', label: 'Diet', value: (r.categoryCO2.diet || 0).toFixed(1) + 't' },
-    { emoji: '⚡', label: 'Energy', value: (r.categoryCO2.energy || 0).toFixed(1) + 't' },
-    { emoji: '✈️', label: 'Flights', value: (r.categoryCO2.flights || 0).toFixed(1) + 't' }
+    { emoji: '🚗', label: t('transport'), value: (r.categoryCO2.transport || 0).toFixed(1) + 't' },
+    { emoji: '🍽️', label: t('diet'), value: (r.categoryCO2.diet || 0).toFixed(1) + 't' },
+    { emoji: '⚡', label: t('energy'), value: (r.categoryCO2.energy || 0).toFixed(1) + 't' },
+    { emoji: '✈️', label: t('flights'), value: (r.categoryCO2.flights || 0).toFixed(1) + 't' }
   ].forEach(m => {
     const div = document.createElement('div');
     div.className = 'share-metric';
@@ -9124,9 +9158,9 @@ async function generateShareCard() {
   const compBars = document.getElementById('shareCompBars');
   compBars.innerHTML = '';
   [
-    { name: 'You', value: r.totalCO2, color: 'linear-gradient(90deg, #10b981, #22d3ee)' },
-    { name: 'Global Avg', value: GLOBAL_AVG, color: '#475569' },
-    { name: '1.5°C Target', value: PARIS_TARGET, color: 'linear-gradient(90deg, #eab308, #f97316)' }
+    { name: t('you'), value: r.totalCO2, color: 'linear-gradient(90deg, #10b981, #22d3ee)' },
+    { name: t('global_avg'), value: GLOBAL_AVG, color: '#475569' },
+    { name: t('paris_target'), value: PARIS_TARGET, color: 'linear-gradient(90deg, #eab308, #f97316)' }
   ].forEach(c => {
     const pct = Math.min((c.value / 20) * 100, 100);
     const row = document.createElement('div');
@@ -9140,7 +9174,7 @@ async function generateShareCard() {
   });
 
   // City data
-  document.getElementById('shareCityTitle').textContent = `🌡️ Climate Data — ${selectedCity}`;
+  document.getElementById('shareCityTitle').textContent = `🌡️ ${t('climate_data')} — ${selectedCity}`;
   const shareCityGrid = document.getElementById('shareCityGrid');
   shareCityGrid.innerHTML = '';
   [
@@ -9253,15 +9287,15 @@ async function generateShareCard() {
   // Generate text with shareable URL
   const shareUrl = getResultUrl();
   const diff = r.totalCO2 - GLOBAL_AVG;
-  shareText = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
-    `🚗 Transport: ${(r.categoryCO2.transport || 0).toFixed(1)}t\n` +
-    `🍽️ Diet: ${(r.categoryCO2.diet || 0).toFixed(1)}t\n` +
-    `⚡ Energy: ${(r.categoryCO2.energy || 0).toFixed(1)}t\n` +
-    `✈️ Flights: ${(r.categoryCO2.flights || 0).toFixed(1)}t\n` +
-    `🏛️ Shared: 1.5t\n\n` +
-    `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t BELOW` : `⚠️ ${diff.toFixed(1)}t above`} global average (4.7t)\n` +
-    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C since pre-industrial\n\n` +
-    `See your fingerprint → ${shareUrl}`;
+  shareText = `🌍 ${t('your_fingerprint')}: ${r.totalCO2.toFixed(1)} ${t('tonnes')}\n\n` +
+    `🚗 ${t('transport')}: ${(r.categoryCO2.transport || 0).toFixed(1)}t\n` +
+    `🍽️ ${t('diet')}: ${(r.categoryCO2.diet || 0).toFixed(1)}t\n` +
+    `⚡ ${t('energy')}: ${(r.categoryCO2.energy || 0).toFixed(1)}t\n` +
+    `✈️ ${t('flights')}: ${(r.categoryCO2.flights || 0).toFixed(1)}t\n` +
+    `🏛️ ${t('shared')}: 1.5t\n\n` +
+    `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t ${t('below')}` : `⚠️ ${diff.toFixed(1)}t ${t('above')}`} ${t('global_avg').toLowerCase()} (4.7t)\n` +
+    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C ${t('since_pre')}\n\n` +
+    `${t('discover_yours')} → ${shareUrl}`;
 
   // Wait a tick for DOM to settle, then capture
   await new Promise(resolve => { setTimeout(resolve, 100); });

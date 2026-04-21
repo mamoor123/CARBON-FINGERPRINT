@@ -2,6 +2,8 @@
   "name": "Carbon Fingerprint",
   "short_name": "Carbon FP",
   "description": "Discover your climate identity, powered by 144 years of planetary data.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0f1a",
