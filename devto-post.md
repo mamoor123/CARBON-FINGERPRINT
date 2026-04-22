@@ -1,6 +1,6 @@
 ---
 title: "I Built a Carbon Footprint Calculator That Generates Unique SVG Fingerprints — Here's How (Earth Day 2026 🌍)"
-published: false
+published: true
 description: "A single HTML file, zero backend, 5,012 cities, real NASA climate data, and a fingerprint visualization that's unique to every user. Here's how Carbon Fingerprint works under the hood."
 tags: opensource, webdev, javascript, sustainability
 cover_image: https://raw.githubusercontent.com/mamoor123/CARBON-FINGERPRINT/main/og-image.png
