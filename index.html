@@ -1398,6 +1398,21 @@ body {
   left: 0;
 }
 
+/* Global stats */
+.global-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+}
+.global-stat .number { font-size: 1.5rem; font-weight: 700; color: var(--accent-green); font-family: 'Space Grotesk', sans-serif; }
+.global-stat .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
 /* Methodology */
 .methodology {
   background: var(--bg-card);
@@ -1701,6 +1716,22 @@ body {
           </button>
         </div>
         <p class="feedback-thanks" id="feedbackThanks">Thanks for your feedback!</p>
+      </div>
+
+      <!-- Global Stats -->
+      <div class="global-stats">
+        <div class="global-stat">
+          <div class="number" id="globalTotal">—</div>
+          <div class="label">Fingerprints Taken</div>
+        </div>
+        <div class="global-stat">
+          <div class="number" id="globalThumbsUp">—</div>
+          <div class="label">👍 Found Useful</div>
+        </div>
+        <div class="global-stat">
+          <div class="number" id="globalSatisfaction">—</div>
+          <div class="label">Satisfaction</div>
+        </div>
       </div>
 
       <!-- Methodology -->
@@ -2729,6 +2760,7 @@ function trackEvent(event) {
 
 // Feedback
 function fetchCounts() {
+  let totalQuiz = 0, totalUp = 0, totalDown = 0;
   const fetchCount = (key, elId) => {
     fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
       .then(r => r.json())
@@ -2740,6 +2772,19 @@ function fetchCounts() {
         if (key === 'quiz_complete') {
           const heroEl = document.getElementById('heroVisitorCount');
           if (heroEl) heroEl.textContent = val.toLocaleString();
+          totalQuiz = val;
+          document.getElementById('globalTotal').textContent = val.toLocaleString();
+        }
+        if (key === 'feedback_up') {
+          totalUp = val;
+          document.getElementById('globalThumbsUp').textContent = val.toLocaleString();
+        }
+        if (key === 'feedback_down') totalDown = val;
+        // Calculate satisfaction
+        if (totalUp + totalDown > 0) {
+          const pct = Math.round((totalUp / (totalUp + totalDown)) * 100);
+          const satEl = document.getElementById('globalSatisfaction');
+          if (satEl) satEl.textContent = pct + '%';
         }
       })
       .catch(() => {});
