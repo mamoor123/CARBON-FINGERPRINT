@@ -1789,9 +1789,6 @@ body {
   <button class="btn-secondary" onclick="dismissError()">Try Again</button>
 </div>
 
-<!-- html2canvas: loaded as static script for Android compatibility -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" onload="window._html2canvasReady=true" onerror="window._html2canvasFailed=true"></script>
-
 <!-- Hidden Share Card -->
 <div class="share-card" id="shareCard">
   <div class="share-header">
@@ -7791,31 +7788,8 @@ function showToast(msg, duration = 2500) {
 
 // ===== LAZY-LOAD html2canvas =====
 function loadHtml2canvas() {
-  if (html2canvasLoaded || typeof html2canvas !== 'undefined') {
-    html2canvasLoaded = true;
-    return Promise.resolve();
-  }
-  if (window._html2canvasFailed) {
-    return Promise.reject(new Error('Failed to load image library'));
-  }
-  // Static script is still loading — wait for it
-  return new Promise((resolve, reject) => {
-    const check = setInterval(() => {
-      if (typeof html2canvas !== 'undefined') {
-        clearInterval(check);
-        html2canvasLoaded = true;
-        resolve();
-      } else if (window._html2canvasFailed) {
-        clearInterval(check);
-        reject(new Error('Failed to load image library'));
-      }
-    }, 200);
-    // Timeout after 10s
-    setTimeout(() => {
-      clearInterval(check);
-      if (!html2canvasLoaded) reject(new Error('Failed to load image library'));
-    }, 10000);
-  });
+  // html2canvas removed — share uses text fallback
+  return Promise.reject(new Error('Image library not available'));
 }
 
 // ===== URL ENCODING =====
@@ -8540,18 +8514,21 @@ function renderInsights(categories, total) {
 
 // ===== SHARE CARD (html2canvas) =====
 async function generateShareCard() {
+  // Copy share text directly (no image generation)
+  await copyShareText();
+  return;
+
+  /* html2canvas disabled — CDN unreliable on mobile browsers
   const overlay = document.getElementById('generatingOverlay');
   overlay.classList.add('active');
 
-  // Lazy-load html2canvas
   try {
     await loadHtml2canvas();
   } catch (_e) {
     overlay.classList.remove('active');
-    // Fallback: just copy text + URL
     await copyShareText();
     return;
-  }
+  }*/
 
   const r = window._results;
   if (!r) { showToast('Complete the quiz first to share.'); return; }
