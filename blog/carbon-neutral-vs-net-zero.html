@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Neutral vs Net Zero: What's the Difference? (2026) | Carbon Fingerprint</title>
+  <meta name="description" content="Carbon neutral, net zero, climate positive, carbon negative — what do these terms actually mean? Clear, jargon-free explanation with examples and why it matters.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://carbonprint.earth/blog/carbon-neutral-vs-net-zero.html">
+  <link rel="icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-deep: #0a0f1a; --bg-card: #111827; --bg-card-hover: #1a2332; --accent-green: #10b981; --text-primary: #f1f5f9; --text-secondary: #94a3b8; --text-muted: #64748b; --border: #1e2329; --glass: rgba(17,24,39,0.7); --glass-border: rgba(255,255,255,0.08); }
+    @media (prefers-color-scheme: light) { :root { --bg-deep: #f8fafc; --bg-card: #ffffff; --bg-card-hover: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --text-muted: #64748b; --border: #e2e8f0; --glass: rgba(255,255,255,0.85); --glass-border: rgba(0,0,0,0.06); } }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-deep); color: var(--text-primary); line-height: 1.8; }
+    .header { background: var(--glass); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo a { color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 18px; }
+    .logo a span { color: var(--accent-green); }
+    .nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; }
+    .nav a:hover { color: var(--accent-green); }
+    article { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--accent-green); text-decoration: none; }
+    h1 { font-size: clamp(28px,5vw,38px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px; }
+    h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: var(--text-secondary); }
+    a { color: var(--accent-green); }
+    strong { color: var(--text-primary); }
+    ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-secondary); }
+    li { margin-bottom: 8px; }
+    .term-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+    .term-card h3 { margin-top: 0; }
+    .term-card .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; }
+    .tag-green { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+    .tag-blue { background: rgba(59,130,246,0.15); color: #3b82f6; }
+    .tag-purple { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+    .tag-red { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 15px; }
+    .data-table th, .data-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    .data-table th { background: var(--bg-card); color: var(--text-primary); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .data-table td { color: var(--text-secondary); }
+    .callout { background: rgba(16,185,129,0.08); border-left: 3px solid var(--accent-green); padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 32px 0; }
+    .callout p { margin-bottom: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.08)); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 32px; text-align: center; margin: 48px 0; }
+    .cta-box a { display: inline-block; margin-top: 16px; padding: 12px 32px; background: var(--accent-green); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 600; }
+    .footer { text-align: center; padding: 32px 24px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); max-width: 760px; margin: 0 auto; }
+    .footer a { color: var(--accent-green); text-decoration: none; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is the difference between carbon neutral and net zero?", "acceptedAnswer": { "@type": "Answer", "text": "Carbon neutral means offsetting CO₂ emissions you can't eliminate, often through carbon credits. Net zero means reducing emissions as much as possible first, then offsetting only the residual — and covers all greenhouse gases, not just CO₂." }},
+      { "@type": "Question", "name": "Is carbon neutral the same as net zero?", "acceptedAnswer": { "@type": "Answer", "text": "No. Carbon neutral is easier to achieve and only covers CO₂. Net zero is stricter — it requires deep emissions cuts first, covers all greenhouse gases (including methane), and typically has a specific target year (usually 2050)." }},
+      { "@type": "Question", "name": "What does climate positive mean?", "acceptedAnswer": { "@type": "Answer", "text": "Climate positive (also called carbon negative or carbon positive) means removing more CO₂ from the atmosphere than you emit. It goes beyond net zero — you're actively making the climate situation better, not just neutral." }}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><a href="/">🌍 Carbon<span>Fingerprint</span></a></div>
+    <nav class="nav"><a href="/">Calculator</a><a href="/blog/">Blog</a></nav>
+  </div>
+</header>
+
+<article>
+  <div class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / Carbon Neutral vs Net Zero</div>
+
+  <h1>Carbon Neutral vs Net Zero: What's the Difference?</h1>
+  <div class="article-meta">Updated April 2026 · 7 min read · Plain-English guide to climate jargon</div>
+
+  <p>Every company claims to be "going green." But what do <strong>carbon neutral</strong>, <strong>net zero</strong>, <strong>climate positive</strong>, and <strong>carbon negative</strong> actually mean? And — more importantly — which ones are real and which ones are greenwashing?</p>
+
+  <h2>The Four Terms, Explained Simply</h2>
+
+  <div class="term-card">
+    <span class="tag tag-green">Easiest to achieve</span>
+    <h3>🌍 Carbon Neutral</h3>
+    <p><strong>What it means:</strong> You're offsetting the CO₂ you emit — typically by buying carbon credits (planting trees, funding renewable projects). You haven't necessarily reduced your actual emissions.</p>
+    <p><strong>Covers:</strong> Only CO₂ (not methane, nitrous oxide, etc.)</p>
+    <p><strong>The catch:</strong> You can claim "carbon neutral" by simply buying offsets without changing anything about how you operate. This is why it's sometimes called the easy way out.</p>
+  </div>
+
+  <div class="term-card">
+    <span class="tag tag-blue">The gold standard</span>
+    <h3>🎯 Net Zero</h03>
+    <p><strong>What it means:</strong> You've reduced emissions as much as possible across your entire value chain, and only offset what you truly can't eliminate. The emphasis is on <em>reduction first</em>.</p>
+    <p><strong>Covers:</strong> All greenhouse gases (CO₂, CH₄, N₂O, etc.)</p>
+    <p><strong>The standard:</strong> The Paris Agreement sets a global net zero target by 2050. The Science Based Targets initiative (SBTi) validates company net zero claims.</p>
+  </div>
+
+  <div class="term-card">
+    <span class="tag tag-purple">Going further</span>
+    <h3>⚡ Climate Positive / Carbon Negative</h3>
+    <p><strong>What it means:</strong> You remove more greenhouse gases from the atmosphere than you emit. You're not just neutral — you're making things better.</p>
+    <p><strong>Example:</strong> Microsoft has pledged to be carbon negative by 2030. They plan to remove all the CO₂ they've ever emitted since 1975 by 2050.</p>
+  </div>
+
+  <div class="term-card">
+    <span class="tag tag-red">Watch out</span>
+    <h3>🌿 Carbon Positive</h3>
+    <p><strong>Confusing, right?</strong> "Carbon positive" means the same thing as "climate positive" in some contexts — removing more than you emit. But some companies use it loosely to mean "doing good things for the climate." Always check the fine print.</p>
+  </div>
+
+  <h2>Side-by-Side Comparison</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr><th></th><th>Carbon Neutral</th><th>Net Zero</th><th>Climate Positive</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Reduce emissions first?</td><td>Not required</td><td>Yes (90%+ target)</td><td>Yes</td></tr>
+      <tr><td>Offset remaining?</td><td>Yes</td><td>Yes (residual only)</td><td>+ Go beyond</td></tr>
+      <tr><td>Gases covered</td><td>CO₂ only</td><td>All GHGs</td><td>All GHGs</td></tr>
+      <tr><td>Scope (supply chain)</td><td>Often Scope 1+2 only</td><td>Scope 1+2+3</td><td>Scope 1+2+3</td></tr>
+      <tr><td>Difficulty</td><td>Medium</td><td>Hard</td><td>Very hard</td></tr>
+      <tr><td>Greenwashing risk</td><td>High</td><td>Low (if SBTi)</td><td>Very low</td></tr>
+    </tbody>
+  </table>
+
+  <h2>How to Spot Greenwashing</h2>
+
+  <p>When a company claims "carbon neutral" or "net zero," ask these questions:</p>
+
+  <ol>
+    <li><strong>What's included?</strong> — Scope 1 (direct)? Scope 2 (electricity)? Scope 3 (supply chain)? Real net zero covers Scope 3.</li>
+    <li><strong>What's the timeline?</strong> — "Net zero by 2023" usually means heavy offsetting. "Net zero by 2040 with interim targets" means real reduction.</li>
+    <li><strong>Who verified it?</strong> — SBTi-validated claims are trustworthy. Self-declared claims are not.</li>
+    <li><strong>What offsets are used?</strong> — Avoided deforestation credits are controversial. Direct air capture and biochar are higher quality.</li>
+  </ol>
+
+  <div class="callout">
+    <p>💡 <strong>For individuals:</strong> You can aim for carbon neutral by offsetting your <a href="/">unavoidable emissions</a>. But the real goal is reduction — <a href="/blog/how-to-reduce-carbon-footprint.html">cut what you can first</a>, offset the rest.</p>
+  </div>
+
+  <div class="cta-box">
+    <h3>Calculate your carbon footprint</h3>
+    <p>See your emissions, compare to targets, and know what you'd need to offset.</p>
+    <a href="/">Get My Footprint →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <p>🌍 <a href="/">Carbon Fingerprint</a> · Powered by NASA GISS & IPCC AR6 · <a href="https://github.com/mamoor123/CARBON-FINGERPRINT">Open Source</a></p>
+</footer>
+
+</body>
+</html>

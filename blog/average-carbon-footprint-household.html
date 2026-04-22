@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Average Carbon Footprint of a Household (2026) | Carbon Fingerprint</title>
+  <meta name="description" content="Average household carbon footprint breakdown: transport, home energy, food, and consumption. Compare US, EU, and global averages. Data from academic research and IPCC AR6.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://carbonprint.earth/blog/average-carbon-footprint-household.html">
+  <link rel="icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-deep: #0a0f1a; --bg-card: #111827; --bg-card-hover: #1a2332; --accent-green: #10b981; --text-primary: #f1f5f9; --text-secondary: #94a3b8; --text-muted: #64748b; --border: #1e2329; --glass: rgba(17,24,39,0.7); --glass-border: rgba(255,255,255,0.08); }
+    @media (prefers-color-scheme: light) { :root { --bg-deep: #f8fafc; --bg-card: #ffffff; --bg-card-hover: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --text-muted: #64748b; --border: #e2e8f0; --glass: rgba(255,255,255,0.85); --glass-border: rgba(0,0,0,0.06); } }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-deep); color: var(--text-primary); line-height: 1.8; }
+    .header { background: var(--glass); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo a { color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 18px; }
+    .logo a span { color: var(--accent-green); }
+    .nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; }
+    .nav a:hover { color: var(--accent-green); }
+    article { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--accent-green); text-decoration: none; }
+    h1 { font-size: clamp(28px,5vw,38px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px; }
+    h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: var(--text-secondary); }
+    a { color: var(--accent-green); }
+    strong { color: var(--text-primary); }
+    ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-secondary); }
+    li { margin-bottom: 8px; }
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 15px; }
+    .data-table th, .data-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    .data-table th { background: var(--bg-card); color: var(--text-primary); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .data-table td { color: var(--text-secondary); }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 32px 0; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+    .stat-card .number { font-size: 28px; font-weight: 700; color: var(--accent-green); display: block; }
+    .stat-card .label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .callout { background: rgba(16,185,129,0.08); border-left: 3px solid var(--accent-green); padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 32px 0; }
+    .callout p { margin-bottom: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.08)); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 32px; text-align: center; margin: 48px 0; }
+    .cta-box a { display: inline-block; margin-top: 16px; padding: 12px 32px; background: var(--accent-green); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 600; }
+    .footer { text-align: center; padding: 32px 24px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); max-width: 760px; margin: 0 auto; }
+    .footer a { color: var(--accent-green); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><a href="/">🌍 Carbon<span>Fingerprint</span></a></div>
+    <nav class="nav"><a href="/">Calculator</a><a href="/blog/">Blog</a></nav>
+  </div>
+</header>
+
+<article>
+  <div class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / Average Household Carbon Footprint</div>
+
+  <h1>Average Carbon Footprint of a Household</h1>
+  <div class="article-meta">Updated April 2026 · 8 min read · Data: Ivanova et al. 2020, Song et al. 2019, IPCC AR6</div>
+
+  <p>Most carbon footprint calculators report per-person numbers. But households share resources — a home, a car, meals. That means <strong>household emissions are not just individual emissions multiplied by family size</strong>.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <span class="number">~30t</span>
+      <span class="label">Avg US household</span>
+    </div>
+    <div class="stat-card">
+      <span class="number">~10t</span>
+      <span class="label">Avg EU household</span>
+    </div>
+    <div class="stat-card">
+      <span class="number">70%+</span>
+      <span class="label">Of global GHGs driven by households</span>
+    </div>
+  </div>
+
+  <h2>US vs EU Household Emissions</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Category</th><th>US Household</th><th>EU Household</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🏠 Housing (energy, heating)</td><td>~10t (33%)</td><td>~4t (40%)</td></tr>
+      <tr><td>🚗 Transport</td><td>~9t (30%)</td><td>~3t (30%)</td></tr>
+      <tr><td>🍔 Food</td><td>~5t (17%)</td><td>~2t (20%)</td></tr>
+      <tr><td>🛒 Goods & services</td><td>~6t (20%)</td><td>~1t (10%)</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>~30t</strong></td><td><strong>~10t</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p><em>Sources: Song et al. 2019 (US), Ivanova et al. 2020 (EU). Values are median middle-income households.</em></p>
+
+  <h2>Emissions by Income Level</h2>
+
+  <p>Carbon footprints scale dramatically with income:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Income Level</th><th>US Household</th><th>EU Household</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Low income (bottom 20%)</td><td>~19t</td><td>~4t</td></tr>
+      <tr><td>Medium income (middle 40%)</td><td>~30t</td><td>~10t</td></tr>
+      <tr><td>High income (top 20%)</td><td>~50t</td><td>~25t</td></tr>
+      <tr><td>Top 1%</td><td>~90t+</td><td>~55t+</td></tr>
+    </tbody>
+  </table>
+
+  <p>The top 1% of EU households have footprints <strong>22x larger</strong> than the 1.5°C target allows (The Conversation, 2020).</p>
+
+  <h2>Household Size Effect</h2>
+
+  <p>Living together saves carbon. A single-person household emits almost as much as a two-person household:</p>
+
+  <ul>
+    <li><strong>1 person:</strong> ~25t/year (US) — full heating, lighting, appliances for one</li>
+    <li><strong>2 people:</strong> ~35t/year — only 40% more than one person</li>
+    <li><strong>4 people:</strong> ~50t/year — half the per-capita of a single-person household</li>
+  </ul>
+
+  <h2>Where to Focus Your Cuts</h2>
+
+  <p>For a typical household, the biggest reduction opportunities are:</p>
+
+  <ol>
+    <li><strong>Home energy</strong> — Switch to renewables, insulate, heat pump. Saves 2–5t/year.</li>
+    <li><strong>Transport</strong> — EV, bike, or carpool. Saves 2–4t/year.</li>
+    <li><strong>Diet</strong> — Reduce meat, cut food waste. Saves 1–2t/year.</li>
+    <li><strong>Consumption</strong> — Buy less, buy secondhand. Saves 1–3t/year.</li>
+  </ol>
+
+  <div class="callout">
+    <p>💡 <strong>Want to see your individual footprint?</strong> Even within a household, individual choices matter. <a href="/">Calculate your carbon fingerprint</a> in 60 seconds.</p>
+  </div>
+
+  <div class="cta-box">
+    <h3>Calculate your personal carbon fingerprint</h3>
+    <p>See how your footprint compares to your country's household average.</p>
+    <a href="/">Get My Fingerprint →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <p>🌍 <a href="/">Carbon Fingerprint</a> · Powered by NASA GISS & IPCC AR6 · <a href="https://github.com/mamoor123/CARBON-FINGERPRINT">Open Source</a></p>
+</footer>
+
+</body>
+</html>
