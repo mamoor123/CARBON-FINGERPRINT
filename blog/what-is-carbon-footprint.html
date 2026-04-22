@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is a Carbon Footprint? Complete Guide (2026) | Carbon Fingerprint</title>
+  <meta name="description" content="What is a carbon footprint? Learn how it's calculated, what's a good vs bad footprint, the global average, and how to measure yours — with real data and examples.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://carbonprint.earth/blog/what-is-carbon-footprint.html">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0a0f1a;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2332;
+      --accent-green: #10b981;
+      --accent-emerald: #34d399;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e2329;
+      --glass: rgba(17, 24, 39, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-deep: #f8fafc;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f1f5f9;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        --glass: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(0, 0, 0, 0.06);
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.8;
+    }
+    .header {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo a { color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 18px; }
+    .logo a span { color: var(--accent-green); }
+    .nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav a:hover { color: var(--accent-green); }
+    article {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .breadcrumb {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .breadcrumb a { color: var(--accent-green); text-decoration: none; }
+    h1 {
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    p { margin-bottom: 16px; color: var(--text-secondary); }
+    a { color: var(--accent-green); }
+    ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-secondary); }
+    li { margin-bottom: 8px; }
+    strong { color: var(--text-primary); }
+    .callout {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 3px solid var(--accent-green);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 32px 0;
+    }
+    .callout p { margin-bottom: 0; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 15px;
+    }
+    .data-table th, .data-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table th {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .data-table td { color: var(--text-secondary); }
+    .data-table tr:hover td { background: var(--bg-card); }
+    .cta-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    .cta-box a {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 32px;
+      background: var(--accent-green);
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .cta-box a:hover { background: #059669; }
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .footer a { color: var(--accent-green); text-decoration: none; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "What Is a Carbon Footprint? Complete Guide (2026)",
+    "description": "Everything you need to know about carbon footprints — what they are, how they're calculated, what's a good vs bad footprint, and how yours compares globally.",
+    "author": { "@type": "Organization", "name": "Carbon Fingerprint" },
+    "publisher": { "@type": "Organization", "name": "Carbon Fingerprint", "url": "https://carbonprint.earth" },
+    "datePublished": "2026-04-22",
+    "dateModified": "2026-04-22",
+    "mainEntityOfPage": "https://carbonprint.earth/blog/what-is-carbon-footprint.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a carbon footprint?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A carbon footprint is the total amount of greenhouse gases — primarily carbon dioxide (CO₂) and methane — generated by your actions. It includes direct emissions (like driving a car) and indirect emissions (like the energy used to produce the food you eat or the clothes you buy)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good carbon footprint?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The IPCC AR6 says we need to reach 2.3 tonnes CO₂ per person per year by 2030 to stay on track for 1.5°C. The global average is 4.7 tonnes. Anything under 4 tonnes is considered good; under 2.3 tonnes is excellent and aligned with climate goals."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate my carbon footprint?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can use a carbon footprint calculator like Carbon Fingerprint (carbonprint.earth). Answer 5 questions about your transport, diet, energy use, consumption, and flights. The calculator uses IPCC AR6 emission factors and real NASA climate data to estimate your annual CO₂ emissions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the average carbon footprint per person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The global average is 4.7 tonnes of CO₂ per person per year (World Bank 2023). However, this varies dramatically by country — the US average is 14.5 tonnes, while many African countries average under 1 tonne."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><a href="/">🌍 Carbon<span>Fingerprint</span></a></div>
+    <nav class="nav">
+      <a href="/">Calculator</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<article>
+  <div class="breadcrumb">
+    <a href="/">Home</a> / <a href="/blog/">Blog</a> / What Is a Carbon Footprint?
+  </div>
+
+  <h1>What Is a Carbon Footprint? Complete Guide (2026)</h1>
+  <div class="article-meta">Updated April 2026 · 8 min read · Backed by IPCC AR6 & NASA GISS data</div>
+
+  <p>A <strong>carbon footprint</strong> is the total amount of greenhouse gases — primarily carbon dioxide (CO₂) and methane — generated by your actions. It includes direct emissions (like driving a car) and indirect emissions (like the energy used to produce the food you eat or the clothes you buy).</p>
+
+  <p>Every person, company, and country has a carbon footprint. And understanding yours is the first step toward meaningful climate action.</p>
+
+  <h2>How Is a Carbon Footprint Calculated?</h2>
+
+  <p>Carbon footprints are measured in <strong>tonnes of CO₂ equivalent (tCO₂e)</strong> per year. This unit converts all greenhouse gases — CO₂, methane (CH₄), nitrous oxide (N₂O) — into a single comparable number.</p>
+
+  <p>For individuals, the main categories are:</p>
+
+  <ul>
+    <li><strong>Transport</strong> — car emissions, public transit, flights</li>
+    <li><strong>Food</strong> — diet type, food miles, meat consumption</li>
+    <li><strong>Home energy</strong> — electricity, heating, cooling</li>
+    <li><strong>Consumption</strong> — goods, services, clothing, electronics</li>
+    <li><strong>Shared</strong> — government services, infrastructure, military (~1.5t per person)</li>
+  </ul>
+
+  <p>The emission factors come from peer-reviewed science. The gold standard is the <strong>IPCC AR6 Working Group III</strong> report, which compiles thousands of studies into standardized emission factors for every major activity.</p>
+
+  <div class="callout">
+    <p>💡 <strong>Try it yourself:</strong> <a href="/">Calculate your carbon fingerprint</a> in 60 seconds using IPCC-calibrated emission factors and real NASA climate data.</p>
+  </div>
+
+  <h2>What's the Global Average Carbon Footprint?</h2>
+
+  <p>The global average is <strong>4.7 tonnes of CO₂ per person per year</strong> (World Bank, 2023). But averages hide enormous inequality:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Region</th><th>Per Capita CO₂ (t/year)</th><th>vs Global Avg</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🇺🇸 United States</td><td>14.5</td><td>3.1x higher</td></tr>
+      <tr><td>🇦🇺 Australia</td><td>15.0</td><td>3.2x higher</td></tr>
+      <tr><td>🇨🇦 Canada</td><td>14.3</td><td>3.0x higher</td></tr>
+      <tr><td>🇩🇪 Germany</td><td>8.1</td><td>1.7x higher</td></tr>
+      <tr><td>🇬🇧 United Kingdom</td><td>5.2</td><td>1.1x higher</td></tr>
+      <tr><td>🇨🇳 China</td><td>8.0</td><td>1.7x higher</td></tr>
+      <tr><td>🇮🇳 India</td><td>1.9</td><td>0.4x (below avg)</td></tr>
+      <tr><td>🌍 Global Average</td><td>4.7</td><td>—</td></tr>
+      <tr><td>🎯 1.5°C Target</td><td>2.3</td><td>0.5x (target)</td></tr>
+      <tr><td>🇹🇩 Chad</td><td>0.1</td><td>0.02x</td></tr>
+    </tbody>
+  </table>
+
+  <p><em>Source: Global Carbon Project 2023, IPCC AR6 WG3 carbon budget pathway</em></p>
+
+  <h2>What Is a "Good" Carbon Footprint?</h2>
+
+  <p>The <strong>IPCC AR6</strong> says we need to reach <strong>2.3 tonnes CO₂ per person per year</strong> by 2030 to stay on track for limiting warming to 1.5°C. Here's how to think about your number:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Footprint</th><th>Rating</th><th>Context</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Under 2.3t</td><td>🌟 Climate Champion</td><td>Aligned with 1.5°C target</td></tr>
+      <tr><td>2.3 – 4.7t</td><td>🌿 Eco Conscious</td><td>Below global average</td></tr>
+      <tr><td>4.7 – 8t</td><td>🌱 Growing Awareness</td><td>Near global average</td></tr>
+      <tr><td>8 – 14t</td><td>⚠️ Above Average</td><td>Typical for developed nations</td></tr>
+      <tr><td>Over 14t</td><td>🔴 Heavy Footprint</td><td>Well above sustainable levels</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What Contributes Most to Your Carbon Footprint?</h2>
+
+  <p>For the average person in a developed country, here's roughly where emissions come from:</p>
+
+  <ul>
+    <li><strong>Transport (29%)</strong> — Cars, flights, and commuting. A single transatlantic flight adds ~1.6 tonnes.</li>
+    <li><strong>Food (22%)</strong> — A high-meat diet produces ~3.3t/year; a plant-based diet ~1.5t/year.</li>
+    <li><strong>Home energy (20%)</strong> — Heating, cooling, electricity. Varies hugely by grid type.</li>
+    <li><strong>Consumption (15%)</strong> — Clothing, electronics, furniture, services.</li>
+    <li><strong>Shared services (14%)</strong> — Government, military, infrastructure. Hard to change individually.</li>
+  </ul>
+
+  <p>The good news? The first three categories are where individuals have the most control — and where small changes add up fast.</p>
+
+  <h2>How to Reduce Your Carbon Footprint</h2>
+
+  <p>Here are the highest-impact actions, ranked by potential CO₂ savings:</p>
+
+  <ol>
+    <li><strong>Go car-free or switch to EV</strong> — Saves 2–4.6 tonnes/year</li>
+    <li><strong>Switch to a plant-rich diet</strong> — Saves 0.8–1.8 tonnes/year</li>
+    <li><strong>Take fewer flights</strong> — One fewer transatlantic flight saves ~1.6 tonnes</li>
+    <li><strong>Switch to renewable energy</strong> — Saves 1–2 tonnes/year depending on grid</li>
+    <li><strong>Buy less stuff</strong> — Clothing, electronics, and goods all carry hidden emissions</li>
+    <li><strong>Insulate your home</strong> — Saves 0.5–1.5 tonnes/year in heating costs</li>
+  </ol>
+
+  <p>For a detailed guide with specific numbers, see our <a href="/blog/how-to-reduce-carbon-footprint.html">20 proven tips to reduce your carbon footprint</a>.</p>
+
+  <h2>Why Carbon Footprints Matter</h2>
+
+  <p>In 2024, atmospheric CO₂ hit <strong>421 parts per million</strong> — the highest in at least 800,000 years. Global temperatures have risen ~1.2°C since pre-industrial times, based on real <a href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">NASA GISS data</a> spanning 1880–2025.</p>
+
+  <p>Individual carbon footprints aren't the whole story — systemic change matters too. But understanding your personal impact helps you make informed choices and advocate for bigger changes.</p>
+
+  <div class="cta-box">
+    <h3>Discover your unique carbon fingerprint</h3>
+    <p>5 questions. 60 seconds. Real NASA climate data. See how you compare to the 1.5°C target.</p>
+    <a href="/">Calculate My Footprint →</a>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>What is a carbon footprint in simple terms?</h3>
+  <p>It's a measure of how much your lifestyle contributes to climate change. Every time you drive, eat, turn on a light, or buy something, CO₂ is released somewhere. Add it all up, and that's your carbon footprint.</p>
+
+  <h3>What's the difference between a carbon footprint and a carbon fingerprint?</h3>
+  <p>A carbon footprint is the total emissions number. A <strong>carbon fingerprint</strong> is a visual, personalized representation of your impact — unique to your specific combination of lifestyle choices. <a href="/">Try the Carbon Fingerprint calculator</a> to see yours.</p>
+
+  <h3>Can one person actually make a difference?</h3>
+  <p>Yes. If every person in a developed country cut their footprint by just 2 tonnes, that would reduce global emissions by ~6%. Individual action also drives demand for cleaner products, influences policy, and normalizes sustainable behavior.</p>
+
+  <h3>Is carbon offsetting effective?</h3>
+  <p>Offsets can help, but they're not a substitute for reducing emissions first. The best approach: reduce what you can, offset what you can't. Look for offsets verified by Gold Standard or Verra.</p>
+
+</article>
+
+<footer class="footer">
+  <p>🌍 <a href="/">Carbon Fingerprint</a> · Powered by NASA GISS & IPCC AR6 · <a href="https://github.com/mamoor123/CARBON-FINGERPRINT">Open Source</a></p>
+</footer>
+
+</body>
+</html>

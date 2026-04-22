@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint of Food: From Steak to Salad (2026) | Carbon Fingerprint</title>
+  <meta name="description" content="How much CO₂ does your diet produce? Visual breakdown of carbon emissions by food type — beef, chicken, fish, plant-based — backed by the largest food lifecycle analysis ever conducted.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://carbonprint.earth/blog/carbon-footprint-of-food.html">
+  <link rel="icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-deep: #0a0f1a; --bg-card: #111827; --bg-card-hover: #1a2332; --accent-green: #10b981; --accent-red: #ef4444; --accent-orange: #f97316; --accent-yellow: #eab308; --text-primary: #f1f5f9; --text-secondary: #94a3b8; --text-muted: #64748b; --border: #1e2329; --glass: rgba(17,24,39,0.7); --glass-border: rgba(255,255,255,0.08); }
+    @media (prefers-color-scheme: light) { :root { --bg-deep: #f8fafc; --bg-card: #ffffff; --bg-card-hover: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --text-muted: #64748b; --border: #e2e8f0; --glass: rgba(255,255,255,0.85); --glass-border: rgba(0,0,0,0.06); } }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-deep); color: var(--text-primary); line-height: 1.8; }
+    .header { background: var(--glass); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo a { color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 18px; }
+    .logo a span { color: var(--accent-green); }
+    .nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; }
+    .nav a:hover { color: var(--accent-green); }
+    article { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--accent-green); text-decoration: none; }
+    h1 { font-size: clamp(28px,5vw,38px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px; }
+    h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: var(--text-secondary); }
+    a { color: var(--accent-green); }
+    strong { color: var(--text-primary); }
+    ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-secondary); }
+    li { margin-bottom: 8px; }
+    .bar-chart { margin: 32px 0; }
+    .bar-row { display: flex; align-items: center; margin-bottom: 10px; gap: 12px; }
+    .bar-label { width: 140px; font-size: 14px; color: var(--text-secondary); text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 28px; background: var(--bg-card); border-radius: 6px; overflow: hidden; position: relative; }
+    .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 600; color: #fff; transition: width 1s ease; }
+    .bar-value { font-size: 13px; color: var(--text-muted); width: 60px; flex-shrink: 0; }
+    .callout { background: rgba(16,185,129,0.08); border-left: 3px solid var(--accent-green); padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 32px 0; }
+    .callout p { margin-bottom: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.08)); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 32px; text-align: center; margin: 48px 0; }
+    .cta-box a { display: inline-block; margin-top: 16px; padding: 12px 32px; background: var(--accent-green); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 600; }
+    .footer { text-align: center; padding: 32px 24px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); max-width: 760px; margin: 0 auto; }
+    .footer a { color: var(--accent-green); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><a href="/">🌍 Carbon<span>Fingerprint</span></a></div>
+    <nav class="nav"><a href="/">Calculator</a><a href="/blog/">Blog</a></nav>
+  </div>
+</header>
+
+<article>
+  <div class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / Carbon Footprint of Food</div>
+
+  <h1>Carbon Footprint of Food: From Steak to Salad</h1>
+  <div class="article-meta">Updated April 2026 · 7 min read · Data: Poore & Nemecek (2018, Science), FAO, IPCC AR6</div>
+
+  <p>Food accounts for <strong>26% of global greenhouse gas emissions</strong>. But not all food is created equal — the difference between the most and least climate-friendly protein sources is <strong>over 50x</strong>.</p>
+
+  <p>The most comprehensive study on food emissions ever conducted — <a href="https://science.sciencemag.org/content/360/6392/987" target="_blank" rel="noopener">Poore & Nemecek (2018)</a> — analyzed 38,700 farms across 119 countries. Here's what they found.</p>
+
+  <h2>CO₂ Per Kilogram of Food</h2>
+
+  <p>This chart shows kg of CO₂ equivalent per kg of food produced:</p>
+
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">🐄 Beef (herd)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-red)">60 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🐑 Lamb & Mutton</span>
+      <div class="bar-track"><div class="bar-fill" style="width:40%;background:#f87171">24 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🧀 Cheese</span>
+      <div class="bar-track"><div class="bar-fill" style="width:35%;background:#fb923c">21 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🥩 Pork</span>
+      <div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--accent-orange)">7 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🐔 Poultry</span>
+      <div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--accent-yellow)">6 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🐟 Farmed Fish</span>
+      <div class="bar-track"><div class="bar-fill" style="width:8%;background:#facc15">5 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🥚 Eggs</span>
+      <div class="bar-track"><div class="bar-fill" style="width:7%;background:#a3e635">4.5 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🍚 Rice</span>
+      <div class="bar-track"><div class="bar-fill" style="width:7%;background:#4ade80">4 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🥛 Milk</span>
+      <div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--accent-green)">3 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🫘 Tofu</span>
+      <div class="bar-track"><div class="bar-fill" style="width:3.5%;background:#2dd4bf">2 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🥔 Potatoes</span>
+      <div class="bar-track"><div class="bar-fill" style="width:2%;background:#22d3ee">1.2 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🥜 Nuts</span>
+      <div class="bar-track"><div class="bar-fill" style="width:1.5%;background:#38bdf8">0.9 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🥦 Vegetables</span>
+      <div class="bar-track"><div class="bar-fill" style="width:1%;background:#818cf8">0.5 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🌾 Grains</span>
+      <div class="bar-track"><div class="bar-fill" style="width:0.7%;background:#a78bfa">0.4 kg</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">🫛 Legumes</span>
+      <div class="bar-track"><div class="bar-fill" style="width:0.3%;background:#c084fc">0.2 kg</div></div>
+    </div>
+  </div>
+
+  <p><em>Source: Poore & Nemecek, Science (2018). Includes land use change, farm, feed, processing, transport, packaging, and retail.</em></p>
+
+  <h2>Annual Diet Emissions</h2>
+
+  <p>Your diet type determines a huge chunk of your yearly footprint:</p>
+
+  <table style="width:100%;border-collapse:collapse;margin:24px 0;font-size:15px">
+    <thead>
+      <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:12px 16px;background:var(--bg-card);color:var(--text-primary);font-weight:600">Diet Type</th><th style="text-align:left;padding:12px 16px;background:var(--bg-card);color:var(--text-primary);font-weight:600">tCO₂/year</th><th style="text-align:left;padding:12px 16px;background:var(--bg-card);color:var(--text-primary);font-weight:600">vs High Meat</th></tr>
+    </thead>
+    <tbody style="color:var(--text-secondary)">
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 16px">High meat (>100g/day)</td><td style="padding:10px 16px">3.3</td><td style="padding:10px 16px">—</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 16px">Medium meat (50-100g/day)</td><td style="padding:10px 16px">2.6</td><td style="padding:10px 16px">-21%</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 16px">Low meat (<50g/day)</td><td style="padding:10px 16px">2.0</td><td style="padding:10px 16px">-39%</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 16px">Fish-based</td><td style="padding:10px 16px">1.9</td><td style="padding:10px 16px">-42%</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 16px">Vegetarian</td><td style="padding:10px 16px">1.7</td><td style="padding:10px 16px">-48%</td></tr>
+      <tr><td style="padding:10px 16px">Vegan</td><td style="padding:10px 16px">1.5</td><td style="padding:10px 16px">-55%</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why Is Beef So Bad?</h2>
+
+  <p>Beef tops the chart for three reasons:</p>
+
+  <ol>
+    <li><strong>Methane</strong> — Cows burp methane (CH₄), which is 80x more potent than CO₂ over 20 years.</li>
+    <li><strong>Land use</strong> — Beef requires 20x more land than beans per gram of protein. Much of this comes from deforestation.</li>
+    <li><strong>Feed conversion</strong> — Cows convert only 3% of calories from feed into edible calories. Chickens convert 13%, fish 16%.</li>
+  </ol>
+
+  <h2>The Biggest Food Waste Problem</h2>
+
+  <p><strong>30% of all food produced is wasted</strong> (FAO). That's 1.3 billion tonnes per year, producing ~3.3 billion tonnes of CO₂ — more than the entire aviation industry. Reducing food waste is one of the easiest climate wins.</p>
+
+  <div class="callout">
+    <p>💡 <strong>Quick win:</strong> Switching from a high-meat to a low-meat diet saves ~1.3 tonnes/year — more than switching to an electric car in many countries.</p>
+  </div>
+
+  <h2>What About "Food Miles"?</h2>
+
+  <p>Transport accounts for only <strong>6% of food emissions</strong> on average. The production method matters far more:</p>
+
+  <ul>
+    <li>Local beef still has 10x the emissions of imported lentils</li>
+    <li>Shipping by boat is incredibly efficient — bananas shipped from Ecuador have lower emissions than local greenhouse-grown tomatoes in winter</li>
+    <li><strong>What</strong> you eat matters more than <strong>where</strong> it comes from</li>
+  </ul>
+
+  <div class="cta-box">
+    <h3>How does your diet affect your carbon fingerprint?</h3>
+    <p>Take the 60-second quiz and see your personalized breakdown — including diet emissions.</p>
+    <a href="/">Calculate My Footprint →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <p>🌍 <a href="/">Carbon Fingerprint</a> · Powered by NASA GISS & IPCC AR6 · <a href="https://github.com/mamoor123/CARBON-FINGERPRINT">Open Source</a></p>
+</footer>
+
+</body>
+</html>

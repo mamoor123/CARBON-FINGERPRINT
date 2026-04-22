@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint Blog — Tips, Data & Guides | Carbon Fingerprint</title>
+  <meta name="description" content="Data-backed articles on carbon footprints, climate change, and sustainability. Learn how to reduce your impact with real NASA climate data and IPCC insights.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://carbonprint.earth/blog/">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0a0f1a;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2332;
+      --accent-green: #10b981;
+      --accent-emerald: #34d399;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e2329;
+      --glass: rgba(17, 24, 39, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-deep: #f8fafc;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f1f5f9;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        --glass: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(0, 0, 0, 0.06);
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    .header {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .logo a span { color: var(--accent-green); }
+    .nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav a:hover, .nav a.active { color: var(--accent-green); }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    h1 span { color: var(--accent-green); }
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 18px;
+      margin-bottom: 48px;
+    }
+    .post-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .post-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-green);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.1);
+    }
+    .post-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .post-card h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+    .post-card p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .post-meta {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .cta-banner h3 { margin-bottom: 12px; }
+    .cta-banner a {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 32px;
+      background: var(--accent-green);
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .cta-banner a:hover { background: #059669; transform: translateY(-1px); }
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .footer a { color: var(--accent-green); text-decoration: none; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Carbon Fingerprint Blog",
+    "description": "Data-backed articles on carbon footprints, climate change, and sustainability.",
+    "url": "https://carbonprint.earth/blog/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Carbon Fingerprint",
+      "url": "https://carbonprint.earth"
+    }
+  }
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><a href="/">🌍 Carbon<span>Fingerprint</span></a></div>
+    <nav class="nav">
+      <a href="/">Calculator</a>
+      <a href="/blog/" class="active">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Carbon Footprint <span>Blog</span></h1>
+  <p class="subtitle">Data-backed guides on climate impact, sustainability, and reducing your carbon footprint.</p>
+
+  <a href="/blog/what-is-carbon-footprint.html" class="post-card">
+    <span class="post-tag">Guide</span>
+    <h2>What Is a Carbon Footprint? Complete Guide (2026)</h2>
+    <p>Everything you need to know about carbon footprints — what they are, how they're calculated, what's a good vs bad footprint, and how yours compares globally.</p>
+    <div class="post-meta">8 min read · Updated April 2026</div>
+  </a>
+
+  <a href="/blog/carbon-footprint-by-country.html" class="post-card">
+    <span class="post-tag">Data</span>
+    <h2>Carbon Footprint by Country 2026: Complete Global Ranking</h2>
+    <p>How does your country compare? See CO₂ emissions per capita for 190+ countries with real data from the Global Carbon Project and NASA GISS.</p>
+    <div class="post-meta">10 min read · Updated April 2026</div>
+  </a>
+
+  <a href="/blog/how-to-reduce-carbon-footprint.html" class="post-card">
+    <span class="post-tag">Action</span>
+    <h2>How to Reduce Your Carbon Footprint: 20 Proven Tips</h2>
+    <p>Science-backed ways to cut your personal emissions — from diet and transport to energy and consumption. Each tip includes estimated CO₂ savings.</p>
+    <div class="post-meta">12 min read · Updated April 2026</div>
+  </a>
+
+  <a href="/blog/carbon-footprint-of-food.html" class="post-card">
+    <span class="post-tag">Data</span>
+    <h2>Carbon Footprint of Food: From Steak to Salad</h2>
+    <p>How much CO₂ does your diet produce? A visual breakdown of emissions by food type, backed by the largest food lifecycle analysis ever conducted.</p>
+    <div class="post-meta">7 min read · Updated April 2026</div>
+  </a>
+
+  <a href="/blog/carbon-footprint-of-flying.html" class="post-card">
+    <span class="post-tag">Data</span>
+    <h2>Carbon Footprint of Flying: How Bad Is a Flight Really?</h2>
+    <p>Short haul vs long haul, economy vs business, and how aviation compares to other transport modes. All backed by ICAO and IPCC data.</p>
+    <div class="post-meta">9 min read · Updated April 2026</div>
+  </a>
+
+  <a href="/blog/nasa-climate-data-144-years.html" class="post-card">
+    <span class="post-tag">Science</span>
+    <h2>144 Years of NASA Climate Data: The Story Behind the Numbers</h2>
+    <p>How NASA GISS temperature records from 1880 to 2025 tell the story of accelerating global warming — and what it means for your carbon choices.</p>
+    <div class="post-meta">11 min read · Updated April 2026</div>
+  </a>
+
+  <div class="cta-banner">
+    <h3>Ready to discover your carbon fingerprint?</h3>
+    <p>Answer 5 questions in 60 seconds. Get your unique fingerprint backed by 144 years of real NASA climate data.</p>
+    <a href="/">Calculate My Footprint →</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>🌍 <a href="/">Carbon Fingerprint</a> · Powered by NASA GISS & IPCC AR6 · <a href="https://github.com/mamoor123/CARBON-FINGERPRINT">Open Source</a></p>
+</footer>
+
+</body>
+</html>
