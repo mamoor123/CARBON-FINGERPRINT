@@ -2,37 +2,161 @@
   "name": "carbonprint",
   "version": 2,
   "builds": [
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "cities.js", "use": "@vercel/static" },
-    { "src": "sw.js", "use": "@vercel/static" },
-    { "src": "og-image.png", "use": "@vercel/static" },
-    { "src": "og.html", "use": "@vercel/static" },
-    { "src": "404.html", "use": "@vercel/static" },
-    { "src": "manifest.json", "use": "@vercel/static" },
-    { "src": "robots.txt", "use": "@vercel/static" },
-    { "src": "sitemap.xml", "use": "@vercel/static" },
-    { "src": "blog/**", "use": "@vercel/static" }
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "cities.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "sw.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "og-image.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "og.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "404.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "manifest.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "robots.txt",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "sitemap.xml",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/average-carbon-footprint-household.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-footprint-by-country.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-footprint-of-ai-chatgpt.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-footprint-of-flying.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-footprint-of-food.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-footprint-streaming-netflix.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-neutral-vs-net-zero.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/carbon-offset-explained.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/electric-car-vs-gas-car-carbon-footprint.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/how-to-reduce-carbon-footprint.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/nasa-climate-data-144-years.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/what-is-carbon-footprint.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "blog/**",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
-    { "src": "/robots.txt", "dest": "/robots.txt" },
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/og-image.png", "dest": "/og-image.png" },
-    { "src": "/manifest.json", "dest": "/manifest.json" },
-    { "src": "/cities.js", "dest": "/cities.js" },
-    { "src": "/sw.js", "dest": "/sw.js" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
+    },
+    {
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
+      "src": "/og-image.png",
+      "dest": "/og-image.png"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "/cities.js",
+      "dest": "/cities.js"
+    },
+    {
+      "src": "/sw.js",
+      "dest": "/sw.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://pagead2.googlesyndication.com https://www.google.com; connect-src 'self' https://ipapi.co https://pagead2.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors *" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://pagead2.googlesyndication.com https://www.google.com; connect-src 'self' https://ipapi.co https://pagead2.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors *"
+        }
       ]
     }
   ]
