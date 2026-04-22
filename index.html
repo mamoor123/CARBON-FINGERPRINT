@@ -1664,6 +1664,9 @@ body {
     <div class="share-modal-buttons">
       <button class="btn-primary" onclick="copyShareText()"><span>📋 Copy Text</span></button>
       <button class="btn-secondary" onclick="copyShareUrl()">🔗 Copy Link</button>
+      <button class="btn-secondary" onclick="shareToTwitter()" style="background:rgba(29,155,240,0.15);border-color:rgba(29,155,240,0.3);color:#1d9bf0;">𝕏 Twitter</button>
+      <button class="btn-secondary" onclick="shareToWhatsApp()" style="background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.3);color:#25d366;">💬 WhatsApp</button>
+      <button class="btn-secondary" onclick="shareToLinkedIn()" style="background:rgba(10,102,194,0.15);border-color:rgba(10,102,194,0.3);color:#0a66c2;">💼 LinkedIn</button>
       <button class="btn-secondary" onclick="closeShareModal()">✕ Close</button>
     </div>
   </div>
@@ -8611,6 +8614,28 @@ async function shareNative() {
 
 function closeShareModal() {
   document.getElementById('shareModal').classList.remove('active');
+}
+
+// ===== SOCIAL SHARE =====
+function shareToTwitter() {
+  const url = getResultUrl();
+  const r = window._results;
+  const text = r ? `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)}t CO₂/year` : 'Check your carbon footprint!';
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  trackEvent('share_twitter');
+}
+
+function shareToWhatsApp() {
+  const url = getResultUrl();
+  const text = shareText || `🌍 Check out my Carbon Fingerprint!\n\nDiscover yours → ${url}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  trackEvent('share_whatsapp');
+}
+
+function shareToLinkedIn() {
+  const url = getResultUrl();
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+  trackEvent('share_linkedin');
 }
 
 // ===== ANIMATE NUMBER =====
