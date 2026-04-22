@@ -56,7 +56,8 @@
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <link rel="dns-prefetch" href="https://api.countapi.xyz">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a0f1a">
 <style>
@@ -1507,6 +1508,31 @@ body {
   justify-content: center;
 }
 
+/* Fingerprint legend */
+.fp-legend { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px; font-size: 0.75rem; color: var(--text-muted); }
+.fp-legend-item { cursor: pointer; padding: 4px 10px; border-radius: 20px; transition: all 0.25s ease; border: 1px solid transparent; }
+.fp-legend-item:hover, .fp-legend-item.highlight { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: var(--text-primary); }
+.fp-legend-item.highlight { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); }
+
+/* SVG ring hover */
+.fp-ring-hover { opacity: 0.3; }
+#fingerprintSvg circle[data-cat] { cursor: pointer; transition: opacity 0.25s ease, filter 0.25s ease; }
+#fingerprintSvg circle[data-cat]:hover { filter: brightness(1.4); }
+#fingerprintSvg circle[data-cat].ring-highlight { filter: brightness(1.5) drop-shadow(0 0 6px currentColor); }
+
+/* Viewing banner */
+.viewing-banner { text-align: center; padding: 12px 20px; margin-bottom: 20px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; font-size: 0.9rem; color: var(--text-secondary); }
+.viewing-banner button { background: none; border: none; color: var(--accent-green); cursor: pointer; font-weight: 600; text-decoration: underline; font-size: inherit; }
+
+/* Hero social proof */
+.hero-social-proof { margin-top: 24px; font-size: 0.85rem; color: var(--text-muted); text-align: center; }
+.hero-social-proof span { font-weight: 600; color: var(--text-secondary); }
+
+/* Compare section */
+.compare-section { text-align: center; margin: 32px 0; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; }
+.compare-section h3 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; }
+.compare-section p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px; }
+
 /* Responsive */
 @media (max-width: 768px) {
   .options { grid-template-columns: 1fr; }
@@ -1705,7 +1731,7 @@ body {
       <option value="ko">한국어</option>
       <option value="ar">العربية</option>
     </select>
-    <a href="/blog/" class="blog-link" aria-label="Blog">📝 Blog</a>
+    <a href="#" class="blog-link" aria-label="Blog" onclick="event.preventDefault();showToast('Coming soon!')">📝 Blog</a>
     <nav class="progress-bar" id="progressBar" role="navigation" aria-label="Quiz progress">
       <div class="progress-dot active" data-step="0" role="listitem" aria-label="Start"></div>
       <div class="progress-dot" data-step="1" role="listitem" aria-label="Question 1"></div>
@@ -1744,6 +1770,9 @@ body {
       <button class="btn-primary" onclick="startQuiz()">
         <span>🌱 Discover My Fingerprint</span>
       </button>
+      <div class="hero-social-proof" id="heroSocialProof">
+        <span id="heroVisitorCount">—</span> people have discovered their fingerprint
+      </div>
     </div>
   </section>
 
@@ -1854,6 +1883,13 @@ body {
         <button class="btn-secondary" onclick="resetQuiz()">🔄 Try Again</button>
       </div>
 
+      <!-- Challenge a Friend -->
+      <div class="compare-section">
+        <h3>⚔️ Challenge a Friend</h3>
+        <p>Send your link — they take the quiz and you both see who's greener</p>
+        <button class="btn-secondary" onclick="copyShareUrl()">🔗 Copy Challenge Link</button>
+      </div>
+
       <!-- Feedback -->
       <div class="feedback-section" id="feedbackSection">
         <p id="feedbackQuestion">Was this useful?</p>
@@ -1868,12 +1904,6 @@ body {
           </button>
         </div>
         <p class="feedback-thanks" id="feedbackThanks">Thanks for your feedback!</p>
-      </div>
-
-      <!-- Visitor counter -->
-      <div class="visitor-counter" id="visitorCounter">
-        <span class="eye">👁️</span>
-        <span><span class="count-num" id="visitorCount">—</span> <span id="visitorLabel">fingerprinters so far</span></span>
       </div>
 
       <!-- Methodology -->
@@ -1903,21 +1933,16 @@ body {
   </main>
 </div>
 
-<!-- Generating Overlay -->
-<div class="generating-overlay" id="generatingOverlay">
-  <div class="generating-spinner"></div>
-  <div class="generating-text">Generating your share card...</div>
-</div>
-
-<!-- Share Result Modal -->
+<!-- Share Modal -->
 <div class="share-modal" id="shareModal">
-  <img id="shareResultImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Your Carbon Fingerprint">
-  <div class="share-modal-buttons">
-    <button class="btn-primary" onclick="shareNative()"><span id="shareModalShare">📤 Share</span></button>
-    <button class="btn-secondary" onclick="downloadShareCard()" id="shareModalDownload">⬇️ Download</button>
-    <button class="btn-secondary" onclick="copyShareUrl()" id="shareModalLink">🔗 Copy Link</button>
-    <button class="btn-secondary" onclick="copyShareText()" id="shareModalAll">📋 Copy All</button>
-    <button class="btn-secondary" onclick="closeShareModal()" id="shareModalClose">✕ Close</button>
+  <div style="max-width:420px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;">
+    <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:12px;text-align:center;">📤 Share Your Fingerprint</h3>
+    <pre id="sharePreview" style="background:var(--bg-deep);padding:16px;border-radius:12px;font-size:0.8rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow-y:auto;color:var(--text-secondary);margin-bottom:16px;"></pre>
+    <div class="share-modal-buttons">
+      <button class="btn-primary" onclick="copyShareText()"><span>📋 Copy Text</span></button>
+      <button class="btn-secondary" onclick="copyShareUrl()">🔗 Copy Link</button>
+      <button class="btn-secondary" onclick="closeShareModal()">✕ Close</button>
+    </div>
   </div>
 </div>
 
@@ -1926,40 +1951,6 @@ body {
   <div class="error-icon">⚠️</div>
   <div class="error-msg" id="errorMsg">Something went wrong.</div>
   <button class="btn-secondary" onclick="dismissError()">Try Again</button>
-</div>
-
-<!-- Hidden Share Card -->
-<div class="share-card" id="shareCard">
-  <div class="share-header">
-    <div class="share-brand">CARBON FINGERPRINT</div>
-    <div class="share-title" id="shareTitle">My Climate Identity</div>
-    <div class="share-subtitle">Powered by 144 years of planetary data</div>
-  </div>
-  <div class="share-fingerprint-wrap">
-    <div class="share-fingerprint">
-      <svg viewBox="0 0 300 300" id="shareFpSvg" width="300" height="300"></svg>
-      <div class="share-score">
-        <div class="number" id="shareScore">0</div>
-        <div class="unit">tonnes CO₂/yr</div>
-      </div>
-    </div>
-  </div>
-  <div class="share-label-badge">
-    <div class="badge" id="shareLabelBadge">🌿 Eco Conscious</div>
-  </div>
-  <div class="share-metrics" id="shareMetrics"></div>
-  <div class="share-comparison-block">
-    <div class="share-comp-bars" id="shareCompBars"></div>
-  </div>
-  <div class="share-city-block" id="shareCityBlock">
-    <div class="share-city-title" id="shareCityTitle">🌡️ Climate Data — New York</div>
-    <div class="share-city-grid" id="shareCityGrid"></div>
-  </div>
-  <div class="share-footer">
-    <div class="share-url">Discover yours at <span id="shareUrl">carbonprint.earth</span></div>
-    <div class="share-tagline">🌍 Your planet. Your fingerprint. Your impact.</div>
-    <div class="share-data-badge">🛰️ NASA GISS · 🌊 NOAA · 📋 IPCC AR6</div>
-  </div>
 </div>
 
 <script>
@@ -7931,7 +7922,6 @@ const cityClimateData = {
 let currentStep = -1;
 let answers = [];
 let selectedCity = 'New York';
-let generatedShareDataUrl = null;
 let shareText = '';
 
 let citySelectorAbortController = null;
@@ -7965,14 +7955,38 @@ function fetchCounts() {
     fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
       .then(r => r.json())
       .then(d => {
+        const val = d.value || 0;
         const el = document.getElementById(elId);
-        if (el) el.textContent = d.value || 0;
+        if (el) el.textContent = val;
+        // Also update hero social proof counter
+        if (key === 'quiz_complete') {
+          const heroEl = document.getElementById('heroVisitorCount');
+          if (heroEl) heroEl.textContent = val.toLocaleString();
+        }
       })
       .catch(() => {});
   };
   fetchCount('feedback_up', 'feedbackUpCount');
   fetchCount('feedback_down', 'feedbackDownCount');
   fetchCount('quiz_complete', 'visitorCount');
+}
+
+// ===== CITY AUTO-DETECTION =====
+async function detectCity() {
+  try {
+    const resp = await fetch('https://ipapi.co/json/');
+    const data = await resp.json();
+    if (data.city) {
+      const cityName = data.city;
+      const keys = Object.keys(cityClimateData);
+      const match = keys.find(k => k.toLowerCase().startsWith(cityName.toLowerCase()));
+      if (match) {
+        selectedCity = match;
+        return match;
+      }
+    }
+  } catch(e) { /* silent fail */ }
+  return null;
 }
 
 function submitFeedback(type) {
@@ -8054,10 +8068,20 @@ function checkUrlParams() {
     const decoded = decodeAnswers(encoded);
     if (decoded && decoded.length === 5) {
       answers = decoded;
-      // Show a "viewing someone's result" banner then calculate
+      // Show viewing banner then calculate
       showSection('calculatingSection');
       updateProgress(5);
-      setTimeout(() => showResults(), 1500);
+      setTimeout(() => {
+        showResults();
+        // Show viewing banner on results
+        const resultsContainer = document.querySelector('#resultsSection .results-container') || document.querySelector('#resultsSection');
+        if (resultsContainer) {
+          const banner = document.createElement('div');
+          banner.className = 'viewing-banner';
+          banner.innerHTML = `You're viewing someone's Carbon Fingerprint. <button onclick="resetQuiz()">Discover yours →</button>`;
+          resultsContainer.insertBefore(banner, resultsContainer.firstChild);
+        }
+      }, 1500);
       return true;
     }
   }
@@ -8075,15 +8099,7 @@ async function nativeShare() {
 
   if (navigator.share) {
     try {
-      // If we have a share image, include it
-      if (generatedShareDataUrl) {
-        const resp = await fetch(generatedShareDataUrl);
-        const blob = await resp.blob();
-        const file = new File([blob], 'carbon-fingerprint.png', { type: 'image/png' });
-        await navigator.share({ title: 'My Carbon Fingerprint', text, files: [file] });
-      } else {
-        await navigator.share({ title: 'My Carbon Fingerprint', text, url });
-      }
+      await navigator.share({ title: 'My Carbon Fingerprint', text, url });
       return true;
     } catch (e) {
       if (e.name !== 'AbortError') console.warn('Share failed:', e);
@@ -8214,7 +8230,7 @@ function calculateResults() {
   progress.style.strokeDashoffset = '440';
   // Force reflow then animate
   progress.getBoundingClientRect();
-  progress.style.transition = 'stroke-dashoffset 3s ease';
+  progress.style.transition = 'stroke-dashoffset 1.2s ease';
   progress.style.strokeDashoffset = '0';
 
   const calcTexts = [
@@ -8231,14 +8247,14 @@ function calculateResults() {
     if (textIndex < calcTexts.length) {
       document.getElementById('calcText').textContent = calcTexts[textIndex];
     }
-  }, 600);
+  }, 240);
 
   calcTimeoutId = setTimeout(() => {
     clearInterval(calcIntervalId);
     calcIntervalId = null;
     calcTimeoutId = null;
     showResults();
-  }, 3200);
+  }, 1200);
 }
 
 function showResults() {
@@ -8269,6 +8285,13 @@ function showResults() {
   updateProgress(5);
   fetchCounts();
 
+  // Auto-detect city from IP (async, non-blocking)
+  detectCity().then(() => {
+    // Ensure selectedCity exists in data
+    if (!cityClimateData[selectedCity]) selectedCity = 'New York';
+    renderCityData(selectedCity);
+  });
+
   // Update results header
   const resultsHeader = document.querySelector('.results-header h2');
   if (resultsHeader) resultsHeader.textContent = t('your_fingerprint');
@@ -8285,7 +8308,7 @@ function showResults() {
   else label = t('heavy_footprint');
   document.getElementById('fpLabel').textContent = label;
 
-  // Ensure selectedCity exists in data
+  // Ensure selectedCity exists in data (fallback)
   if (!cityClimateData[selectedCity]) selectedCity = 'New York';
 
   drawFingerprint(categoryCO2);
@@ -8467,11 +8490,54 @@ function drawFingerprint(categories) {
     circle.setAttribute('stroke-dasharray', `${dashLength} ${gapLength}`);
     circle.setAttribute('stroke-dashoffset', circumference);
     circle.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+    circle.setAttribute('data-cat', ring.cat);
     circle.style.transition = `stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${0.3 * i}s`;
     svg.appendChild(circle);
 
     requestAnimationFrame(() => {
       circle.setAttribute('stroke-dashoffset', offset);
+    });
+
+    // SVG ring hover → highlight legend
+    circle.addEventListener('mouseenter', () => {
+      document.querySelectorAll('.fp-legend-item').forEach(el => el.classList.remove('highlight'));
+      const legendItem = document.querySelector(`.fp-legend-item[data-cat="${ring.cat}"]`);
+      if (legendItem) legendItem.classList.add('highlight');
+    });
+    circle.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.fp-legend-item').forEach(el => el.classList.remove('highlight'));
+    });
+  });
+
+  // Render legend after SVG
+  const svgContainer = svg.parentElement;
+  let legend = svgContainer.parentElement.querySelector('.fp-legend');
+  if (!legend) {
+    legend = document.createElement('div');
+    legend.className = 'fp-legend';
+    legend.innerHTML = `
+      <span class="fp-legend-item" data-cat="transport">🚗 Transport</span>
+      <span class="fp-legend-item" data-cat="diet">🍽️ Diet</span>
+      <span class="fp-legend-item" data-cat="energy">⚡ Energy</span>
+      <span class="fp-legend-item" data-cat="consumption">🛍️ Consumption</span>
+      <span class="fp-legend-item" data-cat="flights" style="display:none">✈️ Flights</span>
+    `;
+    svgContainer.parentElement.appendChild(legend);
+  }
+  // Show/hide flights legend
+  const flightsLegend = legend.querySelector('[data-cat="flights"]');
+  if (flightsLegend) {
+    flightsLegend.style.display = (categories.flights && categories.flights > 0.5) ? '' : 'none';
+  }
+  // Legend hover → highlight SVG ring
+  legend.querySelectorAll('.fp-legend-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const cat = item.getAttribute('data-cat');
+      const ring = svg.querySelector(`circle[data-cat="${cat}"]`);
+      if (ring) ring.classList.add('ring-highlight');
+    });
+    item.addEventListener('mouseleave', () => {
+      svg.querySelectorAll('circle[data-cat]').forEach(r => r.classList.remove('ring-highlight'));
     });
   });
 }
@@ -8675,6 +8741,25 @@ function renderInsights(categories, total) {
 
   const insights = [];
 
+  // Find biggest emission category for "biggest opportunity" insight
+  const catEntries = Object.entries(categories).filter(([k, v]) => v > 0 && k !== 'shared');
+  catEntries.sort((a, b) => b[1] - a[1]);
+  const [topCat, topVal] = catEntries[0] || ['transport', 0];
+
+  // Biggest opportunity insight (always first)
+  const opportunityMap = {
+    transport: { action: 'switch to public transit or biking 3 days/week', saving: (topVal * 0.4).toFixed(1) },
+    diet: { action: 'reduce red meat to 2x/week and add more plant-based meals', saving: '0.8' },
+    energy: { action: 'switch to a renewable energy provider', saving: (topVal * 0.7).toFixed(1) },
+    consumption: { action: 'buy less, repair more, and choose secondhand', saving: (topVal * 0.3).toFixed(1) },
+    flights: { action: 'replace one long-haul flight with a train trip or video call', saving: '1.6' }
+  };
+  const opp = opportunityMap[topCat] || opportunityMap.transport;
+  insights.push({
+    icon: '🎯',
+    text: `<strong>Biggest opportunity:</strong> Your ${topCat} emissions (${topVal.toFixed(1)}t) are your highest. ${opp.action.charAt(0).toUpperCase() + opp.action.slice(1)} could save <strong>${opp.saving} tonnes/year</strong>.`
+  });
+
   if (categories.transport >= 2) {
     insights.push({
       icon: '🚗',
@@ -8735,7 +8820,7 @@ function renderInsights(categories, total) {
   } else {
     insights.push({
       icon: '📊',
-      text: `You're <strong>${((total / GLOBAL_AVG - 1) * 100).toFixed(0)}% above the global average</strong>. Biggest opportunities: ${categories.transport > categories.energy ? 'transport' : 'energy'} + diet.`
+      text: `You're <strong>${((total / GLOBAL_AVG - 1) * 100).toFixed(0)}% above the global average</strong>. Top 3 actions: ${catEntries.slice(0, 3).map(([k]) => k).join(', ')}.`
     });
   }
 
@@ -8752,238 +8837,29 @@ function renderInsights(categories, total) {
   });
 }
 
-// ===== SHARE CARD =====
+// ===== SHARE =====
 async function generateShareCard() {
-  await copyShareText();
-}
-
-/*
-  html2canvas removed — was unreliable on mobile browsers.
-  Share now copies text + link directly.
-async function generateShareCardOld() {
-
   const r = window._results;
   if (!r) { showToast('Complete the quiz first to share.'); return; }
   const cityData = cityClimateData[selectedCity];
-
-  // Populate share card
-  document.getElementById('shareScore').textContent = r.totalCO2.toFixed(1);
-  document.getElementById('shareLabelBadge').textContent = r.label;
-  document.getElementById('shareTitle').textContent = t('your_fingerprint');
-  document.getElementById('shareUrl').textContent = window.location.host || 'carbonprint.earth';
-
-  // Metrics
-  const shareMetrics = document.getElementById('shareMetrics');
-  shareMetrics.innerHTML = '';
-  [
-    { emoji: '🚗', label: t('transport'), value: (r.categoryCO2.transport || 0).toFixed(1) + 't' },
-    { emoji: '🍽️', label: t('diet'), value: (r.categoryCO2.diet || 0).toFixed(1) + 't' },
-    { emoji: '⚡', label: t('energy'), value: (r.categoryCO2.energy || 0).toFixed(1) + 't' },
-    { emoji: '✈️', label: t('flights'), value: (r.categoryCO2.flights || 0).toFixed(1) + 't' }
-  ].forEach(m => {
-    const div = document.createElement('div');
-    div.className = 'share-metric';
-    div.innerHTML = `<div class="emoji">${m.emoji}</div><div class="label">${m.label}</div><div class="value">${m.value}</div>`;
-    shareMetrics.appendChild(div);
-  });
-
-  // Comparison bars
-  const compBars = document.getElementById('shareCompBars');
-  compBars.innerHTML = '';
-  [
-    { name: t('you'), value: r.totalCO2, color: 'linear-gradient(90deg, #10b981, #22d3ee)' },
-    { name: t('global_avg'), value: GLOBAL_AVG, color: '#475569' },
-    { name: t('paris_target'), value: PARIS_TARGET, color: 'linear-gradient(90deg, #eab308, #f97316)' }
-  ].forEach(c => {
-    const pct = Math.min((c.value / 20) * 100, 100);
-    const row = document.createElement('div');
-    row.className = 'share-comp-row';
-    row.innerHTML = `
-      <div class="share-comp-name">${c.name}</div>
-      <div class="share-comp-track"><div class="share-comp-fill" style="width:${pct}%;background:${c.color}"></div></div>
-      <div class="share-comp-val">${c.value.toFixed(1)}t</div>
-    `;
-    compBars.appendChild(row);
-  });
-
-  // City data
-  document.getElementById('shareCityTitle').textContent = `🌡️ ${t('climate_data')} — ${selectedCity}`;
-  const shareCityGrid = document.getElementById('shareCityGrid');
-  shareCityGrid.innerHTML = '';
-  [
-    { icon: '🌡️', lbl: 'Temp Rise', val: '+' + cityData.current.tempRise + '°C' },
-    { icon: '🏭', lbl: 'CO₂ (2024)', val: cityData.current.co2 + ' ppm' },
-    { icon: '🌊', lbl: 'Sea Level', val: '+' + cityData.current.seaRise + 'm' },
-    { icon: '⚡', lbl: 'Extreme Days', val: cityData.current.extremeDays + '/yr' }
-  ].forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'share-city-item';
-    div.innerHTML = `<div class="icon">${item.icon}</div><div class="lbl">${item.lbl}</div><div class="val">${item.val}</div>`;
-    shareCityGrid.appendChild(div);
-  });
-
-  // Draw share fingerprint SVG
-  const shareSvg = document.getElementById('shareFpSvg');
-  shareSvg.innerHTML = `
-    <defs>
-      <linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient>
-      <linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
-      <linearGradient id="sg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#eab308"/></linearGradient>
-      <linearGradient id="sg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
-    </defs>
-  `;
-
-  // Organic fingerprint ridges (share card version)
-  const scx = 150, scy = 150;
-  const sSeed = answers.reduce((a, b) => a * 7 + b, 42);
-
-  // Central whorl
-  for (let s = 0; s < 2; s++) {
-    const spiralPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    let d = '';
-    for (let step = 0; step <= 2.5 * 20; step++) {
-      const angle = s * Math.PI + (step / 20) * Math.PI * 2;
-      const rad = 6 + step * 1.5 + Math.sin(angle * 3 + sSeed) * 2.5;
-      const x = scx + Math.cos(angle) * rad;
-      const y = scy + Math.sin(angle) * rad * 0.92;
-      d += (step === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
-    }
-    spiralPath.setAttribute('d', d);
-    spiralPath.setAttribute('fill', 'none');
-    spiralPath.setAttribute('stroke', '#10b981');
-    spiralPath.setAttribute('stroke-width', '0.8');
-    spiralPath.setAttribute('opacity', '0.12');
-    shareSvg.appendChild(spiralPath);
-  }
-
-  // Organic ridges
-  for (let rad = 15; rad < 130; rad += 6) {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const segs = 30;
-    let d = '';
-    for (let i = 0; i <= segs; i++) {
-      const angle = (i / segs) * Math.PI * 2;
-      const n1 = Math.sin(angle * 3 + rad * 0.1 + sSeed * 0.01) * (1.5 + rad * 0.025);
-      const n2 = Math.sin(angle * 7 + rad * 0.05) * (0.8 + rad * 0.012);
-      const pR = rad + n1 + n2;
-      const coX = Math.sin(sSeed * 0.1) * 2;
-      const coY = Math.cos(sSeed * 0.1) * 1.5;
-      const x = scx + coX + Math.cos(angle) * pR;
-      const y = scy + coY + Math.sin(angle) * pR * 0.92;
-      d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
-    }
-    d += 'Z';
-    path.setAttribute('d', d);
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', '#10b981');
-    path.setAttribute('stroke-width', '0.5');
-    path.setAttribute('opacity', (0.12 + (rad / 130) * 0.15).toFixed(2));
-    shareSvg.appendChild(path);
-  }
-
-  // Data rings
-  [
-    { r: 48, cat: 'transport', grad: 'sg1' },
-    { r: 68, cat: 'diet', grad: 'sg2' },
-    { r: 88, cat: 'energy', grad: 'sg3' },
-    { r: 108, cat: 'consumption', grad: 'sg4' }
-  ].forEach(ring => {
-    const catCO2 = r.categoryCO2[ring.cat] || 0;
-    const ratio = Math.min(catCO2 / 5, 1);
-    const circ = 2 * Math.PI * ring.r;
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', scx);
-    circle.setAttribute('cy', scy);
-    circle.setAttribute('r', ring.r);
-    circle.setAttribute('fill', 'none');
-    circle.setAttribute('stroke', `url(#${ring.grad})`);
-    circle.setAttribute('stroke-width', '6');
-    circle.setAttribute('stroke-linecap', 'round');
-    circle.setAttribute('stroke-dasharray', `${circ * ratio} ${circ * (1 - ratio)}`);
-    circle.setAttribute('stroke-dashoffset', circ * 0.25);
-    circle.setAttribute('transform', `rotate(-90 ${scx} ${scy})`);
-    shareSvg.appendChild(circle);
-  });
-
-  // City source on share card
-  const shareCitySource = document.querySelector('.share-city-block .share-city-source');
-  if (!shareCitySource) {
-    const src = document.createElement('div');
-    src.className = 'share-city-source';
-    src.style.cssText = 'text-align:center;font-size:10px;color:#475569;margin-top:8px;';
-    src.textContent = `Source: ${cityData.source}`;
-    document.getElementById('shareCityBlock').appendChild(src);
-  } else {
-    shareCitySource.textContent = `Source: ${cityData.source}`;
-  }
-
-  // Generate text with shareable URL
   const shareUrl = getResultUrl();
   const diff = r.totalCO2 - GLOBAL_AVG;
-  shareText = `🌍 ${t('your_fingerprint')}: ${r.totalCO2.toFixed(1)} ${t('tonnes')}\n\n` +
-    `🚗 ${t('transport')}: ${(r.categoryCO2.transport || 0).toFixed(1)}t\n` +
-    `🍽️ ${t('diet')}: ${(r.categoryCO2.diet || 0).toFixed(1)}t\n` +
-    `⚡ ${t('energy')}: ${(r.categoryCO2.energy || 0).toFixed(1)}t\n` +
-    `✈️ ${t('flights')}: ${(r.categoryCO2.flights || 0).toFixed(1)}t\n` +
-    `🏛️ ${t('shared')}: 1.5t\n\n` +
-    `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t ${t('below')}` : `⚠️ ${diff.toFixed(1)}t ${t('above')}`} ${t('global_avg').toLowerCase()} (4.7t)\n` +
-    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C ${t('since_pre')}\n\n` +
-    `${t('discover_yours')} → ${shareUrl}`;
 
-  // Wait a tick for DOM to settle, then capture
-  await new Promise(resolve => { setTimeout(resolve, 100); });
+  shareText = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
+    `🚗 Transport: ${(r.categoryCO2.transport||0).toFixed(1)}t\n` +
+    `🍽️ Diet: ${(r.categoryCO2.diet||0).toFixed(1)}t\n` +
+    `⚡ Energy: ${(r.categoryCO2.energy||0).toFixed(1)}t\n` +
+    `🛍️ Consumption: ${(r.categoryCO2.consumption||0).toFixed(1)}t\n` +
+    (r.categoryCO2.flights > 0.5 ? `✈️ Flights: ${r.categoryCO2.flights.toFixed(1)}t\n` : '') +
+    `🏛️ Shared: 1.5t\n\n` +
+    `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t below` : `⚠️ ${diff.toFixed(1)}t above`} global average (4.7t)\n` +
+    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C since pre-industrial\n\n` +
+    `Discover yours → ${shareUrl}`;
 
-  try {
-    const card = document.getElementById('shareCard');
-    card.style.left = '0';
-    card.style.position = 'absolute';
-    card.style.zIndex = '-1';
-
-    const canvas = await html2canvas(card, {
-      backgroundColor: '#060a13',
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      width: 1080,
-      height: 1350
-    });
-
-    generatedShareDataUrl = canvas.toDataURL('image/png');
-
-    card.style.left = '-9999px';
-    card.style.position = 'fixed';
-    card.style.zIndex = 'auto';
-
-    // Show modal
-    overlay.classList.remove('active');
-    document.getElementById('shareResultImg').src = generatedShareDataUrl;
-    document.getElementById('shareModal').classList.add('active');
-    trackEvent('share_card_generated');
-
-  } catch (err) {
-    overlay.classList.remove('active');
-    console.error('html2canvas error:', err);
-    // Still try to share text
-    await copyShareText();
-  }
-}
-*/
-
-function downloadShareCard() {
-  if (!generatedShareDataUrl) { showToast('Generate a share card first.'); return; }
-  const a = document.createElement('a');
-  a.href = generatedShareDataUrl;
-  a.download = 'my-carbon-fingerprint.png';
-  a.click();
-}
-
-async function shareNative() {
-  const shared = await nativeShare();
-  if (!shared) {
-    // Fallback: download + copy text
-    downloadShareCard();
-    await copyShareText();
-  }
+  // Show share modal with text preview
+  document.getElementById('sharePreview').textContent = shareText;
+  document.getElementById('shareModal').classList.add('active');
+  trackEvent('share_card_generated');
 }
 
 function copyShareText() {
@@ -9001,6 +8877,13 @@ function copyShareUrl() {
   }).catch(() => {
     prompt('Copy this link:', url);
   });
+}
+
+async function shareNative() {
+  const shared = await nativeShare();
+  if (!shared) {
+    await copyShareText();
+  }
 }
 
 function closeShareModal() {
@@ -9026,7 +8909,6 @@ function animateNumber(id, start, end, decimals, duration) {
 function resetQuiz() {
   currentStep = -1;
   answers = [];
-  generatedShareDataUrl = null;
   shareText = '';
   delete window._results;
   if (calcTimeoutId) { clearTimeout(calcTimeoutId); calcTimeoutId = null; }

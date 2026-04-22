@@ -1,19 +1,20 @@
 {
   "name": "Carbon Fingerprint",
-  "short_name": "Carbon FP",
-  "description": "Discover your climate identity, powered by 144 years of planetary data.",
-  "lang": "en",
-  "dir": "ltr",
+  "short_name": "CarbonFP",
+  "description": "Discover your unique carbon footprint in 60 seconds — powered by 144 years of real climate science from NASA, NOAA, and IPCC.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0f1a",
   "theme_color": "#0a0f1a",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0f1a'/><text x='50' y='70' font-size='60' text-anchor='middle'>🌍</text></svg>",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "og-image.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["education", "utilities"],
+  "lang": "en"
 }
