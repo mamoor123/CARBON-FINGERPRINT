@@ -2674,17 +2674,6 @@ function updateStaticText() {
   if (ct) ct.textContent = t('climate_data');
   const cs = document.getElementById('climateSubtitle');
   if (cs) cs.innerHTML = t('global_temp') + '<br>' + t('city_est');
-  // Share modal
-  const sms = document.getElementById('shareModalShare');
-  if (sms) sms.textContent = t('share');
-  const smd = document.getElementById('shareModalDownload');
-  if (smd) smd.textContent = t('download');
-  const sml = document.getElementById('shareModalLink');
-  if (sml) sml.textContent = t('copy_link');
-  const sma = document.getElementById('shareModalAll');
-  if (sma) sma.textContent = t('copy_all');
-  const smc = document.getElementById('shareModalClose');
-  if (smc) smc.textContent = t('close');
   // Feedback
   const fq = document.getElementById('feedbackQuestion');
   if (fq) fq.textContent = t('feedback_q');
@@ -2694,18 +2683,6 @@ function updateStaticText() {
   if (fno) fno.lastChild.textContent = ' ' + t('feedback_no');
   const ftk = document.getElementById('feedbackThanks');
   if (ftk) ftk.textContent = t('feedback_thanks');
-  const vl = document.getElementById('visitorLabel');
-  if (vl) vl.textContent = t('visitors');
-  // Generating overlay
-  const gt = document.querySelector('.generating-text');
-  if (gt) gt.textContent = t('generating_card');
-  // Share card static text
-  const sb = document.querySelector('.share-subtitle');
-  if (sb) sb.textContent = t('powered_by');
-  const su = document.querySelector('.share-url');
-  if (su) su.innerHTML = `${t('discover_yours')} <span id="shareUrl">${window.location.host || 'carbonprint.earth'}</span>`;
-  const st = document.querySelector('.share-tagline');
-  if (st) st.textContent = t('tagline');
 }
 
 function renderHero() {
@@ -3110,8 +3087,11 @@ function showResults() {
 
   // Auto-detect city from IP (async, non-blocking)
   detectCity().then(() => {
-    // Ensure selectedCity exists in data
     if (!cityClimateData[selectedCity]) selectedCity = 'New York';
+    renderCityData(selectedCity);
+  }).catch(() => {
+    // Fallback: render with default city
+    selectedCity = 'New York';
     renderCityData(selectedCity);
   });
 
@@ -3131,16 +3111,13 @@ function showResults() {
   else label = t('heavy_footprint');
   document.getElementById('fpLabel').textContent = label;
 
-  // Ensure selectedCity exists in data (fallback)
-  if (!cityClimateData[selectedCity]) selectedCity = 'New York';
-
   // Render each section with error boundaries
   const safeRender = (fn, name) => { try { fn(); } catch(e) { console.error(`${name} failed:`, e); } };
   safeRender(() => drawFingerprint(categoryCO2), 'drawFingerprint');
   safeRender(() => renderMetrics(categoryCO2, totalCO2), 'renderMetrics');
   safeRender(() => renderComparison(totalCO2), 'renderComparison');
   safeRender(() => renderCitySelector(), 'renderCitySelector');
-  safeRender(() => renderCityData(selectedCity), 'renderCityData');
+  // renderCityData is called after detectCity resolves (avoids double render)
   safeRender(() => renderInsights(categoryCO2, totalCO2), 'renderInsights');
 
   // Store for share card
