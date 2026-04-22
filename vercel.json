@@ -12,9 +12,16 @@
     { "src": "robots.txt", "use": "@vercel/static" },
     { "src": "sitemap.xml", "use": "@vercel/static" }
   ],
-  "rewrites": [
-    { "source": "/blog/:path*", "destination": "/blog/:path*" },
-    { "source": "/:path((?!blog/|og\\.html|404\\.html|robots\\.txt|sitemap\\.xml|manifest\\.json|cities\\.js|sw\\.js|og-image\\.png).*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/robots.txt", "dest": "/robots.txt" },
+    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
+    { "src": "/og-image.png", "dest": "/og-image.png" },
+    { "src": "/manifest.json", "dest": "/manifest.json" },
+    { "src": "/cities.js", "dest": "/cities.js" },
+    { "src": "/sw.js", "dest": "/sw.js" },
+    { "src": "/blog/(.*)", "dest": "/blog/$1" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "output": "static",
   "cleanUrls": false,
