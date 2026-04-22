@@ -55,7 +55,7 @@
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-<link rel="dns-prefetch" href="https://api.countapi.xyz">
+<link rel="dns-prefetch" href="https://ipapi.co">
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
 <link rel="manifest" href="manifest.json">
@@ -2886,66 +2886,96 @@ function escapeHtml(str) {
 }
 
 // ===== ANALYTICS (privacy-respecting, no cookies, no PII) =====
-// Uses countapi.xyz — free, anonymous hit counter
+// localStorage-based counter — works offline, no external dependency
 const APP_NS = "carbon-fingerprint-v2";
-function trackEvent(event) {
+
+function _getLocalStats() {
 	try {
-		// Fire-and-forget counter increment
+		return JSON.parse(localStorage.getItem("cf_stats") || "{}");
+	} catch { return {}; }
+}
+
+function _saveLocalStats(stats) {
+	try { localStorage.setItem("cf_stats", JSON.stringify(stats)); } catch {}
+}
+
+function trackEvent(event) {
+	const stats = _getLocalStats();
+	stats[event] = (stats[event] || 0) + 1;
+	stats.lastSeen = Date.now();
+	_saveLocalStats(stats);
+	// Best-effort: try external counter (may be down)
+	try {
 		fetch(`https://api.countapi.xyz/hit/${APP_NS}/${event}`, {
 			mode: "no-cors",
 		}).catch(() => {});
-	} catch {
-		/* analytics non-critical */
+	} catch { /* non-critical */ }
+}
+
+function _updateUI(key, val) {
+	if (key === "quiz_complete") {
+		const heroEl = document.getElementById("heroVisitorCount");
+		if (heroEl) heroEl.textContent = val.toLocaleString();
+		const globalEl = document.getElementById("globalTotal");
+		if (globalEl) globalEl.textContent = val.toLocaleString();
+		const visitorEl = document.getElementById("visitorCount");
+		if (visitorEl) visitorEl.textContent = val.toLocaleString();
 	}
-	// Also log locally
-	try {
-		const stats = JSON.parse(localStorage.getItem("cf_stats") || "{}");
-		stats[event] = (stats[event] || 0) + 1;
-		stats.lastSeen = Date.now();
-		localStorage.setItem("cf_stats", JSON.stringify(stats));
-	} catch {
-		/* localStorage unavailable (private mode, quota exceeded) */
+	if (key === "feedback_up") {
+		const el = document.getElementById("feedbackUpCount");
+		if (el) el.textContent = val.toLocaleString();
+	}
+	if (key === "feedback_down") {
+		const el = document.getElementById("feedbackDownCount");
+		if (el) el.textContent = val.toLocaleString();
 	}
 }
 
-// Feedback
 function fetchCounts() {
-	let totalUp = 0,
-		totalDown = 0,
-		fetchesDone = 0;
-	const updateSatisfaction = () => {
-		if (totalUp + totalDown > 0) {
-			const pct = Math.round((totalUp / (totalUp + totalDown)) * 100);
-			const satEl = document.getElementById("globalSatisfaction");
-			if (satEl) satEl.textContent = `${pct}%`;
-		}
-	};
-	const fetchCount = (key, elId) => {
+	const stats = _getLocalStats();
+	const localUp = stats.feedback_up || 0;
+	const localDown = stats.feedback_down || 0;
+	const localQuiz = stats.quiz_complete || 0;
+
+	// Show local counts immediately
+	_updateUI("feedback_up", localUp);
+	_updateUI("feedback_down", localDown);
+	_updateUI("quiz_complete", localQuiz);
+
+	// Calculate satisfaction from local data
+	if (localUp + localDown > 0) {
+		const pct = Math.round((localUp / (localUp + localDown)) * 100);
+		const satEl = document.getElementById("globalSatisfaction");
+		if (satEl) satEl.textContent = `${pct}%`;
+	}
+
+	// Try external API as bonus (merge with local)
+	let fetchesDone = 0;
+	const fetchCount = (key) => {
 		fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
 			.then((r) => r.json())
 			.then((d) => {
-				const val = d.value || 0;
-				const el = document.getElementById(elId);
-				if (el) el.textContent = val;
-				if (key === "quiz_complete") {
-					const heroEl = document.getElementById("heroVisitorCount");
-					if (heroEl) heroEl.textContent = val.toLocaleString();
-					document.getElementById("globalTotal").textContent =
-						val.toLocaleString();
+				const extVal = d.value || 0;
+				const localVal = stats[key] || 0;
+				// Use whichever is higher (external may have other users' counts)
+				const best = Math.max(extVal, localVal);
+				_updateUI(key, best);
+				if (key === "feedback_up" || key === "feedback_down") {
+					const up = key === "feedback_up" ? best : localUp;
+					const down = key === "feedback_down" ? best : localDown;
+					if (up + down > 0) {
+						const pct = Math.round((up / (up + down)) * 100);
+						const satEl = document.getElementById("globalSatisfaction");
+						if (satEl) satEl.textContent = `${pct}%`;
+					}
 				}
-				if (key === "feedback_up") totalUp = val;
-				if (key === "feedback_down") totalDown = val;
-				fetchesDone++;
-				if (fetchesDone >= 3) updateSatisfaction();
 			})
-			.catch(() => {
-				fetchesDone++;
-				if (fetchesDone >= 3) updateSatisfaction();
-			});
+			.catch(() => {})
+			.finally(() => { fetchesDone++; });
 	};
-	fetchCount("feedback_up", "feedbackUpCount");
-	fetchCount("feedback_down", "feedbackDownCount");
-	fetchCount("quiz_complete", "visitorCount");
+	fetchCount("feedback_up");
+	fetchCount("feedback_down");
+	fetchCount("quiz_complete");
 }
 
 // ===== CITY AUTO-DETECTION =====
