@@ -1135,6 +1135,16 @@ body {
   transform: scale(0.96);
 }
 .feedback-btn .emoji { font-size: 20px; }
+.feedback-btn .count {
+  font-size: 12px;
+  background: var(--border);
+  color: var(--text-secondary);
+  padding: 1px 7px;
+  border-radius: 999px;
+  margin-left: 2px;
+  min-width: 20px;
+  text-align: center;
+}
 .feedback-btn.voted {
   pointer-events: none;
   opacity: 0.5;
@@ -1161,6 +1171,24 @@ body {
 .feedback-thanks.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Visitor counter */
+.visitor-counter {
+  text-align: center;
+  padding: 16px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.visitor-counter .eye { font-size: 16px; }
+.visitor-counter .count-num {
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 /* Share Card (hidden, for html2canvas) */
@@ -1816,12 +1844,20 @@ body {
         <div class="feedback-buttons">
           <button class="feedback-btn" id="feedbackUp" onclick="submitFeedback('up')">
             <span class="emoji">👍</span><span id="feedbackYes"> Yes</span>
+            <span class="count" id="feedbackUpCount">—</span>
           </button>
           <button class="feedback-btn down" id="feedbackDown" onclick="submitFeedback('down')">
             <span class="emoji">👎</span><span id="feedbackNo"> Not really</span>
+            <span class="count" id="feedbackDownCount">—</span>
           </button>
         </div>
         <p class="feedback-thanks" id="feedbackThanks">Thanks for your feedback!</p>
+      </div>
+
+      <!-- Visitor counter -->
+      <div class="visitor-counter" id="visitorCounter">
+        <span class="eye">👁️</span>
+        <span><span class="count-num" id="visitorCount">—</span> <span id="visitorLabel">fingerprinters so far</span></span>
       </div>
 
       <!-- Methodology -->
@@ -2049,6 +2085,7 @@ const translations = {
     feedback_yes: 'Yes',
     feedback_no: 'Not really',
     feedback_thanks: 'Thanks for your feedback!',
+    visitors: 'fingerprinters so far',
   },
   es: {
     lang: 'Español',
@@ -2124,6 +2161,7 @@ const translations = {
     feedback_yes: 'Sí',
     feedback_no: 'No mucho',
     feedback_thanks: '¡Gracias por tu opinión!',
+    visitors: 'huellas hasta ahora',
   },
   hi: {
     lang: 'हिन्दी',
@@ -2199,6 +2237,7 @@ const translations = {
     feedback_yes: 'हाँ',
     feedback_no: 'इतना नहीं',
     feedback_thanks: 'आपकी प्रतिक्रिया के लिए धन्यवाद!',
+    visitors: 'अब तक फिंगरप्रिंटर',
   },
   pt: {
     lang: 'Português',
@@ -2274,6 +2313,7 @@ const translations = {
     feedback_yes: 'Sim',
     feedback_no: 'Não muito',
     feedback_thanks: 'Obrigado pelo feedback!',
+    visitors: 'impressões até agora',
   },
   zh: {
     lang: '中文',
@@ -2349,6 +2389,7 @@ const translations = {
     feedback_yes: '有用',
     feedback_no: '一般',
     feedback_thanks: '感谢你的反馈！',
+    visitors: '人已留下指纹',
   },
   fr: {
     lang: 'Français',
@@ -2424,6 +2465,7 @@ const translations = {
     feedback_yes: 'Oui',
     feedback_no: 'Pas vraiment',
     feedback_thanks: 'Merci pour votre avis !',
+    visitors: 'empreintes à ce jour',
   },
   de: {
     lang: 'Deutsch',
@@ -2499,6 +2541,7 @@ const translations = {
     feedback_yes: 'Ja',
     feedback_no: 'Nicht wirklich',
     feedback_thanks: 'Danke für Ihr Feedback!',
+    visitors: 'Fingerabdrücke bisher',
   },
   ja: {
     lang: '日本語',
@@ -2574,6 +2617,7 @@ const translations = {
     feedback_yes: 'はい',
     feedback_no: 'あまり',
     feedback_thanks: 'フィードバックありがとうございます！',
+    visitors: '人のフィンガープリント',
   },
   ko: {
     lang: '한국어',
@@ -2649,6 +2693,7 @@ const translations = {
     feedback_yes: '네',
     feedback_no: '별로',
     feedback_thanks: '피드백 감사합니다!',
+    visitors: '명이 지문을 남겼습니다',
   },
   ar: {
     lang: 'العربية',
@@ -2724,6 +2769,7 @@ const translations = {
     feedback_yes: 'نعم',
     feedback_no: 'ليس كثيراً',
     feedback_thanks: 'شكراً على ملاحظاتك!',
+    visitors: 'بصمة حتى الآن',
   },
 };
 
@@ -2810,6 +2856,8 @@ function updateStaticText() {
   if (fno) fno.lastChild.textContent = ' ' + t('feedback_no');
   const ftk = document.getElementById('feedbackThanks');
   if (ftk) ftk.textContent = t('feedback_thanks');
+  const vl = document.getElementById('visitorLabel');
+  if (vl) vl.textContent = t('visitors');
   // Generating overlay
   const gt = document.querySelector('.generating-text');
   if (gt) gt.textContent = t('generating_card');
@@ -7896,6 +7944,21 @@ function trackEvent(event) {
 }
 
 // Feedback
+function fetchCounts() {
+  const fetchCount = (key, elId) => {
+    fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
+      .then(r => r.json())
+      .then(d => {
+        const el = document.getElementById(elId);
+        if (el) el.textContent = d.value || 0;
+      })
+      .catch(() => {});
+  };
+  fetchCount('feedback_up', 'feedbackUpCount');
+  fetchCount('feedback_down', 'feedbackDownCount');
+  fetchCount('quiz_complete', 'visitorCount');
+}
+
 function submitFeedback(type) {
   const up = document.getElementById('feedbackUp');
   const down = document.getElementById('feedbackDown');
@@ -7904,9 +7967,14 @@ function submitFeedback(type) {
   if (type === 'up') {
     up.classList.add('selected');
     down.classList.add('voted');
+    // Increment displayed count
+    const el = document.getElementById('feedbackUpCount');
+    if (el) el.textContent = parseInt(el.textContent) + 1;
   } else {
     down.classList.add('selected');
     up.classList.add('voted');
+    const el = document.getElementById('feedbackDownCount');
+    if (el) el.textContent = parseInt(el.textContent) + 1;
   }
 
   thanks.classList.add('show');
@@ -8183,6 +8251,7 @@ function showResults() {
 
   showSection('resultsSection');
   updateProgress(5);
+  fetchCounts();
 
   // Update results header
   const resultsHeader = document.querySelector('.results-header h2');
