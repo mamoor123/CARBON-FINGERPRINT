@@ -2736,7 +2736,7 @@ function trackEvent(event) {
 
 // Feedback
 function fetchCounts() {
-  let totalQuiz = 0, totalUp = 0, totalDown = 0;
+  let totalUp = 0, totalDown = 0;
   const fetchCount = (key, elId) => {
     fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
       .then(r => r.json())
@@ -2748,7 +2748,6 @@ function fetchCounts() {
         if (key === 'quiz_complete') {
           const heroEl = document.getElementById('heroVisitorCount');
           if (heroEl) heroEl.textContent = val.toLocaleString();
-          totalQuiz = val;
           document.getElementById('globalTotal').textContent = val.toLocaleString();
         }
         if (key === 'feedback_up') {
@@ -2784,7 +2783,7 @@ async function detectCity() {
         return match;
       }
     }
-  } catch(e) { /* silent fail */ }
+  } catch(_e) { /* silent fail */ }
   return null;
 }
 
@@ -2798,12 +2797,12 @@ function submitFeedback(type) {
     down.classList.add('voted');
     // Increment displayed count
     const el = document.getElementById('feedbackUpCount');
-    if (el) el.textContent = parseInt(el.textContent) + 1;
+    if (el) el.textContent = parseInt(el.textContent, 10) + 1;
   } else {
     down.classList.add('selected');
     up.classList.add('voted');
     const el = document.getElementById('feedbackDownCount');
-    if (el) el.textContent = parseInt(el.textContent) + 1;
+    if (el) el.textContent = parseInt(el.textContent, 10) + 1;
   }
 
   thanks.classList.add('show');
@@ -3112,7 +3111,7 @@ function showResults() {
   document.getElementById('fpLabel').textContent = label;
 
   // Render each section with error boundaries
-  const safeRender = (fn, name) => { try { fn(); } catch(e) { console.error(`${name} failed:`, e); } };
+  const safeRender = (fn, name) => { try { fn(); } catch(err) { console.error(`${name} failed:`, err); } };
   safeRender(() => drawFingerprint(categoryCO2), 'drawFingerprint');
   safeRender(() => renderMetrics(categoryCO2, totalCO2), 'renderMetrics');
   safeRender(() => renderComparison(totalCO2), 'renderComparison');
@@ -3127,7 +3126,7 @@ function showResults() {
   try {
     localStorage.setItem('cf_cached_answers', JSON.stringify(answers));
     localStorage.setItem('cf_cached_ts', Date.now().toString());
-  } catch(e) { /* localStorage unavailable */ }
+  } catch(_e) { /* localStorage unavailable */ }
 
   // Track completion
   trackEvent('quiz_complete');
@@ -3674,7 +3673,15 @@ function copyShareText() {
   return navigator.clipboard.writeText(shareText).then(() => {
     showToast('📋 Share text + link copied!');
   }).catch(() => {
-    prompt('Copy this:', shareText);
+    // Fallback: create temporary textarea
+    const ta = document.createElement('textarea');
+    ta.value = shareText;
+    ta.style.cssText = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 Share text + link copied!');
   });
 }
 
@@ -3683,7 +3690,14 @@ function copyShareUrl() {
   navigator.clipboard.writeText(url).then(() => {
     showToast('🔗 Link copied! Share it with friends to show your fingerprint.');
   }).catch(() => {
-    prompt('Copy this link:', url);
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.cssText = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('🔗 Link copied!');
   });
 }
 
@@ -3753,7 +3767,7 @@ function resetQuiz() {
   shareText = '';
   delete window._results;
   // Clear cached results
-  try { localStorage.removeItem('cf_cached_answers'); localStorage.removeItem('cf_cached_ts'); } catch(e) {}
+  try { localStorage.removeItem('cf_cached_answers'); localStorage.removeItem('cf_cached_ts'); } catch(_e) { /* localStorage unavailable */ }
   if (calcTimeoutId) { clearTimeout(calcTimeoutId); calcTimeoutId = null; }
   if (calcIntervalId) { clearInterval(calcIntervalId); calcIntervalId = null; }
   window.scrollTo(0, 0);
@@ -3786,7 +3800,7 @@ if (!checkUrlParams()) {
   // Check for cached results from a previous visit
   try {
     const cached = localStorage.getItem('cf_cached_answers');
-    const ts = parseInt(localStorage.getItem('cf_cached_ts') || '0');
+    const ts = parseInt(localStorage.getItem('cf_cached_ts') || '0', 10);
     const age = Date.now() - ts;
     if (cached && age < 7 * 24 * 60 * 60 * 1000) { // 7 days
       const decoded = JSON.parse(cached);
@@ -3807,7 +3821,7 @@ if (!checkUrlParams()) {
         }, 1500);
       }
     }
-  } catch(e) { /* localStorage unavailable */ }
+  } catch(_e) { /* localStorage unavailable */ }
 }
 
 document.addEventListener('keydown', (e) => {
@@ -3843,7 +3857,7 @@ function toggleTheme() {
   const next = current === 'light' ? 'dark' : 'light';
   html.setAttribute('data-theme', next);
   document.getElementById('themeToggle').textContent = next === 'light' ? '☀️' : '🌙';
-  try { localStorage.setItem('cf_theme', next); } catch(e) {}
+  try { localStorage.setItem('cf_theme', next); } catch(_e) { /* localStorage unavailable */ }
 }
 
 // Load saved theme
@@ -3858,7 +3872,7 @@ function toggleTheme() {
         if (btn) btn.textContent = saved === 'light' ? '☀️' : '🌙';
       });
     }
-  } catch(e) {}
+  } catch(_e) { /* localStorage unavailable */ }
 })();
 
 // ===== SERVICE WORKER =====
