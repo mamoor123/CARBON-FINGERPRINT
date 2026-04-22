@@ -2717,6 +2717,13 @@ const GLOBAL_AVG = 4.7;   // World Bank 2023
 const PARIS_TARGET = 2.3; // IPCC AR6 WG3 1.5°C pathway
 const US_AVG = 14.5;      // Global Carbon Project 2023
 
+// ===== HTML ESCAPE (XSS prevention) =====
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 // ===== ANALYTICS (privacy-respecting, no cookies, no PII) =====
 // Uses countapi.xyz — free, anonymous hit counter
 const APP_NS = 'carbon-fingerprint-v2';
@@ -3441,7 +3448,7 @@ function renderCitySelector() {
   container.innerHTML = `
     <div class="city-search-wrap">
       <input type="text" class="city-search" id="citySearch" placeholder="🔍 Search 5012+ cities..." 
-             value="${selectedCity}" autocomplete="off" aria-label="Search cities">
+             value="${escapeHtml(selectedCity)}" autocomplete="off" aria-label="Search cities">
       <div class="city-dropdown" id="cityDropdown"></div>
     </div>
   `;
@@ -3615,7 +3622,7 @@ function renderInsights(categories, total) {
   if (cityData) {
     insights.push({
       icon: '🌡️',
-      text: `In <strong>${selectedCity}</strong>, temperatures have risen <strong>+${cityData.current.tempRise}°C</strong> since 1880. The city now has <strong>${cityData.current.extremeDays} extreme weather days per year</strong> — up 68% since 1980.`
+      text: `In <strong>${escapeHtml(selectedCity)}</strong>, temperatures have risen <strong>+${cityData.current.tempRise}°C</strong> since 1880. The city now has <strong>${cityData.current.extremeDays} extreme weather days per year</strong> — up 68% since 1980.`
     });
   }
 
