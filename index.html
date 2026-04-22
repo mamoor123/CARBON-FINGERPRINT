@@ -2904,12 +2904,6 @@ function trackEvent(event) {
 	stats[event] = (stats[event] || 0) + 1;
 	stats.lastSeen = Date.now();
 	_saveLocalStats(stats);
-	// Best-effort: try external counter (may be down)
-	try {
-		fetch(`https://api.countapi.xyz/hit/${APP_NS}/${event}`, {
-			mode: "no-cors",
-		}).catch(() => {});
-	} catch { /* non-critical */ }
 }
 
 function _updateUI(key, val) {
@@ -2948,34 +2942,6 @@ function fetchCounts() {
 		const satEl = document.getElementById("globalSatisfaction");
 		if (satEl) satEl.textContent = `${pct}%`;
 	}
-
-	// Try external API as bonus (merge with local)
-	let fetchesDone = 0;
-	const fetchCount = (key) => {
-		fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
-			.then((r) => r.json())
-			.then((d) => {
-				const extVal = d.value || 0;
-				const localVal = stats[key] || 0;
-				// Use whichever is higher (external may have other users' counts)
-				const best = Math.max(extVal, localVal);
-				_updateUI(key, best);
-				if (key === "feedback_up" || key === "feedback_down") {
-					const up = key === "feedback_up" ? best : localUp;
-					const down = key === "feedback_down" ? best : localDown;
-					if (up + down > 0) {
-						const pct = Math.round((up / (up + down)) * 100);
-						const satEl = document.getElementById("globalSatisfaction");
-						if (satEl) satEl.textContent = `${pct}%`;
-					}
-				}
-			})
-			.catch(() => {})
-			.finally(() => { fetchesDone++; });
-	};
-	fetchCount("feedback_up");
-	fetchCount("feedback_down");
-	fetchCount("quiz_complete");
 }
 
 // ===== CITY AUTO-DETECTION =====
