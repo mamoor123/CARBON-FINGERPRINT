@@ -2765,7 +2765,7 @@ function t(key) {
 	return translations[currentLang]?.[key] || translations.en[key] || key;
 }
 
-function _setLanguage(lang) {
+function setLanguage(lang) {
 	if (!translations[lang]) return;
 	currentLang = lang;
 	document.getElementById("langSelect").value = lang;
@@ -2966,7 +2966,7 @@ async function detectCity() {
 	return null;
 }
 
-function _submitFeedback(type) {
+function submitFeedback(type) {
 	const up = document.getElementById("feedbackUp");
 	const down = document.getElementById("feedbackDown");
 	const thanks = document.getElementById("feedbackThanks");
@@ -2997,7 +2997,7 @@ window.onerror = (msg, url, line) => {
 	overlay.classList.add("active");
 	return true;
 };
-function _dismissError() {
+function dismissError() {
 	document.getElementById("errorOverlay").classList.remove("active");
 }
 
@@ -4088,7 +4088,7 @@ function copyShareText() {
 		});
 }
 
-function _copyShareUrl() {
+function copyShareUrl() {
 	const url = getResultUrl();
 	navigator.clipboard
 		.writeText(url)
@@ -4109,7 +4109,7 @@ function _copyShareUrl() {
 		});
 }
 
-async function _shareNative() {
+async function shareNative() {
 	const shared = await nativeShare();
 	if (!shared) {
 		await copyShareText();
@@ -4121,7 +4121,7 @@ function closeShareModal() {
 }
 
 // ===== EMAIL RESULTS =====
-function _emailResults() {
+function emailResults() {
 	const r = window._results;
 	if (!r) {
 		showToast("Complete the quiz first.");
@@ -4142,7 +4142,7 @@ function _emailResults() {
 }
 
 // ===== SOCIAL SHARE =====
-function _shareToTwitter() {
+function shareToTwitter() {
 	const url = getResultUrl();
 	const r = window._results;
 	const text = r
@@ -4155,7 +4155,7 @@ function _shareToTwitter() {
 	trackEvent("share_twitter");
 }
 
-function _shareToWhatsApp() {
+function shareToWhatsApp() {
 	const url = getResultUrl();
 	const text =
 		shareText ||
@@ -4164,7 +4164,7 @@ function _shareToWhatsApp() {
 	trackEvent("share_whatsapp");
 }
 
-function _shareToLinkedIn() {
+function shareToLinkedIn() {
 	const url = getResultUrl();
 	window.open(
 		`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
@@ -4319,7 +4319,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===== THEME TOGGLE =====
-function _toggleTheme() {
+function toggleTheme() {
 	const html = document.documentElement;
 	const current = html.getAttribute("data-theme");
 	const next = current === "light" ? "dark" : "light";
