@@ -12,18 +12,10 @@
     { "src": "robots.txt", "use": "@vercel/static" },
     { "src": "sitemap.xml", "use": "@vercel/static" }
   ],
-  "routes": [
-    { "src": "/robots.txt", "dest": "/robots.txt" },
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/og-image.png", "dest": "/og-image.png" },
-    { "src": "/og.html", "dest": "/og.html" },
-    { "src": "/manifest.json", "dest": "/manifest.json" },
-    { "src": "/cities.js", "dest": "/cities.js" },
-    { "src": "/sw.js", "dest": "/sw.js" },
-    { "src": "/404.html", "dest": "/404.html" },
-    { "src": "/blog/(.*)", "dest": "/blog/$1", "continue": true },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/og", "destination": "/og.html" },
+    { "source": "/blog/:path*", "destination": "/blog/:path*" },
+    { "source": "/:path((?!blog/).*)", "destination": "/index.html" }
   ],
   "output": "static",
   "cleanUrls": false,
