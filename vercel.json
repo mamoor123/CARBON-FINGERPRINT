@@ -20,7 +20,6 @@
     { "src": "/cities.js", "dest": "/cities.js" },
     { "src": "/sw.js", "dest": "/sw.js" },
     { "src": "/blog/(.*)", "dest": "/blog/$1" },
-    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ],
   "output": "static",
