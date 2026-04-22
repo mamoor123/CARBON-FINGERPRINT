@@ -1312,6 +1312,21 @@ body {
 .compare-section h3 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; }
 .compare-section p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px; }
 
+/* Embed mode */
+.embed-mode .header { display: none; }
+.embed-mode .bg-canvas::before, .embed-mode .bg-canvas::after { display: none; }
+.embed-mode .hero-badge { display: none; }
+.embed-mode .hero-stats { display: none; }
+.embed-mode .hero-social-proof { display: none; }
+.embed-mode .methodology { display: none; }
+.embed-mode .feedback-section { display: none; }
+.embed-mode .compare-section { display: none; }
+.embed-mode .hero h1 { font-size: 1.8rem; }
+.embed-mode .hero p { font-size: 0.9rem; }
+.embed-mode .section { padding: 20px 16px; }
+.embed-credit { text-align: center; padding: 12px; font-size: 0.75rem; color: var(--text-muted); }
+.embed-credit a { color: var(--accent-green); text-decoration: none; }
+
 /* Responsive */
 @media (max-width: 768px) {
   .options { grid-template-columns: 1fr; }
@@ -3719,6 +3734,18 @@ function resetQuiz() {
 }
 
 // ===== INIT =====
+// Embed mode detection
+const isEmbed = new URLSearchParams(window.location.search).get('embed') === '1';
+if (isEmbed) {
+  document.documentElement.classList.add('embed-mode');
+  document.addEventListener('DOMContentLoaded', () => {
+    const credit = document.createElement('div');
+    credit.className = 'embed-credit';
+    credit.innerHTML = 'Powered by <a href="/" target="_blank">Carbon Fingerprint</a>';
+    document.body.appendChild(credit);
+  });
+}
+
 // Check for shared results in URL on load
 if (!checkUrlParams()) {
   // Check for cached results from a previous visit
