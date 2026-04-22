@@ -458,6 +458,22 @@ body {
   margin-bottom: 16px;
 }
 
+.quiz-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #22d3ee);
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+
 .question-icon {
   font-size: 3rem;
   margin-bottom: 20px;
@@ -1503,6 +1519,7 @@ body {
   <section class="section" id="questionSection" aria-label="Quiz questions" aria-live="polite">
     <div class="question-container">
       <div class="question-number" id="questionNumber">Question 1 of 5</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
       <span class="question-icon" id="questionIcon"></span>
       <h2 class="question-text" id="questionText"></h2>
       <p class="question-subtitle" id="questionSubtitle"></p>
@@ -2860,6 +2877,7 @@ function startQuiz() {
 function renderQuestion() {
   const q = questions[currentStep];
   document.getElementById('questionNumber').textContent = `${t('question')} ${currentStep + 1} ${t('of')} 5`;
+  document.getElementById('quizProgressFill').style.width = `${((currentStep + 1) / 5) * 100}%`;
   document.getElementById('questionIcon').textContent = q.icon;
   document.getElementById('questionText').textContent = q.text;
   document.getElementById('questionSubtitle').textContent = q.subtitle;
