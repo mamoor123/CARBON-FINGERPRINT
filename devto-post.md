@@ -10,7 +10,7 @@ cover_image: https://raw.githubusercontent.com/mamoor123/CARBON-FINGERPRINT/main
 
 **TL;DR:** [Carbon Fingerprint](https://carbonprint.earth/) is a single-file web app that calculates your carbon footprint from 5 lifestyle questions, then renders a **unique organic SVG fingerprint** seeded from your answers. It's backed by real NASA GISS temperature data (1880–2025), IPCC AR6 emission factors, and covers 5,012 cities across 157+ countries. Zero backend. Zero API keys. Just one `index.html`.
 
-![Carbon Fingerprint — Hero / Landing Page](screenshot-1-hero.png)
+![Carbon Fingerprint — Hero / Landing Page](https://raw.githubusercontent.com/mamoor123/CARBON-FINGERPRINT/main/screenshot-1-hero.png)
 *The landing page — dark mode with animated SVG particles and a glowing radial gradient backdrop.*
 
 ---
@@ -43,7 +43,7 @@ The fingerprint uses organic ridge patterns — concentric rings perturbed by mu
 
 Each question maps to a lifestyle category with IPCC AR6-calibrated emission factors:
 
-![Quiz Question — "How do you usually get around?"](screenshot-2-quiz.png)
+![Quiz Question — "How do you usually get around?"](https://raw.githubusercontent.com/mamoor123/CARBON-FINGERPRINT/main/screenshot-2-quiz.png)
 *One of 5 quiz questions — each option shows the CO₂ equivalent and the scientific source.*
 
 | # | Category | Example Options | Source |
@@ -101,7 +101,7 @@ So a heavy meat eater gets a longer, brighter diet arc. A frequent flyer gets a 
 
 ### Animated Entry
 
-![Results Page — SVG Fingerprint + Category Breakdown](screenshot-3-results.jpg)
+![Results Page — SVG Fingerprint + Category Breakdown](https://raw.githubusercontent.com/mamoor123/CARBON-FINGERPRINT/main/screenshot-3-results.jpg)
 *The full results view — unique SVG fingerprint, CO₂ score, category breakdown bars, comparison chart vs global/US averages and the 1.5°C target, and city-specific climate data.*
 
 The whole thing draws itself with a CSS `stroke-dashoffset` animation:
@@ -134,7 +134,7 @@ const GISS_GLOBAL_ANOMALY = [
 
 This data renders as an animated timeline chart in the results section, showing the unmistakable warming trend from the late 1800s to today. When someone sees their carbon fingerprint next to *real temperature data spanning their great-grandparents' lifetimes*, it hits differently than a bar chart.
 
-![Climate Data — 144 Years of NASA GISS Temperature Anomalies](screenshot-4-climate-data.jpg)
+![Climate Data — 144 Years of NASA GISS Temperature Anomalies](https://raw.githubusercontent.com/mamoor123/CARBON-FINGERPRINT/main/screenshot-4-climate-data.jpg)
 *The climate section — NASA GISS temperature anomaly timeline (1880–2025), searchable city dropdown (5,012 cities), and local climate indicators.*
 
 ## 5,012 Cities with Local Climate Indicators
