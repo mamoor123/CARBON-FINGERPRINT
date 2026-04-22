@@ -13,9 +13,8 @@
     { "src": "sitemap.xml", "use": "@vercel/static" }
   ],
   "rewrites": [
-    { "source": "/og", "destination": "/og.html" },
     { "source": "/blog/:path*", "destination": "/blog/:path*" },
-    { "source": "/:path((?!blog/).*)", "destination": "/index.html" }
+    { "source": "/:path((?!blog/|og\\.html|404\\.html|robots\\.txt|sitemap\\.xml|manifest\\.json|cities\\.js|sw\\.js|og-image\\.png).*)", "destination": "/index.html" }
   ],
   "output": "static",
   "cleanUrls": false,
