@@ -2894,7 +2894,7 @@ function trackEvent(event) {
 		fetch(`https://api.countapi.xyz/hit/${APP_NS}/${event}`, {
 			mode: "no-cors",
 		}).catch(() => {});
-	} catch (_e) {
+	} catch {
 		/* analytics non-critical */
 	}
 	// Also log locally
@@ -2903,7 +2903,7 @@ function trackEvent(event) {
 		stats[event] = (stats[event] || 0) + 1;
 		stats.lastSeen = Date.now();
 		localStorage.setItem("cf_stats", JSON.stringify(stats));
-	} catch (_e) {
+	} catch {
 		/* localStorage unavailable (private mode, quota exceeded) */
 	}
 }
@@ -2964,7 +2964,7 @@ async function detectCity() {
 				return match;
 			}
 		}
-	} catch (_e) {
+	} catch {
 		/* silent fail */
 	}
 	return null;
@@ -3358,7 +3358,7 @@ function showResults() {
 	try {
 		localStorage.setItem("cf_cached_answers", JSON.stringify(answers));
 		localStorage.setItem("cf_cached_ts", Date.now().toString());
-	} catch (_e) {
+	} catch {
 		/* localStorage unavailable */
 	}
 
@@ -4202,7 +4202,7 @@ function resetQuiz() {
 	try {
 		localStorage.removeItem("cf_cached_answers");
 		localStorage.removeItem("cf_cached_ts");
-	} catch (_e) {
+	} catch {
 		/* localStorage unavailable */
 	}
 	if (calcTimeoutId) {
@@ -4275,7 +4275,7 @@ if (!checkUrlParams()) {
 				}, 1500);
 			}
 		}
-	} catch (_e) {
+	} catch {
 		/* localStorage unavailable */
 	}
 }
@@ -4332,7 +4332,7 @@ function _toggleTheme() {
 		next === "light" ? "☀️" : "🌙";
 	try {
 		localStorage.setItem("cf_theme", next);
-	} catch (_e) {
+	} catch {
 		/* localStorage unavailable */
 	}
 }
@@ -4349,7 +4349,7 @@ function _toggleTheme() {
 				if (btn) btn.textContent = saved === "light" ? "☀️" : "🌙";
 			});
 		}
-	} catch (_e) {
+	} catch {
 		/* localStorage unavailable */
 	}
 })();
