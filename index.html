@@ -1676,6 +1676,7 @@ body {
         <button class="btn-primary" id="shareBtn" onclick="generateShareCard()">
           <span>📸 Share My Fingerprint</span>
         </button>
+        <button class="btn-secondary" onclick="emailResults()">📧 Email Results</button>
         <button class="btn-secondary" onclick="resetQuiz()">🔄 Try Again</button>
       </div>
 
@@ -3672,6 +3673,17 @@ async function shareNative() {
 
 function closeShareModal() {
   document.getElementById('shareModal').classList.remove('active');
+}
+
+// ===== EMAIL RESULTS =====
+function emailResults() {
+  const r = window._results;
+  if (!r) { showToast('Complete the quiz first.'); return; }
+  if (!shareText) generateShareCard();
+  const subject = encodeURIComponent('My Carbon Fingerprint');
+  const body = encodeURIComponent(shareText);
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  trackEvent('email_results');
 }
 
 // ===== SOCIAL SHARE =====
