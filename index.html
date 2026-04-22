@@ -4,14 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carbon Fingerprint — Discover Your Climate Identity</title>
-<meta name="description" content="Your personal climate identity, powered by 144 years of planetary data. Answer 5 questions and discover your Carbon Fingerprint.">
-<meta property="og:title" content="Carbon Fingerprint — My Climate Identity">
-<meta property="og:description" content="I just discovered my Carbon Fingerprint. Find yours in 60 seconds.">
+<meta name="description" content="Free carbon footprint calculator powered by 144 years of NASA climate data. Answer 5 questions, discover your carbon fingerprint, and see how you compare to the global average.">
+<meta property="og:title" content="Carbon Fingerprint — Free Carbon Footprint Calculator">
+<meta property="og:description" content="I scored 8.1 tonnes CO₂/year on my Carbon Fingerprint. Find yours in 60 seconds — powered by NASA & IPCC data.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:url" content="https://carbonprint.earth/">
+<meta property="og:site_name" content="Carbon Fingerprint">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carbon Fingerprint — What's Your Carbon Footprint?">
+<meta name="twitter:description" content="Free calculator powered by 144 years of NASA data. Take the 60-second quiz.">
 <meta name="twitter:image" content="og-image.png">
 <link rel="canonical" href="https://carbonprint.earth/">
 <link rel="alternate" hreflang="en" href="https://carbonprint.earth/">
@@ -1511,6 +1515,106 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Carbon Offset CTA */
+.offset-cta {
+  background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(52,211,153,0.05));
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.offset-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.offset-cta h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.offset-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.offset-desc strong { color: var(--accent-emerald); }
+.offset-partners {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.offset-partner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+.offset-partner:hover {
+  border-color: var(--accent-green);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(16,185,129,0.15);
+}
+.partner-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.partner-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.offset-note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+/* Ad Slots */
+.ad-slot {
+  margin: 32px 0;
+  min-height: 90px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ad-slot:empty::after {
+  content: 'Advertisement';
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Download share card button */
+.btn-download {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+.btn-download:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+}
 </style>
 </head>
 <body>
@@ -1694,6 +1798,38 @@ body {
         <button class="btn-secondary" onclick="resetQuiz()">🔄 Try Again</button>
       </div>
 
+      <!-- Carbon Offset Affiliate CTA -->
+      <div class="offset-cta" id="offsetCta">
+        <div class="offset-icon">🌳</div>
+        <h3>Offset Your Carbon Footprint</h3>
+        <p class="offset-desc">Your footprint is <strong id="offsetTonnes">8.1</strong> tonnes CO₂/year. These trusted partners can help you offset it:</p>
+        <div class="offset-partners">
+          <a href="https://www.wren.co/join?ref=carbonfingerprint" target="_blank" rel="noopener sponsored" class="offset-partner">
+            <span class="partner-name">🌱 Wren</span>
+            <span class="partner-desc">Offset via reforestation & carbon removal. From $7/month.</span>
+          </a>
+          <a href="https://terrapass.com/product/carbon-footprint-calculator?ref=carbonfingerprint" target="_blank" rel="noopener sponsored" class="offset-partner">
+            <span class="partner-name">🍃 Terrapass</span>
+            <span class="partner-desc">Carbon offsets for individuals. ~$5/tonne.</span>
+          </a>
+          <a href="https://www.mossy.earth/?ref=carbonfingerprint" target="_blank" rel="noopener sponsored" class="offset-partner">
+            <span class="partner-name">🌿 Mossy Earth</span>
+            <span class="partner-desc">Rewilding & carbon removal projects. From €6/month.</span>
+          </a>
+        </div>
+        <p class="offset-note">Affiliate links — we may earn a commission at no cost to you.</p>
+      </div>
+
+      <!-- AdSense Slot — Top -->
+      <div class="ad-slot ad-slot-top" id="adSlotTop">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+
       <!-- Challenge a Friend -->
       <div class="compare-section">
         <h3>⚔️ Challenge a Friend</h3>
@@ -1754,6 +1890,16 @@ body {
           </p>
         </div>
       </details>
+
+      <!-- AdSense Slot — Bottom -->
+      <div class="ad-slot ad-slot-bottom" id="adSlotBottom">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
     </div>
   </section>
 
@@ -1765,8 +1911,10 @@ body {
   <div style="max-width:420px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;">
     <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:12px;text-align:center;">📤 Share Your Fingerprint</h3>
     <pre id="sharePreview" style="background:var(--bg-deep);padding:16px;border-radius:12px;font-size:0.8rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow-y:auto;color:var(--text-secondary);margin-bottom:16px;"></pre>
+    <canvas id="shareCardCanvas" width="1200" height="630" style="display:none;"></canvas>
     <div class="share-modal-buttons">
       <button class="btn-primary" onclick="copyShareText()"><span>📋 Copy Text</span></button>
+      <button class="btn-download" onclick="downloadShareCard()">📥 Download Card</button>
       <button class="btn-secondary" onclick="copyShareUrl()">🔗 Copy Link</button>
       <button class="btn-secondary" onclick="shareToTwitter()" style="background:rgba(29,155,240,0.15);border-color:rgba(29,155,240,0.3);color:#1d9bf0;">𝕏 Twitter</button>
       <button class="btn-secondary" onclick="shareToWhatsApp()" style="background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.3);color:#25d366;">💬 WhatsApp</button>
@@ -1784,6 +1932,8 @@ body {
 </div>
 
 <script src="cities.js"></script>
+<!-- AdSense (replace ca-pub-XXXXXXXXXXXXXXXX with your actual publisher ID) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 <script>// ===== QUESTIONS =====
 // Options ordered: lowest CO₂ → highest CO₂ (educational)
 // Emission factors from IPCC AR6 WG3, Our World in Data, IEA, FAO
@@ -3358,6 +3508,26 @@ function showResults() {
 		/* localStorage unavailable */
 	}
 
+	// Update page meta for sharing
+	document.title = `My Carbon Fingerprint: ${totalCO2.toFixed(1)}t CO₂/year`;
+	const ogDesc = document.querySelector('meta[property="og:description"]');
+	if (ogDesc) ogDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)} tonnes CO₂/year on my Carbon Fingerprint. Find yours in 60 seconds — powered by NASA & IPCC data.`);
+	const twDesc = document.querySelector('meta[name="twitter:description"]');
+	if (twDesc) twDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)}t CO₂/year. Find yours in 60 seconds.`);
+
+	// Update offset CTA
+	const offsetTonnes = document.getElementById("offsetTonnes");
+	if (offsetTonnes) offsetTonnes.textContent = totalCO2.toFixed(1);
+
+	// Initialize AdSense slots (if AdSense loaded)
+	try {
+		if (typeof adsbygoogle !== "undefined") {
+			(document.querySelectorAll(".ad-slot ins") || []).forEach((ad) => {
+				try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch {}
+			});
+		}
+	} catch {}
+
 	// Track completion
 	trackEvent("quiz_complete");
 	trackEvent(
@@ -4118,6 +4288,133 @@ async function shareNative() {
 
 function closeShareModal() {
 	document.getElementById("shareModal").classList.remove("active");
+}
+
+// ===== DOWNLOAD SHARE CARD (Canvas → PNG) =====
+function downloadShareCard() {
+	const r = window._results;
+	if (!r) return;
+
+	const canvas = document.getElementById("shareCardCanvas");
+	const ctx = canvas.getContext("2d");
+	const W = 1200, H = 630;
+
+	// Background
+	const grad = ctx.createLinearGradient(0, 0, W, H);
+	grad.addColorStop(0, "#0a0f1a");
+	grad.addColorStop(1, "#111827");
+	ctx.fillStyle = grad;
+	ctx.fillRect(0, 0, W, H);
+
+	// Accent glow
+	const glow = ctx.createRadialGradient(200, 200, 0, 200, 200, 400);
+	glow.addColorStop(0, "rgba(16,185,129,0.15)");
+	glow.addColorStop(1, "transparent");
+	ctx.fillStyle = glow;
+	ctx.fillRect(0, 0, W, H);
+
+	// Header
+	ctx.fillStyle = "#10b981";
+	ctx.font = "bold 48px 'Space Grotesk', sans-serif";
+	ctx.fillText("🌍 Carbon Fingerprint", 60, 80);
+
+	// Score
+	ctx.fillStyle = "#f1f5f9";
+	ctx.font = "bold 120px 'Space Grotesk', sans-serif";
+	ctx.fillText(r.totalCO2.toFixed(1), 60, 240);
+	ctx.fillStyle = "#94a3b8";
+	ctx.font = "300 32px 'Inter', sans-serif";
+	ctx.fillText("tonnes CO₂/year", 60, 285);
+
+	// Label
+	ctx.fillStyle = "#10b981";
+	ctx.font = "600 28px 'Space Grotesk', sans-serif";
+	ctx.fillText(r.label || "", 60, 340);
+
+	// Category bars
+	const cats = [
+		{ name: "Transport", val: r.categoryCO2.transport || 0, color: "#3b82f6" },
+		{ name: "Diet", val: r.categoryCO2.diet || 0, color: "#10b981" },
+		{ name: "Energy", val: r.categoryCO2.energy || 0, color: "#eab308" },
+		{ name: "Consumption", val: r.categoryCO2.consumption || 0, color: "#ec4899" },
+	];
+	if (r.categoryCO2.flights > 0.5) cats.push({ name: "Flights", val: r.categoryCO2.flights, color: "#8b5cf6" });
+
+	const barX = 580, barY = 100, barW = 540, barH = 32;
+	cats.forEach((c, i) => {
+		const y = barY + i * 56;
+		const pct = Math.min(c.val / 5, 1);
+		// Label
+		ctx.fillStyle = "#94a3b8";
+		ctx.font = "500 18px 'Inter', sans-serif";
+		ctx.fillText(c.name, barX, y + 22);
+		// Track
+		ctx.fillStyle = "#1e293b";
+		ctx.beginPath();
+		ctx.roundRect(barX + 120, y, barW - 120, barH, 6);
+		ctx.fill();
+		// Fill
+		ctx.fillStyle = c.color;
+		ctx.beginPath();
+		ctx.roundRect(barX + 120, y, (barW - 120) * pct, barH, 6);
+		ctx.fill();
+		// Value
+		ctx.fillStyle = "#f1f5f9";
+		ctx.font = "bold 18px 'Space Grotesk', sans-serif";
+		ctx.fillText(c.val.toFixed(1) + "t", barX + barW + 8, y + 22);
+	});
+
+	// Comparison line
+	const compY = 420;
+	ctx.fillStyle = "#64748b";
+	ctx.font = "18px 'Inter', sans-serif";
+	const avg = 4.7, target = 2.3, us = 14.5;
+	const maxBar = 16;
+	const drawComp = (label, val, y, color) => {
+		ctx.fillStyle = "#94a3b8";
+		ctx.font = "500 16px 'Inter', sans-serif";
+		ctx.fillText(label, 60, y + 6);
+		ctx.fillStyle = "#1e293b";
+		ctx.beginPath();
+		ctx.roundRect(240, y - 10, 400, 20, 4);
+		ctx.fill();
+		ctx.fillStyle = color;
+		ctx.beginPath();
+		ctx.roundRect(240, y - 10, 400 * (val / maxBar), 20, 4);
+		ctx.fill();
+		ctx.fillStyle = "#f1f5f9";
+		ctx.font = "bold 16px 'Space Grotesk', sans-serif";
+		ctx.fillText(val.toFixed(1) + "t", 650, y + 6);
+	};
+	drawComp("You", r.totalCO2, compY, "#10b981");
+	drawComp("Global Avg", avg, compY + 40, "#64748b");
+	drawComp("1.5°C Target", target, compY + 80, "#f97316");
+
+	// Footer
+	ctx.fillStyle = "#64748b";
+	ctx.font = "16px 'Inter', sans-serif";
+	ctx.fillText("Discover yours → carbonprint.earth", 60, H - 40);
+
+	// City data
+	if (selectedCity && cityClimateData[selectedCity]) {
+		const cd = cityClimateData[selectedCity];
+		ctx.fillStyle = "#94a3b8";
+		ctx.font = "16px 'Inter', sans-serif";
+		ctx.fillText(`🌡️ ${selectedCity}: +${cd.current.tempRise}°C since pre-industrial`, 60, H - 70);
+	}
+
+	// Download
+	try {
+		const link = document.createElement("a");
+		link.download = "my-carbon-fingerprint.png";
+		link.href = canvas.toDataURL("image/png");
+		link.click();
+		showToast("📥 Share card downloaded!");
+		trackEvent("share_card_downloaded");
+	} catch (e) {
+		console.error("Download failed:", e);
+		showToast("Download not supported in this browser.");
+	}
 }
 
 // ===== EMAIL RESULTS =====
