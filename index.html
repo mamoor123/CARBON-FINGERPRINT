@@ -2706,7 +2706,7 @@ const GISS_GLOBAL_ANOMALY = [-0.17,-0.08,-0.11,-0.17,-0.28,-0.33,-0.31,-0.36,-0.
 
 let currentStep = -1;
 let answers = [];
-let selectedCity = 'New York';
+let selectedCity = 'New York US';
 let shareText = '';
 
 let citySelectorAbortController = null;
@@ -3089,11 +3089,11 @@ function showResults() {
 
   // Auto-detect city from IP (async, non-blocking)
   detectCity().then(() => {
-    if (!cityClimateData[selectedCity]) selectedCity = 'New York';
+    if (!cityClimateData[selectedCity]) selectedCity = 'New York US';
     renderCityData(selectedCity);
   }).catch(() => {
     // Fallback: render with default city
-    selectedCity = 'New York';
+    selectedCity = 'New York US';
     renderCityData(selectedCity);
   });
 
