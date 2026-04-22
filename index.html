@@ -7733,7 +7733,7 @@ let answers = [];
 let selectedCity = 'New York';
 let generatedShareDataUrl = null;
 let shareText = '';
-let html2canvasLoaded = false;
+
 let citySelectorAbortController = null;
 let calcTimeoutId = null;
 let calcIntervalId = null;
@@ -7786,11 +7786,7 @@ function showToast(msg, duration = 2500) {
   toast._timer = setTimeout(() => toast.classList.remove('show'), duration);
 }
 
-// ===== LAZY-LOAD html2canvas =====
-function loadHtml2canvas() {
-  // html2canvas removed — share uses text fallback
-  return Promise.reject(new Error('Image library not available'));
-}
+
 
 // ===== URL ENCODING =====
 // Encode answers as base64 for shareable URLs
@@ -8512,23 +8508,15 @@ function renderInsights(categories, total) {
   });
 }
 
-// ===== SHARE CARD (html2canvas) =====
+// ===== SHARE CARD =====
 async function generateShareCard() {
-  // Copy share text directly (no image generation)
   await copyShareText();
-  return;
+}
 
-  /* html2canvas disabled — CDN unreliable on mobile browsers
-  const overlay = document.getElementById('generatingOverlay');
-  overlay.classList.add('active');
-
-  try {
-    await loadHtml2canvas();
-  } catch (_e) {
-    overlay.classList.remove('active');
-    await copyShareText();
-    return;
-  }*/
+/*
+  html2canvas removed — was unreliable on mobile browsers.
+  Share now copies text + link directly.
+async function generateShareCardOld() {
 
   const r = window._results;
   if (!r) { showToast('Complete the quiz first to share.'); return; }
@@ -8735,6 +8723,7 @@ async function generateShareCard() {
     await copyShareText();
   }
 }
+*/
 
 function downloadShareCard() {
   if (!generatedShareDataUrl) { showToast('Generate a share card first.'); return; }
