@@ -3135,12 +3135,14 @@ function showResults() {
   // Ensure selectedCity exists in data (fallback)
   if (!cityClimateData[selectedCity]) selectedCity = 'New York';
 
-  drawFingerprint(categoryCO2);
-  renderMetrics(categoryCO2, totalCO2);
-  renderComparison(totalCO2);
-  renderCitySelector();
-  renderCityData(selectedCity);
-  renderInsights(categoryCO2, totalCO2);
+  // Render each section with error boundaries
+  const safeRender = (fn, name) => { try { fn(); } catch(e) { console.error(`${name} failed:`, e); } };
+  safeRender(() => drawFingerprint(categoryCO2), 'drawFingerprint');
+  safeRender(() => renderMetrics(categoryCO2, totalCO2), 'renderMetrics');
+  safeRender(() => renderComparison(totalCO2), 'renderComparison');
+  safeRender(() => renderCitySelector(), 'renderCitySelector');
+  safeRender(() => renderCityData(selectedCity), 'renderCityData');
+  safeRender(() => renderInsights(categoryCO2, totalCO2), 'renderInsights');
 
   // Store for share card
   window._results = { totalCO2, categoryCO2, label };
