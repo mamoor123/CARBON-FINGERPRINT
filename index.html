@@ -2736,7 +2736,14 @@ function trackEvent(event) {
 
 // Feedback
 function fetchCounts() {
-  let totalUp = 0, totalDown = 0;
+  let totalUp = 0, totalDown = 0, fetchesDone = 0;
+  const updateSatisfaction = () => {
+    if (totalUp + totalDown > 0) {
+      const pct = Math.round((totalUp / (totalUp + totalDown)) * 100);
+      const satEl = document.getElementById('globalSatisfaction');
+      if (satEl) satEl.textContent = pct + '%';
+    }
+  };
   const fetchCount = (key, elId) => {
     fetch(`https://api.countapi.xyz/get/${APP_NS}/${key}`)
       .then(r => r.json())
@@ -2744,25 +2751,17 @@ function fetchCounts() {
         const val = d.value || 0;
         const el = document.getElementById(elId);
         if (el) el.textContent = val;
-        // Also update hero social proof counter
         if (key === 'quiz_complete') {
           const heroEl = document.getElementById('heroVisitorCount');
           if (heroEl) heroEl.textContent = val.toLocaleString();
           document.getElementById('globalTotal').textContent = val.toLocaleString();
         }
-        if (key === 'feedback_up') {
-          totalUp = val;
-          document.getElementById('globalThumbsUp').textContent = val.toLocaleString();
-        }
+        if (key === 'feedback_up') totalUp = val;
         if (key === 'feedback_down') totalDown = val;
-        // Calculate satisfaction
-        if (totalUp + totalDown > 0) {
-          const pct = Math.round((totalUp / (totalUp + totalDown)) * 100);
-          const satEl = document.getElementById('globalSatisfaction');
-          if (satEl) satEl.textContent = pct + '%';
-        }
+        fetchesDone++;
+        if (fetchesDone >= 3) updateSatisfaction();
       })
-      .catch(() => {});
+      .catch(() => { fetchesDone++; if (fetchesDone >= 3) updateSatisfaction(); });
   };
   fetchCount('feedback_up', 'feedbackUpCount');
   fetchCount('feedback_down', 'feedbackDownCount');
@@ -2891,9 +2890,9 @@ async function nativeShare() {
   const r = window._results;
   if (!r) { showToast('Complete the quiz first to share.'); return false; }
   const url = getResultUrl();
-  const text = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
-    `🚗 ${(r.categoryCO2.transport||0).toFixed(1)}t · 🍽️ ${(r.categoryCO2.diet||0).toFixed(1)}t · ⚡ ${(r.categoryCO2.energy||0).toFixed(1)}t · ✈️ ${(r.categoryCO2.flights||0).toFixed(1)}t\n\n` +
-    `Discover yours → ${url}`;
+  // Ensure shareText is populated
+  if (!shareText) generateShareCard();
+  const text = shareText || `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\nDiscover yours → ${url}`;
 
   if (navigator.share) {
     try {
@@ -3020,6 +3019,10 @@ function prevQuestion() {
 
 // ===== CALCULATE =====
 function calculateResults() {
+  // Clear any previous timers to prevent stacking
+  if (calcTimeoutId) { clearTimeout(calcTimeoutId); calcTimeoutId = null; }
+  if (calcIntervalId) { clearInterval(calcIntervalId); calcIntervalId = null; }
+
   showSection('calculatingSection');
   updateProgress(5);
 
@@ -3495,7 +3498,7 @@ function renderCityData(city) {
 
   const items = [
     { icon: '🌡️', label: t('local_temp'), value: data.current.temp + '°C', change: '+' + data.current.tempRise + '°C ' + t('since_pre'), up: true },
-    { icon: '🏭', label: t('co2_level'), value: data.current.co2 + ' ppm', change: t('co2_desc'), up: true },
+    { icon: '🏭', label: t('co2_level'), value: (data.current.co2 || 421) + ' ppm', change: t('co2_desc'), up: true },
     { icon: '🌊', label: t('sea_level'), value: '+' + data.current.seaRise + 'm', change: t('sea_since'), up: true },
     { icon: '⚡', label: t('extreme_days'), value: data.current.extremeDays, change: t('extreme_desc'), up: true }
   ];
@@ -3551,7 +3554,9 @@ function renderInsights(categories, total) {
   // Find biggest emission category for "biggest opportunity" insight
   const catEntries = Object.entries(categories).filter(([k, v]) => v > 0 && k !== 'shared');
   catEntries.sort((a, b) => b[1] - a[1]);
-  const [topCat, topVal] = catEntries[0] || ['transport', 0];
+  const topEntry = catEntries[0];
+  const topCat = topEntry ? topEntry[0] : 'transport';
+  const topVal = topEntry ? topEntry[1] : 0;
 
   // Biggest opportunity insight (always first)
   const opportunityMap = {
@@ -3651,6 +3656,7 @@ async function generateShareCard() {
   const cityData = cityClimateData[selectedCity];
   const shareUrl = getResultUrl();
   const diff = r.totalCO2 - GLOBAL_AVG;
+  const tempRise = cityData ? cityData.current.tempRise : '?';
 
   shareText = `🌍 My Carbon Fingerprint: ${r.totalCO2.toFixed(1)} tonnes CO₂/year\n\n` +
     `🚗 Transport: ${(r.categoryCO2.transport||0).toFixed(1)}t\n` +
@@ -3660,7 +3666,7 @@ async function generateShareCard() {
     (r.categoryCO2.flights > 0.5 ? `✈️ Flights: ${r.categoryCO2.flights.toFixed(1)}t\n` : '') +
     `🏛️ Shared: 1.5t\n\n` +
     `${diff <= 0 ? `✅ ${Math.abs(diff).toFixed(1)}t below` : `⚠️ ${diff.toFixed(1)}t above`} global average (4.7t)\n` +
-    `🌡️ ${selectedCity}: +${cityData.current.tempRise}°C since pre-industrial\n\n` +
+    `🌡️ ${selectedCity}: +${tempRise}°C since pre-industrial\n\n` +
     `Discover yours → ${shareUrl}`;
 
   // Show share modal with text preview
@@ -3716,10 +3722,13 @@ function closeShareModal() {
 function emailResults() {
   const r = window._results;
   if (!r) { showToast('Complete the quiz first.'); return; }
-  if (!shareText) generateShareCard();
-  const subject = encodeURIComponent('My Carbon Fingerprint');
-  const body = encodeURIComponent(shareText);
-  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  if (!shareText) { generateShareCard(); }
+  // Use setTimeout to allow generateShareCard to set shareText
+  setTimeout(() => {
+    const subject = encodeURIComponent('My Carbon Fingerprint');
+    const body = encodeURIComponent(shareText || 'Check out my Carbon Fingerprint!');
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }, 50);
   trackEvent('email_results');
 }
 
