@@ -3514,6 +3514,12 @@ function showResults() {
 	if (ogDesc) ogDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)} tonnes CO₂/year on my Carbon Fingerprint. Find yours in 60 seconds — powered by NASA & IPCC data.`);
 	const twDesc = document.querySelector('meta[name="twitter:description"]');
 	if (twDesc) twDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)}t CO₂/year. Find yours in 60 seconds.`);
+	// Dynamic OG image with score
+	const ogImg = document.querySelector('meta[property="og:image"]');
+	const twImg = document.querySelector('meta[name="twitter:image"]');
+	const ogUrl = `${window.location.origin}/og?s=${totalCO2.toFixed(1)}&t=${(categoryCO2.transport||0).toFixed(1)}&d=${(categoryCO2.diet||0).toFixed(1)}&e=${(categoryCO2.energy||0).toFixed(1)}&c=${(categoryCO2.consumption||0).toFixed(1)}`;
+	if (ogImg) ogImg.setAttribute("content", ogUrl);
+	if (twImg) twImg.setAttribute("content", ogUrl);
 
 	// Update offset CTA
 	const offsetTonnes = document.getElementById("offsetTonnes");
