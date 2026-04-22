@@ -8046,6 +8046,9 @@ function showResults() {
   else label = t('heavy_footprint');
   document.getElementById('fpLabel').textContent = label;
 
+  // Ensure selectedCity exists in data
+  if (!cityClimateData[selectedCity]) selectedCity = 'New York';
+
   drawFingerprint(categoryCO2);
   renderMetrics(categoryCO2, totalCO2);
   renderComparison(totalCO2);
@@ -8473,10 +8476,12 @@ function renderInsights(categories, total) {
 
   // City-specific insight
   const cityData = cityClimateData[selectedCity];
-  insights.push({
-    icon: '🌡️',
-    text: `In <strong>${selectedCity}</strong>, temperatures have risen <strong>+${cityData.current.tempRise}°C</strong> since 1880. The city now has <strong>${cityData.current.extremeDays} extreme weather days per year</strong> — up 68% since 1980.`
-  });
+  if (cityData) {
+    insights.push({
+      icon: '🌡️',
+      text: `In <strong>${selectedCity}</strong>, temperatures have risen <strong>+${cityData.current.tempRise}°C</strong> since 1880. The city now has <strong>${cityData.current.extremeDays} extreme weather days per year</strong> — up 68% since 1980.`
+    });
+  }
 
   if (total <= PARIS_TARGET) {
     insights.push({
