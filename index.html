@@ -1247,6 +1247,46 @@ body {
   justify-content: center;
 }
 
+/* Theme toggle */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.theme-toggle:hover { background: var(--bg-card); }
+
+/* Light mode override via data-theme */
+[data-theme="light"] {
+  --bg-deep: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --glass: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] body { background: var(--bg-deep); color: var(--text-primary); }
+[data-theme="light"] .header { background: rgba(248, 250, 252, 0.9); border-bottom-color: var(--border); }
+[data-theme="light"] .bg-canvas::before { background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%); }
+[data-theme="light"] .bg-canvas::after { background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%); }
+[data-theme="light"] .option { background: #ffffff; }
+[data-theme="light"] .option.selected { background: rgba(16, 185, 129, 0.06); }
+[data-theme="light"] .metric-card { background: #ffffff; }
+[data-theme="light"] .comparison { background: #ffffff; }
+[data-theme="light"] .insight-card { background: #ffffff; }
+[data-theme="light"] .city-climate { background: #ffffff; }
+[data-theme="light"] .climate-card { background: #f8fafc; }
+[data-theme="light"] .btn-secondary { background: #f1f5f9; border-color: #e2e8f0; color: #0f172a; }
+[data-theme="light"] .visitor-counter { color: var(--text-muted); }
+[data-theme="light"] .share-modal { background: rgba(0,0,0,0.5); }
+
 /* Fingerprint legend */
 .fp-legend { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px; font-size: 0.75rem; color: var(--text-muted); }
 .fp-legend-item { cursor: pointer; padding: 4px 10px; border-radius: 20px; transition: all 0.25s ease; border: 1px solid transparent; }
@@ -1471,6 +1511,7 @@ body {
       <option value="ar">العربية</option>
     </select>
     <a href="#" class="blog-link" aria-label="Blog" onclick="event.preventDefault();showToast('Coming soon!')">📝 Blog</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">🌙</button>
     <nav class="progress-bar" id="progressBar" role="navigation" aria-label="Quiz progress">
       <div class="progress-dot active" data-step="0" role="listitem" aria-label="Start"></div>
       <div class="progress-dot" data-step="1" role="listitem" aria-label="Question 1"></div>
@@ -3732,6 +3773,31 @@ document.addEventListener('keydown', (e) => {
     prevQuestion();
   }
 });
+
+// ===== THEME TOGGLE =====
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  document.getElementById('themeToggle').textContent = next === 'light' ? '☀️' : '🌙';
+  try { localStorage.setItem('cf_theme', next); } catch(e) {}
+}
+
+// Load saved theme
+(function() {
+  try {
+    const saved = localStorage.getItem('cf_theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      // Defer icon update to after DOM ready
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = saved === 'light' ? '☀️' : '🌙';
+      });
+    }
+  } catch(e) {}
+})();
 
 // ===== SERVICE WORKER =====
 if ('serviceWorker' in navigator) {
