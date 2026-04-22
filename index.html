@@ -1090,6 +1090,79 @@ body {
   margin-bottom: 40px;
 }
 
+/* Feedback */
+.feedback-section {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.feedback-section p {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.feedback-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.feedback-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card-hover);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+}
+.feedback-btn:hover {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+  transform: translateY(-1px);
+}
+.feedback-btn.down:hover {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+}
+.feedback-btn:active {
+  transform: scale(0.96);
+}
+.feedback-btn .emoji { font-size: 20px; }
+.feedback-btn.voted {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.feedback-btn.selected {
+  pointer-events: none;
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  opacity: 1;
+}
+.feedback-btn.selected.down {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+}
+.feedback-thanks {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #22c55e;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.3s ease;
+}
+.feedback-thanks.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Share Card (hidden, for html2canvas) */
 .share-card {
   width: 1080px;
@@ -1737,6 +1810,20 @@ body {
         <button class="btn-secondary" onclick="resetQuiz()">🔄 Try Again</button>
       </div>
 
+      <!-- Feedback -->
+      <div class="feedback-section" id="feedbackSection">
+        <p id="feedbackQuestion">Was this useful?</p>
+        <div class="feedback-buttons">
+          <button class="feedback-btn" id="feedbackUp" onclick="submitFeedback('up')">
+            <span class="emoji">👍</span><span id="feedbackYes"> Yes</span>
+          </button>
+          <button class="feedback-btn down" id="feedbackDown" onclick="submitFeedback('down')">
+            <span class="emoji">👎</span><span id="feedbackNo"> Not really</span>
+          </button>
+        </div>
+        <p class="feedback-thanks" id="feedbackThanks">Thanks for your feedback!</p>
+      </div>
+
       <!-- Methodology -->
       <details class="methodology">
         <summary>📊 How we calculated your footprint</summary>
@@ -1958,6 +2045,10 @@ const translations = {
     go_home: 'Carbon Fingerprint — go to home',
     quiz_progress: 'Quiz progress',
     skip: 'Skip to main content',
+    feedback_q: 'Was this useful?',
+    feedback_yes: 'Yes',
+    feedback_no: 'Not really',
+    feedback_thanks: 'Thanks for your feedback!',
   },
   es: {
     lang: 'Español',
@@ -2029,6 +2120,10 @@ const translations = {
     go_home: 'Huella de Carbono — ir al inicio',
     quiz_progress: 'Progreso del cuestionario',
     skip: 'Saltar al contenido principal',
+    feedback_q: '¿Fue útil?',
+    feedback_yes: 'Sí',
+    feedback_no: 'No mucho',
+    feedback_thanks: '¡Gracias por tu opinión!',
   },
   hi: {
     lang: 'हिन्दी',
@@ -2100,6 +2195,10 @@ const translations = {
     go_home: 'कार्बन फिंगरप्रिंट — होम पर जाएं',
     quiz_progress: 'क्विज़ प्रगति',
     skip: 'मुख्य सामग्री पर जाएं',
+    feedback_q: 'क्या यह उपयोगी था?',
+    feedback_yes: 'हाँ',
+    feedback_no: 'इतना नहीं',
+    feedback_thanks: 'आपकी प्रतिक्रिया के लिए धन्यवाद!',
   },
   pt: {
     lang: 'Português',
@@ -2171,6 +2270,10 @@ const translations = {
     go_home: 'Pegada de Carbono — ir ao início',
     quiz_progress: 'Progresso do questionário',
     skip: 'Pular para o conteúdo principal',
+    feedback_q: 'Isso foi útil?',
+    feedback_yes: 'Sim',
+    feedback_no: 'Não muito',
+    feedback_thanks: 'Obrigado pelo feedback!',
   },
   zh: {
     lang: '中文',
@@ -2242,6 +2345,10 @@ const translations = {
     go_home: '碳指纹 — 返回首页',
     quiz_progress: '测验进度',
     skip: '跳到主要内容',
+    feedback_q: '这个有用吗？',
+    feedback_yes: '有用',
+    feedback_no: '一般',
+    feedback_thanks: '感谢你的反馈！',
   },
   fr: {
     lang: 'Français',
@@ -2313,6 +2420,10 @@ const translations = {
     go_home: 'Empreinte Carbone — retour à l\'accueil',
     quiz_progress: 'Progression du quiz',
     skip: 'Aller au contenu principal',
+    feedback_q: 'Était-ce utile ?',
+    feedback_yes: 'Oui',
+    feedback_no: 'Pas vraiment',
+    feedback_thanks: 'Merci pour votre avis !',
   },
   de: {
     lang: 'Deutsch',
@@ -2384,6 +2495,10 @@ const translations = {
     go_home: 'CO₂-Fußabdruck — Zurück zur Startseite',
     quiz_progress: 'Quiz-Fortschritt',
     skip: 'Zum Hauptinhalt springen',
+    feedback_q: 'War das hilfreich?',
+    feedback_yes: 'Ja',
+    feedback_no: 'Nicht wirklich',
+    feedback_thanks: 'Danke für Ihr Feedback!',
   },
   ja: {
     lang: '日本語',
@@ -2455,6 +2570,10 @@ const translations = {
     go_home: 'カーボンフットプリント — ホームに戻る',
     quiz_progress: 'クイズの進行状況',
     skip: 'メインコンテンツへ',
+    feedback_q: '役に立ちましたか？',
+    feedback_yes: 'はい',
+    feedback_no: 'あまり',
+    feedback_thanks: 'フィードバックありがとうございます！',
   },
   ko: {
     lang: '한국어',
@@ -2526,6 +2645,10 @@ const translations = {
     go_home: '탄소 발자국 — 홈으로 돌아가기',
     quiz_progress: '퀴즈 진행률',
     skip: '주요 콘텐츠로 이동',
+    feedback_q: '유용했나요?',
+    feedback_yes: '네',
+    feedback_no: '별로',
+    feedback_thanks: '피드백 감사합니다!',
   },
   ar: {
     lang: 'العربية',
@@ -2597,6 +2720,10 @@ const translations = {
     go_home: 'البصمة الكربونية — العودة للرئيسية',
     quiz_progress: 'تقدم الاختبار',
     skip: 'انتقل إلى المحتوى الرئيسي',
+    feedback_q: 'هل كان هذا مفيداً؟',
+    feedback_yes: 'نعم',
+    feedback_no: 'ليس كثيراً',
+    feedback_thanks: 'شكراً على ملاحظاتك!',
   },
 };
 
@@ -2674,6 +2801,15 @@ function updateStaticText() {
   if (sma) sma.textContent = t('copy_all');
   const smc = document.getElementById('shareModalClose');
   if (smc) smc.textContent = t('close');
+  // Feedback
+  const fq = document.getElementById('feedbackQuestion');
+  if (fq) fq.textContent = t('feedback_q');
+  const fye = document.getElementById('feedbackYes');
+  if (fye) fye.lastChild.textContent = ' ' + t('feedback_yes');
+  const fno = document.getElementById('feedbackNo');
+  if (fno) fno.lastChild.textContent = ' ' + t('feedback_no');
+  const ftk = document.getElementById('feedbackThanks');
+  if (ftk) ftk.textContent = t('feedback_thanks');
   // Generating overlay
   const gt = document.querySelector('.generating-text');
   if (gt) gt.textContent = t('generating_card');
@@ -7759,6 +7895,24 @@ function trackEvent(event) {
   } catch (_e) { /* localStorage unavailable (private mode, quota exceeded) */ }
 }
 
+// Feedback
+function submitFeedback(type) {
+  const up = document.getElementById('feedbackUp');
+  const down = document.getElementById('feedbackDown');
+  const thanks = document.getElementById('feedbackThanks');
+
+  if (type === 'up') {
+    up.classList.add('selected');
+    down.classList.add('voted');
+  } else {
+    down.classList.add('selected');
+    up.classList.add('voted');
+  }
+
+  thanks.classList.add('show');
+  trackEvent('feedback_' + type);
+}
+
 // ===== ERROR HANDLING =====
 window.onerror = function(msg, url, line) {
   console.error('Error:', msg, url, line);
@@ -8795,6 +8949,13 @@ function resetQuiz() {
   window.scrollTo(0, 0);
   showSection('heroSection');
   updateProgress(0);
+  // Reset feedback
+  const up = document.getElementById('feedbackUp');
+  const down = document.getElementById('feedbackDown');
+  const thanks = document.getElementById('feedbackThanks');
+  if (up) { up.classList.remove('selected', 'voted'); }
+  if (down) { down.classList.remove('selected', 'voted'); }
+  if (thanks) { thanks.classList.remove('show'); }
 }
 
 // ===== INIT =====
