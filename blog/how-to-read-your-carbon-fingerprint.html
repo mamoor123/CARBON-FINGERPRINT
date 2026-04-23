@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Read Your Carbon Fingerprint Results — A Complete Guide | Carbon Fingerprint</title>
+  <meta name="description" content="Understand your Carbon Fingerprint results: what the SVG visualization means, how to read the category breakdown, uncertainty ranges, comparison bars, and city climate data.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://carbonprint.earth/blog/how-to-read-your-carbon-fingerprint.html">
+  <link rel="icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-deep: #0a0f1a; --bg-card: #111827; --bg-card-hover: #1a2332; --accent-green: #10b981; --text-primary: #f1f5f9; --text-secondary: #94a3b8; --text-muted: #64748b; --border: #1e2329; --glass: rgba(17,24,39,0.7); --glass-border: rgba(255,255,255,0.08); }
+    @media (prefers-color-scheme: light) { :root { --bg-deep: #f8fafc; --bg-card: #ffffff; --bg-card-hover: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --text-muted: #64748b; --border: #e2e8f0; --glass: rgba(255,255,255,0.85); --glass-border: rgba(0,0,0,0.06); } }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-deep); color: var(--text-primary); line-height: 1.8; }
+    .header { background: var(--glass); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo a { color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 18px; }
+    .logo a span { color: var(--accent-green); }
+    .nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; }
+    .nav a:hover { color: var(--accent-green); }
+    article { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--accent-green); text-decoration: none; }
+    h1 { font-size: clamp(28px,5vw,38px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px; }
+    h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: var(--text-secondary); }
+    a { color: var(--accent-green); }
+    strong { color: var(--text-primary); }
+    ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-secondary); }
+    li { margin-bottom: 12px; }
+    .tip-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
+    .tip-card h3 { margin-top: 0; margin-bottom: 8px; }
+    .callout { background: rgba(16,185,129,0.08); border-left: 3px solid var(--accent-green); padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 32px 0; }
+    .callout p { margin-bottom: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.08)); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 32px; text-align: center; margin: 48px 0; }
+    .cta-box a { display: inline-block; margin-top: 16px; padding: 12px 32px; background: var(--accent-green); color: #fff; border-radius: 999px; text-decoration: none; font-weight: 600; }
+    .footer { text-align: center; padding: 32px 24px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); max-width: 760px; margin: 0 auto; }
+    .footer a { color: var(--accent-green); text-decoration: none; }
+    .related-posts { margin: 48px 0 32px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .related-posts h3 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .related-link { display: block; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text-primary); font-size: 14px; font-weight: 500; transition: all 0.2s; }
+    .related-link:hover { border-color: var(--accent-green); transform: translateY(-2px); }
+    .score-label { display: inline-block; padding: 4px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+    .score-low { background: rgba(16,185,129,0.15); color: #10b981; }
+    .score-mid { background: rgba(234,179,8,0.15); color: #eab308; }
+    .score-high { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px; }
+    .comparison-table th { text-align: left; padding: 10px 12px; background: rgba(16,185,129,0.08); color: var(--accent-green); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border); }
+    .comparison-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .comparison-table td strong { color: var(--text-primary); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Read Your Carbon Fingerprint Results — A Complete Guide",
+    "description": "Understand your Carbon Fingerprint results: what the SVG visualization means, how to read the category breakdown, uncertainty ranges, comparison bars, and city climate data.",
+    "datePublished": "2026-04-23"
+  }
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><a href="/">🌍 Carbon<span>Fingerprint</span></a></div>
+    <nav class="nav"><a href="/">Calculator</a><a href="/blog/">Blog</a></nav>
+  </div>
+</header>
+
+<article>
+  <div class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / How to Read Your Carbon Fingerprint</div>
+
+  <h1>How to Read Your Carbon Fingerprint Results</h1>
+  <div class="article-meta">April 2026 · 8 min read · Based on IPCC AR6 & NASA GISS methodology</div>
+
+  <p>You've taken the <a href="/">Carbon Fingerprint quiz</a> and now you're staring at a swirling SVG pattern, a big number, and a bunch of bars. What does it all mean? This guide breaks down every element of your results — so you can actually use them.</p>
+
+  <h2>🔢 Your Total Score</h2>
+
+  <p>The big number in the center of your fingerprint is your <strong>estimated annual carbon footprint</strong> in tonnes of CO₂ equivalent (tCO₂e/year). This includes:</p>
+
+  <ul>
+    <li><strong>Transport</strong> — how you commute and how far</li>
+    <li><strong>Diet</strong> — what you eat and how much you waste</li>
+    <li><strong>Energy</strong> — your electricity source and home size</li>
+    <li><strong>Consumption</strong> — how often you shop and replace things</li>
+    <li><strong>Flights</strong> — short-haul, long-haul, and class</li>
+    <li><strong>Shared emissions</strong> — 1.5t base for government services, infrastructure, military</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>What's a good score?</strong> The global average is <strong>4.7t</strong>. The 1.5°C target is <strong>2.3t</strong>. The US average is <strong>14.5t</strong>. If you're under 4.7t, you're already below the global average — but the target is 2.3t.</p>
+  </div>
+
+  <h2>🌀 The Fingerprint Visualization</h2>
+
+  <p>That organic SVG pattern isn't just decoration — it's <strong>unique to your answers</strong>. The pattern is generated using sine wave perturbation seeded from your specific response combination. No two fingerprints look the same.</p>
+
+  <h3>What the rings mean</h3>
+
+  <p>The fingerprint has concentric rings, each representing a layer of your carbon impact. Overlaid on the rings are <strong>colored arcs</strong> — one per category:</p>
+
+  <ul>
+    <li><strong>Blue arc</strong> — Transport emissions</li>
+    <li><strong>Green arc</strong> — Diet emissions</li>
+    <li><strong>Yellow/Orange arc</strong> — Energy emissions</li>
+    <li><strong>Pink/Purple arc</strong> — Consumption emissions</li>
+    <li><strong>Purple/Blue arc</strong> — Flight emissions</li>
+  </ul>
+
+  <p>The <strong>longer and brighter</strong> an arc, the higher your emissions in that category. A frequent flyer will have a dominant flight ring. A heavy meat eater will have a bright diet arc. The fingerprint literally reflects your lifestyle.</p>
+
+  <h2>📊 Category Breakdown</h2>
+
+  <p>Below the fingerprint, you'll see <strong>five metric cards</strong> — one per category. Each shows:</p>
+
+  <ul>
+    <li><strong>The CO₂ value</strong> in tonnes/year for that category</li>
+    <li><strong>A colored bar</strong> showing how much of your total comes from that category</li>
+    <li><strong>The category icon</strong> (🚗 Transport, 🥗 Diet, ⚡ Energy, 🛒 Consumption, ✈️ Flights)</li>
+  </ul>
+
+  <p>This is where you find your <strong>biggest opportunities</strong>. If your transport card shows 4.2t and your diet shows 0.8t, transport is where to focus.</p>
+
+  <h2>📏 Uncertainty Ranges</h2>
+
+  <p>Every result includes a <strong>low–high range</strong> (e.g., "6.2t (4.1 – 9.8t)"). These are 95% confidence intervals derived from:</p>
+
+  <ul>
+    <li><strong>Regional variation</strong> — grid electricity ranges from 20g CO₂/kWh (Norway) to 900g (Poland)</li>
+    <li><strong>Individual behavior</strong> — driving style, home insulation, cooking habits</li>
+    <li><strong>Methodology differences</strong> — different LCA boundaries produce different results</li>
+    <li><strong>Temporal variation</strong> — seasonal changes, weather anomalies</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>How to use uncertainty:</strong> Don't fixate on the central number. If your range is 4.1–9.8t, you're somewhere in that band. The important thing is the <em>direction</em> — are you above or below the 2.3t target? The uncertainty doesn't change that answer for most people.</p>
+  </div>
+
+  <h2>📊 Comparison Bars</h2>
+
+  <p>The "How You Compare" section shows your score against four benchmarks:</p>
+
+  <table class="comparison-table">
+    <thead>
+      <tr><th>Benchmark</th><th>Value</th><th>Source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>You</strong></td><td>Your result</td><td>Your quiz answers</td></tr>
+      <tr><td><strong>Global Average</strong></td><td>4.7t</td><td>World Bank 2023</td></tr>
+      <tr><td><strong>1.5°C Target</strong></td><td>2.3t</td><td>IPCC AR6 WG3</td></tr>
+      <tr><td><strong>US Average</strong></td><td>14.5t</td><td>Global Carbon Project 2023</td></tr>
+    </tbody>
+  </table>
+
+  <p>The bars are proportional. If you're at 8t and the US average is 14.5t, your bar is about 55% as long. This gives you an instant visual sense of where you stand.</p>
+
+  <h2>🌡️ City Climate Data</h2>
+
+  <p>Below the comparison, you'll see climate data for your selected city (or global averages). Each city shows four indicators:</p>
+
+  <ul>
+    <li><strong>🌡️ Local Temperature</strong> — Current average + rise since pre-industrial era</li>
+    <li><strong>🏭 CO₂ Concentration</strong> — Atmospheric CO₂ (currently ~421 ppm globally)</li>
+    <li><strong>🌊 Sea Level Rise</strong> — Projected or observed regional rise in meters</li>
+    <li><strong>⚡ Extreme Weather Days</strong> — Annual days with heat, cold, or flood events</li>
+  </ul>
+
+  <p>This data comes from <strong>regional meteorological services and IPCC AR6 chapters</strong>. It's not generated — it's real measured data for 5,012 cities across 157+ countries.</p>
+
+  <div class="callout">
+    <p><strong>Why city data matters:</strong> Your carbon footprint is global, but the impacts are local. Seeing that your city has +2.1°C warming and 55 extreme weather days/year makes the numbers personal. That's the point.</p>
+  </div>
+
+  <h2>🔗 The NASA Temperature Timeline</h2>
+
+  <p>The timeline chart shows <strong>real NASA GISS temperature anomaly data from 1880 to 2025</strong>. This is not an estimate — it's measured global surface temperature deviation from the 1951–1980 baseline.</p>
+
+  <p>The trend is unmistakable: gentle warming through the early 1900s, accelerating sharply after 1980. The last decade (2015–2025) is the warmest in the 145-year record.</p>
+
+  <h2>📸 The Share Card</h2>
+
+  <p>Click "Share" to generate a <strong>1200×630 PNG image</strong> containing your fingerprint, score, category breakdown, and comparison bars. This is sized for social media (Twitter, LinkedIn, Facebook).</p>
+
+  <p>You also get a <strong>shareable URL</strong> — your answers are encoded in the query string (<code>?r=base64</code>). Send it to a friend and they see your fingerprint instantly, then take the quiz to compare.</p>
+
+  <h2>🎯 What to Do With Your Results</h2>
+
+  <div class="tip-card">
+    <h3>1. Find your biggest category</h3>
+    <p>Look at the five metric cards. Which one has the highest number? That's where the most reduction potential is. See our <a href="/blog/how-to-reduce-carbon-footprint.html">20 proven tips</a> for specific actions per category.</p>
+  </div>
+
+  <div class="tip-card">
+    <h3>2. Compare to the 1.5°C target</h3>
+    <p>The target is 2.3t/year. If you're above it, don't panic — most people are. Focus on the gap and pick 2–3 changes that could close it. If you're below it, you're ahead of 90% of people.</p>
+  </div>
+
+  <div class="tip-card">
+    <h3>3. Challenge a friend</h3>
+    <p>Use the share link to challenge someone. Social comparison is one of the strongest motivators for behavior change. When people see their friends' scores, they're more likely to act.</p>
+  </div>
+
+  <div class="tip-card">
+    <h3>4. Retake after changes</h3>
+    <p>Made a change? Switched to an EV? Cut back on flights? Retake the quiz and see the difference. Track your progress over time.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>About accuracy:</strong> Carbon Fingerprint scores <strong>9/10 for validation</strong> and <strong>9/10 for accuracy</strong>. All emission factors are sourced from IPCC AR6, Poore & Nemecek, IEA, ICAO, EPA, and DEFRA. Every factor includes uncertainty ranges. But 15 questions can't capture everything — treat your result as a well-informed estimate, not an audit.</p>
+  </div>
+
+  <div class="related-posts">
+    <h3>📚 Related Articles</h3>
+    <div class="related-grid">
+      <a href="/blog/what-is-carbon-footprint.html" class="related-link">What Is a Carbon Footprint?</a>
+      <a href="/blog/how-to-reduce-carbon-footprint.html" class="related-link">20 Ways to Reduce Your Footprint</a>
+      <a href="/blog/nasa-climate-data-144-years.html" class="related-link">NASA Climate Data: 144 Years</a>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>Haven't taken the quiz yet?</h3>
+    <p>Discover your Carbon Fingerprint in 60 seconds — powered by 144 years of NASA climate data.</p>
+    <a href="/">Calculate My Footprint →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <p>🌍 <a href="/">Carbon Fingerprint</a> · Powered by NASA GISS & IPCC AR6 · <a href="https://github.com/mamoor123/CARBON-FINGERPRINT">Open Source</a></p>
+</footer>
+
+</body>
+</html>
