@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology — Carbon Fingerprint</title>
+<meta name="description" content="How we calculate your carbon footprint. Full methodology, emission factors, data sources, and uncertainty ranges.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #0a0f1a;
+  --bg-card: #111827;
+  --bg-card-hover: #1a2332;
+  --accent-green: #10b981;
+  --accent-emerald: #34d399;
+  --accent-teal: #2dd4bf;
+  --accent-cyan: #22d3ee;
+  --accent-blue: #3b82f6;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #1e293b;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-deep: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 0 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0 80px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-green);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+.back-link:hover { text-decoration: underline; }
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 48px;
+}
+
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+p { margin-bottom: 16px; color: var(--text-secondary); }
+p strong { color: var(--text-primary); }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+th {
+  text-align: left;
+  padding: 10px 12px;
+  background: rgba(16, 185, 129, 0.08);
+  color: var(--accent-emerald);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+td strong { color: var(--text-primary); font-weight: 600; }
+
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+.source-link {
+  color: var(--accent-green);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.source-link:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.badge.peer-reviewed { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+.badge.government { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+.badge.industry { background: rgba(249,115,22,0.15); color: #f97316; }
+
+ul { padding-left: 24px; margin-bottom: 16px; }
+li { margin-bottom: 8px; color: var(--text-secondary); }
+li strong { color: var(--text-primary); }
+
+.assumption-box {
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+.assumption-box .label { color: #f97316; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 6px; }
+
+.limitation-box {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+.limitation-box .label { color: #ef4444; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 6px; }
+
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+.toc h3 { margin-top: 0; font-size: 1rem; }
+.toc ol { padding-left: 20px; margin-bottom: 0; }
+.toc li { margin-bottom: 6px; }
+.toc a { color: var(--accent-green); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+.last-updated {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  table { font-size: 0.78rem; }
+  th, td { padding: 8px 6px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back-link">← Back to Carbon Fingerprint</a>
+
+<h1>📊 Methodology</h1>
+<p class="subtitle">How we calculate your carbon footprint — full transparency on every number.</p>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#transport">Transport Emission Factors</a></li>
+    <li><a href="#diet">Diet Emission Factors</a></li>
+    <li><a href="#energy">Energy Emission Factors</a></li>
+    <li><a href="#consumption">Consumption Emission Factors</a></li>
+    <li><a href="#flights">Flight Emission Factors</a></li>
+    <li><a href="#shared">Shared / Base Emissions</a></li>
+    <li><a href="#uncertainty">Uncertainty Ranges</a></li>
+    <li><a href="#benchmarks">Benchmarks</a></li>
+    <li><a href="#climate-data">Climate Data Sources</a></li>
+    <li><a href="#assumptions">Assumptions</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+    <li><a href="#comparison">Comparison to Other Calculators</a></li>
+  </ol>
+</div>
+
+<!-- OVERVIEW -->
+<h2 id="overview">1. Overview</h2>
+<div class="card">
+  <p>Carbon Fingerprint estimates your annual carbon footprint based on <strong>15 lifestyle questions</strong> across 5 categories: Transport, Diet, Energy, Consumption, and Flights. Each question maps to peer-reviewed emission factors.</p>
+  <p>The calculation is:</p>
+  <p style="text-align:center;font-family:'Space Grotesk',monospace;font-size:1.1rem;color:var(--accent-emerald);margin:16px 0;">
+    <strong>Total = Transport + Diet + Energy + Consumption + Flights + Shared (1.5t)</strong>
+  </p>
+  <p>Every emission factor includes an <strong>uncertainty range</strong> (low/high). Your total footprint is displayed as a single value with a 95% confidence interval derived from propagating individual uncertainties.</p>
+</div>
+
+<!-- TRANSPORT -->
+<h2 id="transport">2. Transport Emission Factors</h2>
+
+<h3>Q1: Daily Commute Mode</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Walk / Bike</strong></td>
+      <td>0.15</td>
+      <td>0.03 – 0.30</td>
+      <td>Embodied emissions of bicycle amortized over lifetime; walking = ~0<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3 Ch.10]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Public Transit</strong></td>
+      <td>0.50</td>
+      <td>0.20 – 0.90</td>
+      <td>Bus/metro average, varies by occupancy and fuel type<a href="https://www.icct.org/" class="source-link"> [ICCT 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Electric Car</strong></td>
+      <td>0.60</td>
+      <td>0.20 – 1.20</td>
+      <td>EV lifecycle including grid mix; ~60% cleaner than ICE<a href="https://www.iea.org/reports/global-ev-outlook-2023" class="source-link"> [IEA EV Outlook 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Car (Gasoline)</strong></td>
+      <td>1.80</td>
+      <td>1.00 – 2.80</td>
+      <td>170g CO₂/km average, ~11,500 km/yr<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" class="source-link"> [EPA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Motorcycle</strong></td>
+      <td>1.00</td>
+      <td>0.50 – 1.50</td>
+      <td>~120g CO₂/km, lower occupancy than car<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q2: Daily Commute Distance</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0–2 km</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>Negligible additional distance<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" class="source-link"> [EPA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>2–10 km</strong></td>
+      <td>0.15</td>
+      <td>0.05 – 0.30</td>
+      <td>Short commute multiplier<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" class="source-link"> [EPA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>10–30 km</strong></td>
+      <td>0.45</td>
+      <td>0.20 – 0.80</td>
+      <td>Medium commute, ~20 km daily average<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>30+ km</strong></td>
+      <td>0.90</td>
+      <td>0.50 – 1.50</td>
+      <td>Long commute, significant emissions<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q3: Long-Distance Driving</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Never</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>No long-distance driving</td>
+    </tr>
+    <tr>
+      <td><strong>Monthly</strong></td>
+      <td>0.30</td>
+      <td>0.10 – 0.60</td>
+      <td>~200 km trip/month, ~2,400 km/yr<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" class="source-link"> [EPA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Weekly</strong></td>
+      <td>1.20</td>
+      <td>0.60 – 2.00</td>
+      <td>~200 km trip/week, ~10,000 km/yr<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" class="source-link"> [EPA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Daily</strong></td>
+      <td>2.50</td>
+      <td>1.50 – 4.00</td>
+      <td>Extensive long-distance driving<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" class="source-link"> [EPA]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- DIET -->
+<h2 id="diet">3. Diet Emission Factors</h2>
+
+<h3>Q4: Main Protein Source</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Plant-Based</strong></td>
+      <td>0.60</td>
+      <td>0.30 – 1.00</td>
+      <td>Tofu, legumes, nuts — lowest lifecycle emissions<a href="https://doi.org/10.1126/science.aaq0216" class="source-link"> [Poore & Nemecek 2018]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Fish</strong></td>
+      <td>0.80</td>
+      <td>0.40 – 1.80</td>
+      <td>Wild catch lower than farmed; varies hugely by species<a href="https://www.fao.org/gleam/en" class="source-link"> [FAO GLEAM]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Poultry</strong></td>
+      <td>1.20</td>
+      <td>0.60 – 2.00</td>
+      <td>Chicken ~6.9 kg CO₂e/kg product<a href="https://doi.org/10.1126/science.aaq0216" class="source-link"> [Poore & Nemecek 2018]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Mixed Meat</strong></td>
+      <td>1.80</td>
+      <td>0.80 – 2.50</td>
+      <td>Beef + poultry + pork mix, ~3-4 servings/week<a href="https://doi.org/10.1126/science.aaq0216" class="source-link"> [Poore & Nemecek 2018]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Red Meat Daily</strong></td>
+      <td>3.00</td>
+      <td>1.50 – 4.00</td>
+      <td>Beef ~27 kg CO₂e/kg; highest-impact food category<a href="https://doi.org/10.1126/science.aaq0216" class="source-link"> [Poore & Nemecek 2018]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q5: Dairy Consumption</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>None</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>No dairy</td>
+    </tr>
+    <tr>
+      <td><strong>Occasional</strong></td>
+      <td>0.20</td>
+      <td>0.10 – 0.40</td>
+      <td>Milk/cheese a few times/week<a href="https://doi.org/10.1126/science.aaq0216" class="source-link"> [Poore & Nemecek 2018]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Daily</strong></td>
+      <td>0.45</td>
+      <td>0.25 – 0.80</td>
+      <td>Daily milk, cheese, yogurt<a href="https://www.fao.org/gleam/en" class="source-link"> [FAO GLEAM]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Heavy</strong></td>
+      <td>0.80</td>
+      <td>0.40 – 1.30</td>
+      <td>Multiple dairy servings daily<a href="https://www.fao.org/gleam/en" class="source-link"> [FAO GLEAM]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q6: Food Waste</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Minimal / Compost</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>Minimal waste, composted<a href="https://www.unep.org/resources/publication/food-waste-index-report-2021" class="source-link"> [UNEP 2021]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Average</strong></td>
+      <td>0.25</td>
+      <td>0.10 – 0.50</td>
+      <td>~30% of food wasted (global average)<a href="https://www.unep.org/resources/publication/food-waste-index-report-2021" class="source-link"> [UNEP 2021]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Significant Waste</strong></td>
+      <td>0.60</td>
+      <td>0.30 – 1.00</td>
+      <td>Frequent spoilage, plate waste<a href="https://www.unep.org/resources/publication/food-waste-index-report-2021" class="source-link"> [UNEP 2021]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ENERGY -->
+<h2 id="energy">4. Energy Emission Factors</h2>
+
+<h3>Q7: Electricity Source</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>100% Renewable</strong></td>
+      <td>0.15</td>
+      <td>0.05 – 0.40</td>
+      <td>Solar/wind/hydro — near-zero operational<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Mostly Renewable</strong></td>
+      <td>0.60</td>
+      <td>0.30 – 1.00</td>
+      <td>Grid with >50% renewables (EU average ~0.23 kg/kWh)<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Mixed Grid</strong></td>
+      <td>1.20</td>
+      <td>0.60 – 2.00</td>
+      <td>Global average grid (~0.41 kg/kWh)<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Coal Heavy</strong></td>
+      <td>2.20</td>
+      <td>1.20 – 3.00</td>
+      <td>Coal-dominant grid (>0.6 kg/kWh, e.g. Poland, parts of China)<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA 2023]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q8: Home Size</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Small Apartment</strong></td>
+      <td>0.15</td>
+      <td>0.05 – 0.30</td>
+      <td>&lt;50 m² — low heating/cooling demand<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Medium Apartment</strong></td>
+      <td>0.35</td>
+      <td>0.15 – 0.60</td>
+      <td>50–90 m² — average demand<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Large House</strong></td>
+      <td>0.70</td>
+      <td>0.30 – 1.20</td>
+      <td>90–200 m² — higher demand<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Very Large</strong></td>
+      <td>1.30</td>
+      <td>0.60 – 2.00</td>
+      <td>&gt;200 m² — significant heating/cooling<a href="https://www.iea.org/reports/co2-emissions-in-2023" class="source-link"> [IEA]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q9: Heating Fuel</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>None / Solar</strong></td>
+      <td>0.05</td>
+      <td>0.00 – 0.10</td>
+      <td>Passive heating, solar thermal<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Heat Pump</strong></td>
+      <td>0.25</td>
+      <td>0.05 – 0.50</td>
+      <td>COP 3–4x, highly efficient<a href="https://www.iea.org/reports/the-future-of-heat-pumps" class="source-link"> [IEA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Natural Gas</strong></td>
+      <td>0.80</td>
+      <td>0.40 – 1.40</td>
+      <td>~2.2 kg CO₂/m³ gas<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Oil / Coal</strong></td>
+      <td>1.50</td>
+      <td>0.80 – 2.50</td>
+      <td>Highest-emission heating<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- CONSUMPTION -->
+<h2 id="consumption">5. Consumption Emission Factors</h2>
+
+<h3>Q10: Shopping Frequency</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Rarely</strong></td>
+      <td>0.15</td>
+      <td>0.05 – 0.30</td>
+      <td>Essentials only<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Monthly</strong></td>
+      <td>0.35</td>
+      <td>0.15 – 0.60</td>
+      <td>Regular but controlled<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Weekly</strong></td>
+      <td>0.60</td>
+      <td>0.30 – 1.00</td>
+      <td>Typical consumer<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3 Ch.5]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Very Frequent</strong></td>
+      <td>1.10</td>
+      <td>0.50 – 1.80</td>
+      <td>High-consumption lifestyle<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3 Ch.5]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q11: Electronics & Clothing Replacement</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>3+ Years</strong></td>
+      <td>0.10</td>
+      <td>0.03 – 0.20</td>
+      <td>Long product life = low amortized emissions<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>~2 Years</strong></td>
+      <td>0.30</td>
+      <td>0.10 – 0.50</td>
+      <td>Moderate replacement cycle<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Yearly</strong></td>
+      <td>0.55</td>
+      <td>0.30 – 0.90</td>
+      <td>Annual upgrades (phone, laptop, clothes)<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Multiple / Year</strong></td>
+      <td>0.90</td>
+      <td>0.50 – 1.50</td>
+      <td>Frequent upgrades, fast fashion<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3 Ch.5]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q12: Repair vs Replace</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Always Repair</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>Extends product life, minimal new purchases<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Mostly Repair</strong></td>
+      <td>0.08</td>
+      <td>0.00 – 0.20</td>
+      <td>Repair when possible, occasional replace<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Replace When Broken</strong></td>
+      <td>0.25</td>
+      <td>0.10 – 0.50</td>
+      <td>Default behavior — replace at end of life<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Replace for New</strong></td>
+      <td>0.50</td>
+      <td>0.25 – 0.80</td>
+      <td>Upgrades before end of life<a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link"> [IPCC AR6 WG3 Ch.5]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- FLIGHTS -->
+<h2 id="flights">6. Flight Emission Factors</h2>
+
+<h3>Q13: Short-Haul Flights (&lt;3 hours)</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>No short-haul flights</td>
+    </tr>
+    <tr>
+      <td><strong>1–2</strong></td>
+      <td>0.45</td>
+      <td>0.20 – 0.90</td>
+      <td>~0.22 t CO₂ per short-haul flight<a href="https://www.icao.int/environmental-protection/Carbonoffset/" class="source-link"> [ICAO 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>3–5</strong></td>
+      <td>1.10</td>
+      <td>0.60 – 2.00</td>
+      <td>~4 flights × 0.28t avg<a href="https://www.icao.int/environmental-protection/Carbonoffset/" class="source-link"> [ICAO 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>6+</strong></td>
+      <td>2.00</td>
+      <td>1.00 – 3.50</td>
+      <td>Frequent short-haul flyer<a href="https://www.icao.int/environmental-protection/Carbonoffset/" class="source-link"> [ICAO 2023]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q14: Long-Haul Flights (&gt;6 hours)</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>CO₂ (t/yr)</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td>0.00</td>
+      <td>0.00 – 0.00</td>
+      <td>No long-haul flights</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td>1.60</td>
+      <td>0.80 – 2.50</td>
+      <td>Transatlantic round-trip ≈ 1.6t<a href="https://www.icao.int/environmental-protection/Carbonoffset/" class="source-link"> [ICAO Carbon Calculator]</a></td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td>3.20</td>
+      <td>1.60 – 5.00</td>
+      <td>Two long-haul round trips<a href="https://www.icao.int/environmental-protection/Carbonoffset/" class="source-link"> [ICAO]</a></td>
+    </tr>
+    <tr>
+      <td><strong>3+</strong></td>
+      <td>5.00</td>
+      <td>3.00 – 8.00</td>
+      <td>Frequent long-haul flyer<a href="https://www.icao.int/environmental-protection/Carbonoffset/" class="source-link"> [ICAO]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Q15: Flight Class (Multiplier)</h3>
+<table>
+  <thead>
+    <tr><th>Option</th><th>Multiplier</th><th>Range</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Economy</strong></td>
+      <td>1.0×</td>
+      <td>1.0 – 1.0</td>
+      <td>Baseline — highest seat density<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Premium Economy</strong></td>
+      <td>1.5×</td>
+      <td>1.3 – 1.8</td>
+      <td>~1.5× legroom = ~1.5× emissions per passenger<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>Business</strong></td>
+      <td>2.5×</td>
+      <td>2.0 – 3.0</td>
+      <td>Flat-bed seats, 2-3× floor space<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+    <tr>
+      <td><strong>First Class</strong></td>
+      <td>4.0×</td>
+      <td>3.0 – 5.0</td>
+      <td>Suites, ~4× economy floor space<a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023" class="source-link"> [DEFRA 2023]</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SHARED -->
+<h2 id="shared">7. Shared / Base Emissions</h2>
+<div class="card">
+  <p><strong>Value: 1.5 tonnes CO₂e/year</strong> (range: 1.0 – 2.5)</p>
+  <p>This represents your share of emissions from <strong>government services, public infrastructure, military, healthcare, and education</strong> — things you benefit from as a citizen but don't directly control.</p>
+  <p><strong>Source:</strong> <a href="https://ourworldindata.org/co2-emissions" class="source-link">Our World in Data</a>, derived from government expenditure emissions data. The 1.5t figure is a per-capita allocation for OECD countries.</p>
+  <p><strong>Note:</strong> This is a simplified allocation. Actual shared emissions vary significantly by country (lower in developing nations, higher in high-defense-spending countries).</p>
+</div>
+
+<!-- UNCERTAINTY -->
+<h2 id="uncertainty">8. Uncertainty Ranges</h2>
+<div class="card">
+  <p>Every emission factor has an uncertainty range representing the <strong>95% confidence interval</strong>. These arise from:</p>
+  <ul>
+    <li><strong>Regional variation:</strong> Grid electricity ranges from 20g CO₂/kWh (Norway) to 900g (Poland)</li>
+    <li><strong>Individual behavior:</strong> Driving style, home insulation, cooking habits</li>
+    <li><strong>Methodology:</strong> Different LCA boundaries produce different results</li>
+    <li><strong>Temporal variation:</strong> Seasonal changes, weather anomalies</li>
+  </ul>
+  <p>Your total uncertainty is calculated by <strong>summing the low and high bounds independently</strong> across all categories. This is a conservative approach — in reality, uncertainties partially cancel out, so the true range is narrower.</p>
+  <p>We display: <strong style="color:var(--accent-emerald);">Central estimate (low – high) tonnes CO₂e/year</strong></p>
+</div>
+
+<!-- BENCHMARKS -->
+<h2 id="benchmarks">9. Benchmarks</h2>
+<table>
+  <thead>
+    <tr><th>Benchmark</th><th>Value</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Global Average</strong></td>
+      <td>4.7 tonnes CO₂/year</td>
+      <td><a href="https://data.worldbank.org/indicator/EN.ATM.CO2E.PC" class="source-link">World Bank 2023</a></td>
+    </tr>
+    <tr>
+      <td><strong>1.5°C Target</strong></td>
+      <td>2.3 tonnes CO₂/year</td>
+      <td><a href="https://www.ipcc.ch/report/ar6/wg3/" class="source-link">IPCC AR6 WG3 — 1.5°C pathway</a></td>
+    </tr>
+    <tr>
+      <td><strong>US Average</strong></td>
+      <td>14.5 tonnes CO₂/year</td>
+      <td><a href="https://globalcarbonproject.org/carbonbudget/" class="source-link">Global Carbon Project 2023</a></td>
+    </tr>
+    <tr>
+      <td><strong>EU Average</strong></td>
+      <td>6.8 tonnes CO₂/year</td>
+      <td><a href="https://www.eea.europa.eu/" class="source-link">European Environment Agency 2023</a></td>
+    </tr>
+    <tr>
+      <td><strong>India Average</strong></td>
+      <td>1.9 tonnes CO₂/year</td>
+      <td><a href="https://globalcarbonproject.org/carbonbudget/" class="source-link">Global Carbon Project 2023</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- CLIMATE DATA -->
+<h2 id="climate-data">10. Climate Data Sources</h2>
+<div class="card">
+  <h3>NASA GISS Surface Temperature Analysis (GISTEMP v4)</h3>
+  <p>Global temperature anomalies from 1880–2025, relative to the 1951–1980 baseline. This is <strong>real measured data</strong>, not estimates.</p>
+  <p><a href="https://data.giss.nasa.gov/gistemp/" class="source-link">https://data.giss.nasa.gov/gistemp/</a></p>
+
+  <h3>Mauna Loa CO₂ Record</h3>
+  <p>Atmospheric CO₂ concentration measured at Mauna Loa Observatory, Hawaii. Current value: ~421 ppm (2024 average).</p>
+  <p><a href="https://gml.noaa.gov/ccgg/trends/" class="source-link">https://gml.noaa.gov/ccgg/trends/</a></p>
+
+  <h3>City Climate Data</h3>
+  <p>City-level climate indicators (local temperature, sea level rise, extreme weather days) are sourced from <strong>IPCC AR6 Working Group II regional chapters</strong> and national meteorological services. These are estimates based on regional projections, not direct measurements for each city.</p>
+</div>
+
+<!-- ASSUMPTIONS -->
+<h2 id="assumptions">11. Assumptions</h2>
+
+<div class="assumption-box">
+  <div class="label">⚠️ Key Assumptions</div>
+  <ul>
+    <li><strong>Average lifestyle within each category:</strong> Each question represents a broad lifestyle pattern. Your actual emissions may differ.</li>
+    <li><strong>OECD-centric shared emissions:</strong> The 1.5t base is calibrated for developed countries. Residents of developing countries may have lower shared emissions.</li>
+    <li><strong>No offsetting:</strong> We calculate gross emissions, not net. If you purchase carbon offsets, your net footprint is lower.</li>
+    <li><strong>Annual averages:</strong> Seasonal variations (winter heating, summer AC) are averaged out.</li>
+    <li><strong>No embodied emissions of housing:</strong> Construction emissions of your home are not included.</li>
+    <li><strong>Flight class multiplier is simplified:</strong> Actual per-seat emissions depend on aircraft type, load factor, and route.</li>
+  </ul>
+</div>
+
+<!-- LIMITATIONS -->
+<h2 id="limitations">12. Limitations</h2>
+
+<div class="limitation-box">
+  <div class="label">🔴 Known Limitations</div>
+  <ul>
+    <li><strong>15 questions can't capture everything:</strong> A full lifecycle assessment would require hundreds of data points. This is an estimate, not an audit.</li>
+    <li><strong>No country-specific grid factors:</strong> We use 4 electricity categories, but actual grid emissions vary enormously (France: 50g/kWh, Poland: 700g/kWh).</li>
+    <li><strong>No seasonal adjustment:</strong> Heating/cooling demand varies by climate and season.</li>
+    <li><strong>Flight emissions ignore radiative forcing:</strong> Non-CO₂ effects (contrails, NOx) roughly double aviation's climate impact. We report CO₂ only.</li>
+    <li><strong>Food emissions are averages:</strong> Organic vs conventional, local vs imported, seasonal vs year-round — all matter but aren't captured.</li>
+    <li><strong>No supply chain detail:</strong> Where your products are manufactured matters, but we can't capture that in a 60-second quiz.</li>
+  </ul>
+</div>
+
+<!-- COMPARISON -->
+<h2 id="comparison">13. Comparison to Other Calculators</h2>
+<div class="card">
+  <p>Different calculators produce different results because they use different methodologies, emission factors, and system boundaries. Here's how we compare:</p>
+
+  <table>
+    <thead>
+      <tr><th>Calculator</th><th>Approach</th><th>Typical Difference</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>EPA (US)</strong></td>
+        <td>Detailed US-specific factors</td>
+        <td>EPA may be 10–20% higher for US residents (US-specific grid)</td>
+      </tr>
+      <tr>
+        <td><strong>WWF (UK/EU)</strong></td>
+        <td>Consumption-based, includes imports</td>
+        <td>WWF may be 15–25% higher (includes embedded imports)</td>
+      </tr>
+      <tr>
+        <td><strong>UN Carbon Footprint</strong></td>
+        <td>Simplified, global averages</td>
+        <td>Similar range, may differ on transport</td>
+      </tr>
+      <tr>
+        <td><strong>Footprint.org</strong></td>
+        <td>Ecological footprint (gha, not tonnes)</td>
+        <td>Different unit — not directly comparable</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Why we might differ:</strong> We use IPCC AR6 factors (2022), which are more recent than many calculators. We also include shared/government emissions (1.5t) which many calculators omit.</p>
+</div>
+
+<div class="last-updated">
+  <p>Last updated: April 2026 · <a href="index.html" class="source-link">← Back to Calculator</a></p>
+</div>
+
+</div>
+
+</body>
+</html>

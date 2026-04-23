@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carbon Fingerprint — Discover Your Climate Identity</title>
-<meta name="description" content="Free carbon footprint calculator powered by 144 years of NASA climate data. Answer 5 questions, discover your carbon fingerprint, and see how you compare to the global average.">
+<meta name="description" content="Free carbon footprint calculator powered by 144 years of NASA climate data. Answer 15 questions, discover your carbon fingerprint, and see how you compare to the global average.">
 <meta property="og:title" content="Carbon Fingerprint — Free Carbon Footprint Calculator">
 <meta property="og:description" content="I scored 8.1 tonnes CO₂/year on my Carbon Fingerprint. Find yours in 60 seconds — powered by NASA & IPCC data.">
 <meta property="og:type" content="website">
@@ -45,7 +45,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Carbon Fingerprint",
-  "description": "Discover your climate identity, powered by 144 years of planetary data. Answer 5 questions and discover your Carbon Fingerprint.",
+  "description": "Discover your climate identity, powered by 144 years of planetary data. Answer 15 questions and discover your Carbon Fingerprint.",
   "url": "https://carbonprint.earth/",
   "applicationCategory": "LifestyleApplication",
   "operatingSystem": "Any",
@@ -264,7 +264,7 @@ body {
 
 .progress-bar {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
 }
 
@@ -1338,6 +1338,8 @@ body {
   .share-metrics { grid-template-columns: repeat(2, 1fr); }
   .share-city-grid { grid-template-columns: repeat(2, 1fr); }
   .climate-data-grid { grid-template-columns: 1fr 1fr; }
+  .progress-dot { width: 6px; height: 6px; }
+  .progress-bar { gap: 3px; }
 }
 
 @media (max-width: 480px) {
@@ -1651,7 +1653,17 @@ body {
       <div class="progress-dot" data-step="2" role="listitem" aria-label="Question 2"></div>
       <div class="progress-dot" data-step="3" role="listitem" aria-label="Question 3"></div>
       <div class="progress-dot" data-step="4" role="listitem" aria-label="Question 4"></div>
-      <div class="progress-dot" data-step="5" role="listitem" aria-label="Results"></div>
+      <div class="progress-dot" data-step="5" role="listitem" aria-label="Question 5"></div>
+      <div class="progress-dot" data-step="6" role="listitem" aria-label="Question 6"></div>
+      <div class="progress-dot" data-step="7" role="listitem" aria-label="Question 7"></div>
+      <div class="progress-dot" data-step="8" role="listitem" aria-label="Question 8"></div>
+      <div class="progress-dot" data-step="9" role="listitem" aria-label="Question 9"></div>
+      <div class="progress-dot" data-step="10" role="listitem" aria-label="Question 10"></div>
+      <div class="progress-dot" data-step="11" role="listitem" aria-label="Question 11"></div>
+      <div class="progress-dot" data-step="12" role="listitem" aria-label="Question 12"></div>
+      <div class="progress-dot" data-step="13" role="listitem" aria-label="Question 13"></div>
+      <div class="progress-dot" data-step="14" role="listitem" aria-label="Question 14"></div>
+      <div class="progress-dot" data-step="15" role="listitem" aria-label="Results"></div>
     </nav>
   </header>
 
@@ -1692,7 +1704,7 @@ body {
   <!-- QUESTIONS -->
   <section class="section" id="questionSection" aria-label="Quiz questions" aria-live="polite">
     <div class="question-container">
-      <div class="question-number" id="questionNumber">Question 1 of 5</div>
+      <div class="question-number" id="questionNumber">Question 1 of 15</div>
       <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
       <span class="question-icon" id="questionIcon"></span>
       <h2 class="question-text" id="questionText"></h2>
@@ -1762,6 +1774,7 @@ body {
         <div class="fp-center">
           <div class="fp-score" id="fpScore">0</div>
           <div class="fp-unit">tonnes CO₂/year</div>
+          <div class="fp-range" id="fpRange" style="font-size:0.75em;color:var(--text-muted);margin-top:4px;"></div>
           <div class="fp-label" id="fpLabel">Calculating...</div>
         </div>
       </div>
@@ -1869,6 +1882,13 @@ body {
         </div>
       </div>
 
+      <!-- Data Provenance -->
+      <div class="data-provenance" id="dataProvenance" style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:24px;">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:12px;">📚 Data Sources Used</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:12px;">Your calculation used emission factors from these peer-reviewed sources:</p>
+        <div id="provenanceList" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+
       <!-- Methodology -->
       <details class="methodology">
         <summary>📊 How we calculated your footprint</summary>
@@ -1884,6 +1904,7 @@ body {
           <p><strong>Global average (4.7t):</strong> World Bank 2023. <strong>1.5°C target (2.3t):</strong> IPCC AR6 WG3 carbon budget pathway. <strong>US average (14.5t):</strong> Global Carbon Project 2023.</p>
           <p><strong>Climate data:</strong> NASA GISS Surface Temperature Analysis (GISTEMP v4), Mauna Loa CO₂ records, NOAA sea level data.</p>
           <p class="methodology-links">
+            <a href="methodology.html" style="color:var(--accent-emerald);font-weight:600;">📄 Full Methodology (all factors & sources)</a> ·
             <a href="https://www.ipcc.ch/report/ar6/wg3/" target="_blank" rel="noopener">IPCC AR6 WG3</a> · 
             <a href="https://ourworldindata.org/co2-emissions" target="_blank" rel="noopener">Our World in Data</a> · 
             <a href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">NASA GISS</a>
@@ -1938,161 +1959,459 @@ body {
 // Options ordered: lowest CO₂ → highest CO₂ (educational)
 // Emission factors from IPCC AR6 WG3, Our World in Data, IEA, FAO
 const questions = [
+	// ─── TRANSPORT (Q1-Q3) ────────────────────────────────────────
 	{
 		icon: "🚗",
-		text: "How do you usually get around?",
+		text: "What's your primary daily commute mode?",
 		subtitle:
 			"Transportation accounts for ~16% of global emissions (IPCC AR6 WG3 Ch.10)",
 		options: [
 			{
 				emoji: "🚶",
 				label: "Walk / Bike",
-				desc: "0-2 km daily",
-				co2: 0.2,
+				desc: "Active commute, 0 emissions",
+				co2: 0.15,
 				cat: "transport",
 			},
 			{
 				emoji: "🚌",
 				label: "Public Transit",
-				desc: "Bus, metro, train",
-				co2: 0.8,
+				desc: "Bus, metro, train (ICCT)",
+				co2: 0.5,
 				cat: "transport",
 			},
 			{
 				emoji: "🔋",
 				label: "Electric Car",
-				desc: "EV ~60% cleaner (IEA)",
-				co2: 1.0,
+				desc: "EV ~60% cleaner (IEA 2023)",
+				co2: 0.6,
 				cat: "transport",
 			},
 			{
 				emoji: "🚗",
 				label: "Car (Gasoline)",
-				desc: "Daily driver, ~11,500 km/yr",
-				co2: 2.4,
+				desc: "170g CO₂/km avg (EPA)",
+				co2: 1.8,
 				cat: "transport",
 			},
 			{
-				emoji: "✈️",
-				label: "Frequent Flights",
-				desc: "4+ flights per year",
-				co2: 4.5,
+				emoji: "🏍️",
+				label: "Motorcycle",
+				desc: "~120g CO₂/km (DEFRA)",
+				co2: 1.0,
 				cat: "transport",
 			},
 		],
 	},
 	{
+		icon: "🛣️",
+		text: "How far is your daily commute?",
+		subtitle:
+			"Longer commutes multiply transport emissions — distance matters (EPA)",
+		options: [
+			{
+				emoji: "🏠",
+				label: "0–2 km",
+				desc: "Very short / work from home",
+				co2: 0.0,
+				cat: "transport",
+			},
+			{
+				emoji: "🏘️",
+				label: "2–10 km",
+				desc: "Short commute",
+				co2: 0.15,
+				cat: "transport",
+			},
+			{
+				emoji: "🏙️",
+				label: "10–30 km",
+				desc: "Medium commute",
+				co2: 0.45,
+				cat: "transport",
+			},
+			{
+				emoji: "🌆",
+				label: "30+ km",
+				desc: "Long daily commute",
+				co2: 0.9,
+				cat: "transport",
+			},
+		],
+	},
+	{
+		icon: "🗺️",
+		text: "How often do you drive long-distance?",
+		subtitle:
+			"Inter-city driving adds significant emissions beyond daily commute (EPA)",
+		options: [
+			{
+				emoji: "🏠",
+				label: "Never",
+				desc: "No intercity driving",
+				co2: 0.0,
+				cat: "transport",
+			},
+			{
+				emoji: "📅",
+				label: "Monthly",
+				desc: "~300km round trip/month",
+				co2: 0.3,
+				cat: "transport",
+			},
+			{
+				emoji: "📆",
+				label: "Weekly",
+				desc: "Regular intercity trips",
+				co2: 1.2,
+				cat: "transport",
+			},
+			{
+				emoji: "🔄",
+				label: "Daily",
+				desc: "High-mileage driver",
+				co2: 2.5,
+				cat: "transport",
+			},
+		],
+	},
+
+	// ─── DIET (Q4-Q6) ─────────────────────────────────────────────
+	{
 		icon: "🍽️",
-		text: "What best describes your diet?",
+		text: "What's your main protein source?",
 		subtitle:
 			"Food production = 26% of global emissions (FAO / IPCC AR6 WG3 Ch.7)",
 		options: [
 			{
 				emoji: "🌱",
 				label: "Plant-Based",
-				desc: "Vegan or vegetarian (~1.5t, Poore & Nemecek 2018)",
-				co2: 1.0,
+				desc: "Legumes, tofu, nuts (Poore & Nemecek 2018)",
+				co2: 0.6,
 				cat: "diet",
 			},
 			{
-				emoji: "🥗",
-				label: "Mostly Plants",
-				desc: "Meat 1-2x per week",
-				co2: 1.8,
+				emoji: "🐟",
+				label: "Fish / Seafood",
+				desc: "~5kg CO₂e/kg farmed fish",
+				co2: 0.9,
+				cat: "diet",
+			},
+			{
+				emoji: "🍗",
+				label: "Poultry",
+				desc: "~7kg CO₂e/kg chicken",
+				co2: 1.2,
 				cat: "diet",
 			},
 			{
 				emoji: "🥩",
-				label: "Mixed Diet",
-				desc: "Meat most days (~2.5t global avg)",
-				co2: 2.5,
+				label: "Mixed Meat",
+				desc: "Poultry, pork, occasional beef",
+				co2: 1.6,
 				cat: "diet",
 			},
 			{
 				emoji: "🥓",
-				label: "Heavy Meat",
-				desc: "Red meat daily (~3.3t)",
-				co2: 3.5,
+				label: "Red Meat Daily",
+				desc: "Beef ~60kg CO₂e/kg (Poore & Nemecek)",
+				co2: 2.5,
 				cat: "diet",
 			},
 		],
 	},
 	{
+		icon: "🧀",
+		text: "How much dairy do you consume?",
+		subtitle:
+			"Dairy contributes ~4% of global GHG emissions (FAO GLEAM)",
+		options: [
+			{
+				emoji: "🚫",
+				label: "None",
+				desc: "No dairy products",
+				co2: 0.0,
+				cat: "diet",
+			},
+			{
+				emoji: "☕",
+				label: "Occasional",
+				desc: "Milk in coffee, occasional cheese",
+				co2: 0.2,
+				cat: "diet",
+			},
+			{
+				emoji: "🥛",
+				label: "Daily",
+				desc: "Regular milk, yogurt, cheese",
+				co2: 0.5,
+				cat: "diet",
+			},
+			{
+				emoji: "🧈",
+				label: "Heavy",
+				desc: "Lots of cheese, butter, cream",
+				co2: 0.8,
+				cat: "diet",
+			},
+		],
+	},
+	{
+		icon: "🗑️",
+		text: "How much food do you waste?",
+		subtitle:
+			"~1/3 of all food produced is wasted (UNEP Food Waste Index 2021)",
+		options: [
+			{
+				emoji: "♻️",
+				label: "Minimal / Compost",
+				desc: "Very little waste, compost scraps",
+				co2: 0.0,
+				cat: "diet",
+			},
+			{
+				emoji: "📊",
+				label: "Average",
+				desc: "~20% of food wasted (global avg)",
+				co2: 0.3,
+				cat: "diet",
+			},
+			{
+				emoji: "🚮",
+				label: "Significant",
+				desc: "35%+ food wasted regularly",
+				co2: 0.6,
+				cat: "diet",
+			},
+		],
+	},
+
+	// ─── ENERGY (Q7-Q9) ───────────────────────────────────────────
+	{
 		icon: "⚡",
-		text: "How is your home powered?",
+		text: "What powers your electricity?",
 		subtitle: "Residential energy = 20% of global emissions (IEA 2023)",
 		options: [
 			{
 				emoji: "☀️",
-				label: "Renewable",
-				desc: "Solar, wind, hydro",
-				co2: 0.3,
+				label: "100% Renewable",
+				desc: "Solar, wind, hydro — certified",
+				co2: 0.2,
+				cat: "energy",
+			},
+			{
+				emoji: "🌿",
+				label: "Mostly Renewable",
+				desc: "Low-carbon grid (e.g., France, UK)",
+				co2: 0.6,
 				cat: "energy",
 			},
 			{
 				emoji: "🔀",
 				label: "Mixed Grid",
-				desc: "Some renewables",
-				co2: 1.5,
-				cat: "energy",
-			},
-			{
-				emoji: "🔌",
-				label: "Grid Power",
-				desc: "Standard electricity",
-				co2: 2.2,
+				desc: "Global avg ~420g CO₂/kWh",
+				co2: 1.2,
 				cat: "energy",
 			},
 			{
 				emoji: "🛢️",
-				label: "Fossil Heavy",
-				desc: "Gas heating + grid",
-				co2: 3.2,
+				label: "Coal-Heavy",
+				desc: "High-carbon grid (Poland, parts of China)",
+				co2: 2.0,
 				cat: "energy",
 			},
 		],
 	},
 	{
+		icon: "🏠",
+		text: "How big is your home?",
+		subtitle:
+			"Larger homes need more energy for heating, cooling, and lighting (IEA / EIA)",
+		options: [
+			{
+				emoji: "🏢",
+				label: "Small Apartment",
+				desc: "<50 m² — efficient by size",
+				co2: 0.15,
+				cat: "energy",
+			},
+			{
+				emoji: "🏬",
+				label: "Medium Apartment",
+				desc: "50–90 m² — average",
+				co2: 0.35,
+				cat: "energy",
+			},
+			{
+				emoji: "🏡",
+				label: "Large House",
+				desc: "90–200 m² — higher demand",
+				co2: 0.7,
+				cat: "energy",
+			},
+			{
+				emoji: "🏰",
+				label: "Very Large",
+				desc: "200+ m² — significant energy",
+				co2: 1.2,
+				cat: "energy",
+			},
+		],
+	},
+	{
+		icon: "🔥",
+		text: "What heats your home?",
+		subtitle:
+			"Heating accounts for ~40% of residential energy use (IEA Buildings 2023)",
+		options: [
+			{
+				emoji: "🌡️",
+				label: "None / Solar",
+				desc: "Tropical climate or solar thermal",
+				co2: 0.0,
+				cat: "energy",
+			},
+			{
+				emoji: "❄️",
+				label: "Heat Pump",
+				desc: "3× more efficient than gas (IEA)",
+				co2: 0.2,
+				cat: "energy",
+			},
+			{
+				emoji: "🔥",
+				label: "Natural Gas",
+				desc: "~2t CO₂/yr avg US home (EPA)",
+				co2: 0.8,
+				cat: "energy",
+			},
+			{
+				emoji: "🛢️",
+				label: "Oil / Coal",
+				desc: "Highest emission heating",
+				co2: 1.5,
+				cat: "energy",
+			},
+		],
+	},
+
+	// ─── CONSUMPTION (Q10-Q12) ────────────────────────────────────
+	{
 		icon: "🛍️",
-		text: "How would you describe your consumption?",
+		text: "How often do you shop for non-essentials?",
 		subtitle:
 			"Manufacturing & waste = 21% of global emissions (UNEP / IPCC AR6 WG3 Ch.5)",
 		options: [
 			{
 				emoji: "♻️",
-				label: "Minimal",
-				desc: "Buy little, repair often",
-				co2: 0.4,
+				label: "Rarely",
+				desc: "Buy only what's needed",
+				co2: 0.15,
 				cat: "consumption",
 			},
 			{
-				emoji: "🤔",
-				label: "Conscious",
-				desc: "Think before buying",
-				co2: 1.0,
+				emoji: "📅",
+				label: "Monthly",
+				desc: "Moderate purchasing",
+				co2: 0.35,
 				cat: "consumption",
 			},
 			{
 				emoji: "🛒",
-				label: "Average",
-				desc: "Regular shopping",
-				co2: 1.8,
+				label: "Weekly",
+				desc: "Regular new purchases",
+				co2: 0.6,
 				cat: "consumption",
 			},
 			{
 				emoji: "📦",
-				label: "High Volume",
-				desc: "Frequent purchases",
-				co2: 2.8,
+				label: "Very Frequent",
+				desc: "Constant buying, fast fashion",
+				co2: 1.0,
 				cat: "consumption",
 			},
 		],
 	},
 	{
-		icon: "🌏",
-		text: "How many flights do you take per year?",
+		icon: "📱",
+		text: "How often do you replace electronics & clothes?",
 		subtitle:
-			"A single transatlantic flight ≈ 1.6 tonnes CO₂ (ICAO carbon calculator)",
+			"Embodied carbon of devices is significant — longer use = lower footprint (DEFRA 2023)",
+		options: [
+			{
+				emoji: "⏳",
+				label: "3+ Years",
+				desc: "Use until truly worn out",
+				co2: 0.1,
+				cat: "consumption",
+			},
+			{
+				emoji: "📆",
+				label: "Every 2 Years",
+				desc: "Moderate replacement cycle",
+				co2: 0.3,
+				cat: "consumption",
+			},
+			{
+				emoji: "🔄",
+				label: "Yearly",
+				desc: "Annual upgrades",
+				co2: 0.55,
+				cat: "consumption",
+			},
+			{
+				emoji: "⚡",
+				label: "Multiple/Year",
+				desc: "Latest gadgets + fast fashion",
+				co2: 0.9,
+				cat: "consumption",
+			},
+		],
+	},
+	{
+		// PLACEHOLDER_CONSUMPTION_Q12
+		icon: "🔧",
+		text: "When something breaks, what do you do?",
+		subtitle:
+			"Repairing extends product life and cuts embodied emissions (Ellen MacArthur Foundation)",
+		options: [
+			{
+				emoji: "🛠️",
+				label: "Always Repair",
+				desc: "Fix everything possible",
+				co2: 0.0,
+				cat: "consumption",
+			},
+			{
+				emoji: "🔧",
+				label: "Mostly Repair",
+				desc: "Repair unless beyond fix",
+				co2: 0.1,
+				cat: "consumption",
+			},
+			{
+				emoji: "🛒",
+				label: "Replace When Broken",
+				desc: "Standard consumer behavior",
+				co2: 0.3,
+				cat: "consumption",
+			},
+			{
+				emoji: "✨",
+				label: "Replace for New",
+				desc: "Upgrade to latest model",
+				co2: 0.5,
+				cat: "consumption",
+			},
+		],
+	},
+
+	// ─── FLIGHTS (Q13-Q15) ────────────────────────────────────────
+	{
+		icon: "🛫",
+		text: "Short-haul flights per year?",
+		subtitle:
+			"A single short-haul flight ≈ 0.25t CO₂ (ICAO carbon calculator)",
 		options: [
 			{
 				emoji: "🏠",
@@ -2103,24 +2422,97 @@ const questions = [
 			},
 			{
 				emoji: "🛫",
-				label: "1-2 Short",
-				desc: "Regional flights (<3h)",
-				co2: 0.8,
-				cat: "flights",
-			},
-			{
-				emoji: "🌎",
-				label: "1-2 Long",
-				desc: "International flights (>6h)",
-				co2: 2.0,
+				label: "1–2 Flights",
+				desc: "Occasional regional trips",
+				co2: 0.5,
 				cat: "flights",
 			},
 			{
 				emoji: "✈️",
-				label: "3+ Flights",
-				desc: "Frequent flyer",
-				co2: 4.0,
+				label: "3–5 Flights",
+				desc: "Regular domestic flyer",
+				co2: 1.2,
 				cat: "flights",
+			},
+			{
+				emoji: "🌍",
+				label: "6+ Flights",
+				desc: "Very frequent flyer",
+				co2: 2.0,
+				cat: "flights",
+			},
+		],
+	},
+	{
+		// PLACEHOLDER_FLIGHTS_Q14
+		icon: "🌎",
+		text: "Long-haul flights per year?",
+		subtitle:
+			"A transatlantic flight ≈ 1.6 tonnes CO₂ (ICAO)",
+		options: [
+			{
+				emoji: "🏠",
+				label: "None",
+				desc: "No intercontinental flights",
+				co2: 0,
+				cat: "flights",
+			},
+			{
+				emoji: "✈️",
+				label: "1 Flight",
+				desc: "One long-haul trip/year",
+				co2: 1.6,
+				cat: "flights",
+			},
+			{
+				emoji: "✈️✈️",
+				label: "2 Flights",
+				desc: "Two intercontinental trips",
+				co2: 3.2,
+				cat: "flights",
+			},
+			{
+				emoji: "🌍",
+				label: "3+ Flights",
+				desc: "Frequent international traveler",
+				co2: 5.0,
+				cat: "flights",
+			},
+		],
+	},
+	{
+		icon: "💺",
+		text: "What class do you fly?",
+		subtitle:
+			"Business class has ~2.5× the carbon footprint of economy (DEFRA 2023)",
+		options: [
+			{
+				emoji: "💺",
+				label: "Economy",
+				desc: "Standard — lowest per-passenger CO₂",
+				co2: 0,
+				cat: "flights_class",
+			},
+			{
+				emoji: "🛋️",
+				label: "Premium Economy",
+				desc: "~1.5× economy emissions",
+				co2: 0,
+				cat: "flights_class",
+			},
+			{
+				emoji: "🛏️",
+				label: "Business",
+				desc: "~2.5× economy (DEFRA)",
+				co2: 0,
+				cat: "flights_class",
+			},
+			{
+				emoji: "👑",
+				label: "First",
+				desc: "~4× economy emissions",
+				co2: 0,
+				cat: "flights_class",
 			},
 		],
 	},
@@ -2926,7 +3318,7 @@ function setLanguage(lang) {
 	window.history.replaceState({}, "", url);
 	updateStaticText();
 	if (currentStep === -1) renderHero();
-	else if (currentStep >= 0 && currentStep <= 4) renderQuestion();
+	else if (currentStep >= 0 && currentStep <= 14) renderQuestion();
 	else if (window._results) {
 		const r = window._results;
 		renderMetrics(r.categoryCO2, r.totalCO2);
@@ -3199,7 +3591,7 @@ function checkUrlParams() {
 	const encoded = params.get("r");
 	if (encoded) {
 		const decoded = decodeAnswers(encoded);
-		if (decoded && decoded.length === 5) {
+		if (decoded && decoded.length === 15) {
 			answers = decoded;
 			// Show viewing banner then calculate
 			showSection("calculatingSection");
@@ -3296,9 +3688,9 @@ function startQuiz() {
 function renderQuestion() {
 	const q = questions[currentStep];
 	document.getElementById("questionNumber").textContent =
-		`${t("question")} ${currentStep + 1} ${t("of")} 5`;
+		`${t("question")} ${currentStep + 1} ${t("of")} 15`;
 	document.getElementById("quizProgressFill").style.width =
-		`${((currentStep + 1) / 5) * 100}%`;
+		`${((currentStep + 1) / 15) * 100}%`;
 	document.getElementById("questionIcon").textContent = q.icon;
 	document.getElementById("questionText").textContent = q.text;
 	document.getElementById("questionSubtitle").textContent = q.subtitle;
@@ -3338,7 +3730,7 @@ function renderQuestion() {
 	document.getElementById("nextBtn").disabled =
 		answers[currentStep] === undefined;
 	document.getElementById("nextBtn").textContent =
-		currentStep === 4 ? t("see_results") : t("continue");
+		currentStep === 14 ? t("see_results") : t("continue");
 }
 
 function selectOption(index) {
@@ -3354,7 +3746,7 @@ function selectOption(index) {
 
 function nextQuestion() {
 	if (answers[currentStep] === undefined) return;
-	if (currentStep < 4) {
+	if (currentStep < questions.length - 1) {
 		currentStep++;
 		renderQuestion();
 		updateProgress(currentStep + 1);
@@ -3422,6 +3814,51 @@ function calculateResults() {
 function showResults() {
 	let totalCO2 = 0;
 	const categoryCO2 = {};
+	const categoryLow = {};
+	const categoryHigh = {};
+
+	// Flight class multiplier (applied to total flight emissions)
+	const FLIGHT_CLASS_MULTIPLIERS = [1.0, 1.5, 2.5, 4.0];
+	const FLIGHT_CLASS_UNCERTAINTY = [
+		{ low: 1.0, high: 1.0 },
+		{ low: 1.3, high: 1.8 },
+		{ low: 2.0, high: 3.0 },
+		{ low: 3.0, high: 5.0 }
+	];
+
+	// Uncertainty factors per option (derived from emission-factors.js)
+	const OPTION_UNCERTAINTY = [
+		// Q1: commute mode
+		[{ l: 0.03, h: 0.3 }, { l: 0.2, h: 0.9 }, { l: 0.2, h: 1.2 }, { l: 1.0, h: 2.8 }, { l: 0.5, h: 1.5 }],
+		// Q2: commute distance
+		[{ l: 0.0, h: 0.0 }, { l: 0.05, h: 0.3 }, { l: 0.2, h: 0.8 }, { l: 0.5, h: 1.5 }],
+		// Q3: long-distance driving
+		[{ l: 0.0, h: 0.0 }, { l: 0.1, h: 0.6 }, { l: 0.6, h: 2.0 }, { l: 1.5, h: 4.0 }],
+		// Q4: protein source
+		[{ l: 0.3, h: 1.0 }, { l: 0.4, h: 1.8 }, { l: 0.6, h: 2.0 }, { l: 0.8, h: 2.5 }, { l: 1.5, h: 4.0 }],
+		// Q5: dairy
+		[{ l: 0.0, h: 0.0 }, { l: 0.1, h: 0.4 }, { l: 0.25, h: 0.8 }, { l: 0.4, h: 1.3 }],
+		// Q6: food waste
+		[{ l: 0.0, h: 0.0 }, { l: 0.1, h: 0.5 }, { l: 0.3, h: 1.0 }],
+		// Q7: electricity source
+		[{ l: 0.05, h: 0.4 }, { l: 0.3, h: 1.0 }, { l: 0.6, h: 2.0 }, { l: 1.2, h: 3.0 }],
+		// Q8: home size
+		[{ l: 0.05, h: 0.3 }, { l: 0.15, h: 0.6 }, { l: 0.3, h: 1.2 }, { l: 0.6, h: 2.0 }],
+		// Q9: heating fuel
+		[{ l: 0.0, h: 0.1 }, { l: 0.05, h: 0.5 }, { l: 0.4, h: 1.4 }, { l: 0.8, h: 2.5 }],
+		// Q10: shopping frequency
+		[{ l: 0.05, h: 0.3 }, { l: 0.15, h: 0.6 }, { l: 0.3, h: 1.0 }, { l: 0.5, h: 1.8 }],
+		// Q11: replacement cycle
+		[{ l: 0.03, h: 0.2 }, { l: 0.1, h: 0.5 }, { l: 0.3, h: 0.9 }, { l: 0.5, h: 1.5 }],
+		// Q12: repair vs replace
+		[{ l: 0.0, h: 0.0 }, { l: 0.0, h: 0.2 }, { l: 0.1, h: 0.5 }, { l: 0.25, h: 0.8 }],
+		// Q13: short-haul flights
+		[{ l: 0.0, h: 0.0 }, { l: 0.2, h: 0.9 }, { l: 0.6, h: 2.0 }, { l: 1.0, h: 3.5 }],
+		// Q14: long-haul flights
+		[{ l: 0.0, h: 0.0 }, { l: 0.8, h: 2.5 }, { l: 1.6, h: 5.0 }, { l: 3.0, h: 8.0 }],
+		// Q15: flight class (multiplier only, applied after)
+		[{ l: 1.0, h: 1.0 }, { l: 1.3, h: 1.8 }, { l: 2.0, h: 3.0 }, { l: 3.0, h: 5.0 }],
+	];
 
 	try {
 		// Validate all answers are present and in range before computing
@@ -3436,12 +3873,45 @@ function showResults() {
 			throw new Error("Invalid answers");
 		}
 
+		// First pass: sum up non-flight-class categories
 		answers.forEach((ans, i) => {
 			const opt = questions[i].options[ans];
-			totalCO2 += opt.co2;
-			categoryCO2[opt.cat] = (categoryCO2[opt.cat] || 0) + opt.co2;
+			if (opt.cat !== "flights_class") {
+				totalCO2 += opt.co2;
+				categoryCO2[opt.cat] = (categoryCO2[opt.cat] || 0) + opt.co2;
+				// Accumulate uncertainty ranges
+				const unc = OPTION_UNCERTAINTY[i]?.[ans] || { l: opt.co2 * 0.5, h: opt.co2 * 1.5 };
+				categoryLow[opt.cat] = (categoryLow[opt.cat] || 0) + unc.l;
+				categoryHigh[opt.cat] = (categoryHigh[opt.cat] || 0) + unc.h;
+			}
 		});
-		totalCO2 += 1.5; // base emissions
+
+		// Apply flight class multiplier to flights category
+		const flightClassAnswer = answers[14]; // Q15 is index 14
+		const flightMultiplier = FLIGHT_CLASS_MULTIPLIERS[flightClassAnswer] || 1.0;
+		const flightMultUnc = FLIGHT_CLASS_UNCERTAINTY[flightClassAnswer] || { low: 1.0, high: 1.0 };
+		if (categoryCO2.flights) {
+			categoryCO2.flights *= flightMultiplier;
+			categoryLow.flights = (categoryLow.flights || 0) * flightMultUnc.low;
+			categoryHigh.flights = (categoryHigh.flights || 0) * flightMultUnc.high;
+			totalCO2 = totalCO2 - (categoryCO2.flights / flightMultiplier) + categoryCO2.flights;
+		}
+
+		totalCO2 += 1.5; // base emissions (shared)
+		categoryCO2.shared = 1.5;
+
+		// Calculate total uncertainty range
+		let totalLow = 1.0; // shared low
+		let totalHigh = 2.5; // shared high
+		Object.keys(categoryLow).forEach(cat => {
+			if (cat !== "shared") {
+				totalLow += categoryLow[cat];
+				totalHigh += categoryHigh[cat];
+			}
+		});
+
+		// Store uncertainty data globally
+		window._uncertainty = { totalLow, totalHigh, categoryLow, categoryHigh };
 	} catch (err) {
 		console.error("Error calculating results:", err);
 		// Reset quiz on bad data instead of crashing
@@ -3474,6 +3944,13 @@ function showResults() {
 
 	animateNumber("fpScore", 0, totalCO2, 2, 2000);
 
+	// Show uncertainty range
+	const unc = window._uncertainty || {};
+	if (unc.totalLow !== undefined) {
+		const rangeEl = document.getElementById("fpRange");
+		if (rangeEl) rangeEl.textContent = `${unc.totalLow.toFixed(1)} – ${unc.totalHigh.toFixed(1)} tonnes (95% confidence)`;
+	}
+
 	let label;
 	if (totalCO2 <= 2.5) label = t("climate_champion");
 	else if (totalCO2 <= 4.5) label = t("eco_conscious");
@@ -3496,6 +3973,7 @@ function showResults() {
 	safeRender(() => renderCitySelector(), "renderCitySelector");
 	// renderCityData is called after detectCity resolves (avoids double render)
 	safeRender(() => renderInsights(categoryCO2, totalCO2), "renderInsights");
+	safeRender(() => renderProvenance(), "renderProvenance");
 
 	// Store for share card
 	window._results = { totalCO2, categoryCO2, label };
@@ -3798,6 +4276,8 @@ function renderMetrics(categories, total) {
 	const grid = document.getElementById("metricsGrid");
 	grid.innerHTML = "";
 
+	const unc = window._uncertainty || { totalLow: 0, totalHigh: 0, categoryLow: {}, categoryHigh: {} };
+
 	const metrics = [
 		{
 			icon: "🚗",
@@ -3805,7 +4285,8 @@ function renderMetrics(categories, total) {
 			value: (categories.transport || 0).toFixed(1),
 			cat: "transport",
 			color: "#3b82f6",
-			max: 5,
+			max: 8,
+			range: unc.categoryLow.transport !== undefined ? `${unc.categoryLow.transport.toFixed(1)}–${unc.categoryHigh.transport.toFixed(1)}` : null,
 		},
 		{
 			icon: "🍽️",
@@ -3813,7 +4294,8 @@ function renderMetrics(categories, total) {
 			value: (categories.diet || 0).toFixed(1),
 			cat: "diet",
 			color: "#10b981",
-			max: 4,
+			max: 6,
+			range: unc.categoryLow.diet !== undefined ? `${unc.categoryLow.diet.toFixed(1)}–${unc.categoryHigh.diet.toFixed(1)}` : null,
 		},
 		{
 			icon: "⚡",
@@ -3821,7 +4303,8 @@ function renderMetrics(categories, total) {
 			value: (categories.energy || 0).toFixed(1),
 			cat: "energy",
 			color: "#eab308",
-			max: 4,
+			max: 6,
+			range: unc.categoryLow.energy !== undefined ? `${unc.categoryLow.energy.toFixed(1)}–${unc.categoryHigh.energy.toFixed(1)}` : null,
 		},
 		{
 			icon: "🛍️",
@@ -3829,7 +4312,8 @@ function renderMetrics(categories, total) {
 			value: (categories.consumption || 0).toFixed(1),
 			cat: "consumption",
 			color: "#ec4899",
-			max: 3,
+			max: 4,
+			range: unc.categoryLow.consumption !== undefined ? `${unc.categoryLow.consumption.toFixed(1)}–${unc.categoryHigh.consumption.toFixed(1)}` : null,
 		},
 	];
 
@@ -3840,7 +4324,8 @@ function renderMetrics(categories, total) {
 			value: categories.flights.toFixed(1),
 			cat: "flights",
 			color: "#8b5cf6",
-			max: 5,
+			max: 10,
+			range: unc.categoryLow.flights !== undefined ? `${unc.categoryLow.flights.toFixed(1)}–${unc.categoryHigh.flights.toFixed(1)}` : null,
 		});
 	}
 
@@ -3852,6 +4337,7 @@ function renderMetrics(categories, total) {
 		color: "#64748b",
 		max: 20,
 		tip: "Emissions from government services, infrastructure, defense — shared across all citizens",
+		range: "1.0–2.5",
 	});
 	metrics.push({
 		icon: "🌍",
@@ -3859,7 +4345,8 @@ function renderMetrics(categories, total) {
 		value: total.toFixed(1),
 		cat: "total",
 		color: "#10b981",
-		max: 20,
+		max: 30,
+		range: `${unc.totalLow.toFixed(1)}–${unc.totalHigh.toFixed(1)}`,
 	});
 
 	metrics.forEach((m, i) => {
@@ -3870,6 +4357,7 @@ function renderMetrics(categories, total) {
       <div class="metric-icon">${m.icon}</div>
       <div class="metric-label">${m.label}${m.tip ? ` <span title="${m.tip}" style="cursor:help;color:var(--accent-green)">ⓘ</span>` : ""}</div>
       <div class="metric-value">${m.value} <span style="font-size:0.7em;color:var(--text-muted)">t</span></div>
+      ${m.range ? `<div class="metric-range" style="font-size:0.65em;color:var(--text-muted);margin-top:2px;">Range: ${m.range}t</div>` : ""}
       <div class="metric-bar">
         <div class="metric-bar-fill" style="background:${m.color};" data-width="${pct}%"></div>
       </div>
@@ -4209,6 +4697,41 @@ function renderInsights(categories, total) {
 		const div = document.createElement("div");
 		div.className = `insight-card fade-enter stagger-${Math.min(i + 1, 5)}`;
 		div.innerHTML = `<span class="insight-icon">${ins.icon}</span><div class="insight-text">${ins.text}</div>`;
+		container.appendChild(div);
+	});
+}
+
+// ===== DATA PROVENANCE =====
+function renderProvenance() {
+	const container = document.getElementById("provenanceList");
+	if (!container) return;
+	container.innerHTML = "";
+
+	// Determine which sources are relevant based on answers
+	const usedSources = [
+		{ name: "IPCC AR6 WG3 (2022)", desc: "Climate Change 2022: Mitigation — transport, energy, consumption factors", url: "https://www.ipcc.ch/report/ar6/wg3/", cats: ["transport", "energy", "consumption"] },
+		{ name: "Poore & Nemecek (2018)", desc: "Reducing food's environmental impacts — Science 360(6392)", url: "https://doi.org/10.1126/science.aaq0216", cats: ["diet"] },
+		{ name: "IEA (2023)", desc: "World Energy Outlook / CO₂ Emissions in 2023 — electricity factors", url: "https://www.iea.org/reports/co2-emissions-in-2023", cats: ["energy"] },
+		{ name: "ICAO (2023)", desc: "Carbon Emissions Calculator — flight emission factors", url: "https://www.icao.int/environmental-protection/Carbonoffset/", cats: ["flights"] },
+		{ name: "EPA (2023)", desc: "Greenhouse Gas Equivalencies Calculator — vehicle emissions", url: "https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator", cats: ["transport"] },
+		{ name: "DEFRA (2023)", desc: "UK GHG Conversion Factors — transport, aviation, electronics", url: "https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023", cats: ["transport", "consumption", "flights"] },
+		{ name: "Global Carbon Project (2023)", desc: "Global Carbon Budget — country averages", url: "https://globalcarbonproject.org/carbonbudget/", cats: ["benchmarks"] },
+		{ name: "World Bank (2023)", desc: "CO₂ emissions per capita — global average (4.7t)", url: "https://data.worldbank.org/indicator/EN.ATM.CO2E.PC", cats: ["benchmarks"] },
+		{ name: "FAO (2023)", desc: "GLEAM — livestock & dairy emissions", url: "https://www.fao.org/gleam/en", cats: ["diet"] },
+		{ name: "UNEP (2021)", desc: "Food Waste Index Report — food waste emissions", url: "https://www.unep.org/resources/publication/food-waste-index-report-2021", cats: ["diet"] },
+		{ name: "NASA GISS", desc: "GISTEMP v4 — temperature anomaly data (1880–2025)", url: "https://data.giss.nasa.gov/gistemp/", cats: ["climate"] },
+	];
+
+	usedSources.forEach(src => {
+		const div = document.createElement("div");
+		div.style.cssText = "display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:0.82rem;";
+		div.innerHTML = `
+			<span style="color:var(--accent-green);flex-shrink:0;">✓</span>
+			<div>
+				<a href="${src.url}" target="_blank" rel="noopener" style="color:var(--accent-green);text-decoration:none;font-weight:500;">${src.name}</a>
+				<div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">${src.desc}</div>
+			</div>
+		`;
 		container.appendChild(div);
 	});
 }
@@ -4555,7 +5078,7 @@ if (!checkUrlParams()) {
 		if (cached && age < 7 * 24 * 60 * 60 * 1000) {
 			// 7 days
 			const decoded = JSON.parse(cached);
-			if (decoded && decoded.length === 5) {
+			if (decoded && decoded.length === 15) {
 				answers = decoded;
 				showSection("calculatingSection");
 				updateProgress(5);
@@ -4602,7 +5125,7 @@ document.addEventListener("keydown", (e) => {
 			startQuiz();
 		} else if (
 			currentStep >= 0 &&
-			currentStep <= 4 &&
+			currentStep <= 14 &&
 			answers[currentStep] !== undefined
 		) {
 			nextQuestion();
@@ -4611,7 +5134,7 @@ document.addEventListener("keydown", (e) => {
 	if (
 		e.key === "ArrowRight" &&
 		currentStep >= 0 &&
-		currentStep <= 4 &&
+		currentStep <= 14 &&
 		answers[currentStep] !== undefined
 	) {
 		nextQuestion();
