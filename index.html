@@ -1663,7 +1663,8 @@ body {
       <div class="progress-dot" data-step="12" role="listitem" aria-label="Question 12"></div>
       <div class="progress-dot" data-step="13" role="listitem" aria-label="Question 13"></div>
       <div class="progress-dot" data-step="14" role="listitem" aria-label="Question 14"></div>
-      <div class="progress-dot" data-step="15" role="listitem" aria-label="Results"></div>
+      <div class="progress-dot" data-step="15" role="listitem" aria-label="Question 15"></div>
+      <div class="progress-dot" data-step="16" role="listitem" aria-label="Results"></div>
     </nav>
   </header>
 
@@ -3591,11 +3592,11 @@ function checkUrlParams() {
 	const encoded = params.get("r");
 	if (encoded) {
 		const decoded = decodeAnswers(encoded);
-		if (decoded && decoded.length === 15) {
+		if (decoded && decoded.length === questions.length) {
 			answers = decoded;
 			// Show viewing banner then calculate
 			showSection("calculatingSection");
-			updateProgress(5);
+			updateProgress(16);
 			setTimeout(() => {
 				showResults();
 				// Show viewing banner on results
@@ -3688,9 +3689,9 @@ function startQuiz() {
 function renderQuestion() {
 	const q = questions[currentStep];
 	document.getElementById("questionNumber").textContent =
-		`${t("question")} ${currentStep + 1} ${t("of")} 15`;
+		`${t("question")} ${currentStep + 1} ${t("of")} ${questions.length}`;
 	document.getElementById("quizProgressFill").style.width =
-		`${((currentStep + 1) / 15) * 100}%`;
+		`${((currentStep + 1) / questions.length) * 100}%`;
 	document.getElementById("questionIcon").textContent = q.icon;
 	document.getElementById("questionText").textContent = q.text;
 	document.getElementById("questionSubtitle").textContent = q.subtitle;
@@ -3776,7 +3777,7 @@ function calculateResults() {
 	}
 
 	showSection("calculatingSection");
-	updateProgress(5);
+	updateProgress(16);
 
 	const progress = document.getElementById("calcProgress");
 	// Reset ring for re-takes
@@ -3921,7 +3922,7 @@ function showResults() {
 	}
 
 	showSection("resultsSection");
-	updateProgress(5);
+	updateProgress(16);
 	fetchCounts();
 
 	// Auto-detect city from IP (async, non-blocking)
@@ -5078,10 +5079,10 @@ if (!checkUrlParams()) {
 		if (cached && age < 7 * 24 * 60 * 60 * 1000) {
 			// 7 days
 			const decoded = JSON.parse(cached);
-			if (decoded && decoded.length === 15) {
+			if (decoded && decoded.length === questions.length) {
 				answers = decoded;
 				showSection("calculatingSection");
-				updateProgress(5);
+				updateProgress(16);
 				setTimeout(() => {
 					showResults();
 					// Show "welcome back" banner
