@@ -6,7 +6,7 @@
 <title>Carbon Fingerprint — Discover Your Climate Identity</title>
 <meta name="description" content="Free carbon footprint calculator powered by 144 years of NASA climate data. Answer 15 questions, discover your carbon fingerprint, and see how you compare to the global average.">
 <meta property="og:title" content="Carbon Fingerprint — Free Carbon Footprint Calculator">
-<meta property="og:description" content="I scored 8.1 tonnes CO₂/year on my Carbon Fingerprint. Find yours in 60 seconds — powered by NASA & IPCC data.">
+<meta property="og:description" content="I scored 8.1 tonnes CO₂/year on my Carbon Fingerprint. Find yours in ~2 minutes — powered by NASA & IPCC data.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="og-image.png">
 <meta property="og:image:width" content="1200">
@@ -1678,7 +1678,7 @@ body {
         Powered by 144 Years of Climate Data
       </div>
       <h1>Discover Your<br><span class="gradient">Carbon Fingerprint</span></h1>
-      <p>Every person leaves a unique mark on the planet. In 60 seconds, discover yours — powered by NASA, NOAA, and 144 years of real climate science.</p>
+      <p>Every person leaves a unique mark on the planet. In ~2 minutes, discover yours — powered by NASA, NOAA, and 144 years of real climate science.</p>
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="number">144</div>
@@ -1689,7 +1689,7 @@ body {
           <div class="label">Climate Datasets</div>
         </div>
         <div class="hero-stat">
-          <div class="number">60s</div>
+          <div class="number">~2min</div>
           <div class="label">To Discover</div>
         </div>
       </div>
@@ -1954,8 +1954,8 @@ body {
 </div>
 
 <script src="cities.js"></script>
-<!-- AdSense (replace ca-pub-XXXXXXXXXXXXXXXX with your actual publisher ID) -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+<!-- AdSense — uncomment and replace with your publisher ID when ready -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 <script>// ===== QUESTIONS =====
 // Options ordered: lowest CO₂ → highest CO₂ (educational)
 // Emission factors from IPCC AR6 WG3, Our World in Data, IEA, FAO
@@ -2527,7 +2527,7 @@ const translations = {
 		hero_title_1: "Discover Your",
 		hero_title_2: "Carbon Fingerprint",
 		hero_desc:
-			"Every person leaves a unique mark on the planet. In 60 seconds, discover yours — powered by real NASA climate science.",
+			"Every person leaves a unique mark on the planet. In ~2 minutes, discover yours — powered by real NASA climate science.",
 		years_data: "Years of Data",
 		datasets: "Data Sets",
 		to_discover: "To Discover",
@@ -2839,7 +2839,7 @@ const translations = {
 		hero_desc: "每个人都在地球上留下独特的印记。60秒内，发现你的碳足迹。",
 		years_data: "年数据",
 		datasets: "数据集",
-		to_discover: "秒发现",
+		to_discover: "分钟发现",
 		start_btn: "🌱 发现我的碳指纹",
 		question: "问题",
 		of: "/",
@@ -3989,15 +3989,10 @@ function showResults() {
 	// Update page meta for sharing
 	document.title = `My Carbon Fingerprint: ${totalCO2.toFixed(1)}t CO₂/year`;
 	const ogDesc = document.querySelector('meta[property="og:description"]');
-	if (ogDesc) ogDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)} tonnes CO₂/year on my Carbon Fingerprint. Find yours in 60 seconds — powered by NASA & IPCC data.`);
+	if (ogDesc) ogDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)} tonnes CO₂/year on my Carbon Fingerprint. Find yours in ~2 minutes — powered by NASA & IPCC data.`);
 	const twDesc = document.querySelector('meta[name="twitter:description"]');
-	if (twDesc) twDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)}t CO₂/year. Find yours in 60 seconds.`);
-	// Dynamic OG image with score
-	const ogImg = document.querySelector('meta[property="og:image"]');
-	const twImg = document.querySelector('meta[name="twitter:image"]');
-	const ogUrl = `${window.location.origin}/og?s=${totalCO2.toFixed(1)}&t=${(categoryCO2.transport||0).toFixed(1)}&d=${(categoryCO2.diet||0).toFixed(1)}&e=${(categoryCO2.energy||0).toFixed(1)}&c=${(categoryCO2.consumption||0).toFixed(1)}`;
-	if (ogImg) ogImg.setAttribute("content", ogUrl);
-	if (twImg) twImg.setAttribute("content", ogUrl);
+	if (twDesc) twDesc.setAttribute("content", `I scored ${totalCO2.toFixed(1)}t CO₂/year. Find yours in ~2 minutes.`);
+	// Keep static og:image (og-image.png) — no dynamic OG generator exists
 
 	// Update offset CTA
 	const offsetTonnes = document.getElementById("offsetTonnes");
@@ -4643,6 +4638,11 @@ function renderInsights(categories, total) {
 			icon: "🌱",
 			text: `Your plant-forward diet saves approximately <strong>1.5 tonnes/year</strong> vs. the average diet. IPCC AR6 identifies this as a top-3 personal action.`,
 		});
+	} else {
+		insights.push({
+			icon: "🍽️",
+			text: `Your diet produces <strong>${categories.diet.toFixed(1)} tonnes/year</strong>. Swapping one meat meal for plant-based each week could save <strong>~0.3 tonnes/year</strong>.`,
+		});
 	}
 
 	if (categories.energy >= 2) {
@@ -4828,6 +4828,25 @@ function downloadShareCard() {
 	const ctx = canvas.getContext("2d");
 	const W = 1200, H = 630;
 
+	// Polyfill roundRect for older Safari
+	if (!ctx.roundRect) {
+		CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+			if (typeof r === 'number') r = [r, r, r, r];
+			const [tl, tr, br, bl] = r;
+			this.moveTo(x + tl, y);
+			this.lineTo(x + w - tr, y);
+			this.quadraticCurveTo(x + w, y, x + w, y + tr);
+			this.lineTo(x + w, y + h - br);
+			this.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+			this.lineTo(x + bl, y + h);
+			this.quadraticCurveTo(x, y + h, x, y + h - bl);
+			this.lineTo(x, y + tl);
+			this.quadraticCurveTo(x, y, x + tl, y);
+			this.closePath();
+			return this;
+		};
+	}
+
 	// Background
 	const grad = ctx.createLinearGradient(0, 0, W, H);
 	grad.addColorStop(0, "#0a0f1a");
@@ -4870,9 +4889,10 @@ function downloadShareCard() {
 	if (r.categoryCO2.flights > 0.5) cats.push({ name: "Flights", val: r.categoryCO2.flights, color: "#8b5cf6" });
 
 	const barX = 580, barY = 100, barW = 540, barH = 32;
+	const maxCat = Math.max(...cats.map(c => c.val), 1);
 	cats.forEach((c, i) => {
 		const y = barY + i * 56;
-		const pct = Math.min(c.val / 5, 1);
+		const pct = Math.min(c.val / maxCat, 1);
 		// Label
 		ctx.fillStyle = "#94a3b8";
 		ctx.font = "500 18px 'Inter', sans-serif";

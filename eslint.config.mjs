@@ -39,6 +39,7 @@ export default [
         isNaN: "readonly",
         Event: "readonly",
         HTMLElement: "readonly",
+        CanvasRenderingContext2D: "readonly",
         SVGElement: "readonly",
         DOMParser: "readonly",
         Blob: "readonly",

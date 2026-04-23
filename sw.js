@@ -1,4 +1,4 @@
-const CACHE_NAME = 'carbon-fingerprint-v1';
+const CACHE_NAME = 'carbon-fingerprint-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -28,9 +28,8 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Skip non-GET and external API calls
+  // Skip non-GET requests
   if (e.request.method !== 'GET') return;
-  if (url.hostname.includes('countapi.xyz') || url.hostname.includes('ipapi.co')) return;
 
   e.respondWith(
     caches.match(e.request).then(cached => {
