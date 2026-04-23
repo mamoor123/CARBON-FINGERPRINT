@@ -3430,7 +3430,6 @@ function escapeHtml(str) {
 
 // ===== ANALYTICS (privacy-respecting, no cookies, no PII) =====
 // localStorage-based counter — works offline, no external dependency
-const APP_NS = "carbon-fingerprint-v2";
 
 function _getLocalStats() {
 	try {
@@ -4007,7 +4006,7 @@ function showResults() {
 	// Initialize AdSense slots (if AdSense loaded)
 	try {
 		if (typeof adsbygoogle !== "undefined") {
-			(document.querySelectorAll(".ad-slot ins") || []).forEach((ad) => {
+			(document.querySelectorAll(".ad-slot ins") || []).forEach(() => {
 				try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch {}
 			});
 		}
